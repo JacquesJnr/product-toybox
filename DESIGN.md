@@ -221,7 +221,9 @@ The AI shows the new document relating to its part of the graph through its link
 
 - **The rings:** distance from the hub is risk against the risk appetite. There are three rungs, green inside, amber, then red. An outer dashed Glass 45 ring carries the labels only.
 - **Spokes:** each spoke is a topic, four per domain, with its label set along the spoke in its domain's hue.
-- **A wheel per domain:** with only one chip on, that domain's own wheel opens, with eight topics and the same rungs.
+- **The whole wheel is the base view:** every domain, as in Figma.
+- **A wheel per domain:** on the Wheel, the chips pick one domain at a time, and that domain's own wheel opens with the same rungs. A domain wheel has 4 to 8 topics, depending on its data. With no chip on, the whole wheel comes back.
+- **The Wheel's chips are separate from the Graph's** (see 2.6).
 - **Risk summary panel** (ledger), when you pick a node on a wheel:
   - its rung;
   - its score against the appetite, in mono, with a risk gauge;
@@ -229,10 +231,10 @@ The AI shows the new document relating to its part of the graph through its link
 
 ### 2.6 Filters and search
 
-- **Domain filters** work the same on Graph and Wheel.
-- **Hiding a domain** removes its documents completely: no hidden labels, no ghosts.
-  - With every domain off, you get an empty graph and an empty wheel showing only its rungs.
-  - **Clear all** turns them all off.
+- **Domain filters are off by default, and off shows everything.** Turning chips on narrows the Graph to the selected domains. Turning on every chip is the same as turning on none.
+- **Narrowing** removes the other domains' documents completely: no hidden labels, no ghosts.
+- **Clear all** turns every chip off, which brings back the whole graph.
+- **The Wheel filters separately:** it shows the whole wheel or one domain (see 2.5), so its pick doesn't follow the Graph's chips.
 - **Smart Search has no domain filters.** It always reads the whole vault.
 - **Search** lives in the header. It matches titles, text and insights. Matches stay on the view and the rest goes until the search is cleared.
 - **Domains:** Strategic direction, Strategy execution, Financial stewardship, Risk and resilience, Controls and assurance, Major decisions, Remuneration.

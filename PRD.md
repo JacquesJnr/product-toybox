@@ -2,7 +2,7 @@
 
 The build brief for the Governance Brain toy (`app/`). It says what the toy does, what it's built with, and the limits for the AI building it. How it looks lives in [`DESIGN.md`](DESIGN.md); this file never repeats it.
 
-Items marked **[proposed]** or **[draft for Jacques]** are waiting on Jacques. Don't launch the build until they're cleared.
+Every open item was settled by Jacques on Mo-12-Oct. Where his calls on filters and the Wheel differ from the Figma toy sheet, this PRD and DESIGN.md win. Build the behavior here and match Figma's look.
 
 ## 1. Purpose and demo success
 
@@ -51,29 +51,36 @@ Before planning, read in this order:
 
 The IDs are what section 8 checks against.
 
-- **B1 Open.** The toy opens on Graph with every domain on, search empty and details closed [proposed]. See DESIGN.md 2.1–2.3.
-- **B2 Arrival.** One second after Graph first appears, Liquidity review arrives once, sorts and then settles [proposed]:
+- **B1 Open.** The toy opens on Graph with every domain chip off, which shows the whole vault. Search is empty and details are closed. See DESIGN.md 2.1–2.3.
+- **B2 Arrival.** One second after Graph first appears, Liquidity review arrives once, sorts and then settles:
   - while it sorts, it shows its scripted relationships;
   - the sequence pauses outside Graph and resumes on return;
   - it replays only on reload.
 
   See DESIGN.md 2.4.
-- **B3 Animate.** Replays the visible graph's existing links connecting in sequence. Documents and relationships don't change, and arrival doesn't replay [proposed]. See DESIGN.md 2.3.
-- **B4 Filter.** Domain chips remove or restore documents, and Clear all turns every chip off. A two-domain document stays visible when either of its domains is on [proposed]. See DESIGN.md 2.6.
+- **B3 Animate.** Replays the visible graph's existing links connecting in sequence. Documents and relationships don't change, and arrival doesn't replay. See DESIGN.md 2.3.
+- **B4 Filter.** Chips are off by default, and off shows everything.
+  - Turning chips on narrows the Graph to the selected domains.
+  - Turning every chip on is the same as none.
+  - Clear all turns every chip off and brings back the whole graph.
+  - A two-domain document shows when either of its domains is selected.
+
+  See DESIGN.md 2.6.
 - **B5 Search.** Header search matches titles, text and insights.
-  - It combines with the domain chips, using case-insensitive substring matching [proposed].
+  - It combines with the domain chips, using case-insensitive substring matching.
   - Clearing search restores the domain-filtered view.
-  - Header search is hidden in Smart Search [proposed].
+  - Header search is hidden in Smart Search.
 - **B6 Inspect.** Picking a Graph node opens its details, and picking another node replaces them.
-  - Close clears the selection [proposed].
-  - Open launches a local source viewer; closing the viewer returns to the same details [proposed].
-  - Employment contracts shows "Not in the vault", with no invented content and no Open [proposed].
+  - Close clears the selection.
+  - Open launches a local source viewer; closing the viewer returns to the same details.
+  - Employment contracts shows "Not in the vault", with no invented content and no Open.
 
   See DESIGN.md 2.2 and 2.7.
-- **B7 Wheel.** Switching to Wheel keeps filters and search [proposed].
-  - With exactly one chip on, that domain's eight-topic wheel opens.
+- **B7 Wheel.** The Wheel opens on the whole wheel: every domain, four topics each, as in Figma.
+  - On the Wheel, the chips pick one domain at a time. Picking a chip opens that domain's own wheel, and turning it off returns to the whole wheel.
+  - The Wheel's pick is separate from the Graph's filters, and switching views never changes either one.
   - Picking a node shows its rung, score against the appetite, and factors.
-  - Evidence opens its source at the cited spot [proposed].
+  - Evidence opens its source.
 
   See DESIGN.md 2.5.
 - **B8 Ask.** A suggested question runs its script: Ask, then Reading, then Answer.
@@ -82,13 +89,13 @@ The IDs are what section 8 checks against.
   - Source chips open the details panel.
 
   See DESIGN.md 2.8.
-- **B9 Return.** "Show on the graph" switches to Graph, clears filters and search so both ends show, and reveals the script's rainbow found link. Found links stay until reload [proposed]. "Create a query" is disabled.
+- **B9 Return.** "Show on the graph" switches to Graph, clears filters and search so both ends show, and reveals the script's rainbow found link. Found links stay until reload. "Create a query" is disabled.
 
 | State | Outcome |
 | --- | --- |
-| B10 All domains off | Empty Graph; the Wheel shows only its rungs. Smart Search still reads the whole vault. |
-| B11 No search matches | No documents, and "No matching documents" [proposed]. |
-| B12 Reload | Back to B1: found links removed and arrival rearmed. Ordinary view changes keep state [proposed]. |
+| B10 All chips off, or all on | The whole graph shows. Smart Search always reads the whole vault. |
+| B11 No search matches | No documents, and "No matching documents". |
+| B12 Reload | Back to B1: found links removed and arrival rearmed. Ordinary view changes keep state. |
 
 ## 5. Fake data and scripted AI
 
@@ -109,16 +116,16 @@ The IDs are what section 8 checks against.
 
 **B14 Seed boundary.** Use exactly the documents in DESIGN.md 2.9. Employment contracts gets no source content. The roughly 260 sphere nodes are decoration, not documents. Use only the insight tags in DESIGN.md 2.7. Every claim, score and insight is fictional.
 
-**B15 Wheel topics.** DESIGN.md gives four topics per domain, but a domain wheel needs eight. The builder drafts four more per domain in the same plain governance voice, and lists them in its final report for Jacques [proposed].
+**B15 Wheel topics.** The whole wheel uses the four topics per domain in DESIGN.md 2.9. Each domain wheel has 4 to 8 topics, depending on its data. Start from those four, and draft up to four more per domain in the same plain governance voice. List the drafted topics in the final report.
 
 **B16 Execution.** No network calls for data or AI, and the same result on every run.
-- Each read step starts one second apart [proposed].
+- Each read step starts one second apart.
 - The counter counts completed reads.
 - Repeat submissions during Reading are ignored.
 
-### The three Smart Search scripts [draft for Jacques]
+### The three Smart Search scripts
 
-The questions, Script 1's reading order, its answer and its found link come from the Figma toy sheet. Everything else is drafted. Store the approved text word for word in `smart-search.json`.
+Approved by Jacques. Store the text word for word in `smart-search.json`.
 
 **Script 1: "What connects our charter to this quarter's decisions?"**
 - **Reads:** Charter, Draft charter, Board pack Q3, Forecast 2027, Board risk report, Supplier review.
@@ -244,7 +251,7 @@ Each milestone must be demonstrable before the next one starts.
    - the empty states.
 3. **Wheel:**
    - the rungs;
-   - the domain wheels;
+   - the whole wheel, plus the domain wheels picked with the Wheel's own chips;
    - the risk summary, with working evidence links.
 4. **Smart Search:**
    - all three scripts run through Reading to Answer;
@@ -269,9 +276,9 @@ Walk every check in Jacques's Chrome (Claude in Chrome or the Codex Chrome plugi
 | A3 | There are no console errors. Requests are same-origin except Google Fonts; there are no AI, analytics or backend requests. | B16 |
 | A4 | Graph opens by default, and all three views switch with nothing clipped. | B1 |
 | A5 | Linked, orphan, empty, picked and sorting nodes match DESIGN.md 2.2. Arrival and Animate reach their end states. | B2, B3 |
-| A6 | Hidden domains leave no ghosts; Clear all empties Graph and leaves the Wheel's rungs; search keeps its matches, and clearing it restores the view. | B4, B5, B10, B11 |
+| A6 | With no chips on, the whole graph shows. Selecting chips narrows the graph, with no ghosts, and selecting all of them shows everything. Clear all restores the whole graph. Search keeps its matches, and clearing it restores the view. | B4, B5, B10, B11 |
 | A7 | Picking, closing, Open, preview highlights, metadata, summary and fixed tags all work, and no approve control appears anywhere. | B6 |
-| A8 | Risk placement, the domain wheels, the gauge, the factors and the evidence links match the fixtures. | B7, B15 |
+| A8 | The Wheel opens on the whole wheel. Picking one chip opens that domain's wheel, with 4 to 8 topics, and clearing it returns to the whole wheel. The Wheel's pick doesn't change the Graph's filters, or the other way round. Risk placement, the gauge, the factors and the evidence links match the fixtures. | B7, B15 |
 | A9 | Exactly three suggested runs go through Reading to Answer; source chips open details; "Show on the graph" reveals the found link; "Create a query" can't activate. | B8, B9 |
 | A10 | Reload resets as B12 says. | B12 |
 | A11 | Screenshots of every view, the open panels and each Smart Search state are saved under `app/qa/` and compared with toy sheet 124-191. Fix differences or record them as blockers. | |
@@ -290,7 +297,7 @@ Walk every check in Jacques's Chrome (Claude in Chrome or the Codex Chrome plugi
 
 Silence is never approval.
 
-**Budget:** [Jacques fills in the deadline, the time zone and the run limit before launch].
+**Budget:** finished by Wednesday 14 Oct, 16:00 GMT+4. Use as many 5h usage windows as the workers need to finish.
 
 **Done** means every check passes after the last edit. At the budget limit, stop and report a partial result honestly.
 
