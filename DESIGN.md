@@ -282,7 +282,7 @@ An AI-powered search across meaning and relationships, not only the links alread
    - **The chat** collapses its log to "Read 6 sources · used 2 tools". Then come the answer text, source chips that open the details panel, and any new connection drawn as the rainbow link.
    - **Two ways out:**
      - **Show on the graph.**
-     - **Create a query**, which leads into the query toy.
+     - **Create a query**, which will lead into the query toy. Until that toy exists, it's a disabled button.
 
 **The sphere** is only a picture of what Smart Search has read. It's a Curater-style cloud of nodes over the whole sphere:
 - **Nodes and depth:** about 260 Graphite diamonds. There are no sectors, colors or labels and no outline: nodes toward the back are smaller and fainter, Graphite at 12–90% opacity.
