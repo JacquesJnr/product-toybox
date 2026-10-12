@@ -1,6 +1,6 @@
 # DESIGN.md
 
-The design system for Quantum State toys, and the design of the first toy, the Governance Brain (`brain/`).
+The design system for Quantum State toys, and the design of the first toy, the Governance Brain (`app/`).
 
 A toy is tangible "smoke and mirrors", not the prototype. It fakes the data and the AI so a person can feel the experience. Every toy in this repo uses the universal toy style below. The Governance Brain section further down covers that toy only.
 
@@ -168,7 +168,7 @@ Motion is not designed in Figma (decided Mo-12-Oct). The Motion page in Figma ho
 
 ---
 
-## 2. Governance Brain (`brain/`)
+## 2. Governance Brain (`app/`)
 
 **What it's for:** Jacques and his dad getting a feel for how Quantum State looks and works to navigate. It fails if Morgan, the director it's built for, would rather keep a simple file system.
 

@@ -1,6 +1,6 @@
 # Governance Brain toy · PRD
 
-The build brief for the Governance Brain toy (`brain/`). It says what the toy does, what it's built with, and the limits for the AI building it. How it looks lives in [`../DESIGN.md`](../DESIGN.md); this file never repeats it.
+The build brief for the Governance Brain toy (`app/`). It says what the toy does, what it's built with, and the limits for the AI building it. How it looks lives in [`DESIGN.md`](DESIGN.md); this file never repeats it.
 
 Items marked **[proposed]** or **[draft for Jacques]** are waiting on Jacques. Don't launch the build until they're cleared.
 
@@ -15,7 +15,7 @@ The toy is for Jacques and his dad to get a feel for how Quantum State looks and
 Before planning, read in this order:
 
 1. This PRD.
-2. [`../DESIGN.md`](../DESIGN.md), all of section 1 (the universal toy style) and section 2 (this toy).
+2. [`DESIGN.md`](DESIGN.md), all of section 1 (the universal toy style) and section 2 (this toy).
 3. Figma, file `lWqJ4xxExzCi9KsAotwLDe` (Toy Designs):
    - the toy sheet, [node 124-191](https://www.figma.com/design/lWqJ4xxExzCi9KsAotwLDe/Toy-Designs?node-id=124-191);
    - the tokens, [node 101-445](https://www.figma.com/design/lWqJ4xxExzCi9KsAotwLDe/Toy-Designs?node-id=101-445);
@@ -43,7 +43,7 @@ Before planning, read in this order:
 - File upload or ingestion. The vault is the fixed seed.
 - Approve controls. Approvals are parked.
 - The query toy. "Create a query" is a disabled button.
-- Any shared shell for other toys, Vercel or Supabase.
+- Vercel or Supabase.
 - Mobile or narrow screens.
 - New insight tags, documents or domains beyond the seed.
 
@@ -93,9 +93,9 @@ The IDs are what section 8 checks against.
 ## 5. Fake data and scripted AI
 
 **B13 Fixtures.** The data lives in three files:
-- `brain/src/data/documents.json`
-- `brain/src/data/wheels.json`
-- `brain/src/data/smart-search.json`
+- `app/src/data/documents.json`
+- `app/src/data/wheels.json`
+- `app/src/data/smart-search.json`
 
 **Each document has:**
 - `id`, `title`, `type` (`pdf | video | sheet | image`), `issued`, `from`, `domains`, `primaryDomain`, `text`;
@@ -208,26 +208,26 @@ Popups need `isolation: isolate` on the app root.
 The toy's own components stay custom, hand-built in React and SVG, and never in Base UI: the Graph and its nodes and links, the Wheel, the sphere, the details panel, insight cards and the risk summary ledger.
 
 **Where to write:**
-- Only inside `brain/`: package files, lockfile, config, source, assets, build output, and screenshots under `brain/qa/`.
+- Only inside `app/`: package files, lockfile, config, source, assets, build output, and screenshots under `app/qa/`.
 - No root-level config.
-- `DESIGN.md`, `README.md` and anything outside `brain/` are read-only.
+- `DESIGN.md`, `README.md`, `PRD.md` and anything outside `app/` are read-only.
 
 **Assets:**
-- Export Sphere SVG (137:1040) from Figma into `brain/src/assets/`. Draw the sphere from it rather than placing nodes one by one.
+- Export Sphere SVG (137:1040) from Figma into `app/src/assets/`. Draw the sphere from it rather than placing nodes one by one.
 - Google Fonts is the only external request allowed; everything else stays local.
 
-**Run, from `brain/`:**
+**Run, from `app/`:**
 - `npm install`
 - `npm run dev`
 - `npm run typecheck`
 - `npm run build`
 - `npm run preview`
 
-Set Vite `base: '/product-toybox/brain/'`.
+Set Vite `base: '/product-toybox/app/'`.
 
 **Desktop only:** the minimum viewport is 1280 CSS pixels.
 
-> **Open (QS-030, not decided here):** separate toy folders versus one shared shell for every toy. React + Vite keeps a shared shell possible later. Build nothing for it now.
+> **Decided (QS-030, Mo-12-Oct):** one app, not a folder per toy. `app/` is the whole toybox app, and this PRD lives at the repo root. New toys are built on branches, with their requirements added to or changed in this PRD. Build nothing for later toys now.
 
 ## 7. Build order
 
@@ -265,7 +265,7 @@ Walk every check in Jacques's Chrome (Claude in Chrome or the Codex Chrome plugi
 | ID | Check | Covers |
 | --- | --- | --- |
 | A1 | `npm run typecheck` and `npm run build` pass after the last edit; typechecking is not bypassed. | |
-| A2 | The production preview loads at `/product-toybox/brain/`; a refresh loads the app and assets with nothing missing. | |
+| A2 | The production preview loads at `/product-toybox/app/`; a refresh loads the app and assets with nothing missing. | |
 | A3 | There are no console errors. Requests are same-origin except Google Fonts; there are no AI, analytics or backend requests. | B16 |
 | A4 | Graph opens by default, and all three views switch with nothing clipped. | B1 |
 | A5 | Linked, orphan, empty, picked and sorting nodes match DESIGN.md 2.2. Arrival and Animate reach their end states. | B2, B3 |
@@ -274,7 +274,7 @@ Walk every check in Jacques's Chrome (Claude in Chrome or the Codex Chrome plugi
 | A8 | Risk placement, the domain wheels, the gauge, the factors and the evidence links match the fixtures. | B7, B15 |
 | A9 | Exactly three suggested runs go through Reading to Answer; source chips open details; "Show on the graph" reveals the found link; "Create a query" can't activate. | B8, B9 |
 | A10 | Reload resets as B12 says. | B12 |
-| A11 | Screenshots of every view, the open panels and each Smart Search state are saved under `brain/qa/` and compared with toy sheet 124-191. Fix differences or record them as blockers. | |
+| A11 | Screenshots of every view, the open panels and each Smart Search state are saved under `app/qa/` and compared with toy sheet 124-191. Fix differences or record them as blockers. | |
 
 ## 9. Decide, ask, stop, report
 
@@ -285,7 +285,7 @@ Walk every check in Jacques's Chrome (Claude in Chrome or the Codex Chrome plugi
 **Stop and record a blocker** for any of these, then carry on with work that doesn't depend on it:
 - product behavior that neither this PRD nor DESIGN.md covers;
 - a dependency that isn't on the list;
-- a write outside `brain/`;
+- a write outside `app/`;
 - a conflict between Figma and DESIGN.md. Report it and never "fix" DESIGN.md.
 
 Silence is never approval.

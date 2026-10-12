@@ -7,7 +7,7 @@ Toys are smoke and mirrors: fake data, scripted AI, nothing breaks. They are not
 
 | Toy | Folder | Status |
 | --- | --- | --- |
-| Governance Brain | [`brain/`](brain/) | Designed, not built |
+| Governance Brain | [`app/`](app/) | Designed, not built |
 
 ## Design
 
