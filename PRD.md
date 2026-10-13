@@ -69,8 +69,9 @@ The IDs are what section 8 checks against.
 - **B5 Search.** Header search matches titles, text and insights.
   - It combines with the domain chips, using case-insensitive substring matching.
   - Clearing search restores the domain-filtered view.
-  - Header search is hidden in Smart Search.
+  - Header search is hidden on the Wheel and in Smart Search.
 - **B6 Inspect.** Picking a Graph node opens its details, and picking another node replaces them.
+  - The Graph is a live force layout: drag a node and its neighbours follow; scroll zooms toward the cursor, dragging empty space pans, and hovering a node fades everything not linked to it. No force settings.
   - Close clears the selection.
   - Open launches a local source viewer; closing the viewer returns to the same details.
   - Employment contracts shows "Not in the vault", with no invented content and no Open.
@@ -86,6 +87,7 @@ The IDs are what section 8 checks against.
 - **B8 Ask.** A suggested question runs its script: Ask, then Reading, then Answer.
   - Six documents are read one at a time, and the sphere turns itself to each one.
   - At Answer the sphere stops, with each source annotated.
+  - Chat log lines appear in order at their own readable pace, not tied to the one-second reads.
   - Source chips open the details panel.
 
   See DESIGN.md 2.8.
@@ -236,6 +238,14 @@ Set Vite `base: '/product-toybox/app/'`.
 
 > **Decided (QS-030, Mo-12-Oct):** one app, not a folder per toy. `app/` is the whole toybox app, and this PRD lives at the repo root. New toys are built on branches, with their requirements added to or changed in this PRD. Build nothing for later toys now.
 
+**Branches and deploys:**
+- `main` is the live toybox. A merge to `main` deploys `app/` to GitHub Pages at `/product-toybox/app/`. Nobody pushes to `main` directly.
+- Each toy gets one branch, cut from `main`: `toy/<name>`. This build is `toy/governance-brain`.
+- Branches are tested on this machine only: `npm run dev` while building, `npm run preview` for A2. No branch is hosted.
+- Commit after each milestone in §7, once it is demonstrable, and push the branch. Open one pull request to `main` after the first milestone; later milestones add commits to it.
+- Jacques reviews and merges. The builder never merges.
+- A later toy cuts its branch from `main` after the previous toy merges, and adds its requirements to this PRD on that branch.
+
 ## 7. Build order
 
 Each milestone must be demonstrable before the next one starts.
@@ -246,6 +256,7 @@ Each milestone must be demonstrable before the next one starts.
    - the DESIGN.md styles are in place.
 2. **Graph:**
    - nodes and their states;
+   - motion: the live layout, arrival and Animate;
    - the details panel and source viewer;
    - chips, Clear all and search;
    - the empty states.
@@ -254,13 +265,13 @@ Each milestone must be demonstrable before the next one starts.
    - the whole wheel, plus the domain wheels picked with the Wheel's own chips;
    - the risk summary, with working evidence links.
 4. **Smart Search:**
+   - the sphere turning, built first;
    - all three scripts run through Reading to Answer;
    - source chips work;
    - "Show on the graph" works;
    - "Create a query" stays disabled.
 5. **Motion and polish:**
-   - first the required motion: arrival, Animate, and the sphere turning;
-   - then the optional bounce and transitions;
+   - the optional bounce and transitions;
    - last, compare screenshots and rerun every check.
 
 Under time pressure, drop decorative motion first. Never silently drop a view, a required behavior, a fixture or a check. Report what's unfinished.
@@ -303,10 +314,11 @@ Silence is never approval.
 
 **Final report:** print it in the Herdr pane, with:
 - each check ID marked pass, fail or unverified;
+- the branch and the pull request link;
 - the commands run;
 - the screenshot paths;
 - the drafted wheel topics;
 - the blockers;
 - what was skipped.
 
-No commit or push unless Jacques asks.
+Commit, push and open the pull request as set out in **Branches and deploys** (section 6).

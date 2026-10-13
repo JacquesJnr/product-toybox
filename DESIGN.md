@@ -4,7 +4,7 @@ The design system for Quantum State toys, and the design of the first toy, the G
 
 A toy is tangible "smoke and mirrors", not the prototype. It fakes the data and the AI so a person can feel the experience. Every toy in this repo uses the universal toy style below. The Governance Brain section further down covers that toy only.
 
-**Figma is the source of truth.** If this file and Figma disagree, Figma wins: fix this file.
+**Figma is the source of truth.** If this file and Figma disagree, Figma wins: report the conflict, and never fix this file yourself.
 
 - Tokens: [Toy Designs · Tokens · Toy style · universal](https://www.figma.com/design/lWqJ4xxExzCi9KsAotwLDe/Toy-Designs?node-id=101-445)
 - Governance Brain: [Toy Designs · Governance brain · toy sheet · universal](https://www.figma.com/design/lWqJ4xxExzCi9KsAotwLDe/Toy-Designs?node-id=124-191)
