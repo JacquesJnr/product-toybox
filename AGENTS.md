@@ -39,7 +39,7 @@ There is no test runner. Acceptance means typecheck and build after the last edi
 ## Working rules
 
 - Stop and record a blocker if a change needs behavior the docs don't cover, an unlisted dependency, or a write outside `app/`, then carry on with independent work. Silence is never approval.
-- No commit or push unless asked. Commit subjects are short and descriptive ("Add DESIGN.md"), no prefixes.
+- Work on a branch, never on `main`. Commit after each milestone, push the branch and open a pull request to `main`; the user reviews and merges. Commit subjects are short and descriptive ("Add DESIGN.md"), no prefixes.
 
 ## Tasks (tsk)
 
