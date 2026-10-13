@@ -1,0 +1,722 @@
+[
+  {
+    "id": "board-pack-q3",
+    "title": "Board pack Q3",
+    "type": "pdf",
+    "issued": "2026-09-18",
+    "from": "Office of the Company Secretary",
+    "domains": [
+      "Strategic direction",
+      "Financial stewardship",
+      "Major decisions"
+    ],
+    "primaryDomain": "Major decisions",
+    "text": "Quarterly decisions are assessed against the charter and approved risk appetite. The board reviewed the 2027 forecast, supplier exposure, capital allocation and executive incentive proposals.",
+    "links": [
+      {
+        "targetId": "charter",
+        "reason": "cites"
+      },
+      {
+        "targetId": "forecast-2027",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "board-risk-report",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "exec-pay-review",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "minutes-sep",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "policy-v4",
+        "reason": "shared-content"
+      }
+    ],
+    "summary": "The Q3 pack records board decisions on forecast, supplier exposure and incentives against the charter and risk appetite.",
+    "insights": [
+      {
+        "text": "Decisions reference the charter’s risk appetite, while supplier exposure and incentive evidence remain open for follow-up.",
+        "tags": [
+          "Strategy",
+          "Ownership"
+        ],
+        "pageRef": "p. 6",
+        "confidence": 0.92
+      },
+      {
+        "text": "Forecast movements affect the proposed capital and incentive decisions.",
+        "tags": [
+          "Capital",
+          "Pay"
+        ],
+        "pageRef": "p. 12",
+        "confidence": 0.89
+      }
+    ]
+  },
+  {
+    "id": "strategy-note",
+    "title": "Strategy note",
+    "type": "pdf",
+    "issued": "2026-07-02",
+    "from": "Chief Strategy Officer",
+    "domains": [
+      "Strategic direction",
+      "Strategy execution"
+    ],
+    "primaryDomain": "Strategic direction",
+    "text": "The three-year plan prioritizes resilient growth, disciplined market entry and delivery of the customer platform. Quarterly milestones are reviewed by the executive team.",
+    "links": [
+      {
+        "targetId": "board-pack-q3",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "charter",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "training-log",
+        "reason": "shared-content"
+      }
+    ],
+    "summary": "Sets strategic priorities and the quarterly delivery review.",
+    "insights": [
+      {
+        "text": "Market entry depends on staged delivery milestones and named executive ownership.",
+        "tags": [
+          "Market entry",
+          "Delivery"
+        ],
+        "pageRef": "p. 3",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "id": "charter",
+    "title": "Charter",
+    "type": "pdf",
+    "issued": "2025-11-14",
+    "from": "Board of Directors",
+    "domains": [
+      "Strategic direction",
+      "Controls and assurance"
+    ],
+    "primaryDomain": "Strategic direction",
+    "text": "The board sets purpose, strategic direction and risk appetite, and oversees management. Executives own delivery and maintain controls; the board reviews performance and material risks.",
+    "links": [
+      {
+        "targetId": "board-pack-q3",
+        "reason": "cites"
+      },
+      {
+        "targetId": "policy-v4",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "controls-memo",
+        "reason": "shared-content"
+      }
+    ],
+    "summary": "Defines the board mandate, risk appetite and executive accountability.",
+    "insights": [
+      {
+        "text": "The board sets appetite; executives own delivery and controls.",
+        "tags": [
+          "Ownership",
+          "Strategy"
+        ],
+        "pageRef": "p. 2",
+        "confidence": 0.97
+      }
+    ]
+  },
+  {
+    "id": "policy-v4",
+    "title": "Policy v4",
+    "type": "pdf",
+    "issued": "2026-05-20",
+    "from": "Governance Office",
+    "domains": [
+      "Controls and assurance",
+      "Remuneration"
+    ],
+    "primaryDomain": "Controls and assurance",
+    "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee.",
+    "links": [
+      {
+        "targetId": "controls-memo",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "exec-pay-review",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "board-pack-q3",
+        "reason": "shared-content"
+      }
+    ],
+    "summary": "Sets evidence and review requirements for incentive payments and exceptions.",
+    "insights": [
+      {
+        "text": "A second-person check must document that incentive targets were met.",
+        "tags": [
+          "Pay",
+          "Controls"
+        ],
+        "pageRef": "p. 8",
+        "confidence": 0.96
+      }
+    ]
+  },
+  {
+    "id": "controls-memo",
+    "title": "Controls memo",
+    "type": "pdf",
+    "issued": "2026-08-29",
+    "from": "Financial Controller",
+    "domains": [
+      "Controls and assurance",
+      "Financial stewardship",
+      "Remuneration"
+    ],
+    "primaryDomain": "Controls and assurance",
+    "text": "Control owners must retain evidence of review, record exceptions and escalate overdue actions. Finance checks incentive calculations against approved targets before payment.",
+    "links": [
+      {
+        "targetId": "policy-v4",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "audit-plan",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "risk-register",
+        "reason": "shared-content"
+      }
+    ],
+    "summary": "Assigns evidence retention, exception escalation and incentive calculation checks.",
+    "insights": [
+      {
+        "text": "Finance owns the documented target check before incentive payment.",
+        "tags": [
+          "Controls",
+          "Pay"
+        ],
+        "pageRef": "p. 2",
+        "confidence": 0.93
+      },
+      {
+        "text": "Overdue control actions are escalated and retained in the evidence log.",
+        "tags": [
+          "Compliance",
+          "Ownership"
+        ],
+        "pageRef": "p. 4",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "id": "minutes-sep",
+    "title": "Minutes · Sep",
+    "type": "pdf",
+    "issued": "2026-09-10",
+    "from": "Office of the Company Secretary",
+    "domains": [
+      "Major decisions",
+      "Remuneration"
+    ],
+    "primaryDomain": "Major decisions",
+    "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting.",
+    "links": [
+      {
+        "targetId": "board-pack-q3",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "exec-pay-review",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "controls-memo",
+        "reason": "shared-content"
+      }
+    ],
+    "summary": "Records discussion of executive incentives and a follow-up evidence check.",
+    "insights": [
+      {
+        "text": "Finance was asked to provide target evidence before the proposed payment proceeds.",
+        "tags": [
+          "Pay",
+          "Ownership"
+        ],
+        "pageRef": "p. 5",
+        "confidence": 0.91
+      }
+    ]
+  },
+  {
+    "id": "forecast-2027",
+    "title": "Forecast 2027",
+    "type": "sheet",
+    "issued": "2026-09-12",
+    "from": "Finance Planning",
+    "domains": [
+      "Financial stewardship",
+      "Strategy execution"
+    ],
+    "primaryDomain": "Financial stewardship",
+    "text": "The base case includes planned platform investment, supplier continuity costs and forecast incentive expense. Liquidity remains within the board threshold in the base case but narrows under the downside scenario.",
+    "links": [
+      {
+        "targetId": "board-pack-q3",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "treasury-update",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "strategy-note",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "supplier-review",
+        "reason": "shared-content"
+      }
+    ],
+    "summary": "Projects 2027 operating costs, investment and liquidity under base and downside cases.",
+    "insights": [
+      {
+        "text": "Downside liquidity headroom is narrower than the base case and depends on cost timing.",
+        "tags": [
+          "Liquidity",
+          "Capital"
+        ],
+        "pageRef": "C18",
+        "confidence": 0.92
+      }
+    ]
+  },
+  {
+    "id": "training-log",
+    "title": "Training log",
+    "type": "sheet",
+    "issued": "2026-06-30",
+    "from": "People Operations",
+    "domains": [
+      "Strategy execution",
+      "Controls and assurance"
+    ],
+    "primaryDomain": "Strategy execution",
+    "text": "Completion is recorded for annual policy training. Several control-owner modules remain overdue; managers have been asked to confirm completion dates.",
+    "links": [
+      {
+        "targetId": "controls-memo",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "strategy-note",
+        "reason": "shared-content"
+      }
+    ],
+    "summary": "Tracks policy training completion and overdue control-owner modules.",
+    "insights": [
+      {
+        "text": "Overdue control-owner training may delay consistent evidence handling.",
+        "tags": [
+          "People",
+          "Controls"
+        ],
+        "pageRef": "B14",
+        "confidence": 0.88
+      }
+    ]
+  },
+  {
+    "id": "risk-register",
+    "title": "Risk register",
+    "type": "sheet",
+    "issued": "2026-08-31",
+    "from": "Chief Risk Officer",
+    "domains": [
+      "Risk and resilience",
+      "Controls and assurance"
+    ],
+    "primaryDomain": "Risk and resilience",
+    "text": "The register records supplier service interruption, cyber resilience and liquidity stress. Recovery plans for two critical suppliers have not been tested; mitigation owners and review dates are listed.",
+    "links": [
+      {
+        "targetId": "board-risk-report",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "supplier-review",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "insurance-schedule",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "controls-memo",
+        "reason": "shared-content"
+      }
+    ],
+    "summary": "Records key operational exposures, mitigation owners and review dates.",
+    "insights": [
+      {
+        "text": "Two critical supplier recovery plans remain untested.",
+        "tags": [
+          "Supply chain",
+          "Continuity"
+        ],
+        "pageRef": "R7",
+        "confidence": 0.95
+      },
+      {
+        "text": "Mitigation actions have owners but several review dates are due.",
+        "tags": [
+          "Ownership",
+          "Delivery"
+        ],
+        "pageRef": "R11",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "id": "audit-plan",
+    "title": "Audit plan",
+    "type": "pdf",
+    "issued": "2026-04-03",
+    "from": "Head of Internal Audit",
+    "domains": [
+      "Controls and assurance",
+      "Risk and resilience"
+    ],
+    "primaryDomain": "Controls and assurance",
+    "text": "The annual plan includes supplier recovery testing, policy compliance sampling and review of control evidence. Testing will assess whether recovery time assumptions are supported by exercises.",
+    "links": [
+      {
+        "targetId": "controls-memo",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "risk-register",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "policy-v4",
+        "reason": "shared-content"
+      }
+    ],
+    "summary": "Schedules assurance work on supplier recovery, policy compliance and control evidence.",
+    "insights": [
+      {
+        "text": "Supplier recovery testing is planned, with evidence against recovery assumptions.",
+        "tags": [
+          "Continuity",
+          "Compliance"
+        ],
+        "pageRef": "p. 7",
+        "confidence": 0.94
+      }
+    ]
+  },
+  {
+    "id": "supplier-review",
+    "title": "Supplier review",
+    "type": "pdf",
+    "issued": "2026-08-22",
+    "from": "Procurement Director",
+    "domains": [
+      "Risk and resilience",
+      "Major decisions"
+    ],
+    "primaryDomain": "Risk and resilience",
+    "text": "Critical suppliers provided recovery plans, but no recent exercise has tested them. Contract reviews identify service dependencies; owners are confirming recovery evidence and escalation contacts.",
+    "links": [
+      {
+        "targetId": "risk-register",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "board-risk-report",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "forecast-2027",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "insurance-schedule",
+        "reason": "shared-content"
+      }
+    ],
+    "summary": "Reviews critical supplier dependencies and identifies untested recovery plans.",
+    "insights": [
+      {
+        "text": "Recovery plans exist but have not been tested for critical suppliers.",
+        "tags": [
+          "Supply chain",
+          "Continuity"
+        ],
+        "pageRef": "p. 4",
+        "confidence": 0.96
+      }
+    ]
+  },
+  {
+    "id": "treasury-update",
+    "title": "Treasury update",
+    "type": "pdf",
+    "issued": "2026-09-05",
+    "from": "Treasurer",
+    "domains": [
+      "Financial stewardship",
+      "Risk and resilience"
+    ],
+    "primaryDomain": "Financial stewardship",
+    "text": "Cash forecasts remain within minimum liquidity thresholds in the base case. A delayed customer receipt or accelerated supplier payment would reduce headroom; facilities remain available subject to covenants.",
+    "links": [
+      {
+        "targetId": "forecast-2027",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "insurance-schedule",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "board-pack-q3",
+        "reason": "shared-content"
+      }
+    ],
+    "summary": "Summarizes liquidity headroom, cash timing sensitivities and facility covenants.",
+    "insights": [
+      {
+        "text": "Cash timing sensitivity reduces headroom before the minimum threshold is reached.",
+        "tags": [
+          "Liquidity",
+          "Capital"
+        ],
+        "pageRef": "p. 2",
+        "confidence": 0.92
+      }
+    ]
+  },
+  {
+    "id": "insurance-schedule",
+    "title": "Insurance schedule",
+    "type": "sheet",
+    "issued": "2026-02-01",
+    "from": "Risk and Insurance Manager",
+    "domains": [
+      "Risk and resilience",
+      "Financial stewardship"
+    ],
+    "primaryDomain": "Risk and resilience",
+    "text": "The schedule lists interruption coverage, limits, deductibles and exclusions by policy. Recovery costs are subject to waiting periods and evidence of insured loss.",
+    "links": [
+      {
+        "targetId": "risk-register",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "supplier-review",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "treasury-update",
+        "reason": "shared-content"
+      }
+    ],
+    "summary": "Lists interruption coverage limits, deductibles, exclusions and evidence conditions.",
+    "insights": [
+      {
+        "text": "Interruption costs are subject to limits, waiting periods and proof of insured loss.",
+        "tags": [
+          "Continuity",
+          "Compliance"
+        ],
+        "pageRef": "D9",
+        "confidence": 0.93
+      }
+    ]
+  },
+  {
+    "id": "board-risk-report",
+    "title": "Board risk report",
+    "type": "pdf",
+    "issued": "2026-09-14",
+    "from": "Chief Risk Officer",
+    "domains": [
+      "Risk and resilience",
+      "Major decisions"
+    ],
+    "primaryDomain": "Risk and resilience",
+    "text": "Two critical suppliers remain outside the board’s recovery expectations. The report summarizes untested plans, risk-register actions, insurance limits and the forecast cost of service interruption.",
+    "links": [
+      {
+        "targetId": "risk-register",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "supplier-review",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "board-pack-q3",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "insurance-schedule",
+        "reason": "shared-content"
+      }
+    ],
+    "summary": "Escalates supplier recovery gaps and their potential cost and coverage implications.",
+    "insights": [
+      {
+        "text": "Two suppliers are outside recovery expectations and need tested plans.",
+        "tags": [
+          "Supply chain",
+          "Continuity"
+        ],
+        "pageRef": "p. 4",
+        "confidence": 0.97
+      }
+    ]
+  },
+  {
+    "id": "exec-pay-review",
+    "title": "Exec pay review",
+    "type": "pdf",
+    "issued": "2026-09-16",
+    "from": "Remuneration Committee Secretary",
+    "domains": [
+      "Remuneration",
+      "Major decisions"
+    ],
+    "primaryDomain": "Remuneration",
+    "text": "The committee reviewed proposed incentive payments and noted that delivery target evidence must be confirmed before payment. The follow-up check is assigned to Finance.",
+    "links": [
+      {
+        "targetId": "minutes-sep",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "policy-v4",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "board-pack-q3",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "employment-contracts",
+        "reason": "cites"
+      }
+    ],
+    "summary": "Records proposed executive incentives and the outstanding target evidence check.",
+    "insights": [
+      {
+        "text": "The file does not include evidence that the proposed delivery targets were met.",
+        "tags": [
+          "Pay",
+          "Controls"
+        ],
+        "pageRef": "p. 3",
+        "confidence": 0.96
+      }
+    ]
+  },
+  {
+    "id": "draft-charter",
+    "title": "Draft charter",
+    "type": "pdf",
+    "issued": "2026-08-06",
+    "from": "Governance Office",
+    "domains": [
+      "Strategic direction"
+    ],
+    "primaryDomain": "Strategic direction",
+    "text": "The board sets risk appetite and strategic direction; executives own risk decisions and document accountability. This draft has not yet been connected to the approved charter.",
+    "links": [],
+    "summary": "Draft language on risk ownership and board appetite, awaiting review.",
+    "insights": [
+      {
+        "text": "The draft assigns risk ownership to executives, matching the approved charter language.",
+        "tags": [
+          "Ownership",
+          "Strategy"
+        ],
+        "pageRef": "p. 2",
+        "confidence": 0.91
+      }
+    ]
+  },
+  {
+    "id": "employment-contracts",
+    "title": "Employment contracts",
+    "type": "pdf",
+    "issued": "",
+    "from": "",
+    "domains": [
+      "Remuneration"
+    ],
+    "primaryDomain": "Remuneration",
+    "text": "",
+    "links": [],
+    "summary": "Not in the vault.",
+    "insights": []
+  },
+  {
+    "id": "liquidity-review",
+    "title": "Liquidity review",
+    "type": "pdf",
+    "issued": "2026-10-01",
+    "from": "Finance Planning",
+    "domains": [
+      "Financial stewardship"
+    ],
+    "primaryDomain": "Financial stewardship",
+    "text": "Liquidity headroom is sensitive to delayed receipts and supplier payment timing. The downside case approaches the board threshold; treasury will update the forecast after collections are confirmed.",
+    "links": [
+      {
+        "targetId": "forecast-2027",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "treasury-update",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "board-pack-q3",
+        "reason": "shared-content"
+      }
+    ],
+    "summary": "Reviews downside liquidity headroom and timing sensitivities.",
+    "insights": [
+      {
+        "text": "Downside headroom approaches the board threshold if receipts are delayed.",
+        "tags": [
+          "Liquidity",
+          "Capital"
+        ],
+        "pageRef": "p. 1",
+        "confidence": 0.94
+      }
+    ]
+  }
+]

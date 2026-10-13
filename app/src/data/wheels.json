@@ -1,0 +1,800 @@
+[
+  {
+    "documentId": "board-pack-q3",
+    "topic": "Stakeholder priorities",
+    "riskScore": 0.68,
+    "appetite": 0.83,
+    "rung": "Within appetite",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.35,
+        "evidenceRef": {
+          "documentId": "board-pack-q3",
+          "pageRef": "p. 6"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "board-pack-q3",
+    "topic": "Decision follow-up",
+    "riskScore": 0.61,
+    "appetite": 0.66,
+    "rung": "Near the limit",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.45,
+        "evidenceRef": {
+          "documentId": "board-pack-q3",
+          "pageRef": "p. 6"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "strategy-note",
+    "topic": "Long-range plan",
+    "riskScore": 0.61,
+    "appetite": 0.53,
+    "rung": "Over appetite",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.35,
+        "evidenceRef": {
+          "documentId": "strategy-note",
+          "pageRef": "p. 3"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "strategy-note",
+    "topic": "Initiative delivery",
+    "riskScore": 0.72,
+    "appetite": 0.87,
+    "rung": "Within appetite",
+    "factors": [
+      {
+        "factor": "Evidence gap",
+        "weight": 0.45,
+        "evidenceRef": {
+          "documentId": "strategy-note",
+          "pageRef": "p. 3"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "charter",
+    "topic": "Purpose & mandate",
+    "riskScore": 0.72,
+    "appetite": 0.77,
+    "rung": "Near the limit",
+    "factors": [
+      {
+        "factor": "Evidence gap",
+        "weight": 0.35,
+        "evidenceRef": {
+          "documentId": "charter",
+          "pageRef": "p. 2"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "charter",
+    "topic": "Risk appetite alignment",
+    "riskScore": 0.58,
+    "appetite": 0.50,
+    "rung": "Over appetite",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.45,
+        "evidenceRef": {
+          "documentId": "charter",
+          "pageRef": "p. 2"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "policy-v4",
+    "topic": "Policy register",
+    "riskScore": 0.58,
+    "appetite": 0.73,
+    "rung": "Within appetite",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.35,
+        "evidenceRef": {
+          "documentId": "policy-v4",
+          "pageRef": "p. 8"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "policy-v4",
+    "topic": "Incentive plans",
+    "riskScore": 0.68,
+    "appetite": 0.73,
+    "rung": "Near the limit",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.45,
+        "evidenceRef": {
+          "documentId": "policy-v4",
+          "pageRef": "p. 8"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "controls-memo",
+    "topic": "Internal controls",
+    "riskScore": 0.68,
+    "appetite": 0.60,
+    "rung": "Over appetite",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.35,
+        "evidenceRef": {
+          "documentId": "controls-memo",
+          "pageRef": "p. 2"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "controls-memo",
+    "topic": "Evidence quality",
+    "riskScore": 0.61,
+    "appetite": 0.76,
+    "rung": "Within appetite",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.45,
+        "evidenceRef": {
+          "documentId": "controls-memo",
+          "pageRef": "p. 2"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "controls-memo",
+    "topic": "Executive pay",
+    "riskScore": 0.72,
+    "appetite": 0.77,
+    "rung": "Near the limit",
+    "factors": [
+      {
+        "factor": "Evidence gap",
+        "weight": 0.55,
+        "evidenceRef": {
+          "documentId": "controls-memo",
+          "pageRef": "p. 2"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "minutes-sep",
+    "topic": "Decision follow-up",
+    "riskScore": 0.79,
+    "appetite": 0.71,
+    "rung": "Over appetite",
+    "factors": [
+      {
+        "factor": "Evidence gap",
+        "weight": 0.35,
+        "evidenceRef": {
+          "documentId": "minutes-sep",
+          "pageRef": "p. 5"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "minutes-sep",
+    "topic": "Executive pay",
+    "riskScore": 0.65,
+    "appetite": 0.80,
+    "rung": "Within appetite",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.45,
+        "evidenceRef": {
+          "documentId": "minutes-sep",
+          "pageRef": "p. 5"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "forecast-2027",
+    "topic": "Budget & forecast",
+    "riskScore": 0.65,
+    "appetite": 0.70,
+    "rung": "Near the limit",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.35,
+        "evidenceRef": {
+          "documentId": "forecast-2027",
+          "pageRef": "C18"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "forecast-2027",
+    "topic": "Downside headroom",
+    "riskScore": 0.70,
+    "appetite": 0.62,
+    "rung": "Over appetite",
+    "factors": [
+      {
+        "factor": "Evidence gap",
+        "weight": 0.45,
+        "evidenceRef": {
+          "documentId": "forecast-2027",
+          "pageRef": "C18"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "training-log",
+    "topic": "Resourcing",
+    "riskScore": 0.70,
+    "appetite": 0.85,
+    "rung": "Within appetite",
+    "factors": [
+      {
+        "factor": "Evidence gap",
+        "weight": 0.35,
+        "evidenceRef": {
+          "documentId": "training-log",
+          "pageRef": "B14"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "training-log",
+    "topic": "Compliance",
+    "riskScore": 0.74,
+    "appetite": 0.79,
+    "rung": "Near the limit",
+    "factors": [
+      {
+        "factor": "Evidence gap",
+        "weight": 0.45,
+        "evidenceRef": {
+          "documentId": "training-log",
+          "pageRef": "B14"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "risk-register",
+    "topic": "Supplier risk",
+    "riskScore": 0.74,
+    "appetite": 0.66,
+    "rung": "Over appetite",
+    "factors": [
+      {
+        "factor": "Evidence gap",
+        "weight": 0.35,
+        "evidenceRef": {
+          "documentId": "risk-register",
+          "pageRef": "R7"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "risk-register",
+    "topic": "Assurance map",
+    "riskScore": 0.79,
+    "appetite": 0.94,
+    "rung": "Within appetite",
+    "factors": [
+      {
+        "factor": "Evidence gap",
+        "weight": 0.45,
+        "evidenceRef": {
+          "documentId": "risk-register",
+          "pageRef": "R7"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "audit-plan",
+    "topic": "Audit findings",
+    "riskScore": 0.79,
+    "appetite": 0.84,
+    "rung": "Near the limit",
+    "factors": [
+      {
+        "factor": "Evidence gap",
+        "weight": 0.35,
+        "evidenceRef": {
+          "documentId": "audit-plan",
+          "pageRef": "p. 7"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "supplier-review",
+    "topic": "Supplier risk",
+    "riskScore": 0.65,
+    "appetite": 0.80,
+    "rung": "Within appetite",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.35,
+        "evidenceRef": {
+          "documentId": "supplier-review",
+          "pageRef": "p. 4"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "treasury-update",
+    "topic": "Liquidity",
+    "riskScore": 0.70,
+    "appetite": 0.62,
+    "rung": "Over appetite",
+    "factors": [
+      {
+        "factor": "Evidence gap",
+        "weight": 0.35,
+        "evidenceRef": {
+          "documentId": "treasury-update",
+          "pageRef": "p. 2"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "treasury-update",
+    "topic": "Downside headroom",
+    "riskScore": 0.74,
+    "appetite": 0.89,
+    "rung": "Within appetite",
+    "factors": [
+      {
+        "factor": "Evidence gap",
+        "weight": 0.45,
+        "evidenceRef": {
+          "documentId": "treasury-update",
+          "pageRef": "p. 2"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "insurance-schedule",
+    "topic": "Business continuity",
+    "riskScore": 0.74,
+    "appetite": 0.79,
+    "rung": "Near the limit",
+    "factors": [
+      {
+        "factor": "Evidence gap",
+        "weight": 0.35,
+        "evidenceRef": {
+          "documentId": "insurance-schedule",
+          "pageRef": "D9"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "insurance-schedule",
+    "topic": "Budget & forecast",
+    "riskScore": 0.79,
+    "appetite": 0.71,
+    "rung": "Over appetite",
+    "factors": [
+      {
+        "factor": "Evidence gap",
+        "weight": 0.45,
+        "evidenceRef": {
+          "documentId": "insurance-schedule",
+          "pageRef": "D9"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "board-risk-report",
+    "topic": "Risk appetite",
+    "riskScore": 0.79,
+    "appetite": 0.94,
+    "rung": "Within appetite",
+    "factors": [
+      {
+        "factor": "Evidence gap",
+        "weight": 0.35,
+        "evidenceRef": {
+          "documentId": "board-risk-report",
+          "pageRef": "p. 4"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "board-risk-report",
+    "topic": "Supplier risk",
+    "riskScore": 0.71,
+    "appetite": 0.40,
+    "rung": "Over appetite",
+    "factors": [
+      {
+        "factor": "Two critical suppliers have no tested recovery plan",
+        "weight": 0.40,
+        "evidenceRef": {
+          "documentId": "board-risk-report",
+          "pageRef": "p. 4"
+        }
+      },
+      {
+        "factor": "Single-source contract ends in Q1",
+        "weight": 0.30,
+        "evidenceRef": {
+          "documentId": "board-risk-report",
+          "pageRef": "p. 4"
+        }
+      },
+      {
+        "factor": "Insurance cover renewed for 2027",
+        "weight": 0.30,
+        "evidenceRef": {
+          "documentId": "board-risk-report",
+          "pageRef": "p. 4"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "exec-pay-review",
+    "topic": "Incentive plans",
+    "riskScore": 0.65,
+    "appetite": 0.57,
+    "rung": "Over appetite",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.35,
+        "evidenceRef": {
+          "documentId": "exec-pay-review",
+          "pageRef": "p. 3"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "exec-pay-review",
+    "topic": "Performance evidence",
+    "riskScore": 0.70,
+    "appetite": 0.85,
+    "rung": "Within appetite",
+    "factors": [
+      {
+        "factor": "Evidence gap",
+        "weight": 0.45,
+        "evidenceRef": {
+          "documentId": "exec-pay-review",
+          "pageRef": "p. 3"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "draft-charter",
+    "topic": "Purpose & mandate",
+    "riskScore": 0.70,
+    "appetite": 0.75,
+    "rung": "Near the limit",
+    "factors": [
+      {
+        "factor": "Evidence gap",
+        "weight": 0.35,
+        "evidenceRef": {
+          "documentId": "draft-charter",
+          "pageRef": "p. 2"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "board-pack-q3",
+    "topic": "Market position",
+    "riskScore": 0.63,
+    "appetite": 0.55,
+    "rung": "Over appetite",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.40,
+        "evidenceRef": {
+          "documentId": "board-pack-q3",
+          "pageRef": "p. 6"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "strategy-note",
+    "topic": "KPIs & milestones",
+    "riskScore": 0.63,
+    "appetite": 0.78,
+    "rung": "Within appetite",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.40,
+        "evidenceRef": {
+          "documentId": "strategy-note",
+          "pageRef": "p. 3"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "strategy-note",
+    "topic": "Transformation",
+    "riskScore": 0.63,
+    "appetite": 0.68,
+    "rung": "Near the limit",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.40,
+        "evidenceRef": {
+          "documentId": "strategy-note",
+          "pageRef": "p. 3"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "strategy-note",
+    "topic": "Delivery ownership",
+    "riskScore": 0.63,
+    "appetite": 0.55,
+    "rung": "Over appetite",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.40,
+        "evidenceRef": {
+          "documentId": "strategy-note",
+          "pageRef": "p. 3"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "board-pack-q3",
+    "topic": "Capital allocation",
+    "riskScore": 0.63,
+    "appetite": 0.78,
+    "rung": "Within appetite",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.40,
+        "evidenceRef": {
+          "documentId": "board-pack-q3",
+          "pageRef": "p. 6"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "risk-register",
+    "topic": "Cyber",
+    "riskScore": 0.63,
+    "appetite": 0.68,
+    "rung": "Near the limit",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.40,
+        "evidenceRef": {
+          "documentId": "risk-register",
+          "pageRef": "R7"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "board-pack-q3",
+    "topic": "Investments",
+    "riskScore": 0.63,
+    "appetite": 0.55,
+    "rung": "Over appetite",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.40,
+        "evidenceRef": {
+          "documentId": "board-pack-q3",
+          "pageRef": "p. 6"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "board-pack-q3",
+    "topic": "M&A",
+    "riskScore": 0.63,
+    "appetite": 0.78,
+    "rung": "Within appetite",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.40,
+        "evidenceRef": {
+          "documentId": "board-pack-q3",
+          "pageRef": "p. 6"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "board-pack-q3",
+    "topic": "Exec appointments",
+    "riskScore": 0.63,
+    "appetite": 0.68,
+    "rung": "Near the limit",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.40,
+        "evidenceRef": {
+          "documentId": "board-pack-q3",
+          "pageRef": "p. 6"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "board-pack-q3",
+    "topic": "Delegations of authority",
+    "riskScore": 0.63,
+    "appetite": 0.55,
+    "rung": "Over appetite",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.40,
+        "evidenceRef": {
+          "documentId": "board-pack-q3",
+          "pageRef": "p. 6"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "policy-v4",
+    "topic": "Pay ratios",
+    "riskScore": 0.63,
+    "appetite": 0.78,
+    "rung": "Within appetite",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.40,
+        "evidenceRef": {
+          "documentId": "policy-v4",
+          "pageRef": "p. 8"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "policy-v4",
+    "topic": "Benefits & pensions",
+    "riskScore": 0.63,
+    "appetite": 0.68,
+    "rung": "Near the limit",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.40,
+        "evidenceRef": {
+          "documentId": "policy-v4",
+          "pageRef": "p. 8"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "board-risk-report",
+    "topic": "Emerging risks",
+    "riskScore": 0.71,
+    "appetite": 0.40,
+    "rung": "Over appetite",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.40,
+        "evidenceRef": {
+          "documentId": "board-risk-report",
+          "pageRef": "p. 4"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "board-risk-report",
+    "topic": "Climate risk",
+    "riskScore": 0.71,
+    "appetite": 0.40,
+    "rung": "Over appetite",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.40,
+        "evidenceRef": {
+          "documentId": "board-risk-report",
+          "pageRef": "p. 4"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "board-risk-report",
+    "topic": "Operational incidents",
+    "riskScore": 0.71,
+    "appetite": 0.40,
+    "rung": "Over appetite",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.40,
+        "evidenceRef": {
+          "documentId": "board-risk-report",
+          "pageRef": "p. 4"
+        }
+      }
+    ]
+  },
+  {
+    "documentId": "board-risk-report",
+    "topic": "Insurance cover",
+    "riskScore": 0.71,
+    "appetite": 0.40,
+    "rung": "Over appetite",
+    "factors": [
+      {
+        "factor": "Exposure level",
+        "weight": 0.40,
+        "evidenceRef": {
+          "documentId": "board-risk-report",
+          "pageRef": "p. 4"
+        }
+      }
+    ]
+  }
+]

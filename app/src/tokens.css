@@ -1,0 +1,26 @@
+:root {
+  --bench: #FAFAF5;
+  --surface: #FFFFFF;
+  --glass-28: #E8E7E3;
+  --glass-45: #CECDCA;
+  --graphite: #6B6A68;
+  --body: #2D2824;
+  --ink: #121212;
+
+  --peach: #EB6C00;
+  --peach-wash: rgb(235 108 0 / 0.14);
+  --rainbow: linear-gradient(90deg, #3A86FF, #8338EC, #FF006E, #FB5607, #FFBE0B);
+  --rainbow-glow: drop-shadow(0 0 1.2px #8338EC);
+
+  --risk-within: #4E9A5B;
+  --risk-near: #D9A62E;
+  --risk-over: #C0504D;
+
+  --domain-strategic-direction: #3A7FB0;
+  --domain-strategy-execution: #4A9468;
+  --domain-financial-stewardship: #C99A2E;
+  --domain-risk-resilience: #B85C5C;
+  --domain-controls-assurance: #7650A8;
+  --domain-major-decisions: #2E8F8A;
+  --domain-remuneration: #C2577F;
+}
