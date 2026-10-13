@@ -1,7 +1,7 @@
 import type { Doc } from '../types'
 
-export function DocumentPreview({ doc }: { doc: Doc }) {
-  const reference = doc.insights[0]?.pageRef
+export function DocumentPreview({ doc, highlightRef }: { doc: Doc; highlightRef?: string }) {
+  const reference = highlightRef ?? doc.insights[0]?.pageRef
   return (
     <div className={`document-preview preview-${doc.type}`} role="img" aria-label={`${doc.type.toUpperCase()} preview of ${doc.title}; AI evidence highlighted${reference ? ` at ${reference}` : ''}`}>
       {doc.type === 'pdf' && (

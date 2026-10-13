@@ -450,7 +450,7 @@
     "factors": [
       {
         "factor": "Two critical suppliers have no tested recovery plan",
-        "weight": 0.40,
+        "weight": 0.42,
         "evidenceRef": {
           "documentId": "board-risk-report",
           "pageRef": "p. 4"
@@ -458,18 +458,18 @@
       },
       {
         "factor": "Single-source contract ends in Q1",
-        "weight": 0.30,
+        "weight": 0.31,
         "evidenceRef": {
-          "documentId": "board-risk-report",
-          "pageRef": "p. 4"
+          "documentId": "supplier-review",
+          "pageRef": "p. 2"
         }
       },
       {
         "factor": "Insurance cover renewed for 2027",
-        "weight": 0.30,
+        "weight": -0.08,
         "evidenceRef": {
-          "documentId": "board-risk-report",
-          "pageRef": "p. 4"
+          "documentId": "insurance-schedule",
+          "pageRef": "region: cover table, top half"
         }
       }
     ]

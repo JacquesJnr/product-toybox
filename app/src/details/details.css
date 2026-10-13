@@ -54,3 +54,5 @@
 .source-description { margin: 12px 0 16px; color: var(--graphite); font: 400 12px/1.4 'JetBrains Mono', monospace; }
 .source-text { margin-top: 16px; border-top: 1px solid var(--glass-45); font: 400 14px/1.5 'Nunito', sans-serif; }
 .source-text p { margin: 16px 0 0; white-space: pre-wrap; }
+
+.source-highlight-reference { margin: 12px 0 0; padding: 8px 12px; background: var(--peach-wash); color: var(--body); font: 400 12px/1.4 'JetBrains Mono', monospace; }
