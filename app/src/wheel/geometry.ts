@@ -7,7 +7,10 @@ export const rings = [
   { rung: 'Over appetite', radius: 220.8, color: 'var(--risk-over)' },
 ] as const
 
-export const diamondSize = 6
+// Figma 127:229 varies anonymous document sizes for visual hierarchy, without a risk meaning.
+const diamondSpans = [9.684, 14.016, 13.087, 13.663, 11.743, 12.104, 12.619, 10.683,
+  10.381, 12.459, 10.188, 9.544, 10.753, 9.324, 11.392, 9.866, 13.081, 13.512]
+export function diamondSize(index: number) { return diamondSpans[index % diamondSpans.length] / Math.SQRT2 }
 
 export function topicsFor(domain: Domain | null) {
   const domains = domain ? [domain] : Object.keys(wheelTopics) as Domain[]
@@ -31,12 +34,23 @@ export function point(angle: number, radius: number) {
 
 export function nodesFor(records: WheelRecord[], docs: Doc[], domain: Domain | null) {
   const topics = topicsFor(domain)
-  return topics.flatMap(({ topic }, index) => {
+  const nodes: { record: WheelRecord; key: string; x: number; y: number }[] = []
+  for (const [index, { topic }] of topics.entries()) {
     const matching = records.filter(record => record.topic === topic && docs.some(doc => doc.id === record.documentId))
-    return matching.map((record, offset) => {
-      // Keep records on the same spoke individually selectable when their scores coincide.
+    for (const [offset, record] of matching.entries()) {
       const angle = -72 + index * 360 / topics.length + (offset - (matching.length - 1) / 2) * 5
-      return { record, key: `${record.documentId}|${record.topic}`, ...point(angle, nodeRadius(record)) }
-    })
-  })
+      const ringIndex = rings.findIndex(ring => ring.rung === record.rung)
+      const inner = ringIndex === 0 ? 0 : rings[ringIndex - 1].radius
+      const size = diamondSize(docs.findIndex(doc => doc.id === record.documentId))
+      // Separate larger hit areas locally while retaining the fixture's risk band.
+      const position = [0, 12, -12, 24, -24, 36, -36, 48, -48].map(shift => {
+        const radius = nodeRadius(record) + shift
+        return { radius, ...point(angle, radius) }
+      }).find(candidate => candidate.radius > inner + size && candidate.radius < rings[ringIndex].radius - size
+        && nodes.every(other => Math.hypot(candidate.x - other.x, candidate.y - other.y)
+          > (size + diamondSize(docs.findIndex(doc => doc.id === other.record.documentId))) / Math.SQRT2 + 1))!
+      nodes.push({ record, key: `${record.documentId}|${record.topic}`, x: position.x, y: position.y })
+    }
+  }
+  return nodes
 }

@@ -19,7 +19,7 @@ export function DetailsPanel({ doc, onClose }: { doc: Doc; onClose: () => void }
     ['type', `${doc.title} · ${typeNames[doc.type]}`],
     ['issued', doc.issued || '—'],
     ['from', doc.from || '—'],
-    ['linked to', linkedTitles.join(', ') || '—'],
+    ['linked to', (linkedTitles.length > 3 ? `${linkedTitles.slice(0, 2).join(', ')}, +${linkedTitles.length - 2}` : linkedTitles.join(', ')) || '—'],
     ['domain', doc.domains.join(', ')],
   ]
 

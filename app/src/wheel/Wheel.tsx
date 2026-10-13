@@ -51,6 +51,7 @@ export function Wheel({ records, docs, domain, pickedKey, onPick }: {
           {nodes.map(({ record, key, x, y }) => {
             const doc = docs.find(item => item.id === record.documentId)!
             const picked = key === pickedKey
+            const size = diamondSize(docs.indexOf(doc))
             return <g key={key} className="wheel-node" transform={`translate(${x} ${y})`}
               role="button" tabIndex={0} aria-pressed={picked}
               aria-label={`${doc.title} · ${record.topic} · ${record.rung} · score ${record.riskScore} against appetite ${record.appetite}`}
@@ -58,8 +59,8 @@ export function Wheel({ records, docs, domain, pickedKey, onPick }: {
                 if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onPick(key) }
               }} onPointerEnter={() => setHoveredKey(key)} onPointerLeave={() => setHoveredKey(null)}
               onFocus={() => setHoveredKey(key)} onBlur={() => setHoveredKey(null)}>
-              {picked && <rect className="wheel-picked" x="-8" y="-8" width="16" height="16" rx="2" transform="rotate(45)" />}
-              <rect className="wheel-diamond" x={-diamondSize / 2} y={-diamondSize / 2} width={diamondSize} height={diamondSize} rx="2" transform="rotate(45)" />
+              {picked && <rect className="wheel-picked" x={-size / 2 - 4} y={-size / 2 - 4} width={size + 8} height={size + 8} rx="2" transform="rotate(45)" />}
+              <rect className="wheel-diamond" x={-size / 2} y={-size / 2} width={size} height={size} rx="2" transform="rotate(45)" />
               <circle className="wheel-focus" r="13" />
             </g>
           })}

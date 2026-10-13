@@ -18,6 +18,16 @@ const domainClasses: Record<Domain, string> = {
   Remuneration: 'remuneration',
 }
 
+const domainIcons: Record<Domain, string> = {
+  'Strategic direction': 'explore',
+  'Strategy execution': 'rocket_launch',
+  'Financial stewardship': 'account_balance',
+  'Risk and resilience': 'shield',
+  'Controls and assurance': 'fact_check',
+  'Major decisions': 'gavel',
+  Remuneration: 'payments',
+}
+
 export function DomainChips({
   value,
   onChange,
@@ -47,7 +57,8 @@ export function DomainChips({
           pressed={value.has(domain)}
           onPressedChange={(pressed) => toggle(domain, pressed)}
         >
-          <span className="domain-chip-dot" aria-hidden="true" />
+          {single ? <span className="domain-chip-diamond" aria-hidden="true" />
+            : <span className="material-symbols-rounded domain-chip-icon" aria-hidden="true">{domainIcons[domain]}</span>}
           {domain}
         </Toggle>
       ))}

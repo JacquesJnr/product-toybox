@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { sourceLabels } from './annotations'
 import './sphere.css'
 
 type Point = { x: number; y: number; z: number }
@@ -86,14 +87,15 @@ export function Sphere({ phase, reads, readingIndex }: SphereProps) {
   const projected = points.map((point, index) => {
     const turned = rotate(point, rotation)
     const depth = (turned.z + 1) / 2
-    return { index, x: 380 + turned.x * 258, y: 323 + turned.y * 258, z: turned.z,
+    return { index, x: 323 + turned.x * 258, y: 323 + turned.y * 258, z: turned.z,
       size: 1.4 + depth * 4, opacity: 0.12 + depth * 0.78 }
   })
   const labels = phase === 'answer' ? reads : activeRead ? [activeRead] : []
   const sourcePoints = new Set(labels.map(read => pointIndex(read.documentId)))
+  const annotations = sourceLabels(labels.map(read => ({ ...projected[pointIndex(read.documentId)], title: read.title })))
 
   return (
-    <svg className={`sphere sphere--${phase}`} viewBox="0 0 760 646" aria-hidden="true" focusable="false">
+    <svg className={`sphere sphere--${phase}`} viewBox="0 0 646 646" aria-hidden="true" focusable="false">
       <g className="sphere__cloud">
         {[...projected].sort((a, b) => a.z - b.z).map(point => (
           <rect key={point.index} className={sourcePoints.has(point.index) ? 'sphere__point sphere__point--source' : 'sphere__point'}
@@ -105,15 +107,12 @@ export function Sphere({ phase, reads, readingIndex }: SphereProps) {
       </g>
       {labels.map((read, index) => {
         const point = projected[pointIndex(read.documentId)]
-        const right = phase === 'reading' || index % 2 === 1
-        const row = phase === 'reading' ? 0 : Math.floor(index / 2)
-        const labelX = right ? 530 : 12
-        const labelY = 150 + row * 145
+        const label = annotations[index]
         return (
           <g key={read.documentId} className="sphere__annotation">
-            <path className="sphere__leader" d={`M ${point.x} ${point.y} L ${right ? labelX : labelX + 218} ${labelY + 12}`} />
-            <foreignObject className={right ? 'sphere__label-slot' : 'sphere__label-slot sphere__label-slot--left'}
-              x={labelX} y={labelY} width={218} height={32}>
+            <path className="sphere__leader" d={`M ${point.x} ${point.y} L ${label.endX} ${label.endY}`} />
+            <foreignObject className="sphere__label-slot"
+              x={label.x} y={label.y} width={label.width} height={24}>
               <span className="sphere__label">{read.title}<span className="sphere__status"> · {phase === 'reading' ? 'reading' : 'source'}</span></span>
             </foreignObject>
           </g>
