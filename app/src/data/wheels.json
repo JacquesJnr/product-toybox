@@ -198,7 +198,7 @@
         "weight": 0.35,
         "evidenceRef": {
           "documentId": "minutes-sep",
-          "pageRef": "p. 5"
+          "pageRef": "00:42:10"
         }
       }
     ]
@@ -215,7 +215,7 @@
         "weight": 0.45,
         "evidenceRef": {
           "documentId": "minutes-sep",
-          "pageRef": "p. 5"
+          "pageRef": "00:42:10"
         }
       }
     ]
@@ -402,7 +402,7 @@
         "weight": 0.35,
         "evidenceRef": {
           "documentId": "insurance-schedule",
-          "pageRef": "D9"
+          "pageRef": "region: cover table, top half"
         }
       }
     ]
@@ -419,7 +419,7 @@
         "weight": 0.45,
         "evidenceRef": {
           "documentId": "insurance-schedule",
-          "pageRef": "D9"
+          "pageRef": "region: cover table, top half"
         }
       }
     ]

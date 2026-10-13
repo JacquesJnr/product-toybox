@@ -1,0 +1,85 @@
+.domain-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.domain-chip,
+.clear-domains {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: var(--graphite);
+  font: 500 12px/1.3 'Instrument Sans', sans-serif;
+  cursor: pointer;
+}
+
+.domain-chip {
+  border: 1px solid var(--glass-45);
+  background: transparent;
+}
+
+.domain-chip[data-pressed] {
+  border: 1.5px solid var(--ink);
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.domain-chip:focus-visible,
+.clear-domains:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.domain-chip-dot {
+  width: 6px;
+  height: 6px;
+  flex: 0 0 6px;
+  border-radius: 50%;
+  background: var(--domain-color);
+  opacity: 0.4;
+}
+
+.domain-chip[data-pressed] .domain-chip-dot {
+  background: var(--ink);
+  opacity: 1;
+}
+
+.domain-chip--strategic-direction { --domain-color: var(--domain-strategic-direction); }
+.domain-chip--strategy-execution { --domain-color: var(--domain-strategy-execution); }
+.domain-chip--financial-stewardship { --domain-color: var(--domain-financial-stewardship); }
+.domain-chip--risk-resilience { --domain-color: var(--domain-risk-resilience); }
+.domain-chip--controls-assurance { --domain-color: var(--domain-controls-assurance); }
+.domain-chip--major-decisions { --domain-color: var(--domain-major-decisions); }
+.domain-chip--remuneration { --domain-color: var(--domain-remuneration); }
+
+.clear-domains {
+  border: 0;
+  background: transparent;
+  color: var(--graphite);
+}
+
+.clear-domains .material-symbols-rounded { font-size: 14px; }
+
+.filter-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 313px;
+  margin-left: auto;
+  padding: 6px 10px;
+  border: 1px solid var(--glass-45);
+  border-radius: 4px;
+  background: var(--surface);
+}
+
+.filter-search:focus-within { outline: 1.5px solid var(--ink); outline-offset: 2px; }
+.filter-search input { flex: 1; min-width: 0; padding: 0; border: 0; outline: 0; color: var(--body); background: transparent; font: 400 13px/1.3 'Nunito', sans-serif; }
+.filter-search input::placeholder { color: var(--graphite); opacity: 1; }
+.filter-search kbd { color: var(--graphite); font: 400 12px/1 'JetBrains Mono', monospace; }
+
+.no-matching-documents { margin: 0; color: var(--graphite); font: 400 14px/1.5 'Nunito', sans-serif; }

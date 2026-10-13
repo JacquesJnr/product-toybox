@@ -229,7 +229,7 @@
   {
     "id": "minutes-sep",
     "title": "Minutes · Sep",
-    "type": "pdf",
+    "type": "video",
     "issued": "2026-09-10",
     "from": "Office of the Company Secretary",
     "domains": [
@@ -260,7 +260,7 @@
           "Pay",
           "Ownership"
         ],
-        "pageRef": "p. 5",
+        "pageRef": "00:42:10",
         "confidence": 0.91
       }
     ]
@@ -519,7 +519,7 @@
   {
     "id": "insurance-schedule",
     "title": "Insurance schedule",
-    "type": "sheet",
+    "type": "image",
     "issued": "2026-02-01",
     "from": "Risk and Insurance Manager",
     "domains": [
@@ -550,7 +550,7 @@
           "Continuity",
           "Compliance"
         ],
-        "pageRef": "D9",
+        "pageRef": "region: cover table, top half",
         "confidence": 0.93
       }
     ]
