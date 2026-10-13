@@ -17,7 +17,9 @@ assert(read('../src/index.css').includes('#root { isolation: isolate; }'))
 const design = read('../../DESIGN.md')
 assert.equal(read('../src/tokens.css'), design.split('```css\n')[1].split('```')[0])
 for (const name of ['documents', 'wheels', 'smart-search']) {
-  assert(read('../src/App.tsx').includes(`from './data/${name}.json'`))
+  const file = name === 'smart-search' ? '../src/smart-search/SmartSearch.tsx' : '../src/App.tsx'
+  const path = name === 'smart-search' ? '../data/' : './data/'
+  assert(read(file).includes(`from '${path}${name}.json'`))
 }
 const docs = JSON.parse(read('../src/data/documents.json'))
 const wheels = JSON.parse(read('../src/data/wheels.json'))

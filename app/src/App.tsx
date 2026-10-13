@@ -4,7 +4,9 @@ import { Toggle } from '@base-ui/react/toggle'
 import { ToggleGroup } from '@base-ui/react/toggle-group'
 import documents from './data/documents.json'
 import wheels from './data/wheels.json'
-import smartSearch from './data/smart-search.json'
+import { SmartSearch } from './smart-search/SmartSearch'
+import { addFoundLink } from './graph/found-links'
+import type { FoundLink } from './graph/found-links'
 import type { Doc, Domain, WheelRecord } from './types'
 import { Graph } from './graph/Graph'
 import { Wheel } from './wheel/Wheel'
@@ -26,6 +28,10 @@ export default function App() {
   const [query, setQuery] = useState('')
   const [domains, setDomains] = useState<Set<Domain>>(new Set())
   const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [searchRun, setSearchRun] = useState(0)
+  const [searchSelectedId, setSearchSelectedId] = useState<string | null>(null)
+  const searchSelected = docs.find(doc => doc.id === searchSelectedId)
+  const [foundLinks, setFoundLinks] = useState<FoundLink[]>([])
   const [animateRun, setAnimateRun] = useState(0)
   const [wheelDomain, setWheelDomain] = useState<Domain | null>(null)
   const [pickedWheelKey, setPickedWheelKey] = useState<string | null>(null)
@@ -35,6 +41,15 @@ export default function App() {
   const pickedWheelRecord = wheelRecords.find(record => `${record.documentId}|${record.topic}` === pickedWheelKey)
   const pickedWheelDoc = docs.find(doc => doc.id === pickedWheelRecord?.documentId)
   const evidenceDoc = docs.find(doc => doc.id === evidence?.documentId)
+
+  function showOnGraph(link: FoundLink) {
+    setFoundLinks(previous => addFoundLink(docs, previous, link))
+    setDomains(new Set())
+    setQuery('')
+    setView('Graph')
+    setSearchSelectedId(null)
+    setSearchRun(run => run + 1)
+  }
 
   return (
     <div className="app-shell">
@@ -56,7 +71,7 @@ export default function App() {
         onChange={next => setWheelDomain(next.values().next().value ?? null)} />}
       <main className="graph-layout" hidden={view !== 'Graph'} aria-label="Graph view">
         <div className="graph-container">
-          <Graph docs={docs} visibleIds={visible} selectedId={selectedId} onSelect={setSelectedId} active={view === 'Graph'} animateRun={animateRun} />
+          <Graph revealRun={searchRun} foundLinks={foundLinks} docs={docs} visibleIds={visible} selectedId={selectedId} onSelect={setSelectedId} active={view === 'Graph'} animateRun={animateRun} />
           {visible.size === 0 && <div className="graph-empty"><NoMatchingDocuments /></div>}
         </div>
         {selected && <DetailsPanel doc={selected} onClose={() => setSelectedId(null)} />}
@@ -68,11 +83,10 @@ export default function App() {
       </main>
       {evidenceDoc && <SourceViewer doc={evidenceDoc} open={evidence !== null}
         onOpenChange={open => { if (!open) setEvidence(null) }} highlightRef={evidence?.pageRef} />}
-      {view === 'Smart Search' && <main className="view-placeholder" aria-label="Smart Search view"><span className="view-caption">Smart Search view</span></main>}
-      {/* shortcut: temporary fixture counts, remove when all three views render their data. */}
-      <footer className="fixture-counts" aria-label="Loaded fixtures">
-        {documents.length} documents · {wheels.length} wheel records · {smartSearch.length} suggested questions
-      </footer>
+      <main className="smart-search-layout" hidden={view !== 'Smart Search'} aria-label="Smart Search view">
+        <SmartSearch key={searchRun} docs={docs} onOpenSource={setSearchSelectedId} onShowOnGraph={showOnGraph} />
+        {searchSelected && <DetailsPanel doc={searchSelected} onClose={() => setSearchSelectedId(null)} />}
+      </main>
     </div>
   )
 }

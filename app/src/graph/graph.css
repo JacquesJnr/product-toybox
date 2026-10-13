@@ -3,6 +3,7 @@
 .graph-svg { position: absolute; inset: 0; display: block; width: 100%; height: 100%; min-height: 640px; touch-action: none; user-select: none; cursor: grab; }
 .graph-svg:active { cursor: grabbing; }
 .graph-link { stroke: var(--glass-45); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+.found-link { filter: var(--rainbow-glow); }
 .sorting-link { stroke: var(--peach); }
 .graph-node { cursor: pointer; outline: none; }
 .node-diamond { fill: var(--graphite); }
