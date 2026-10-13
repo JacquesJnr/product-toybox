@@ -1,0 +1,72 @@
+name: Deploy app to Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  check-app:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    outputs:
+      ready: ${{ steps.app.outputs.ready }}
+    steps:
+      - uses: actions/checkout@v6
+      - name: Check for the app scaffold
+        id: app
+        run: |
+          if [ -f app/package.json ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "App is not scaffolded yet; skipping build and deployment." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+  deploy:
+    needs: check-app
+    if: needs.check-app.outputs.ready == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}app/
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v6
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Build
+        run: npm run build
+      - name: Stage the app at /app/
+        run: |
+          mkdir -p "$RUNNER_TEMP/pages/app"
+          cp -R dist/. "$RUNNER_TEMP/pages/app/"
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ${{ runner.temp }}/pages
+      - name: Deploy to Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
