@@ -4,6 +4,7 @@ import type { FoundLink } from './found-links'
 import type { Doc } from '../types'
 import { arrivalStage, buildSimulation, tick, zoomAt } from './simulation'
 import type { SimNode } from './simulation'
+import { placeLabels } from './labels'
 import './graph.css'
 import './play-motion.css'
 
@@ -108,6 +109,18 @@ export function Graph({ revealRun, foundLinks, docs, visibleIds, selectedId, onS
         svg.current!.dataset.arrivalElapsed = clock.current.arrival.toFixed(0)
         lastTick = now
         for (const n of sim.nodes) nodeElements.current.get(n.id)?.setAttribute('transform', `translate(${n.x} ${n.y})`)
+        const labelNodes = forceNodes.map(node => {
+          const text = nodeElements.current.get(node.id)?.querySelector<SVGTextElement>('.node-label')
+          return { id: node.id, x: node.x * cam.k, y: node.y * cam.k,
+            radius: 3.2 * Math.sqrt(1 + node.deg * 1.4) * 1.42,
+            width: (text?.getComputedTextLength() ?? 0) * cam.k }
+        })
+        for (const label of placeLabels(labelNodes)) {
+          const text = nodeElements.current.get(label.id)?.querySelector('.node-label')
+          text?.setAttribute('x', String(label.x / cam.k))
+          text?.setAttribute('y', String(label.y / cam.k))
+          text?.setAttribute('text-anchor', 'start')
+        }
         for (const l of allLinks) {
           const element = linkElements.current.get(`${l.source}|${l.target}`)
           if (!element) continue
@@ -126,7 +139,7 @@ export function Graph({ revealRun, foundLinks, docs, visibleIds, selectedId, onS
     }
     frame = requestAnimationFrame(loop)
     return () => cancelAnimationFrame(frame)
-  }, [active, sim, visible, allLinks])
+  }, [active, sim, visible, allLinks, cam.k])
 
   useEffect(() => {
     const element = svg.current!

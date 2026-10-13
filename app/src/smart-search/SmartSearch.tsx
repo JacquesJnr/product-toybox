@@ -7,6 +7,7 @@ import { Input } from '@base-ui/react/input'
 import scriptsData from '../data/smart-search.json'
 import type { Doc, Domain } from '../types'
 import { Sphere } from './Sphere'
+import sendArrow from './send-arrow.svg'
 import './smart-search.css'
 
 type Script = {
@@ -101,7 +102,7 @@ export function SmartSearch({ docs, onOpenSource, onShowOnGraph }: {
               <span className="material-symbols-rounded smart-search__sparkle" aria-hidden="true">auto_awesome</span>
               <Input value={question} onValueChange={setQuestion} placeholder="Ask across the whole vault" aria-label="Ask across the whole vault" />
               <Button className="smart-search__send" type="submit" disabled={!scripts.some(item => item.question === question.trim())} aria-label="Run suggested question">
-                <span className="material-symbols-rounded" aria-hidden="true">arrow_forward</span>
+                <img src={sendArrow} alt="" />
               </Button>
             </Field.Root>
           </form>

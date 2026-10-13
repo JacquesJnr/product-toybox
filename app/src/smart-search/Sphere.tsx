@@ -111,7 +111,7 @@ export function Sphere({ phase, reads, readingIndex }: SphereProps) {
         return (
           <g key={read.documentId} className="sphere__annotation">
             <path className="sphere__leader" d={`M ${point.x} ${point.y} L ${label.endX} ${label.endY}`} />
-            <foreignObject className="sphere__label-slot"
+            <foreignObject className={label.endX === label.x ? 'sphere__label-slot' : 'sphere__label-slot sphere__label-slot--left'}
               x={label.x} y={label.y} width={label.width} height={24}>
               <span className="sphere__label">{read.title}<span className="sphere__status"> · {phase === 'reading' ? 'reading' : 'source'}</span></span>
             </foreignObject>

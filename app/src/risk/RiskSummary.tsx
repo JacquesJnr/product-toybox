@@ -61,7 +61,7 @@ export function RiskSummary({ record, doc, onClose, onOpenEvidence }: {
           return <tr key={index}>
             <td>{factor}</td>
             <td className="risk-weight" style={{ color: rungColors[weightRung] }}>{weight < 0 ? '−' : '+'}{Math.abs(weight).toFixed(2)}</td>
-            <td><Button className="risk-evidence" aria-haspopup="dialog" onClick={() => onOpenEvidence(evidenceRef.documentId, evidenceRef.pageRef)}>{evidence?.title ?? evidenceRef.documentId}{evidenceRef.pageRef && ` · ${evidenceRef.pageRef}`} <span aria-hidden="true">↗</span></Button></td>
+            <td><Button className="risk-evidence" aria-haspopup="dialog" aria-label={`${evidence?.title ?? evidenceRef.documentId}, ${evidenceRef.pageRef}`} onClick={() => onOpenEvidence(evidenceRef.documentId, evidenceRef.pageRef)}>{evidence?.title ?? evidenceRef.documentId}{evidenceRef.pageRef.startsWith('p.') && ` · ${evidenceRef.pageRef}`} <span aria-hidden="true">↗</span></Button></td>
           </tr>
         })}</tbody>
       </table>

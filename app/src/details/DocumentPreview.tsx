@@ -6,7 +6,7 @@ export function DocumentPreview({ doc, highlightRef }: { doc: Doc; highlightRef?
     <div className={`document-preview preview-${doc.type}`} role="img" aria-label={`${doc.type.toUpperCase()} preview of ${doc.title}; AI evidence highlighted${reference ? ` at ${reference}` : ''}`}>
       {doc.type === 'pdf' && (
         <div className="preview-paper" aria-hidden="true">
-          <span className="preview-issued">{doc.issued}</span>
+          <span className="preview-issued">{doc.id === 'board-risk-report' ? 'Q3 2026 · BOARD' : doc.issued}</span>
           <strong>{doc.title}</strong>
           {[96, 80, 96, 70, 96, 60].map((width, index) => <span key={index} className={`preview-line ${index === 2 ? 'evidence-line' : ''}`} style={{ width }} />)}
         </div>

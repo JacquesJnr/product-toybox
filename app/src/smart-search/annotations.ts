@@ -1,7 +1,7 @@
 export function sourceLabels(points: { x: number; y: number; title: string }[]) {
   const placed: { x: number; y: number; width: number; endX: number; endY: number }[] = []
   for (const point of points) {
-    const width = point.title.length * 6 + 58
+    const width = point.title.length * 6 + 80
     const sides = point.x + 60 + width <= 634 ? [1, -1] : [-1, 1]
     const candidates = sides.flatMap(side => [-40, 40, -80, 80, -120, 120].map(offset => {
       const x = Math.max(12, Math.min(634 - width, point.x + (side === 1 ? 60 : -60 - width)))
