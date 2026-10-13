@@ -39,3 +39,13 @@
 
 .sphere__status { font: 400 10px/16px 'JetBrains Mono', monospace; }
 .sphere--reading .sphere__label { border-color: var(--peach); color: var(--peach); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .sphere { transition: opacity 240ms ease-out; }
+  .sphere__label {
+    transform-origin: center;
+    animation: sphere-label-settle 240ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+}
+
+@keyframes sphere-label-settle { from { scale: 0.97; } to { scale: 1; } }

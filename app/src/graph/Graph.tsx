@@ -5,6 +5,7 @@ import type { Doc } from '../types'
 import { arrivalStage, buildSimulation, tick, zoomAt } from './simulation'
 import type { SimNode } from './simulation'
 import './graph.css'
+import './play-motion.css'
 
 interface GraphProps {
   revealRun: number
