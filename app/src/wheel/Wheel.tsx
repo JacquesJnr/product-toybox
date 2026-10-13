@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Tooltip } from '@base-ui/react/tooltip'
 import type { Doc, Domain, WheelRecord } from '../types'
-import { nodeRadius, point, rings, topicsFor } from './geometry'
+import { diamondSize, nodesFor, point, rings, topicsFor } from './geometry'
 import './wheel.css'
 
 const domainColors: Record<Domain, string> = {
@@ -23,14 +23,7 @@ export function Wheel({ records, docs, domain, pickedKey, onPick }: {
 }) {
   const topics = topicsFor(domain)
   const [hoveredKey, setHoveredKey] = useState<string | null>(null)
-  const nodes = topics.flatMap(({ topic }, index) => {
-    const matching = records.filter(record => record.topic === topic && docs.some(doc => doc.id === record.documentId))
-    return matching.map((record, offset) => {
-      // Keep records on the same spoke individually selectable when their scores coincide.
-      const angle = -72 + index * 360 / topics.length + (offset - (matching.length - 1) / 2) * 5
-      return { record, key: `${record.documentId}|${record.topic}`, ...point(angle, nodeRadius(record)) }
-    })
-  })
+  const nodes = nodesFor(records, docs, domain)
   const hovered = nodes.find(node => node.key === hoveredKey)
 
   return (
@@ -65,9 +58,8 @@ export function Wheel({ records, docs, domain, pickedKey, onPick }: {
                 if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onPick(key) }
               }} onPointerEnter={() => setHoveredKey(key)} onPointerLeave={() => setHoveredKey(null)}
               onFocus={() => setHoveredKey(key)} onBlur={() => setHoveredKey(null)}>
-              <circle className="wheel-hit" r="12" />
               {picked && <rect className="wheel-picked" x="-8" y="-8" width="16" height="16" rx="2" transform="rotate(45)" />}
-              <rect className="wheel-diamond" x="-4" y="-4" width="8" height="8" rx="2" transform="rotate(45)" />
+              <rect className="wheel-diamond" x={-diamondSize / 2} y={-diamondSize / 2} width={diamondSize} height={diamondSize} rx="2" transform="rotate(45)" />
               <circle className="wheel-focus" r="13" />
             </g>
           })}
