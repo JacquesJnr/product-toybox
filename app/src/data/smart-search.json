@@ -1,0 +1,98 @@
+[
+  {
+    "question": "What connects our charter to this quarter's decisions?",
+    "reads": [
+      "Charter",
+      "Draft charter",
+      "Board pack Q3",
+      "Forecast 2027",
+      "Board risk report",
+      "Supplier review"
+    ],
+    "log": [
+      "Reading Charter",
+      "Reading Draft charter",
+      "Tool · semantic match",
+      "Reading Board pack Q3",
+      "Comparing meaning across Risk and resilience and Strategic direction",
+      "Reading Forecast 2027",
+      "Reading Board risk report",
+      "Reading Supplier review",
+      "Tool · relationship check"
+    ],
+    "answer": "Your charter reaches this quarter through risk appetite. The Q3 board pack takes its decisions against the appetite the charter sets, the board risk report (p. 4) flags two suppliers outside it, and the 2027 forecast carries the cost. One link was missing: the draft charter says the same thing about risk ownership as the Charter, but sits alone in the vault.",
+    "foundLink": {
+      "source": "Draft charter",
+      "target": "Charter",
+      "reason": "shared-content"
+    },
+    "tags": [
+      "Ownership",
+      "Strategy"
+    ]
+  },
+  {
+    "question": "Where are we exposed on suppliers?",
+    "reads": [
+      "Supplier review",
+      "Board risk report",
+      "Risk register",
+      "Insurance schedule",
+      "Controls memo",
+      "Audit plan"
+    ],
+    "log": [
+      "Reading Supplier review",
+      "Reading Board risk report",
+      "Tool · evidence lookup",
+      "Reading Risk register",
+      "Comparing supplier recovery plans with recorded risks",
+      "Reading Insurance schedule",
+      "Reading Controls memo",
+      "Reading Audit plan",
+      "Tool · coverage check"
+    ],
+    "answer": "Supplier recovery plans have not been tested, so the board has no evidence that critical services could recover within the expected time. The risk register records the exposure, while the insurance schedule limits which interruption costs are covered. The audit plan includes recovery testing, but its connection to those coverage limits is missing from the graph.",
+    "foundLink": {
+      "source": "Insurance schedule",
+      "target": "Audit plan",
+      "reason": "shared-content"
+    },
+    "tags": [
+      "Supply chain",
+      "Continuity"
+    ]
+  },
+  {
+    "question": "Which pay decisions lack evidence?",
+    "reads": [
+      "Exec pay review",
+      "Minutes · Sep",
+      "Board pack Q3",
+      "Forecast 2027",
+      "Policy v4",
+      "Controls memo"
+    ],
+    "log": [
+      "Reading Exec pay review",
+      "Reading Minutes · Sep",
+      "Tool · evidence lookup",
+      "Reading Board pack Q3",
+      "Comparing proposed incentive payments with recorded performance",
+      "Reading Forecast 2027",
+      "Reading Policy v4",
+      "Reading Controls memo",
+      "Tool · policy check"
+    ],
+    "answer": "The proposed executive incentive payment lacks a documented check that its delivery targets were met. September's minutes record the discussion, but the board pack does not supply the missing performance evidence. Policy v4 requires that check, and the Controls memo describes who should complete it; the graph has not connected that control to the pay review.",
+    "foundLink": {
+      "source": "Exec pay review",
+      "target": "Controls memo",
+      "reason": "shared-content"
+    },
+    "tags": [
+      "Pay",
+      "Controls"
+    ]
+  }
+]
