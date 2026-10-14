@@ -559,17 +559,20 @@
     "id": "board-risk-report",
     "title": "Board risk report",
     "type": "pdf",
-    "issued": "2026-09-14",
-    "from": "Chief Risk Officer",
+    "issued": "30 Sep 2026",
+    "from": "Risk office · Board pack Q3",
     "domains": [
-      "Risk and resilience",
-      "Major decisions"
+      "Risk and resilience"
     ],
     "primaryDomain": "Risk and resilience",
-    "text": "Two critical suppliers remain outside the board’s recovery expectations. The report summarizes untested plans, risk-register actions, insurance limits and the forecast cost of service interruption.",
+    "text": "Two critical suppliers remain outside the board’s recovery expectations. The report summarizes untested plans, risk-register actions, insurance limits and the forecast cost of service interruption. Nobody clearly owns the risk for the new market launch.",
     "links": [
       {
         "targetId": "risk-register",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "audit-plan",
         "reason": "shared-content"
       },
       {
@@ -585,16 +588,25 @@
         "reason": "shared-content"
       }
     ],
-    "summary": "Escalates supplier recovery gaps and their potential cost and coverage implications.",
+    "summary": "The Q3 risk report to the board. Two gaps stand out: supplier recovery plans that were never tested, and no clear owner for the new market launch risk.",
     "insights": [
       {
-        "text": "Two suppliers are outside recovery expectations and need tested plans.",
+        "text": "Two critical suppliers have no tested recovery plan.",
         "tags": [
           "Supply chain",
           "Continuity"
         ],
         "pageRef": "p. 4",
-        "confidence": 0.97
+        "confidence": 0.92
+      },
+      {
+        "text": "Nobody clearly owns the risk for the new market launch.",
+        "tags": [
+          "Ownership",
+          "Market entry"
+        ],
+        "pageRef": "p. 7",
+        "confidence": 0.78
       }
     ]
   },

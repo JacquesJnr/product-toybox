@@ -1,0 +1,24 @@
+@media (prefers-reduced-motion: no-preference) {
+  .domain-chip,
+  .animate-button,
+  .smart-search__suggestion,
+  .smart-search__source,
+  .smart-search__action:not(:disabled) {
+    transition: scale 220ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .domain-chip:active,
+  .animate-button:active,
+  .smart-search__suggestion:active,
+  .smart-search__source:active,
+  .smart-search__action:not(:disabled):active { scale: 0.97; }
+
+  .domain-chip[data-pressed],
+  .details-insight { animation: play-settle 260ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .wheel-picked {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: play-settle 220ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+}
+
+@keyframes play-settle { from { scale: 0.97; } to { scale: 1; } }

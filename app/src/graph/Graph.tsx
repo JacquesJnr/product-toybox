@@ -1,11 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Tooltip } from '@base-ui/react/tooltip'
+import type { FoundLink } from './found-links'
 import type { Doc } from '../types'
 import { arrivalStage, buildSimulation, tick, zoomAt } from './simulation'
 import type { SimNode } from './simulation'
+import { placeLabels } from './labels'
 import './graph.css'
+import './play-motion.css'
 
 interface GraphProps {
+  revealRun: number
+  foundLinks: FoundLink[]
   docs: Doc[]
   visibleIds: ReadonlySet<string>
   selectedId: string | null
@@ -14,13 +19,16 @@ interface GraphProps {
   animateRun: number
 }
 
-export function Graph({ docs, visibleIds, selectedId, onSelect, active, animateRun }: GraphProps) {
+export function Graph({ revealRun, foundLinks, docs, visibleIds, selectedId, onSelect, active, animateRun }: GraphProps) {
   const sim = useMemo(() => buildSimulation(docs), [docs])
+  const allLinks = useMemo(() => [...sim.links, ...foundLinks.map(link => ({ ...link, reason: 'shared-content' as const }))], [sim, foundLinks])
+  const foundKeys = new Set(foundLinks.map(link => `${link.source}|${link.target}`))
   const svg = useRef<SVGSVGElement>(null)
   const clock = useRef({ arrival: 0, animate: Infinity })
   const [stage, setStage] = useState<ReturnType<typeof arrivalStage>>('waiting')
   const [linkCount, setLinkCount] = useState(Infinity)
   const nodeElements = useRef(new Map<string, SVGGElement>())
+  const gradients = useRef(new Map<string, SVGLinearGradientElement>())
   const linkElements = useRef(new Map<string, SVGLineElement>())
   const [cam, setCam] = useState({ x: 0, y: 0, k: 2.5 })
   const [size, setSize] = useState({ width: 1000, height: 760 })
@@ -28,7 +36,7 @@ export function Graph({ docs, visibleIds, selectedId, onSelect, active, animateR
   const drag = useRef<{ node: SimNode | null; x: number; y: number; camX: number; camY: number; moved: boolean } | null>(null)
   const visible = useMemo(() => sim.nodes.filter(n => visibleIds.has(n.id)), [sim, visibleIds])
   const nodes = sim.nodes.filter(n => visibleIds.has(n.id) && (n.id !== 'liquidity-review' || stage !== 'waiting'))
-  const links = sim.links.filter(l => visibleIds.has(l.source) && visibleIds.has(l.target))
+  const links = allLinks.filter(l => visibleIds.has(l.source) && visibleIds.has(l.target))
     .filter(l => (l.source !== 'liquidity-review' && l.target !== 'liquidity-review') || stage === 'sorting' || stage === 'settled')
     .slice(0, linkCount)
   const nodePositions = new Map(nodes.map(n => [n.id, n]))
@@ -52,7 +60,17 @@ export function Graph({ docs, visibleIds, selectedId, onSelect, active, animateR
     const left = Math.min(...xs), right = Math.max(...xs), top = Math.min(...ys), bottom = Math.max(...ys)
     setCam({ x: (left + right) / 2, y: (top + bottom) / 2,
       k: Math.max(0.25, Math.min(2.5, (size.width - 280) / Math.max(1, right - left), (size.height - 100) / Math.max(1, bottom - top))) })
-  }, [sim, size, stage])
+  }, [sim, size, stage, foundLinks, revealRun])
+
+  useEffect(() => {
+    for (const node of sim.nodes) node.deg = 0
+    for (const link of allLinks) {
+      sim.byId.get(link.source)!.deg++
+      sim.byId.get(link.target)!.deg++
+    }
+    sim.alpha = Math.max(sim.alpha, 0.4)
+    if (foundLinks.length) { clock.current.animate = Infinity; setLinkCount(Infinity) }
+  }, [sim, allLinks, foundLinks, revealRun])
 
   useEffect(() => { sim.alpha = Math.max(sim.alpha, 0.4) }, [sim, visibleIds])
   useEffect(() => {
@@ -81,8 +99,8 @@ export function Graph({ docs, visibleIds, selectedId, onSelect, active, animateR
       const forceIds = new Set(forceNodes.map(n => n.id))
       const count = Math.floor(clock.current.animate / 100)
       if (count !== drawnLinks) { drawnLinks = count; setLinkCount(count) }
-      if (count >= sim.links.length) clock.current.animate = Infinity
-      const forceLinks = sim.links.filter(l => forceIds.has(l.source) && forceIds.has(l.target)).slice(0, count)
+      if (count >= allLinks.length) clock.current.animate = Infinity
+      const forceLinks = allLinks.filter(l => forceIds.has(l.source) && forceIds.has(l.target)).slice(0, count)
       const interval = sim.alpha > 0.05 || sim.alphaTarget > 0 ? 1000 / 30 : 100
       if (now - lastTick >= interval || before !== current) {
         const start = performance.now()
@@ -91,12 +109,29 @@ export function Graph({ docs, visibleIds, selectedId, onSelect, active, animateR
         svg.current!.dataset.arrivalElapsed = clock.current.arrival.toFixed(0)
         lastTick = now
         for (const n of sim.nodes) nodeElements.current.get(n.id)?.setAttribute('transform', `translate(${n.x} ${n.y})`)
-        for (const l of sim.links) {
+        const labelNodes = forceNodes.map(node => {
+          const text = nodeElements.current.get(node.id)?.querySelector<SVGTextElement>('.node-label')
+          return { id: node.id, x: node.x * cam.k, y: node.y * cam.k,
+            radius: 3.2 * Math.sqrt(1 + node.deg * 1.4) * 1.42,
+            width: (text?.getComputedTextLength() ?? 0) * cam.k }
+        })
+        for (const label of placeLabels(labelNodes)) {
+          const text = nodeElements.current.get(label.id)?.querySelector('.node-label')
+          text?.setAttribute('x', String(label.x / cam.k))
+          text?.setAttribute('y', String(label.y / cam.k))
+          text?.setAttribute('text-anchor', 'start')
+        }
+        for (const l of allLinks) {
           const element = linkElements.current.get(`${l.source}|${l.target}`)
           if (!element) continue
           const source = sim.byId.get(l.source)!, target = sim.byId.get(l.target)!
           element.setAttribute('x1', String(source.x)); element.setAttribute('y1', String(source.y))
           element.setAttribute('x2', String(target.x)); element.setAttribute('y2', String(target.y))
+          const gradient = gradients.current.get(`${l.source}|${l.target}`)
+          if (gradient) {
+            gradient.setAttribute('x1', String(source.x)); gradient.setAttribute('y1', String(source.y))
+            gradient.setAttribute('x2', String(target.x)); gradient.setAttribute('y2', String(target.y))
+          }
         }
         svg.current!.dataset.tickMs = (performance.now() - start).toFixed(3)
       }
@@ -104,7 +139,7 @@ export function Graph({ docs, visibleIds, selectedId, onSelect, active, animateR
     }
     frame = requestAnimationFrame(loop)
     return () => cancelAnimationFrame(frame)
-  }, [active, sim, visible])
+  }, [active, sim, visible, allLinks, cam.k])
 
   useEffect(() => {
     const element = svg.current!
@@ -162,16 +197,29 @@ export function Graph({ docs, visibleIds, selectedId, onSelect, active, animateR
           {links.map(l => {
             const s = nodePositions.get(l.source), t = nodePositions.get(l.target)
             if (!s || !t) return null
+            const found = foundKeys.has(`${s.id}|${t.id}`)
             const sorting = stage === 'sorting' && (s.id === 'liquidity-review' || t.id === 'liquidity-review')
             const empty = s.id === 'employment-contracts' || t.id === 'employment-contracts'
-            return <line key={`${s.id}|${t.id}`} ref={element => { const key = `${s.id}|${t.id}`; if (element) linkElements.current.set(key, element); else linkElements.current.delete(key) }} data-link={`${s.id}|${t.id}`} className={`graph-link ${sorting ? 'sorting-link' : ''}`}
+            const key = `${s.id}|${t.id}`
+            const gradientId = `graph-found-${s.id}-${t.id}`
+            return <g key={key}>
+              {found && <defs><linearGradient id={gradientId} gradientUnits="userSpaceOnUse"
+                x1={s.x} y1={s.y} x2={t.x} y2={t.y}
+                ref={element => { if (element) gradients.current.set(key, element); else gradients.current.delete(key) }}>
+                {['#3A86FF', '#8338EC', '#FF006E', '#FB5607', '#FFBE0B'].map((color, index) =>
+                  <stop key={color} offset={`${index * 25}%`} stopColor={color} />)}
+              </linearGradient></defs>}
+              <line ref={element => { const key = `${s.id}|${t.id}`; if (element) linkElements.current.set(key, element); else linkElements.current.delete(key) }} data-link={`${s.id}|${t.id}`} className={`graph-link ${found ? 'found-link' : sorting ? 'sorting-link' : ''}`}
+              data-found-link={found || undefined} style={found ? { stroke: `url(#${gradientId})` } : undefined}
               x1={s.x} y1={s.y} x2={t.x} y2={t.y} strokeDasharray={sorting || empty ? `${4 / cam.k} ${4 / cam.k}` : undefined}
               opacity={hover && s.id !== hover && t.id !== hover ? 0.15 : 1} />
+            </g>
           })}
             {nodes.map(n => {
               const doc = docs[n.i]
-              const r = 3.2 * Math.sqrt(1 + n.deg * 1.4) / cam.k
-              const state = n.id === 'employment-contracts' ? 'empty' : n.id === 'liquidity-review' && stage === 'sorting' ? 'sorting' : n.deg === 0 ? 'orphan' : 'linked'
+              const degree = allLinks.filter(link => link.source === n.id || link.target === n.id).length
+              const r = 3.2 * Math.sqrt(1 + degree * 1.4) / cam.k
+              const state = n.id === 'employment-contracts' ? 'empty' : n.id === 'liquidity-review' && stage === 'sorting' ? 'sorting' : degree === 0 ? 'orphan' : 'linked'
               const labelLeft = n.x < -20
               return <g key={n.id} ref={element => { if (element) nodeElements.current.set(n.id, element); else nodeElements.current.delete(n.id) }} transform={`translate(${n.x} ${n.y})`} opacity={hover && !neighbours.has(n.id) ? 0.15 : 1}>
                   <g role="button" tabIndex={0} className="graph-node" aria-label={doc.title}

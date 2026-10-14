@@ -22,7 +22,8 @@ for (const domain of [null, ...new Set(topicsFor(null).map(topic => topic.domain
   for (const [index, node] of nodes.entries()) {
     for (const other of nodes.slice(index + 1)) {
       // Disjoint circumscribed circles prove the rotated diamond hit areas cannot overlap.
-      check(Math.hypot(node.x - other.x, node.y - other.y) > diamondSize * Math.SQRT2,
+      check(Math.hypot(node.x - other.x, node.y - other.y) > (diamondSize(documents.findIndex(doc => doc.id === node.record.documentId))
+        + diamondSize(documents.findIndex(doc => doc.id === other.record.documentId))) / Math.SQRT2,
         `${domain ?? 'Whole wheel'}: hit areas overlap for ${node.key} and ${other.key}`)
     }
   }

@@ -1,0 +1,51 @@
+.sphere {
+  display: block;
+  width: 100%;
+  max-width: 760px;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+.sphere--ask { opacity: 0.4; }
+.sphere__point { fill: var(--graphite); }
+.sphere__point--source { fill: var(--ink); }
+.sphere--reading .sphere__point--source { fill: var(--peach); }
+
+.sphere__leader {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1;
+}
+
+.sphere--reading .sphere__leader {
+  stroke: var(--peach);
+  stroke-dasharray: 3 3;
+}
+
+.sphere__label-slot--left { text-align: right; }
+
+.sphere__label {
+  display: inline-block;
+  max-width: 100%;
+  padding: 2px 6px;
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  background: var(--surface);
+  color: var(--ink);
+  font: 500 11px/16px 'Instrument Sans', sans-serif;
+  white-space: nowrap;
+}
+
+.sphere__status { font: 400 10px/16px 'JetBrains Mono', monospace; }
+.sphere--reading .sphere__label { border-color: var(--peach); color: var(--peach); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .sphere { transition: opacity 240ms ease-out; }
+  .sphere__label {
+    transform-origin: center;
+    animation: sphere-label-settle 240ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+}
+
+@keyframes sphere-label-settle { from { scale: 0.97; } to { scale: 1; } }

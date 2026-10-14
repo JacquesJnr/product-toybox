@@ -35,17 +35,17 @@
   outline-offset: 2px;
 }
 
-.domain-chip-dot {
+.domain-chip-diamond {
   width: 6px;
   height: 6px;
   flex: 0 0 6px;
-  border-radius: 50%;
+  border-radius: 1px;
+  transform: rotate(45deg);
   background: var(--domain-color);
   opacity: 0.4;
 }
 
-.domain-chip[data-pressed] .domain-chip-dot {
-  background: var(--ink);
+.domain-chip[data-pressed] .domain-chip-diamond {
   opacity: 1;
 }
 
@@ -83,3 +83,5 @@
 .filter-search kbd { color: var(--graphite); font: 400 12px/1 'JetBrains Mono', monospace; }
 
 .no-matching-documents { margin: 0; color: var(--graphite); font: 400 14px/1.5 'Nunito', sans-serif; }
+
+.domain-chip .domain-chip-icon { color: inherit; font-size: 15px; }
