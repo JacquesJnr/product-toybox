@@ -1,800 +1,817 @@
-[
-  {
-    "documentId": "board-pack-q3",
-    "topic": "Stakeholder priorities",
-    "riskScore": 0.68,
-    "appetite": 0.83,
-    "rung": "Within appetite",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.35,
-        "evidenceRef": {
-          "documentId": "board-pack-q3",
-          "pageRef": "p. 6"
-        }
-      }
-    ]
+{
+  "business": "Acme.Inc",
+  "todayIndex": 5,
+  "nearThresholdRatio": 0.8,
+  "timeframes": [
+    {
+      "label": "Q3 2025",
+      "note": "Quarter end",
+      "projection": false
+    },
+    {
+      "label": "Q4 2025",
+      "note": "Quarter end",
+      "projection": false
+    },
+    {
+      "label": "Q1 2026",
+      "note": "Quarter end",
+      "projection": false
+    },
+    {
+      "label": "Q2 2026",
+      "note": "Quarter end",
+      "projection": false
+    },
+    {
+      "label": "Last board\n24 Sep 2026",
+      "note": "Board meeting",
+      "projection": false
+    },
+    {
+      "label": "Today\n15 Oct 2026",
+      "note": "Live",
+      "projection": false
+    },
+    {
+      "label": "Q4 2026\nAI projection",
+      "note": "AI projection, not evidence",
+      "projection": true
+    },
+    {
+      "label": "Q1 2027\nAI projection",
+      "note": "AI projection, not evidence",
+      "projection": true
+    }
+  ],
+  "fullKriDomain": "Risk",
+  "copy": {
+    "projectionNotice": "This is an AI projection. It is an estimate, not evidence.",
+    "projectionSummary": "These values are estimates from the trend, not evidence.",
+    "projectionTrend": "The projection continues the trend of the last four quarters. ",
+    "projectionConfidence": "Low",
+    "readingResponsibility": "The AI proposes this reading. The board decides what it means.",
+    "chairRole": "As an independent board chair, you set the agenda.",
+    "evidenceReminder": "Make sure the board sees the source evidence, not only the AI reading.",
+    "projectionAgenda": "Use this projection to plan the agenda. Do not use it to make a decision.",
+    "noOverThresholdAgenda": "As an independent board chair, you set the agenda. Use the time for strategy, not for risk reports."
   },
-  {
-    "documentId": "board-pack-q3",
-    "topic": "Decision follow-up",
-    "riskScore": 0.61,
-    "appetite": 0.66,
-    "rung": "Near the limit",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.45,
-        "evidenceRef": {
-          "documentId": "board-pack-q3",
-          "pageRef": "p. 6"
+  "domains": [
+    {
+      "domain": "Finance",
+      "owner": "the audit committee chair",
+      "topics": [
+        {
+          "topic": "Budget & forecast",
+          "appetite": 1,
+          "riskScore": [
+            0.635,
+            0.685,
+            0.735,
+            0.785,
+            0.835,
+            0.885,
+            0.935,
+            0.985
+          ]
+        },
+        {
+          "topic": "Capital allocation",
+          "appetite": 1,
+          "riskScore": [
+            0.5750000000000001,
+            0.605,
+            0.635,
+            0.665,
+            0.6950000000000001,
+            0.725,
+            0.755,
+            0.785
+          ]
+        },
+        {
+          "topic": "Liquidity",
+          "appetite": 1,
+          "riskScore": [
+            0.7,
+            0.74,
+            0.79,
+            0.86,
+            0.9,
+            0.92,
+            0.95,
+            1.02
+          ]
+        },
+        {
+          "topic": "Debt covenants",
+          "appetite": 1,
+          "riskScore": [
+            0.505,
+            0.495,
+            0.485,
+            0.475,
+            0.46499999999999997,
+            0.45499999999999996,
+            0.44499999999999995,
+            0.435
+          ]
         }
-      }
-    ]
-  },
-  {
-    "documentId": "strategy-note",
-    "topic": "Long-range plan",
-    "riskScore": 0.61,
-    "appetite": 0.53,
-    "rung": "Over appetite",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.35,
-        "evidenceRef": {
-          "documentId": "strategy-note",
-          "pageRef": "p. 3"
+      ]
+    },
+    {
+      "domain": "Risk",
+      "owner": "the risk committee chair",
+      "topics": [
+        {
+          "topic": "Risk appetite",
+          "appetite": 1,
+          "riskScore": [
+            0.6,
+            0.7,
+            1,
+            0.9,
+            1,
+            1,
+            1,
+            0.7
+          ],
+          "appetiteStatement": {
+            "text": "The board has a low appetite for risks that go past their limits without escalation.",
+            "source": "Risk appetite statement 2026, p. 2"
+          },
+          "kris": [
+            {
+              "name": "Appetite breaches not escalated within 5 days",
+              "unit": "",
+              "threshold": 1,
+              "values": [
+                0,
+                0,
+                1,
+                0,
+                1,
+                1,
+                1,
+                0
+              ]
+            },
+            {
+              "name": "Register items past review date",
+              "unit": "%",
+              "threshold": 10,
+              "values": [
+                6,
+                7,
+                8,
+                9,
+                9,
+                8,
+                8,
+                7
+              ]
+            }
+          ],
+          "aiReading": {
+            "text": "The risk register shows one breach that reached the committee after 9 days.",
+            "source": "Risk register, row 41",
+            "confidence": "Medium"
+          }
+        },
+        {
+          "topic": "Supplier risk",
+          "appetite": 1,
+          "riskScore": [
+            0.72,
+            0.76,
+            1,
+            1.5,
+            2,
+            2,
+            2,
+            1.5
+          ],
+          "appetiteStatement": {
+            "text": "The board has a low appetite for disruption to critical services caused by a single supplier.",
+            "source": "Risk appetite statement 2026, p. 3"
+          },
+          "kris": [
+            {
+              "name": "Critical suppliers without a tested recovery plan",
+              "unit": "",
+              "threshold": 2,
+              "values": [
+                1,
+                1,
+                2,
+                3,
+                4,
+                4,
+                4,
+                3
+              ]
+            },
+            {
+              "name": "Spend with single-source suppliers",
+              "unit": "%",
+              "threshold": 25,
+              "values": [
+                18,
+                19,
+                21,
+                24,
+                27,
+                29,
+                30,
+                31
+              ]
+            }
+          ],
+          "aiReading": {
+            "text": "The supplier review says two recovery plans are drafted but not tested. The single-source contract ends in Q1.",
+            "source": "Supplier review, p. 2",
+            "confidence": "High"
+          }
+        },
+        {
+          "topic": "Business continuity",
+          "appetite": 1,
+          "riskScore": [
+            0.75,
+            1,
+            1,
+            1,
+            0.8125,
+            0.8125,
+            0.8125,
+            1
+          ],
+          "appetiteStatement": {
+            "text": "Critical services must recover within the times the board approved.",
+            "source": "Risk appetite statement 2026, p. 3"
+          },
+          "kris": [
+            {
+              "name": "Critical services past recovery test date",
+              "unit": "",
+              "threshold": 1,
+              "values": [
+                0,
+                1,
+                1,
+                1,
+                0,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "name": "Recovery time in last test",
+              "unit": "h",
+              "threshold": 8,
+              "values": [
+                6,
+                6,
+                7,
+                7,
+                6.5,
+                6.5,
+                6.5,
+                7
+              ]
+            }
+          ],
+          "aiReading": {
+            "text": "The last recovery test met the target. The test report notes that it did not include the payments platform.",
+            "source": "Continuity test report, p. 6",
+            "confidence": "Medium"
+          }
+        },
+        {
+          "topic": "Cyber",
+          "appetite": 1,
+          "riskScore": [
+            1.4,
+            1.2,
+            1,
+            0.8,
+            0.625,
+            0.625,
+            0.625,
+            0.5
+          ],
+          "appetiteStatement": {
+            "text": "The board has a very low appetite for loss of customer data.",
+            "source": "Risk appetite statement 2026, p. 4"
+          },
+          "kris": [
+            {
+              "name": "Critical vulnerabilities open over 30 days",
+              "unit": "",
+              "threshold": 5,
+              "values": [
+                7,
+                6,
+                5,
+                4,
+                3,
+                3,
+                3,
+                2
+              ]
+            },
+            {
+              "name": "Phishing test failure rate",
+              "unit": "%",
+              "threshold": 8,
+              "values": [
+                9,
+                8,
+                7,
+                6,
+                5,
+                5,
+                5,
+                4
+              ]
+            }
+          ],
+          "aiReading": {
+            "text": "Both KRIs improved for four quarters. The security report links the change to the patching programme.",
+            "source": "Security report Q3, p. 3",
+            "confidence": "High"
+          }
+        },
+        {
+          "topic": "Climate risk",
+          "appetite": 1,
+          "riskScore": [
+            0.6666666666666666,
+            0.6666666666666666,
+            0.6666666666666666,
+            0.6666666666666666,
+            0.8,
+            0.8,
+            1,
+            1.2
+          ],
+          "appetiteStatement": {
+            "text": "The board accepts moderate transition risk while it meets the published emissions path.",
+            "source": "Risk appetite statement 2026, p. 5"
+          },
+          "kris": [
+            {
+              "name": "Sites in high flood-risk zones without a plan",
+              "unit": "",
+              "threshold": 3,
+              "values": [
+                2,
+                2,
+                2,
+                2,
+                2,
+                2,
+                2,
+                2
+              ]
+            },
+            {
+              "name": "Emissions above target path",
+              "unit": "%",
+              "threshold": 5,
+              "values": [
+                1,
+                2,
+                3,
+                3,
+                4,
+                4,
+                5,
+                6
+              ]
+            }
+          ],
+          "aiReading": {
+            "text": "Emissions move toward the limit. The sustainability report gives no plan for the gap.",
+            "source": "Sustainability report, p. 11",
+            "confidence": "Medium"
+          }
+        },
+        {
+          "topic": "Operational incidents",
+          "appetite": 1,
+          "riskScore": [
+            0.75,
+            1,
+            1,
+            1,
+            0.75,
+            0.75,
+            0.75,
+            0.75
+          ],
+          "appetiteStatement": {
+            "text": "The board has a low appetite for severe incidents that affect customers.",
+            "source": "Risk appetite statement 2026, p. 4"
+          },
+          "kris": [
+            {
+              "name": "Severity 1 incidents this quarter",
+              "unit": "",
+              "threshold": 3,
+              "values": [
+                2,
+                3,
+                1,
+                2,
+                2,
+                1,
+                2,
+                2
+              ]
+            },
+            {
+              "name": "Incidents with root cause not closed",
+              "unit": "",
+              "threshold": 4,
+              "values": [
+                3,
+                3,
+                4,
+                4,
+                3,
+                3,
+                3,
+                3
+              ]
+            }
+          ],
+          "aiReading": {
+            "text": "Incidents are within limits. Three root causes stay open from Q2.",
+            "source": "Incident log, sheet 2",
+            "confidence": "High"
+          }
+        },
+        {
+          "topic": "Insurance cover",
+          "appetite": 1,
+          "riskScore": [
+            0.6,
+            0.6,
+            0.6666666666666666,
+            1.2,
+            0.7333333333333333,
+            0.7333333333333333,
+            0.7333333333333333,
+            0.8
+          ],
+          "appetiteStatement": {
+            "text": "Insured values must stay close to replacement cost.",
+            "source": "Risk appetite statement 2026, p. 6"
+          },
+          "kris": [
+            {
+              "name": "Insured value below replacement cost",
+              "unit": "%",
+              "threshold": 10,
+              "values": [
+                4,
+                4,
+                5,
+                12,
+                6,
+                6,
+                6,
+                7
+              ]
+            },
+            {
+              "name": "Uninsured interruption exposure",
+              "unit": "AED m",
+              "threshold": 15,
+              "values": [
+                9,
+                9,
+                10,
+                16,
+                11,
+                11,
+                11,
+                12
+              ]
+            }
+          ],
+          "aiReading": {
+            "text": "The 2027 renewal closed the Q2 gap. The insurance schedule still excludes supplier failure.",
+            "source": "Insurance schedule, p. 1",
+            "confidence": "High"
+          }
+        },
+        {
+          "topic": "Emerging risks",
+          "appetite": 1,
+          "riskScore": [
+            0.5,
+            1,
+            1,
+            1.1666666666666667,
+            1,
+            1.5,
+            1.5,
+            1.5
+          ],
+          "appetiteStatement": {
+            "text": "Every emerging risk must have an owner and a review date.",
+            "source": "Risk appetite statement 2026, p. 7"
+          },
+          "kris": [
+            {
+              "name": "Emerging risks without an owner",
+              "unit": "",
+              "threshold": 2,
+              "values": [
+                1,
+                2,
+                2,
+                1,
+                2,
+                3,
+                3,
+                3
+              ]
+            },
+            {
+              "name": "Days since last horizon scan",
+              "unit": "d",
+              "threshold": 30,
+              "values": [
+                0,
+                10,
+                20,
+                35,
+                15,
+                20,
+                25,
+                30
+              ]
+            }
+          ],
+          "aiReading": {
+            "text": "Three emerging risks have no owner. One of them is the new data residency rule.",
+            "source": "Horizon scan, p. 4",
+            "confidence": "Medium"
+          }
         }
-      }
-    ]
-  },
-  {
-    "documentId": "strategy-note",
-    "topic": "Initiative delivery",
-    "riskScore": 0.72,
-    "appetite": 0.87,
-    "rung": "Within appetite",
-    "factors": [
-      {
-        "factor": "Evidence gap",
-        "weight": 0.45,
-        "evidenceRef": {
-          "documentId": "strategy-note",
-          "pageRef": "p. 3"
+      ]
+    },
+    {
+      "domain": "Audit",
+      "owner": "the audit committee chair",
+      "topics": [
+        {
+          "topic": "Audit findings",
+          "appetite": 1,
+          "riskScore": [
+            0.95,
+            1.06,
+            0.98,
+            0.88,
+            0.8,
+            0.77,
+            0.75,
+            0.72
+          ]
+        },
+        {
+          "topic": "Internal controls",
+          "appetite": 1,
+          "riskScore": [
+            0.655,
+            0.605,
+            0.555,
+            0.505,
+            0.455,
+            0.405,
+            0.355,
+            0.30500000000000005
+          ]
+        },
+        {
+          "topic": "Assurance map",
+          "appetite": 1,
+          "riskScore": [
+            0.635,
+            0.585,
+            0.535,
+            0.485,
+            0.435,
+            0.385,
+            0.33499999999999996,
+            0.28500000000000003
+          ]
+        },
+        {
+          "topic": "External audit",
+          "appetite": 1,
+          "riskScore": [
+            0.7,
+            0.7,
+            0.7,
+            0.7,
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ]
         }
-      }
-    ]
-  },
-  {
-    "documentId": "charter",
-    "topic": "Purpose & mandate",
-    "riskScore": 0.72,
-    "appetite": 0.77,
-    "rung": "Near the limit",
-    "factors": [
-      {
-        "factor": "Evidence gap",
-        "weight": 0.35,
-        "evidenceRef": {
-          "documentId": "charter",
-          "pageRef": "p. 2"
+      ]
+    },
+    {
+      "domain": "Remuneration",
+      "owner": "the remuneration committee chair",
+      "topics": [
+        {
+          "topic": "Executive pay",
+          "appetite": 1,
+          "riskScore": [
+            0.415,
+            0.425,
+            0.435,
+            0.445,
+            0.455,
+            0.465,
+            0.475,
+            0.485
+          ]
+        },
+        {
+          "topic": "Incentive plans",
+          "appetite": 1,
+          "riskScore": [
+            0.82,
+            0.9,
+            0.97,
+            1.04,
+            1.12,
+            1.18,
+            1.22,
+            1.25
+          ]
+        },
+        {
+          "topic": "Pay ratios",
+          "appetite": 1,
+          "riskScore": [
+            0.5599999999999999,
+            0.52,
+            0.48,
+            0.43999999999999995,
+            0.39999999999999997,
+            0.36,
+            0.31999999999999995,
+            0.27999999999999997
+          ]
+        },
+        {
+          "topic": "Benefits & pensions",
+          "appetite": 1,
+          "riskScore": [
+            0.33499999999999996,
+            0.38499999999999995,
+            0.43499999999999994,
+            0.485,
+            0.5349999999999999,
+            0.585,
+            0.635,
+            0.6849999999999999
+          ]
         }
-      }
-    ]
-  },
-  {
-    "documentId": "charter",
-    "topic": "Risk appetite alignment",
-    "riskScore": 0.58,
-    "appetite": 0.50,
-    "rung": "Over appetite",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.45,
-        "evidenceRef": {
-          "documentId": "charter",
-          "pageRef": "p. 2"
+      ]
+    },
+    {
+      "domain": "Legal",
+      "owner": "the general counsel",
+      "topics": [
+        {
+          "topic": "Litigation",
+          "appetite": 1,
+          "riskScore": [
+            0.765,
+            0.755,
+            0.745,
+            0.735,
+            0.725,
+            0.715,
+            0.705,
+            0.695
+          ]
+        },
+        {
+          "topic": "Contracts",
+          "appetite": 1,
+          "riskScore": [
+            0.42,
+            0.42,
+            0.42,
+            0.42,
+            0.42,
+            0.42,
+            0.42,
+            0.42
+          ]
+        },
+        {
+          "topic": "Regulatory change",
+          "appetite": 1,
+          "riskScore": [
+            0.645,
+            0.6950000000000001,
+            0.745,
+            0.795,
+            0.845,
+            0.895,
+            0.9450000000000001,
+            0.995
+          ]
+        },
+        {
+          "topic": "Data protection",
+          "appetite": 1,
+          "riskScore": [
+            0.525,
+            0.535,
+            0.545,
+            0.555,
+            0.5650000000000001,
+            0.5750000000000001,
+            0.5850000000000001,
+            0.5950000000000001
+          ]
         }
-      }
-    ]
-  },
-  {
-    "documentId": "policy-v4",
-    "topic": "Policy register",
-    "riskScore": 0.58,
-    "appetite": 0.73,
-    "rung": "Within appetite",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.35,
-        "evidenceRef": {
-          "documentId": "policy-v4",
-          "pageRef": "p. 8"
+      ]
+    },
+    {
+      "domain": "Compliance",
+      "owner": "the head of compliance",
+      "topics": [
+        {
+          "topic": "Policy register",
+          "appetite": 1,
+          "riskScore": [
+            0.53,
+            0.51,
+            0.49,
+            0.47,
+            0.44999999999999996,
+            0.43,
+            0.41,
+            0.39
+          ]
+        },
+        {
+          "topic": "Regulatory breaches",
+          "appetite": 1,
+          "riskScore": [
+            0.595,
+            0.605,
+            0.615,
+            0.625,
+            0.635,
+            0.645,
+            0.655,
+            0.665
+          ]
+        },
+        {
+          "topic": "Conduct",
+          "appetite": 1,
+          "riskScore": [
+            0.51,
+            0.49,
+            0.47,
+            0.44999999999999996,
+            0.42999999999999994,
+            0.41,
+            0.38999999999999996,
+            0.37
+          ]
+        },
+        {
+          "topic": "AML & sanctions",
+          "appetite": 1,
+          "riskScore": [
+            0.6349999999999999,
+            0.6449999999999999,
+            0.6549999999999999,
+            0.6649999999999999,
+            0.6749999999999999,
+            0.6849999999999999,
+            0.695,
+            0.705
+          ]
         }
-      }
-    ]
-  },
-  {
-    "documentId": "policy-v4",
-    "topic": "Incentive plans",
-    "riskScore": 0.68,
-    "appetite": 0.73,
-    "rung": "Near the limit",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.45,
-        "evidenceRef": {
-          "documentId": "policy-v4",
-          "pageRef": "p. 8"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "controls-memo",
-    "topic": "Internal controls",
-    "riskScore": 0.68,
-    "appetite": 0.60,
-    "rung": "Over appetite",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.35,
-        "evidenceRef": {
-          "documentId": "controls-memo",
-          "pageRef": "p. 2"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "controls-memo",
-    "topic": "Evidence quality",
-    "riskScore": 0.61,
-    "appetite": 0.76,
-    "rung": "Within appetite",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.45,
-        "evidenceRef": {
-          "documentId": "controls-memo",
-          "pageRef": "p. 2"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "controls-memo",
-    "topic": "Executive pay",
-    "riskScore": 0.72,
-    "appetite": 0.77,
-    "rung": "Near the limit",
-    "factors": [
-      {
-        "factor": "Evidence gap",
-        "weight": 0.55,
-        "evidenceRef": {
-          "documentId": "controls-memo",
-          "pageRef": "p. 2"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "minutes-sep",
-    "topic": "Decision follow-up",
-    "riskScore": 0.79,
-    "appetite": 0.71,
-    "rung": "Over appetite",
-    "factors": [
-      {
-        "factor": "Evidence gap",
-        "weight": 0.35,
-        "evidenceRef": {
-          "documentId": "minutes-sep",
-          "pageRef": "00:42:10"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "minutes-sep",
-    "topic": "Executive pay",
-    "riskScore": 0.65,
-    "appetite": 0.80,
-    "rung": "Within appetite",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.45,
-        "evidenceRef": {
-          "documentId": "minutes-sep",
-          "pageRef": "00:42:10"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "forecast-2027",
-    "topic": "Budget & forecast",
-    "riskScore": 0.65,
-    "appetite": 0.70,
-    "rung": "Near the limit",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.35,
-        "evidenceRef": {
-          "documentId": "forecast-2027",
-          "pageRef": "C18"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "forecast-2027",
-    "topic": "Downside headroom",
-    "riskScore": 0.70,
-    "appetite": 0.62,
-    "rung": "Over appetite",
-    "factors": [
-      {
-        "factor": "Evidence gap",
-        "weight": 0.45,
-        "evidenceRef": {
-          "documentId": "forecast-2027",
-          "pageRef": "C18"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "training-log",
-    "topic": "Resourcing",
-    "riskScore": 0.70,
-    "appetite": 0.85,
-    "rung": "Within appetite",
-    "factors": [
-      {
-        "factor": "Evidence gap",
-        "weight": 0.35,
-        "evidenceRef": {
-          "documentId": "training-log",
-          "pageRef": "B14"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "training-log",
-    "topic": "Compliance",
-    "riskScore": 0.74,
-    "appetite": 0.79,
-    "rung": "Near the limit",
-    "factors": [
-      {
-        "factor": "Evidence gap",
-        "weight": 0.45,
-        "evidenceRef": {
-          "documentId": "training-log",
-          "pageRef": "B14"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "risk-register",
-    "topic": "Supplier risk",
-    "riskScore": 0.74,
-    "appetite": 0.66,
-    "rung": "Over appetite",
-    "factors": [
-      {
-        "factor": "Evidence gap",
-        "weight": 0.35,
-        "evidenceRef": {
-          "documentId": "risk-register",
-          "pageRef": "R7"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "risk-register",
-    "topic": "Assurance map",
-    "riskScore": 0.79,
-    "appetite": 0.94,
-    "rung": "Within appetite",
-    "factors": [
-      {
-        "factor": "Evidence gap",
-        "weight": 0.45,
-        "evidenceRef": {
-          "documentId": "risk-register",
-          "pageRef": "R7"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "audit-plan",
-    "topic": "Audit findings",
-    "riskScore": 0.79,
-    "appetite": 0.84,
-    "rung": "Near the limit",
-    "factors": [
-      {
-        "factor": "Evidence gap",
-        "weight": 0.35,
-        "evidenceRef": {
-          "documentId": "audit-plan",
-          "pageRef": "p. 7"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "supplier-review",
-    "topic": "Supplier risk",
-    "riskScore": 0.65,
-    "appetite": 0.80,
-    "rung": "Within appetite",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.35,
-        "evidenceRef": {
-          "documentId": "supplier-review",
-          "pageRef": "p. 4"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "treasury-update",
-    "topic": "Liquidity",
-    "riskScore": 0.70,
-    "appetite": 0.62,
-    "rung": "Over appetite",
-    "factors": [
-      {
-        "factor": "Evidence gap",
-        "weight": 0.35,
-        "evidenceRef": {
-          "documentId": "treasury-update",
-          "pageRef": "p. 2"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "treasury-update",
-    "topic": "Downside headroom",
-    "riskScore": 0.74,
-    "appetite": 0.89,
-    "rung": "Within appetite",
-    "factors": [
-      {
-        "factor": "Evidence gap",
-        "weight": 0.45,
-        "evidenceRef": {
-          "documentId": "treasury-update",
-          "pageRef": "p. 2"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "insurance-schedule",
-    "topic": "Business continuity",
-    "riskScore": 0.74,
-    "appetite": 0.79,
-    "rung": "Near the limit",
-    "factors": [
-      {
-        "factor": "Evidence gap",
-        "weight": 0.35,
-        "evidenceRef": {
-          "documentId": "insurance-schedule",
-          "pageRef": "region: cover table, top half"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "insurance-schedule",
-    "topic": "Budget & forecast",
-    "riskScore": 0.79,
-    "appetite": 0.71,
-    "rung": "Over appetite",
-    "factors": [
-      {
-        "factor": "Evidence gap",
-        "weight": 0.45,
-        "evidenceRef": {
-          "documentId": "insurance-schedule",
-          "pageRef": "region: cover table, top half"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "board-risk-report",
-    "topic": "Risk appetite",
-    "riskScore": 0.79,
-    "appetite": 0.94,
-    "rung": "Within appetite",
-    "factors": [
-      {
-        "factor": "Evidence gap",
-        "weight": 0.35,
-        "evidenceRef": {
-          "documentId": "board-risk-report",
-          "pageRef": "p. 4"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "board-risk-report",
-    "topic": "Supplier risk",
-    "riskScore": 0.71,
-    "appetite": 0.40,
-    "rung": "Over appetite",
-    "factors": [
-      {
-        "factor": "Two critical suppliers have no tested recovery plan",
-        "weight": 0.42,
-        "evidenceRef": {
-          "documentId": "board-risk-report",
-          "pageRef": "p. 4"
-        }
-      },
-      {
-        "factor": "Single-source contract ends in Q1",
-        "weight": 0.31,
-        "evidenceRef": {
-          "documentId": "supplier-review",
-          "pageRef": "p. 2"
-        }
-      },
-      {
-        "factor": "Insurance cover renewed for 2027",
-        "weight": -0.08,
-        "evidenceRef": {
-          "documentId": "insurance-schedule",
-          "pageRef": "region: cover table, top half"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "exec-pay-review",
-    "topic": "Incentive plans",
-    "riskScore": 0.65,
-    "appetite": 0.57,
-    "rung": "Over appetite",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.35,
-        "evidenceRef": {
-          "documentId": "exec-pay-review",
-          "pageRef": "p. 3"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "exec-pay-review",
-    "topic": "Performance evidence",
-    "riskScore": 0.70,
-    "appetite": 0.85,
-    "rung": "Within appetite",
-    "factors": [
-      {
-        "factor": "Evidence gap",
-        "weight": 0.45,
-        "evidenceRef": {
-          "documentId": "exec-pay-review",
-          "pageRef": "p. 3"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "draft-charter",
-    "topic": "Purpose & mandate",
-    "riskScore": 0.70,
-    "appetite": 0.75,
-    "rung": "Near the limit",
-    "factors": [
-      {
-        "factor": "Evidence gap",
-        "weight": 0.35,
-        "evidenceRef": {
-          "documentId": "draft-charter",
-          "pageRef": "p. 2"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "board-pack-q3",
-    "topic": "Market position",
-    "riskScore": 0.63,
-    "appetite": 0.55,
-    "rung": "Over appetite",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.40,
-        "evidenceRef": {
-          "documentId": "board-pack-q3",
-          "pageRef": "p. 6"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "strategy-note",
-    "topic": "KPIs & milestones",
-    "riskScore": 0.63,
-    "appetite": 0.78,
-    "rung": "Within appetite",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.40,
-        "evidenceRef": {
-          "documentId": "strategy-note",
-          "pageRef": "p. 3"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "strategy-note",
-    "topic": "Transformation",
-    "riskScore": 0.63,
-    "appetite": 0.68,
-    "rung": "Near the limit",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.40,
-        "evidenceRef": {
-          "documentId": "strategy-note",
-          "pageRef": "p. 3"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "strategy-note",
-    "topic": "Delivery ownership",
-    "riskScore": 0.63,
-    "appetite": 0.55,
-    "rung": "Over appetite",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.40,
-        "evidenceRef": {
-          "documentId": "strategy-note",
-          "pageRef": "p. 3"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "board-pack-q3",
-    "topic": "Capital allocation",
-    "riskScore": 0.63,
-    "appetite": 0.78,
-    "rung": "Within appetite",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.40,
-        "evidenceRef": {
-          "documentId": "board-pack-q3",
-          "pageRef": "p. 6"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "risk-register",
-    "topic": "Cyber",
-    "riskScore": 0.63,
-    "appetite": 0.68,
-    "rung": "Near the limit",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.40,
-        "evidenceRef": {
-          "documentId": "risk-register",
-          "pageRef": "R7"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "board-pack-q3",
-    "topic": "Investments",
-    "riskScore": 0.63,
-    "appetite": 0.55,
-    "rung": "Over appetite",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.40,
-        "evidenceRef": {
-          "documentId": "board-pack-q3",
-          "pageRef": "p. 6"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "board-pack-q3",
-    "topic": "M&A",
-    "riskScore": 0.63,
-    "appetite": 0.78,
-    "rung": "Within appetite",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.40,
-        "evidenceRef": {
-          "documentId": "board-pack-q3",
-          "pageRef": "p. 6"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "board-pack-q3",
-    "topic": "Exec appointments",
-    "riskScore": 0.63,
-    "appetite": 0.68,
-    "rung": "Near the limit",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.40,
-        "evidenceRef": {
-          "documentId": "board-pack-q3",
-          "pageRef": "p. 6"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "board-pack-q3",
-    "topic": "Delegations of authority",
-    "riskScore": 0.63,
-    "appetite": 0.55,
-    "rung": "Over appetite",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.40,
-        "evidenceRef": {
-          "documentId": "board-pack-q3",
-          "pageRef": "p. 6"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "policy-v4",
-    "topic": "Pay ratios",
-    "riskScore": 0.63,
-    "appetite": 0.78,
-    "rung": "Within appetite",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.40,
-        "evidenceRef": {
-          "documentId": "policy-v4",
-          "pageRef": "p. 8"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "policy-v4",
-    "topic": "Benefits & pensions",
-    "riskScore": 0.63,
-    "appetite": 0.68,
-    "rung": "Near the limit",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.40,
-        "evidenceRef": {
-          "documentId": "policy-v4",
-          "pageRef": "p. 8"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "board-risk-report",
-    "topic": "Emerging risks",
-    "riskScore": 0.71,
-    "appetite": 0.40,
-    "rung": "Over appetite",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.40,
-        "evidenceRef": {
-          "documentId": "board-risk-report",
-          "pageRef": "p. 4"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "board-risk-report",
-    "topic": "Climate risk",
-    "riskScore": 0.71,
-    "appetite": 0.40,
-    "rung": "Over appetite",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.40,
-        "evidenceRef": {
-          "documentId": "board-risk-report",
-          "pageRef": "p. 4"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "board-risk-report",
-    "topic": "Operational incidents",
-    "riskScore": 0.71,
-    "appetite": 0.40,
-    "rung": "Over appetite",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.40,
-        "evidenceRef": {
-          "documentId": "board-risk-report",
-          "pageRef": "p. 4"
-        }
-      }
-    ]
-  },
-  {
-    "documentId": "board-risk-report",
-    "topic": "Insurance cover",
-    "riskScore": 0.71,
-    "appetite": 0.40,
-    "rung": "Over appetite",
-    "factors": [
-      {
-        "factor": "Exposure level",
-        "weight": 0.40,
-        "evidenceRef": {
-          "documentId": "board-risk-report",
-          "pageRef": "p. 4"
-        }
-      }
-    ]
-  }
-]
+      ]
+    }
+  ]
+}

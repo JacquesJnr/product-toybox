@@ -3,7 +3,6 @@ import { Button } from '@base-ui/react/button'
 import { Toggle } from '@base-ui/react/toggle'
 import { ToggleGroup } from '@base-ui/react/toggle-group'
 import documents from './data/documents.json'
-import wheels from './data/wheels.json'
 import { SmartSearch } from './smart-search/SmartSearch'
 import { addFoundLink } from './graph/found-links'
 import type { FoundLink } from './graph/found-links'
@@ -21,7 +20,8 @@ import './App.css'
 
 const views = ['Graph', 'Wheel', 'Smart Search'] as const
 const docs = documents as Doc[]
-const wheelRecords = wheels as WheelRecord[]
+// shortcut: Wheel v2 fixtures no longer feed the old UI; replace this empty list with the v2 Wheel.
+const wheelRecords: WheelRecord[] = []
 
 export default function App() {
   const [view, setView] = useState<(typeof views)[number]>('Graph')

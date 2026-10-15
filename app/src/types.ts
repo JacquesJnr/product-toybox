@@ -33,6 +33,7 @@ export interface Doc {
   insights: Insight[]
 }
 
+// shortcut: the old Wheel still compiles with this type; remove it when Wheel v2 replaces the UI.
 export interface WheelRecord {
   documentId: string
   topic: string
@@ -40,4 +41,45 @@ export interface WheelRecord {
   appetite: number
   rung: 'Within appetite' | 'Near the limit' | 'Over appetite'
   factors: { factor: string; weight: number; evidenceRef: { documentId: string; pageRef: string } }[]
+}
+
+export type WheelDomain = 'Finance' | 'Risk' | 'Audit' | 'Remuneration' | 'Legal' | 'Compliance'
+
+// Values follow the fixture's six history stops, then its two AI projections.
+export type WheelSeries = [number, number, number, number, number, number, number, number]
+
+export interface WheelKri {
+  name: string
+  unit: string
+  threshold: number
+  values: WheelSeries
+}
+
+export interface WheelTopicRecord {
+  topic: string
+  appetite: number
+  riskScore: WheelSeries
+  appetiteStatement?: { text: string; source: string }
+  kris?: WheelKri[]
+  aiReading?: { text: string; source: string; confidence: 'Medium' | 'High' }
+}
+
+export interface WheelFixture {
+  business: string
+  todayIndex: number
+  nearThresholdRatio: number
+  timeframes: { label: string; note: string; projection: boolean }[]
+  fullKriDomain: WheelDomain
+  copy: {
+    projectionNotice: string
+    projectionSummary: string
+    projectionTrend: string
+    projectionConfidence: string
+    readingResponsibility: string
+    chairRole: string
+    evidenceReminder: string
+    projectionAgenda: string
+    noOverThresholdAgenda: string
+  }
+  domains: { domain: WheelDomain; owner: string; topics: WheelTopicRecord[] }[]
 }
