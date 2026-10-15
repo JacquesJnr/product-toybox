@@ -1,0 +1,30 @@
+/* Wheel controls: chips 187:47, legend 187:87, chart icon tabs 187:109 (Figma Wheel v2). */
+.wheel-chips { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 16px; }
+.wheel-chip { --hue: var(--glass-45); display: inline-flex; align-items: center; gap: 8px; padding: 5px 10px; border: 1px solid color-mix(in srgb, var(--hue) 40%, transparent); border-radius: 4px; background: transparent; color: var(--graphite); font: 500 12px/1.3 'Instrument Sans', sans-serif; white-space: nowrap; cursor: pointer; }
+.wheel-chip:first-child { border-color: var(--glass-45); }
+.wheel-chip[data-pressed] { border: 1.5px solid var(--hue); background: var(--surface); color: var(--ink); }
+.wheel-chip:first-child[data-pressed] { border-color: var(--ink); }
+.wheel-chip:disabled { cursor: not-allowed; }
+.wheel-chip:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.wheel-chip-hue { width: 8px; height: 8px; flex: none; border-radius: 50%; background: var(--hue); opacity: 0.4; }
+.wheel-chip[data-pressed] .wheel-chip-hue { opacity: 1; }
+/* The settled Wheel hues equal these toybox tokens. */
+.wheel-chip--finance { --hue: var(--domain-financial-stewardship); }
+.wheel-chip--risk { --hue: var(--domain-risk-resilience); }
+.wheel-chip--audit { --hue: var(--domain-controls-assurance); }
+.wheel-chip--remuneration { --hue: var(--domain-remuneration); }
+.wheel-chip--legal { --hue: var(--domain-major-decisions); }
+.wheel-chip--compliance { --hue: var(--domain-strategic-direction); }
+
+.wheel-topbar { position: relative; display: flex; align-items: center; justify-content: center; width: 784px; height: 40px; margin: 0 auto 8px; }
+.wheel-legend { display: flex; align-items: center; gap: 16px; color: var(--graphite); font: 500 12px/1.3 'Instrument Sans', sans-serif; white-space: nowrap; }
+.wheel-legend span { display: inline-flex; align-items: center; gap: 8px; }
+.wheel-legend line { stroke: var(--ink); stroke-width: 1.5; }
+.wheel-legend-over { width: 10px; height: 10px; border-radius: 50%; background: var(--risk-over); }
+
+.wheel-mode-tabs { position: absolute; top: 0; right: 0; display: flex; gap: 2px; padding: 2px; border: 1px solid var(--ink); border-radius: 4px; background: var(--surface); }
+.wheel-mode-tabs button { display: grid; place-items: center; width: 44px; height: 36px; padding: 0; border: 0; border-radius: 2px; background: transparent; cursor: pointer; }
+.wheel-mode-tabs .material-symbols-rounded { color: var(--ink); font-size: 20px; }
+.wheel-mode-tabs button[data-active] { background: var(--ink); }
+.wheel-mode-tabs button[data-active] .material-symbols-rounded { color: var(--bench); }
+.wheel-mode-tabs button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
