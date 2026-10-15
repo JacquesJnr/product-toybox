@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { findTopic, isProjection, pointsAt, statusOf, stopName, topicsOf, worstTopic } from '../model'
 import type { Point, Status, WheelActions, WheelState } from '../model'
@@ -43,15 +43,15 @@ function tagFor(p: Point, whole: boolean, stop: number) {
   return findTopic(p.name)?.aiReading?.source.split(',')[0] ?? ''
 }
 
-function Tooltip({ p, r, whole, x, y }: { p: Point; r: number; whole: boolean; x: number; y: number }) {
+function Tooltip({ id, p, r, whole, x, y }: { id: string; p: Point; r: number; whole: boolean; x: number; y: number }) {
   const s = statusOf(r)
   const record = whole ? undefined : findTopic(p.name)
   const source = record?.aiReading?.source.split(',')[0]
   const kris = record?.kris?.length ?? 0
   const many = whole ? `${topicsOf(p.domain).length} topics` : kris > 1 ? `${kris} KRIs` : ''
-  const flip = x + 24 + 300 > W
+  const flip = x + 24 + 340 > W // the one-line status row makes the tooltip about 330 px wide
   return (
-    <div className="spider-tip" role="tooltip" style={flip ? { right: W - x + 24, top: y } : { left: x + 24, top: y }}>
+    <div id={id} className="spider-tip" role="tooltip" style={flip ? { right: W - x + 24, top: y } : { left: x + 24, top: y }}>
       <div className="spider-tip-name">{whole ? p.name : source ?? p.name}</div>
       <div className="spider-tip-sub">{whole ? 'Domain' : source ? `${p.name} · ${p.domain}` : p.domain}</div>
       <div className="spider-tip-row">
@@ -67,14 +67,16 @@ function Tooltip({ p, r, whole, x, y }: { p: Point; r: number; whole: boolean; x
 // Lane C: the spider chart, rings, over zone, points and states, % labels, over tags, center badge.
 export function SpiderChart({ state, actions }: { state: WheelState; actions: WheelActions }) {
   const [hovered, setHovered] = useState<string | null>(null)
+  const tipId = useId()
   const whole = !state.domain
   const points = pointsAt(state.domain, state.t)
   const n = points.length
   // Text follows the nearest stop; geometry follows continuous time.
   const stop = Math.round(state.t)
-  const proj = state.mode === 'projection'
+  // The projection look follows the displayed stop, like the badge, so History paging into a projection slide gets it too.
+  const proj = isProjection(stop)
   const name = stopName(stop)
-  const badge = isProjection(stop) ? `${name} (AI)` : name === 'Last board' ? 'Last Board' : name
+  const badge = proj ? `${name} (AI)` : name === 'Last board' ? 'Last Board' : name
   const placed = points.map((p, i) => ({ p, a: ang(i, n), ...xy(ang(i, n), rad(p.ratio)) }))
   const ringAngle = Math.PI / 2 - Math.PI / n
   const hot = placed.find(q => q.p.name === hovered)
@@ -124,9 +126,13 @@ export function SpiderChart({ state, actions }: { state: WheelState; actions: Wh
           return (
             <g key={p.name} className={`spider-point ${p.status}${picked ? ' picked' : ''}${hovered === p.name ? ' hot' : ''}`}
               transform={`translate(${x.toFixed(1)} ${y.toFixed(1)})`} tabIndex={0} role="button" aria-pressed={picked}
+              aria-describedby={hovered === p.name ? tipId : undefined}
               aria-label={`${p.name}, ${pct(atStop.get(p.name)!)} of threshold, ${LABEL[statusOf(atStop.get(p.name)!)]}`}
               onClick={() => actions.pick(p.name)}
-              onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); actions.pick(p.name) } }}
+              onKeyDown={e => {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); actions.pick(p.name) }
+                if (e.key === 'Escape') setHovered(null)
+              }}
               onMouseEnter={() => setHovered(p.name)} onMouseLeave={() => setHovered(null)}
               onFocus={() => setHovered(p.name)} onBlur={() => setHovered(null)}>
               <circle className="spider-hit" r={16} />
@@ -150,7 +156,7 @@ export function SpiderChart({ state, actions }: { state: WheelState; actions: Wh
       })}
 
       <span className="spider-badge" style={{ left: C.x, top: C.y }}>{badge}</span>
-      {hot && <Tooltip p={hot.p} r={atStop.get(hot.p.name)!} whole={whole} x={hot.x} y={hot.y} />}
+      {hot && <Tooltip id={tipId} p={hot.p} r={atStop.get(hot.p.name)!} whole={whole} x={hot.x} y={hot.y} />}
     </div>
   )
 }
