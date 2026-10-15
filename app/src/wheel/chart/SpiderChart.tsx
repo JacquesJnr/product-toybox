@@ -27,14 +27,19 @@ function beside(slot: Slot, x: number, y: number, d: number): CSSProperties {
   return { left: x - 16, top: y, transform: 'translate(-100%, -50%)' }
 }
 
-// Domain and topic labels sit further out from the rim; gaps measured from frames 01 and 03.
+// Domain and topic labels sit further out from the rim. Offsets from the rim to the label's near corner come
+// from frames 01 and 03; an upper-diagonal topic label clears the % label that the slot rule puts on top of its point.
 function rimLabel(a: number, whole: boolean): CSSProperties {
   const cos = Math.cos(a), sin = Math.sin(a), upright = Math.abs(cos) < 0.2
-  const gap = whole ? (upright ? 43 : 70) : (upright ? 52 : 40)
   const p = xy(a, R)
+  const [dx, dy] = whole ? [cos * 70, sin * (upright ? 43 : 70)]
+    : upright ? [0, sin * 52]
+    : Math.abs(sin) < 0.2 ? [cos * 36.3, 0]
+    : sin < 0 ? [Math.sign(cos) * 38.1, -30.1]
+    : [Math.sign(cos) * 26.7, 18.7]
   const tx = upright ? '-50%' : cos > 0 ? '0' : '-100%'
   const ty = sin < -0.2 ? '-100%' : sin > 0.2 ? '0' : '-50%'
-  return { left: p.x + cos * gap, top: p.y + sin * gap, transform: `translate(${tx}, ${ty})` }
+  return { left: p.x + dx, top: p.y + dy, transform: `translate(${tx}, ${ty})` }
 }
 
 // What sets a reading: the worst topic for a domain, the AI reading's source for a topic.
@@ -78,6 +83,7 @@ export function SpiderChart({ state, actions }: { state: WheelState; actions: Wh
   const name = stopName(stop)
   const badge = proj ? `${name} (AI)` : name === 'Last board' ? 'Last Board' : name
   const placed = points.map((p, i) => ({ p, a: ang(i, n), ...xy(ang(i, n), rad(p.ratio)) }))
+  const reading = placed.map(q => `${q.x.toFixed(1)},${q.y.toFixed(1)}`).join(' ')
   const ringAngle = Math.PI / 2 - Math.PI / n
   const hot = placed.find(q => q.p.name === hovered)
   const atStop = new Map(pointsAt(state.domain, stop).map(q => [q.name, q.ratio]))
@@ -101,7 +107,9 @@ export function SpiderChart({ state, actions }: { state: WheelState; actions: Wh
         <polygon className="spider-ring near" points={hexPoints(rad(0.8))} />
         {placed.map(({ a }, i) => { const e = xy(a, R); return <line key={i} className="spider-spoke" x1={C.x} y1={C.y} x2={e.x} y2={e.y} /> })}
         <polygon className="spider-threshold" points={hexPoints(rad(1))} />
-        <polygon className="spider-reading" points={placed.map(q => `${q.x.toFixed(1)},${q.y.toFixed(1)}`).join(' ')} />
+        {/* Fill and stroke are separate so the projection glow follows the stroke only, as in Figma. */}
+        <polygon className="spider-reading-fill" points={reading} />
+        <polygon className="spider-reading" points={reading} />
       </svg>
 
       {[0.5, 1, 1.5].map(v => {
@@ -137,6 +145,7 @@ export function SpiderChart({ state, actions }: { state: WheelState; actions: Wh
               onFocus={() => setHovered(p.name)} onBlur={() => setHovered(null)}>
               <circle className="spider-hit" r={16} />
               <circle className="spider-halo" r={13.25} />
+              <polygon className="spider-focus" points="0,-15 15,0 0,15 -15,0" />
               <polygon className="spider-pick" points="0,-11 11,0 0,11 -11,0" />
               <polygon className="spider-diamond" points="0,-6.5 6.5,0 0,6.5 -6.5,0" />
             </g>

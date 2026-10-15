@@ -10,8 +10,10 @@
 .spider-ring.near { stroke-dasharray: 1 4; }
 .spider-spoke { stroke: var(--graphite); stroke-opacity: 0.55; }
 .spider-threshold { fill: none; stroke: var(--ink); stroke-width: 2; stroke-dasharray: 6 4; }
-.spider-reading { fill: rgb(18 18 18 / 0.19); stroke: var(--ink); stroke-width: 2.5; stroke-linejoin: round; }
-.proj .spider-reading { fill: rgb(18 18 18 / 0.06); stroke: url(#spider-rainbow); filter: var(--rainbow-glow); }
+.spider-reading-fill { fill: rgb(18 18 18 / 0.19); }
+.proj .spider-reading-fill { fill: rgb(18 18 18 / 0.06); }
+.spider-reading { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-linejoin: round; }
+.proj .spider-reading { stroke: url(#spider-rainbow); filter: var(--rainbow-glow); }
 
 .spider-ring-label { color: var(--graphite); font: 400 12px/1 'JetBrains Mono', monospace; white-space: nowrap; pointer-events: none; }
 .spider-label { font-size: 12px; font-weight: 500; line-height: 1.3; white-space: nowrap; cursor: pointer; }
@@ -21,8 +23,11 @@
 .spider-point { pointer-events: auto; cursor: pointer; outline: none; }
 .spider-hit { fill: transparent; }
 .spider-halo, .spider-pick { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; display: none; }
+.spider-focus { fill: none; stroke: var(--ink); stroke-width: 1.5; display: none; }
 .spider-diamond { fill: var(--graphite); stroke: #000; }
-.spider-point.hot:not(.picked) .spider-halo, .spider-point:focus-visible .spider-halo { display: inline; }
+/* Hover and focus show the halo (187:58 Hover). A focused picked point keeps its diamond shape: a second diamond ring. */
+.spider-point.hot:not(.picked) .spider-halo, .spider-point:not(.picked):focus-visible .spider-halo { display: inline; }
+.spider-point.picked:focus-visible .spider-focus { display: inline; }
 .spider-point.picked .spider-pick { display: inline; }
 .spider-point.hot .spider-diamond, .spider-point.picked .spider-diamond { fill: var(--ink); }
 
