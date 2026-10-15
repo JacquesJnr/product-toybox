@@ -32,10 +32,10 @@
 .spider-badge { transform: translate(-50%, -50%); padding: 4px 12px; border-radius: 4px; background: var(--ink); color: var(--bench); font-size: 18px; font-weight: 600; line-height: 1.25; white-space: nowrap; pointer-events: none; }
 .proj .spider-badge { border: 1.5px solid transparent; background: linear-gradient(var(--surface), var(--surface)) padding-box, var(--rainbow) border-box; color: var(--ink); filter: var(--rainbow-glow); }
 
-.spider-tip { z-index: 1; display: flex; flex-direction: column; gap: 2px; width: max-content; max-width: 300px; padding: 8px 12px; transform: translateY(-50%); border: 1.5px solid var(--ink); border-radius: 4px; background: var(--surface); pointer-events: none; }
+.spider-tip { z-index: 1; display: flex; flex-direction: column; gap: 2px; width: max-content; padding: 8px 12px; transform: translateY(-50%); border: 1.5px solid var(--ink); border-radius: 4px; background: var(--surface); pointer-events: none; }
 .spider-tip-name { color: var(--ink); font: 400 14px/1.5 'Nunito', sans-serif; }
 .spider-tip-sub { color: var(--graphite); font-size: 12px; font-weight: 500; line-height: 1.3; }
-.spider-tip-row { display: flex; align-items: center; gap: 8px; padding-top: 4px; color: var(--body); font-size: 12px; font-weight: 500; line-height: 1.3; }
+.spider-tip-row { display: flex; white-space: nowrap; align-items: center; gap: 8px; padding-top: 4px; color: var(--body); font-size: 12px; font-weight: 500; line-height: 1.3; }
 .spider-tip-score { color: var(--graphite); font: 400 12px/1 'JetBrains Mono', monospace; }
 .spider-rung { width: 9px; height: 9px; flex: none; border: 1.5px solid var(--risk-within); border-radius: 50%; }
 .spider-rung.near { border-color: var(--risk-near); }
