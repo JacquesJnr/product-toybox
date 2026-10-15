@@ -53,7 +53,9 @@ export const findTopic = (topic: string) =>
 
 export const isDomain = (name: string): name is WheelDomain => (DOMAINS as string[]).includes(name)
 
-export const topicRatio = (topic: WheelTopicRecord, t: number) => at(topic.riskScore, t)
+// A topic with KRIs reads as its worst KRI, each interpolated before the max, so a reading between stops never jumps status.
+export const topicRatio = (topic: WheelTopicRecord, t: number) =>
+  topic.kris?.length ? Math.max(...topic.kris.map(k => at(k.values, t) / k.threshold)) : at(topic.riskScore, t)
 
 // Worst reading wins: a domain takes the reading of its topic furthest over its threshold.
 export function worstTopic(domain: WheelDomain, t: number) {
