@@ -1,12 +1,13 @@
 .wheel-view {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  grid-template-rows: auto minmax(0, 1fr) auto;
-  grid-template-areas: "top panel" "chart panel" "drawer panel";
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  grid-template-areas: "chips chips" "top panel" "chart panel" "drawer panel";
   flex: 1;
   min-height: 0;
 }
 .wheel-view[hidden] { display: none; }
+.wheel-view-chips { grid-area: chips; }
 .wheel-view-top { grid-area: top; }
 .wheel-view-chart { grid-area: chart; position: relative; min-height: 0; }
 .wheel-view > .wheel-panel { grid-area: panel; }

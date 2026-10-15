@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { SpiderChart } from './chart/SpiderChart'
 import { WheelDrawer } from './drawer/WheelDrawer'
 import { WheelPanel } from './panel/WheelPanel'
+import { ChartTopBar, WheelChips } from './controls/WheelControls'
 import { LAST_STOP, TODAY, topicsOf } from './model'
 import type { WheelActions, WheelState } from './model'
 import './wheel-view.css'
@@ -28,8 +29,12 @@ export function WheelView({ hidden }: { hidden: boolean }) {
 
   return (
     <main className="wheel-view" hidden={hidden} aria-label="Wheel view">
-      {/* Integration slot: chips, legend and the History / AI projection tabs. */}
-      <div className="wheel-view-top" />
+      <div className="wheel-view-chips">
+        <WheelChips state={state} actions={actions} />
+      </div>
+      <div className="wheel-view-top">
+        <ChartTopBar state={state} actions={actions} />
+      </div>
       <div className="wheel-view-chart">
         <SpiderChart state={state} actions={actions} />
       </div>
