@@ -49,6 +49,7 @@ export default function App() {
           onValueChange={values => { if (values[0]) setView(values[0]) }}>
           {views.map(name => <Toggle key={name} value={name}>{name}</Toggle>)}
         </ToggleGroup>
+        {view === 'Wheel' && <span className="view-sub">Wheel. The whole wheel shows each domain at its worst topic. A domain wheel shows each topic at its worst KRI. Example data.</span>}
         {view === 'Graph' && <>
           <Button className="animate-button" onClick={() => setAnimateRun(run => run + 1)}>
             <span className="material-symbols-rounded" aria-hidden="true">play_arrow</span>Animate
