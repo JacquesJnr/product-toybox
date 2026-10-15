@@ -6,22 +6,18 @@ import documents from './data/documents.json'
 import { SmartSearch } from './smart-search/SmartSearch'
 import { addFoundLink } from './graph/found-links'
 import type { FoundLink } from './graph/found-links'
-import type { Doc, Domain, WheelRecord } from './types'
+import type { Doc, Domain } from './types'
 import { Graph } from './graph/Graph'
-import { Wheel } from './wheel/Wheel'
+import { WheelView } from './wheel/WheelView'
 import { visibleIds } from './filters/visible'
 import { DomainChips } from './filters/DomainChips'
 import { HeaderSearch } from './filters/HeaderSearch'
 import { NoMatchingDocuments } from './filters/NoMatchingDocuments'
 import { DetailsPanel } from './details/DetailsPanel'
-import { SourceViewer } from './details/SourceViewer'
-import { RiskSummary } from './risk/RiskSummary'
 import './App.css'
 
 const views = ['Graph', 'Wheel', 'Smart Search'] as const
 const docs = documents as Doc[]
-// shortcut: Wheel v2 fixtures no longer feed the old UI; replace this empty list with the v2 Wheel.
-const wheelRecords: WheelRecord[] = []
 
 export default function App() {
   const [view, setView] = useState<(typeof views)[number]>('Graph')
@@ -33,14 +29,8 @@ export default function App() {
   const searchSelected = docs.find(doc => doc.id === searchSelectedId)
   const [foundLinks, setFoundLinks] = useState<FoundLink[]>([])
   const [animateRun, setAnimateRun] = useState(0)
-  const [wheelDomain, setWheelDomain] = useState<Domain | null>(null)
-  const [pickedWheelKey, setPickedWheelKey] = useState<string | null>(null)
-  const [evidence, setEvidence] = useState<{ documentId: string; pageRef: string } | null>(null)
   const visible = useMemo(() => visibleIds(docs, domains, query), [domains, query])
   const selected = docs.find(doc => doc.id === selectedId)
-  const pickedWheelRecord = wheelRecords.find(record => `${record.documentId}|${record.topic}` === pickedWheelKey)
-  const pickedWheelDoc = docs.find(doc => doc.id === pickedWheelRecord?.documentId)
-  const evidenceDoc = docs.find(doc => doc.id === evidence?.documentId)
 
   function showOnGraph(link: FoundLink) {
     setFoundLinks(previous => addFoundLink(docs, previous, link))
@@ -67,8 +57,6 @@ export default function App() {
         </>}
       </header>
       {view === 'Graph' && <DomainChips value={domains} onChange={setDomains} />}
-      {view === 'Wheel' && <DomainChips single value={new Set(wheelDomain ? [wheelDomain] : [])}
-        onChange={next => setWheelDomain(next.values().next().value ?? null)} />}
       <main className="graph-layout" hidden={view !== 'Graph'} aria-label="Graph view">
         <div className="graph-container">
           <Graph revealRun={searchRun} foundLinks={foundLinks} docs={docs} visibleIds={visible} selectedId={selectedId} onSelect={setSelectedId} active={view === 'Graph'} animateRun={animateRun} />
@@ -76,13 +64,7 @@ export default function App() {
         </div>
         {selected && <DetailsPanel doc={selected} onClose={() => setSelectedId(null)} />}
       </main>
-      <main className="graph-layout" hidden={view !== 'Wheel'} aria-label="Wheel view">
-        <Wheel records={wheelRecords} docs={docs} domain={wheelDomain} pickedKey={pickedWheelKey} onPick={setPickedWheelKey} />
-        {pickedWheelRecord && pickedWheelDoc && <RiskSummary record={pickedWheelRecord} doc={pickedWheelDoc}
-          onClose={() => setPickedWheelKey(null)} onOpenEvidence={(documentId, pageRef) => setEvidence({ documentId, pageRef })} />}
-      </main>
-      {evidenceDoc && <SourceViewer doc={evidenceDoc} open={evidence !== null}
-        onOpenChange={open => { if (!open) setEvidence(null) }} highlightRef={evidence?.pageRef} />}
+      <WheelView hidden={view !== 'Wheel'} />
       <main className="smart-search-layout" hidden={view !== 'Smart Search'} aria-label="Smart Search view">
         <SmartSearch key={searchRun} docs={docs} onOpenSource={setSearchSelectedId} onShowOnGraph={showOnGraph} />
         {searchSelected && <DetailsPanel doc={searchSelected} onClose={() => setSearchSelectedId(null)} />}
