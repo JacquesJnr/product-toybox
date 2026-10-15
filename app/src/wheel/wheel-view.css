@@ -1,0 +1,13 @@
+.wheel-view {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-areas: "top panel" "chart panel" "drawer panel";
+  flex: 1;
+  min-height: 0;
+}
+.wheel-view[hidden] { display: none; }
+.wheel-view-top { grid-area: top; }
+.wheel-view-chart { grid-area: chart; position: relative; min-height: 0; }
+.wheel-view > .wheel-panel { grid-area: panel; }
+.wheel-view > .wheel-drawer { grid-area: drawer; }
