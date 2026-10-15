@@ -1,0 +1,15 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Acme.Inc logo" clip-path="url(#clip0_0_76)">
+<path id="Vector" d="M44 0H4C1.79086 0 0 1.79086 0 4V44C0 46.2091 1.79086 48 4 48H44C46.2091 48 48 46.2091 48 44V4C48 1.79086 46.2091 0 44 0Z" fill="#121212"/>
+<path id="Vector_2" d="M14 35L24 13L34 35" stroke="#FAFAF5" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="Vector_3">
+<path d="M18.5 27H29.5Z" fill="black"/>
+<path d="M18.5 27H29.5" stroke="#FAFAF5" stroke-width="4" stroke-linecap="round"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_0_76">
+<rect width="48" height="48" fill="white"/>
+</clipPath>
+</defs>
+</svg>
