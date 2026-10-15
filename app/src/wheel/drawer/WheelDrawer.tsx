@@ -5,7 +5,7 @@ import { Select } from '@base-ui/react/select'
 import { Tabs } from '@base-ui/react/tabs'
 import { fixture, LAST_STOP, pointsAt, stopName, TODAY } from '../model'
 import type { WheelActions, WheelState } from '../model'
-import { clampTime, playbackTime, slideText, stepDestination } from './drawerLogic'
+import { clampTime, playbackTime, slideText, stepDestination, tooltipLeft } from './drawerLogic'
 import knob from './knob.svg'
 import './wheel-drawer.css'
 
@@ -25,7 +25,7 @@ export function WheelDrawer({ state, actions }: { state: WheelState; actions: Wh
   const savedHistory = useRef(Math.min(state.t, TODAY))
   const ownModeChange = useRef(false)
   const [playing, setPlaying] = useState(false)
-  const [hover, setHover] = useState<number | null>(null)
+  const [hover, setHover] = useState<{ t: number; x: number } | null>(null)
   const [reduced, setReduced] = useState(() => matchMedia('(prefers-reduced-motion: reduce)').matches)
   const dragging = useRef(false)
   const swipe = useRef<number | null>(null)
@@ -47,6 +47,8 @@ export function WheelDrawer({ state, actions }: { state: WheelState; actions: Wh
     const from = position.current
     if (reduced || from === target || !duration) { writeTime(target); return }
     goal.current = target
+    // Keep the held time when setMode clamps the shared state to its first stop.
+    writeTime(from)
     // The first frame establishes the clock; time always starts from the held timeline position.
     let start: number | null = null
     function step(now: number) {
@@ -63,11 +65,10 @@ export function WheelDrawer({ state, actions }: { state: WheelState; actions: Wh
     target = clampTime(target, LAST_STOP)
     const mode = target > TODAY ? 'projection' : 'history'
     if (mode !== latest.current.state.mode) {
-      halt()
       ownModeChange.current = true
       actions.setMode(mode)
-      writeTime(target)
-    } else goTo(target)
+    }
+    goTo(target)
   }
   function play() {
     if (playing) { halt(); return }
@@ -103,7 +104,7 @@ export function WheelDrawer({ state, actions }: { state: WheelState; actions: Wh
     latest.current = { state, actions }
     position.current = state.t
     if (previous.mode !== state.mode) {
-      halt()
+      if (!ownModeChange.current) halt()
       if (state.mode === 'projection') savedHistory.current = previous.t
       else if (!ownModeChange.current) writeTime(savedHistory.current)
       ownModeChange.current = false
@@ -139,7 +140,7 @@ export function WheelDrawer({ state, actions }: { state: WheelState; actions: Wh
     const width = (bounds.width - (TODAY - 1) * 4) / TODAY
     const x = Math.max(0, event.clientX - bounds.left)
     const chapter = Math.min(TODAY - 1, Math.floor(x / (width + 4)))
-    return clampTime(chapter + Math.min(1, (x - chapter * (width + 4)) / width), TODAY)
+    return { t: clampTime(chapter + Math.min(1, (x - chapter * (width + 4)) / width), TODAY), x: tooltipLeft(x, bounds.width) }
   }
   function seekKey(event: KeyboardEvent<HTMLDivElement>) {
     const direction = ['ArrowRight', 'ArrowUp'].includes(event.key) ? 1 : ['ArrowLeft', 'ArrowDown'].includes(event.key) ? -1 : 0
@@ -170,42 +171,43 @@ export function WheelDrawer({ state, actions }: { state: WheelState; actions: Wh
           </Tabs.List>
         </div>
         <Tabs.Panel value="history" className="wheel-drawer__history">
-          <div className="wheel-drawer__carousel" aria-roledescription="carousel" aria-label="Timeframes">
-            <Button className="wheel-drawer__nav" aria-label="Previous timeframe" disabled={here === 0} onClick={() => histGo((goal.current ?? Math.round(position.current)) - 1)}><Icon name="chevron_left" /></Button>
+          <div className="wheel-drawer__carousel" role="region" aria-roledescription="carousel" aria-label="Timeframes">
+            <Button className="wheel-drawer__nav" focusableWhenDisabled aria-label="Previous timeframe" disabled={here === 0} onClick={() => histGo((goal.current ?? Math.round(position.current)) - 1)}><Icon name="chevron_left" /></Button>
             <div className="wheel-drawer__viewport"
               onPointerDown={event => { swipe.current = event.clientX; event.currentTarget.setPointerCapture(event.pointerId) }}
               onPointerUp={event => { const dx = event.clientX - (swipe.current ?? event.clientX); swipe.current = null; if (Math.abs(dx) > 40) histGo((goal.current ?? Math.round(position.current)) + (dx < 0 ? 1 : -1)) }}
               onPointerCancel={() => { swipe.current = null }}>
-              <div className="wheel-drawer__track" style={{ transform: `translateX(${-k * 100}%)` }} aria-live="polite">
+              <div className="wheel-drawer__track" style={{ transform: `translateX(${-k * 100}%)` }}>
                 {slides.map((text, i) => <div key={i} className="wheel-drawer__slide" style={{ left: `${i * 100}%` }} data-current={i === k || undefined} data-projection={i > TODAY || undefined}
                   role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${fixture.timeframes.length}`} aria-hidden={i !== k}>
                   <h3>{stopTitle(i)}</h3><p>{text}</p>
                 </div>)}
               </div>
             </div>
-            <Button className="wheel-drawer__nav" aria-label="Next timeframe" disabled={here === LAST_STOP} onClick={() => histGo((goal.current ?? Math.round(position.current)) + 1)}><Icon name="chevron_right" /></Button>
+            <Button className="wheel-drawer__nav" focusableWhenDisabled aria-label="Next timeframe" disabled={here === LAST_STOP} onClick={() => histGo((goal.current ?? Math.round(position.current)) + 1)}><Icon name="chevron_right" /></Button>
           </div>
+          <p className="wheel-drawer__live" aria-live="polite" aria-atomic="true">{stopTitle(k)}</p>
           <div className="wheel-drawer__dots" role="group" aria-label="Pick a timeframe">
             {fixture.timeframes.map((stop, i) => <Button key={i} aria-label={stopTitle(i)} aria-current={k === i ? 'true' : 'false'} data-projection={stop.projection || undefined} onClick={() => histGo(i)} />)}
           </div>
         </Tabs.Panel>
         <Tabs.Panel value="playback" className="wheel-drawer__playback">
           {state.mode === 'history' && <div className="wheel-drawer__media">
-            <Button className="wheel-drawer__media-button" aria-label="Previous stop" disabled={here === 0} onClick={() => goTo(stepDestination(position.current, goal.current, -1, TODAY))}><Icon name="skip_previous" /></Button>
+            <Button className="wheel-drawer__media-button" focusableWhenDisabled aria-label="Previous stop" disabled={state.t === 0 && goal.current === null} onClick={() => goTo(stepDestination(position.current, goal.current, -1, TODAY))}><Icon name="skip_previous" /></Button>
             <Button className="wheel-drawer__media-button wheel-drawer__play" aria-label={playing ? 'Pause' : 'Play history'} aria-pressed={playing} onClick={play}><Icon name={playing ? 'pause' : 'play_arrow'} /></Button>
-            <Button className="wheel-drawer__media-button" aria-label="Next stop" disabled={here === TODAY} onClick={() => goTo(stepDestination(position.current, goal.current, 1, TODAY))}><Icon name="skip_next" /></Button>
-            <div className="wheel-drawer__bar" role="slider" tabIndex={0} aria-label="Time in history" aria-valuemin={0} aria-valuemax={TODAY} aria-valuenow={state.t} aria-valuetext={pickLabel(k)} onKeyDown={seekKey}
-              onPointerDown={event => { if (event.button !== 0) return; halt(); dragging.current = true; event.currentTarget.setPointerCapture(event.pointerId); const t = seekAt(event); writeTime(t); setHover(t) }}
-              onPointerMove={event => { const t = seekAt(event); setHover(t); if (dragging.current) writeTime(t) }}
+            <Button className="wheel-drawer__media-button" focusableWhenDisabled aria-label="Next stop" disabled={state.t === TODAY && goal.current === null} onClick={() => goTo(stepDestination(position.current, goal.current, 1, TODAY))}><Icon name="skip_next" /></Button>
+            <div className="wheel-drawer__bar" role="slider" tabIndex={0} aria-label="Time in history" aria-valuemin={0} aria-valuemax={TODAY} aria-valuenow={Math.round(state.t * 100) / 100} aria-valuetext={pickLabel(k)} onKeyDown={seekKey}
+              onPointerDown={event => { if (event.button !== 0) return; halt(); dragging.current = true; event.currentTarget.setPointerCapture(event.pointerId); const next = seekAt(event); writeTime(next.t); setHover(next) }}
+              onPointerMove={event => { const next = seekAt(event); setHover(next); if (dragging.current) writeTime(next.t) }}
               onPointerUp={event => { if (!dragging.current) return; dragging.current = false; event.currentTarget.releasePointerCapture(event.pointerId); goTo(Math.round(position.current), 220) }}
               onPointerCancel={() => { dragging.current = false; setHover(null); goTo(Math.round(position.current), 0) }}
               onLostPointerCapture={() => { dragging.current = false }}
               onPointerLeave={() => { if (!dragging.current) setHover(null) }}>
-              {Array.from({ length: TODAY }, (_, i) => <span className="wheel-drawer__chapter" data-hover={hover !== null && Math.min(TODAY - 1, Math.floor(hover)) === i || undefined} key={i}>
+              {Array.from({ length: TODAY }, (_, i) => <span className="wheel-drawer__chapter" data-hover={hover !== null && Math.min(TODAY - 1, Math.floor(hover.t)) === i || undefined} key={i}>
                 <span style={{ width: `${clampTime(state.t - i, 1) * 100}%` }} />
               </span>)}
               <img className="wheel-drawer__knob" src={knob} alt="" style={{ left: `calc(${state.t / TODAY * 100}% + ${4 * (chapter - state.t / TODAY * (TODAY - 1))}px)` }} />
-              {hover !== null && <span className="wheel-drawer__tooltip" style={{ left: `${Math.max(20, Math.min(80, hover / TODAY * 100))}%` }}>{stopTitle(Math.min(TODAY - 1, Math.floor(hover)))} to {stopTitle(Math.min(TODAY - 1, Math.floor(hover)) + 1)}</span>}
+              {hover !== null && <span className="wheel-drawer__tooltip" style={{ left: `${hover.x}px` }}>{stopTitle(Math.min(TODAY - 1, Math.floor(hover.t)))} to {stopTitle(Math.min(TODAY - 1, Math.floor(hover.t)) + 1)}</span>}
             </div>
           </div>}
           <Select.Root items={items} value={k} onValueChange={value => { if (value !== null) goTo(value) }}>
