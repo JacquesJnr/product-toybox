@@ -1,23 +1,26 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { Button } from '@base-ui/react/button'
 import { Collapsible } from '@base-ui/react/collapsible'
-import { domainOfTopic, findTopic, fixture, isDomain, statusOf, topicsOf } from '../model'
+import { domainOfTopic, findTopic, fixture, isDomain, isProjection, statusOf, topicsOf } from '../model'
 import type { WheelActions, WheelState } from '../model'
 import { aiReading, aiSummary, labels, nearestStop, overview, percent, ratioOf, sortedRows, worstKri } from './text'
 import logo from './acme-logo.svg'
 import './panel.css'
 
 const Icon = ({ name }: { name: string }) => <span className="material-symbols-rounded" aria-hidden="true">{name}</span>
-const Source = ({ text }: { text: string }) => <a className="wp-source" role="link" aria-disabled="true">{text} ↗</a>
+const Source = ({ text }: { text: string }) => <a className="wp-source" role="link" aria-disabled="true"><span>{text}</span><span className="wp-mono">↗</span></a>
 
 export function WheelPanel({ state, actions }: { state: WheelState; actions: WheelActions }) {
   const [domainsOpen, setDomainsOpen] = useState(false)
   const [topicsOpen, setTopicsOpen] = useState(false)
   const panel = useRef<HTMLElement>(null)
   const i = nearestStop(state.t)
-  const projected = state.mode === 'projection' || fixture.timeframes[i].projection
+  const projected = isProjection(i)
   const name = state.picked || state.domain
-  useLayoutEffect(() => { panel.current?.scrollTo(0, 0) }, [name])
+  useLayoutEffect(() => {
+    panel.current?.scrollTo(0, 0)
+    if (document.activeElement === document.body) panel.current?.querySelector('h2')?.focus({ preventScroll: true })
+  }, [name])
   const domain = name ? isDomain(name) ? name : domainOfTopic(name)! : null
   const topic = name && !isDomain(name) ? findTopic(name) : undefined
   const rows = sortedRows(name ? domain : null, i)
@@ -34,12 +37,12 @@ export function WheelPanel({ state, actions }: { state: WheelState; actions: Whe
   return <aside ref={panel} className={`wheel-panel${projected ? ' wp-projection' : ''}`} aria-label={name || `${fixture.business} governance vault`}>
     {!name && <header className="wp-banner">
       <img src={logo} alt="" width="48" height="48" />
-      <h2>{fixture.business}</h2>
+      <h2 tabIndex={-1}>{fixture.business}</h2>
       <div className="wp-label">Governance vault, {fixture.domains.length} domains, {allTopics} topics</div>
     </header>}
     <div className={`wp-content${!name ? ' wp-vault' : ''}`}>
       {name && !topic && <Button className="wp-back" onClick={back}><Icon name="chevron_left" />{fixture.business}</Button>}
-      {name && <header><h2>{name}</h2><div className="wp-label">{topic ? domain : `Domain, ${topicsOf(domain!).length} topics`}</div></header>}
+      {name && <header><h2 tabIndex={-1}>{name}</h2><div className="wp-label">{topic ? domain : `Domain, ${topicsOf(domain!).length} topics`}</div></header>}
       <div className="wp-status">
         <span className={`wp-${status}`}>{projected ? 'Projected: ' : ''}{name ? labels[status] : over ? `${over} of ${rows.length} domains over threshold` : labels[status]}</span>
         <span className="wp-mono">{topic ? `worst KRI at ${percent(ratio)} of threshold` : `worst ${name ? 'topic' : 'domain'}: ${worst.name} at ${percent(ratio)}`}</span>
@@ -48,8 +51,8 @@ export function WheelPanel({ state, actions }: { state: WheelState; actions: Whe
         <h3 className="wp-label"><Icon name="smart_toy" />AI Summary</h3>
         <p>{aiSummary(name, i)}</p>
         <div className="wp-actions">
-          <Button className="wp-button"><Icon name="chat" />Chat about this</Button>
-          <Button className="wp-button" disabled><Icon name="psychology" />Create a Query</Button>
+          <Button className="wp-button" title="Not built in this prototype"><Icon name="chat" />Chat about this</Button>
+          <Button className="wp-button" title="Not built in this prototype" disabled><Icon name="psychology" />Create a Query</Button>
         </div>
       </section>
       <section className="wp-section wp-overview">
@@ -60,14 +63,14 @@ export function WheelPanel({ state, actions }: { state: WheelState; actions: Whe
       </section>
       {!topic && <section className="wp-section">
         <Collapsible.Root open={name ? topicsOpen : domainsOpen} onOpenChange={name ? setTopicsOpen : setDomainsOpen}>
-          <Collapsible.Trigger className="wp-fold"><span>{name ? 'Topics' : 'Domains'}</span><span className="wp-label">{rows.length} {name ? 'topics' : 'domains'}{over ? `, ${over} over` : ''}<Icon name="chevron_right" /></span></Collapsible.Trigger>
+          <h3 className="wp-fold-h"><Collapsible.Trigger className="wp-fold"><span>{name ? 'Topics' : 'Domains'}</span><span className="wp-label">{rows.length} {name ? 'topics' : 'domains'}{over ? `, ${over} over` : ''}<Icon name="chevron_right" /></span></Collapsible.Trigger></h3>
           <Collapsible.Panel className="wp-list">{rows.map(row => <div key={row.name}>
             {name ? <span>{row.name}</span> : <Button onClick={() => actions.pick(row.name)}>{row.name}</Button>}
             <span className={`wp-mono wp-${statusOf(row.ratio)}`}>{percent(row.ratio)}</span>
           </div>)}</Collapsible.Panel>
         </Collapsible.Root>
-        {name && domain === fixture.fullKriDomain && <Button className="wp-button wp-open" onClick={() => actions.setDomain(domain)}><Icon name="arrow_forward" />Open the {domain} wheel</Button>}
-        {name && domain !== fixture.fullKriDomain && <p className="wp-note wp-open">Full KRI data in this example covers {fixture.fullKriDomain} only.</p>}
+        {!state.domain && name && domain === fixture.fullKriDomain && <Button className="wp-button wp-open" onClick={() => actions.setDomain(domain)}><Icon name="arrow_forward" />Open the {domain} wheel</Button>}
+        {!state.domain && name && domain !== fixture.fullKriDomain && <p className="wp-note wp-open">Full KRI data in this example covers {fixture.fullKriDomain} only.</p>}
       </section>}
       {topic && !topic.kris && <section className="wp-section wp-note">This example has full KRI data only for {fixture.fullKriDomain}. Open that domain to see the statement, the KRIs and the AI reading for each topic.</section>}
       {topic?.appetiteStatement && <section className="wp-section"><h3>Appetite statement</h3><blockquote>“{topic.appetiteStatement.text}”</blockquote><Source text={topic.appetiteStatement.source} /></section>}

@@ -36,19 +36,23 @@
 .wp-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .wheel-panel .wp-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 12px; background: var(--surface); border: 1.5px solid var(--ink); border-radius: 4px; color: var(--ink); font: 500 12px/1.3 'Instrument Sans', sans-serif; cursor: pointer; }
 .wheel-panel button:focus-visible, .wheel-panel a:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-.wheel-panel button:hover { background-color: var(--bench); }
+.wheel-panel button:not(:disabled):hover { background-color: var(--bench); }
+.wheel-panel button:disabled { cursor: default; }
 .wp-section { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--glass-45); padding-top: 16px; }
 .wp-overview ul { padding-left: 16px; display: flex; flex-direction: column; gap: 8px; }
 .wp-for-you { padding: 12px; border: 1px solid var(--graphite); border-radius: 4px; display: flex; flex-direction: column; gap: 4px; }
 .wp-for-you h4 { display: flex; align-items: center; gap: 4px; }
 .wheel-panel .wp-back { display: inline-flex; align-items: center; align-self: start; gap: 4px; border: 0; padding: 0; color: var(--graphite); background: none; font: 500 12px/1.3 'Instrument Sans', sans-serif; cursor: pointer; }
 .wp-fold { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 32px; border: 0; padding: 0; background: none; color: var(--graphite); font: 400 12px/1 'JetBrains Mono', monospace; text-transform: uppercase; cursor: pointer; }
+.wheel-panel .wp-fold-h { margin: 0; font: inherit; }
 .wp-fold .wp-label { display: flex; align-items: center; gap: 8px; text-transform: none; }
 .wp-fold[data-panel-open] .material-symbols-rounded { transform: rotate(90deg); }
 .wp-list > div { display: flex; justify-content: space-between; gap: 16px; padding: 8px 0; border-top: 1px solid var(--glass-28); }
 .wp-list button { padding: 0; background: none; border: 0; color: var(--ink); font: inherit; text-decoration: underline; cursor: pointer; }
-.wp-open { align-self: start; margin-top: 8px; }
-.wp-source { align-self: start; color: var(--ink); text-decoration: underline; text-underline-offset: 2px; font: 500 12px/1.3 'Instrument Sans', sans-serif; }
+.wp-open { align-self: start; }
+.wp-note.wp-open { margin-top: 8px; }
+.wp-source { display: inline-flex; align-items: center; gap: 4px; align-self: start; color: var(--ink); font: 500 12px/1.3 'Instrument Sans', sans-serif; }
+.wp-source > span:first-child { text-decoration: underline; text-underline-offset: 2px; }
 .wheel-panel .wp-note { color: var(--graphite); font: 500 12px/1.3 'Instrument Sans', sans-serif; }
 .wp-kri { display: flex; flex-direction: column; gap: 6px; padding: 10px 0; }
 .wp-kri + .wp-kri { border-top: 1px solid var(--glass-45); }
@@ -62,5 +66,6 @@
 .wp-band-over { background: var(--risk-over); opacity: .16; }
 .wp-bar-value { position: absolute; left: 0; top: 5px; height: 4px; background: var(--ink); border-radius: 2px; }
 .wp-threshold { position: absolute; top: 0; width: 2px; height: 14px; background: var(--ink); }
-.wheel-panel.wp-projection { --wp-rainbow: linear-gradient(135deg, #3A86FF, #8338EC, #FF006E, #FB5607, #FFBE0B); }
+/* shortcut: rainbow stops duplicate the token for Figma's 135deg angle, replace when tokens expose the stops. */
+.wheel-panel.wp-projection { --wp-rainbow: linear-gradient(135deg, #3A86FF, #8338EC, #FF006E, #FB5607, #FFBE0B); filter: var(--rainbow-glow); }
 .wheel-panel.wp-projection, .wp-projection .wp-summary, .wp-projection .wp-for-you { border: 1.5px solid transparent; background: linear-gradient(var(--surface), var(--surface)) padding-box, var(--wp-rainbow) border-box; box-shadow: none; }
