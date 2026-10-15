@@ -1,0 +1,42 @@
+/* Spider chart: Figma Wheel v2 frames 01–05, component sheet 187:2. */
+.spider-chart { position: relative; width: 784px; height: 555px; margin: 0 auto; font-family: 'Instrument Sans', sans-serif; }
+.spider-chart > * { position: absolute; }
+.spider-svg { inset: 0; overflow: visible; }
+.spider-points { pointer-events: none; }
+
+.spider-overzone { fill: rgb(192 80 77 / 0.1); }
+.spider-inside { fill: var(--bench); }
+.spider-ring { fill: none; stroke: var(--glass-45); }
+.spider-ring.near { stroke-dasharray: 1 4; }
+.spider-spoke { stroke: var(--graphite); stroke-opacity: 0.55; }
+.spider-threshold { fill: none; stroke: var(--ink); stroke-width: 2; stroke-dasharray: 6 4; }
+.spider-reading { fill: rgb(18 18 18 / 0.19); stroke: var(--ink); stroke-width: 2.5; stroke-linejoin: round; }
+.proj .spider-reading { fill: rgb(18 18 18 / 0.06); stroke: url(#spider-rainbow); filter: var(--rainbow-glow); }
+
+.spider-ring-label { color: var(--graphite); font: 400 12px/1 'JetBrains Mono', monospace; white-space: nowrap; pointer-events: none; }
+.spider-label { font-size: 12px; font-weight: 500; line-height: 1.3; white-space: nowrap; cursor: pointer; }
+.whole .spider-label { font-size: 18px; font-weight: 600; line-height: 1.25; }
+.spider-label.picked { text-decoration: underline; }
+
+.spider-point { pointer-events: auto; cursor: pointer; outline: none; }
+.spider-hit { fill: transparent; }
+.spider-halo, .spider-pick { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; display: none; }
+.spider-diamond { fill: var(--graphite); stroke: #000; }
+.spider-point.hot:not(.picked) .spider-halo, .spider-point:focus-visible .spider-halo { display: inline; }
+.spider-point.picked .spider-pick { display: inline; }
+.spider-point.hot .spider-diamond, .spider-point.picked .spider-diamond { fill: var(--ink); }
+
+.spider-pct { color: var(--risk-over); font-family: 'JetBrains Mono', monospace; font-weight: 400; line-height: 1; white-space: nowrap; pointer-events: none; }
+.spider-tag { padding: 4px 8px; border: 1px solid var(--glass-45); border-radius: 2px; background: var(--glass-28); color: var(--body); font-size: 12px; font-weight: 500; line-height: 1.3; white-space: nowrap; pointer-events: none; }
+
+.spider-badge { transform: translate(-50%, -50%); padding: 4px 12px; border-radius: 4px; background: var(--ink); color: var(--bench); font-size: 18px; font-weight: 600; line-height: 1.25; white-space: nowrap; pointer-events: none; }
+.proj .spider-badge { border: 1.5px solid transparent; background: linear-gradient(var(--surface), var(--surface)) padding-box, var(--rainbow) border-box; color: var(--ink); filter: var(--rainbow-glow); }
+
+.spider-tip { z-index: 1; display: flex; flex-direction: column; gap: 2px; width: max-content; max-width: 300px; padding: 8px 12px; transform: translateY(-50%); border: 1.5px solid var(--ink); border-radius: 4px; background: var(--surface); pointer-events: none; }
+.spider-tip-name { color: var(--ink); font: 400 14px/1.5 'Nunito', sans-serif; }
+.spider-tip-sub { color: var(--graphite); font-size: 12px; font-weight: 500; line-height: 1.3; }
+.spider-tip-row { display: flex; align-items: center; gap: 8px; padding-top: 4px; color: var(--body); font-size: 12px; font-weight: 500; line-height: 1.3; }
+.spider-tip-score { color: var(--graphite); font: 400 12px/1 'JetBrains Mono', monospace; }
+.spider-rung { width: 9px; height: 9px; flex: none; border: 1.5px solid var(--risk-within); border-radius: 50%; }
+.spider-rung.near { border-color: var(--risk-near); }
+.spider-rung.over { border-color: var(--risk-over); }
