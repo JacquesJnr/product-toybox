@@ -4,6 +4,11 @@ export const clampTime = (t: number, last: number) => Math.max(0, Math.min(last,
 export const playbackTime = (from: number, elapsed: number, today: number) =>
   clampTime(from + Math.max(0, elapsed) / 1400, today)
 
+export function tooltipLeft(x: number, width: number) {
+  const inset = Math.min(60, width / 2)
+  return Math.max(inset, Math.min(width - inset, x))
+}
+
 export function stepDestination(t: number, goal: number | null, direction: number, last: number) {
   const nearest = Math.round(t)
   const start = goal ?? (Math.abs(t - nearest) < .01 ? nearest : direction < 0 ? Math.ceil(t) : Math.floor(t))
