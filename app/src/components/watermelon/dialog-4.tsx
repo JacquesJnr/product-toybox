@@ -16,13 +16,15 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 const Dialog4 = () => {
   return (
     <Dialog>
-      <DialogTrigger>
-        <Button
-          variant="outline"
-          className="rounded-xl border border-border bg-muted px-6 py-2 font-medium text-foreground shadow-sm transition-all hover:bg-muted"
-        >
-          Scrollable Dialog
-        </Button>
+      <DialogTrigger
+        render={
+          <Button
+            variant="outline"
+            className="rounded-xl border border-border bg-muted px-6 py-2 font-medium text-foreground shadow-sm transition-all hover:bg-muted"
+          />
+        }
+      >
+        Scrollable Dialog
       </DialogTrigger>
       <DialogContent className="border-border/40 flex max-h-[min(650px,90vh)] flex-col gap-0 overflow-hidden rounded-xl border bg-card p-0 shadow-xl sm:max-w-md ">
         <DialogHeader className="px-6 pt-6 pb-4 text-left">
