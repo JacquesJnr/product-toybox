@@ -98,7 +98,7 @@ export function WheelSidePanel({ state, actions }: { state: WheelState; actions:
               className="m-6 flex flex-col gap-3 rounded-2xl border border-primary/20 bg-accent/30 p-5">
               <h3 className={`flex items-center gap-1.5 ${label}`}><Sparkles size={12} className="text-primary" />AI summary</h3>
               <p className="text-sm leading-relaxed">{aiSummary(name, i)}</p>
-              <div className="flex flex-wrap gap-2">
+              <div className="grid grid-cols-2 gap-2 [&>*]:min-w-0">
                 <Button variant="outline" size="sm" title="Not built in this prototype"><MessageSquare />Chat about this</Button>
                 <Button variant="outline" size="sm" title="Not built in this prototype" disabled><BrainCircuit />Create a Query</Button>
               </div>
