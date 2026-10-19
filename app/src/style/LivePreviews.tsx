@@ -3,8 +3,8 @@ import documents from '@/data/documents.json'
 import type { Doc, Domain } from '@/types'
 import { Graph } from '@/graph/Graph'
 import { SpiderChart } from '@/wheel/chart/SpiderChart'
-import { WheelDrawer } from '@/wheel/drawer/WheelDrawer'
 import { WheelSidePanel } from '@/components/wheel-panel'
+import { WheelTimeline } from '@/components/wheel-timeline'
 import { WheelDomainPicker, wheelHue } from '@/components/wheel-domain-picker'
 import { WheelLegend, WheelModeToggle } from '@/components/wheel-controls'
 import { LAST_STOP, TODAY, topicsOf } from '@/wheel/model'
@@ -114,7 +114,7 @@ export function WheelPreview() {
             <SpiderChart state={state} actions={actions} />
           </div>
         </div>
-        <WheelDrawer state={state} actions={actions} />
+        <WheelTimeline state={state} actions={actions} />
       </div>
       <div className="absolute inset-y-3 right-3 flex w-[400px]">
         <WheelSidePanel state={state} actions={actions} />
