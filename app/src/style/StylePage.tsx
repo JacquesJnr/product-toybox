@@ -14,7 +14,7 @@ import { CarouselNavigator } from '@/components/watermelon/carousel-navigator'
 import { AccordionApp } from '@/components/watermelon/card-split-accordian'
 import { ContextualAIBar } from '@/components/watermelon/contextual-ai-bar'
 import Dialog4 from '@/components/watermelon/dialog-4'
-import { GraphPreview, WheelPreview } from './LivePreviews'
+import { GraphPreview, WheelPreview, useSharedVault } from './LivePreviews'
 import { DEFAULT_DOMAINS, domainColor, domainGradient, domainIcon } from '@/components/domain-drawer'
 
 // The style index: every picked component and the preset variables on one page.
@@ -55,6 +55,7 @@ function Section({ title, replaces, children }: { title: string; replaces: strin
 export function StylePage() {
   const [frequency, setFrequency] = useState<FrequencyData>({ type: 'Monthly' })
   const [slide, setSlide] = useState(0)
+  const vault = useSharedVault()
 
   return (
     <TooltipProvider>
@@ -65,11 +66,11 @@ export function StylePage() {
         </header>
 
         <Section title="Graph · live" replaces="the app's Graph view">
-          <GraphPreview />
+          <GraphPreview shared={vault} />
         </Section>
 
         <Section title="Wheel · live" replaces="the app's Wheel view">
-          <WheelPreview />
+          <WheelPreview shared={vault} />
         </Section>
 
         <Section title="Colors" replaces="tokens.css">

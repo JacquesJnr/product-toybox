@@ -16,19 +16,26 @@ import { GraphSettings } from '@/components/graph-settings'
 import { GraphSearch } from '@/components/graph-search'
 import { applyProposals } from '@/components/domain-sorting'
 import { DocPanel } from '@/components/doc-panel'
+import { syncWheelDomains } from '@/components/wheel-domains'
 import './live-previews.css'
 
 // The app's own Graph and Wheel, live, so motion and interaction can be tuned here.
 
 const docs = documents as Doc[]
 
-export function GraphPreview() {
-  const [domains, setDomains] = useState<Set<Domain>>(new Set())
-  const [selectedId, setSelectedId] = useState<string | null>(null)
-  const [animateRun, setAnimateRun] = useState(0)
+// The vault and its domain list, shared by the Graph and the Wheel: a domain added on the Graph adds a vertex to the Wheel.
+export function useSharedVault() {
   // The vault as settings change it. The Graph keeps the original list, so adding a domain does not reset the layout.
   const [vault, setVault] = useState(docs)
   const [domainList, setDomainList] = useState<Domain[]>(DEFAULT_DOMAINS)
+  return { vault, setVault, domainList, setDomainList }
+}
+type SharedVault = ReturnType<typeof useSharedVault>
+
+export function GraphPreview({ shared: { vault, setVault, domainList, setDomainList } }: { shared: SharedVault }) {
+  const [domains, setDomains] = useState<Set<Domain>>(new Set())
+  const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [animateRun, setAnimateRun] = useState(0)
   const [showOrphans, setShowOrphans] = useState(true)
   const [query, setQuery] = useState('')
   const visible = useMemo(() => {
@@ -81,7 +88,9 @@ function useFit() {
 
 // The Wheel's parts in one stage, like the Graph: the domain picker and controls on top, the chart scaled to fit,
 // the timeline at the bottom and the panel floating on the right. State and actions are the ones WheelView uses.
-export function WheelPreview() {
+export function WheelPreview({ shared: { vault, domainList } }: { shared: SharedVault }) {
+  // Runs before the Wheel's parts render, so they all read the Graph's domains.
+  useMemo(() => syncWheelDomains(domainList, vault), [domainList, vault])
   const [state, setState] = useState(wheelStart)
   const set = (patch: Partial<WheelState>) => setState(s => ({ ...s, ...patch }))
   const actions: WheelActions = {

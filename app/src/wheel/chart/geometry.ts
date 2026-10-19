@@ -2,29 +2,30 @@
 export const W = 784
 export const H = 555
 export const C = { x: 392, y: 277.5 }
-export const R = 210 // the 150% ring, at a hexagon vertex
+export const R = 210 // the 150% ring, at a polygon vertex
 export const MAX = 1.5
 
 const V0 = -Math.PI / 2
-const SIX = Math.PI / 3
 
 export const ang = (i: number, n: number) => V0 + 2 * Math.PI * i / n
-// Distance to the hexagon rim along angle a, as a share of the vertex distance.
-export function hexR(a: number) {
-  const d = ((((a - V0) % SIX) + SIX) % SIX) - SIX / 2
-  return Math.cos(SIX / 2) / Math.cos(d)
+// The rings are a polygon with one vertex per spoke: six domains make a hexagon, eight topics an octagon.
+// Distance to the n-sided rim along angle a, as a share of the vertex distance.
+export function hexR(a: number, n = 6) {
+  const step = 2 * Math.PI / n
+  const d = ((((a - V0) % step) + step) % step) - step / 2
+  return Math.cos(step / 2) / Math.cos(d)
 }
 // The plot clamps at 150%; labels keep the real value.
 export const rad = (ratio: number) => Math.min(ratio, MAX) / MAX * R
 
-export function xy(a: number, r: number) {
-  const h = r * hexR(a)
+export function xy(a: number, r: number, n = 6) {
+  const h = r * hexR(a, n)
   return { x: C.x + h * Math.cos(a), y: C.y + h * Math.sin(a) }
 }
 
-export function hexPoints(r: number) {
-  return Array.from({ length: 6 }, (_, k) => {
-    const a = V0 + k * SIX
+export function hexPoints(r: number, n = 6) {
+  return Array.from({ length: n }, (_, k) => {
+    const a = ang(k, n)
     return `${(C.x + r * Math.cos(a)).toFixed(1)},${(C.y + r * Math.sin(a)).toFixed(1)}`
   }).join(' ')
 }

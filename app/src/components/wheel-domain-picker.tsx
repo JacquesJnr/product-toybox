@@ -17,10 +17,10 @@ export const WHEEL_DOMAIN: Record<WheelDomain, Domain> = {
   Legal: 'Major decisions',
   Compliance: 'Strategic direction',
 }
-export const wheelHue = (domain: WheelDomain) => domainColor(WHEEL_DOMAIN[domain])
-export const wheelIcon = (domain: WheelDomain) => domainIcon(WHEEL_DOMAIN[domain])
-
-const EXAMPLE = fixture.fullKriDomain
+// On the style page the Wheel's domains already carry the Graph's names (see wheel-domains.ts).
+const graphName = (domain: WheelDomain) => (WHEEL_DOMAIN[domain] ?? domain) as Domain
+export const wheelHue = (domain: WheelDomain) => domainColor(graphName(domain))
+export const wheelIcon = (domain: WheelDomain) => domainIcon(graphName(domain))
 const ROW_SPRING = { type: 'spring', stiffness: 240, damping: 20, mass: 1 } as const
 
 export function WheelDomainPicker({ value, onChange, defaultOpen = false }: {
@@ -30,6 +30,7 @@ export function WheelDomainPicker({ value, onChange, defaultOpen = false }: {
 }) {
   const [open, setOpen] = useState(defaultOpen)
   const rows: (WheelDomain | null)[] = [null, ...DOMAINS]
+  const EXAMPLE = fixture.fullKriDomain
   const CurrentIcon = value ? wheelIcon(value) : Hexagon
 
   return (
