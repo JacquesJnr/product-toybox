@@ -5,7 +5,8 @@ import { Graph } from '@/graph/Graph'
 import { SpiderChart } from '@/wheel/chart/SpiderChart'
 import { WheelDrawer } from '@/wheel/drawer/WheelDrawer'
 import { WheelPanel } from '@/wheel/panel/WheelPanel'
-import { ChartTopBar, WheelChips } from '@/wheel/controls/WheelControls'
+import { ChartTopBar } from '@/wheel/controls/WheelControls'
+import { WheelDomainPicker } from '@/components/wheel-domain-picker'
 import { LAST_STOP, TODAY, topicsOf } from '@/wheel/model'
 import { H, W } from '@/wheel/chart/geometry'
 import type { WheelActions, WheelState } from '@/wheel/model'
@@ -78,7 +79,7 @@ function useFit() {
   return { box, scale }
 }
 
-// The Wheel's parts in one stage, like the Graph: chips and controls on top, the chart scaled to fit,
+// The Wheel's parts in one stage, like the Graph: the domain picker and controls on top, the chart scaled to fit,
 // the timeline at the bottom and the panel floating on the right. State and actions are the ones WheelView uses.
 export function WheelPreview() {
   const [state, setState] = useState(wheelStart)
@@ -101,7 +102,10 @@ export function WheelPreview() {
     <div className="wheel-stage relative h-[920px] w-full min-w-0 overflow-clip rounded-3xl border border-border/60 bg-stage">
       {/* The chart column leaves room for the panel (400px) and the gaps on its right. */}
       <div className="absolute inset-y-3 left-3 right-[424px] flex min-w-0 flex-col gap-2">
-        <WheelChips state={state} actions={actions} />
+        {/* The picker opens over the chart, as the Graph's domain drawer does. */}
+        <div className="relative z-20 h-10 shrink-0">
+          <div className="absolute top-0 left-0"><WheelDomainPicker value={state.domain} onChange={actions.setDomain} /></div>
+        </div>
         <ChartTopBar state={state} actions={actions} />
         <div ref={box} className="relative min-h-0 flex-1">
           <div className="absolute top-1/2 left-1/2" style={{ width: W, height: H, transform: `translate(-50%, -50%) scale(${scale})` }}>
