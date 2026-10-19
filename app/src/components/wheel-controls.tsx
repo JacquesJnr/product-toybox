@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { AnimatePresence, motion, MotionConfig } from 'motion/react'
 import { Tabs } from '@base-ui/react/tabs'
-import { History, Settings2, Sparkles, X } from 'lucide-react'
+import { History, Play, Settings2, Sparkles, X } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 import type { TimeMode } from '@/wheel/model'
 
 // The Wheel's floating controls, in the style of the Graph's search and settings:
@@ -47,7 +48,7 @@ export function WheelLegend({ projection }: { projection: boolean }) {
 }
 
 // Wheel settings, anchored to the stage's top right like the Graph's: a button that unfolds into a card.
-export function WheelSettings({ projection }: { projection: boolean }) {
+export function WheelSettings({ projection, onAnimate }: { projection: boolean; onAnimate: () => void }) {
   const [open, setOpen] = useState(false)
   return (
     <MotionConfig transition={{ type: 'spring', bounce: 0.2, duration: 0.55 }}>
@@ -59,6 +60,11 @@ export function WheelSettings({ projection }: { projection: boolean }) {
               <span className="font-heading text-sm font-semibold">Wheel settings</span>
               <button aria-label="Close settings" onClick={() => setOpen(false)} className="rounded-full p-1 text-muted-foreground hover:bg-muted"><X size={14} /></button>
             </header>
+            <section className="flex flex-col gap-2 px-4 pt-4">
+              <h3 className="text-[10px] font-bold tracking-[0.15em] text-muted-foreground uppercase">Motion</h3>
+              <Button variant="outline" onClick={onAnimate}><Play />Animate</Button>
+              <p className="text-[11px] leading-snug text-muted-foreground">Replays the reveal: the rings sweep in clockwise, then the labels, then the readings.</p>
+            </section>
             <section className="flex flex-col gap-2 p-4">
               <h3 className="text-[10px] font-bold tracking-[0.15em] text-muted-foreground uppercase">Legend</h3>
               <WheelLegend projection={projection} />

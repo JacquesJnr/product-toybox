@@ -93,7 +93,8 @@ export function SpiderChart({ state, actions }: { state: WheelState; actions: Wh
 
   return (
     <div className={`spider-chart${whole ? ' whole' : ''}${proj ? ' proj' : ''}`}>
-      <svg className="spider-svg" width={W} height={H} viewBox={`0 0 ${W} ${H}`} aria-hidden="true">
+      {/* Three layers so the style page can reveal them in turn: background, reading shape, points. */}
+      <svg className="spider-svg spider-bg" width={W} height={H} viewBox={`0 0 ${W} ${H}`} aria-hidden="true">
         <defs>
           <linearGradient id="spider-rainbow" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stopColor="#3A86FF" />
@@ -110,6 +111,8 @@ export function SpiderChart({ state, actions }: { state: WheelState; actions: Wh
         <polygon className="spider-ring near" points={hexPoints(rad(0.8), n)} />
         {placed.map(({ p, a }, i) => { const e = xy(a, R, n); return <line key={i} className={`spider-spoke${p.name === hovered ? ' hot' : ''}${p.name === state.picked ? ' picked' : ''}`} style={{ '--hue': hue(p.domain) } as CSSProperties} x1={C.x} y1={C.y} x2={e.x} y2={e.y} /> })}
         <polygon className="spider-threshold" points={hexPoints(rad(1), n)} />
+      </svg>
+      <svg className="spider-svg spider-shape" width={W} height={H} viewBox={`0 0 ${W} ${H}`} aria-hidden="true">
         {/* Fill and stroke are separate so the projection glow follows the stroke only, as in Figma. */}
         <polygon className="spider-reading-fill" points={reading} />
         <polygon className="spider-reading" points={reading} />
@@ -124,19 +127,19 @@ export function SpiderChart({ state, actions }: { state: WheelState; actions: Wh
         )
       })}
 
-      {placed.map(({ p, a }) => (
+      {placed.map(({ p, a }, i) => (
         <span key={p.name} className={`spider-label${p.name === state.picked ? ' picked' : ''}`}
-          style={{ ...rimLabel(a, whole, n), color: hue(p.domain) }} onClick={() => actions.pick(p.name)}>
+          style={{ ...rimLabel(a, whole, n), color: hue(p.domain), '--i': i, '--n': n } as CSSProperties} onClick={() => actions.pick(p.name)}>
           {p.name}
         </span>
       ))}
 
       <svg className="spider-svg spider-points" width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
-        {placed.map(({ p, x, y }) => {
+        {placed.map(({ p, x, y }, i) => {
           const picked = p.name === state.picked
           return (
             <g key={p.name} className={`spider-point ${p.status}${picked ? ' picked' : ''}${hovered === p.name ? ' hot' : ''}`}
-              transform={`translate(${x.toFixed(1)} ${y.toFixed(1)})`} style={{ '--hue': hue(p.domain) } as CSSProperties} tabIndex={0} role="button" aria-pressed={picked}
+              transform={`translate(${x.toFixed(1)} ${y.toFixed(1)})`} style={{ '--hue': hue(p.domain), '--i': i, '--n': n } as CSSProperties} tabIndex={0} role="button" aria-pressed={picked}
               aria-describedby={hovered === p.name ? tipId : undefined}
               aria-label={`${p.name}, ${pct(atStop.get(p.name)!)} of threshold, ${LABEL[statusOf(atStop.get(p.name)!)]}`}
               onClick={() => actions.pick(p.name)}
