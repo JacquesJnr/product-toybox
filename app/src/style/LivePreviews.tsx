@@ -6,7 +6,7 @@ import type { Doc, Domain } from '@/types'
 import { Graph } from '@/graph/Graph'
 import { WheelView } from '@/wheel/WheelView'
 import { visibleIds } from '@/filters/visible'
-import { DomainChips } from '@/filters/DomainChips'
+import { DomainDrawer } from '@/components/domain-drawer'
 import { DetailsPanel } from '@/details/DetailsPanel'
 import './live-previews.css'
 
@@ -25,11 +25,13 @@ export function GraphPreview() {
     <div className="flex w-full flex-col gap-4">
       <div className="flex items-center gap-3">
         <Button variant="outline" onClick={() => setAnimateRun(run => run + 1)}><Play />Animate</Button>
-        <DomainChips value={domains} onChange={setDomains} />
       </div>
       <div className="flex h-[640px] gap-6">
         <div className="relative flex min-w-0 flex-1">
           <Graph revealRun={0} foundLinks={[]} docs={docs} visibleIds={visible} selectedId={selectedId} onSelect={setSelectedId} active animateRun={animateRun} />
+          <div className="absolute top-3 left-3 z-10">
+            <DomainDrawer value={domains} onChange={setDomains} />
+          </div>
         </div>
         {selected && <DetailsPanel doc={selected} onClose={() => setSelectedId(null)} />}
       </div>
