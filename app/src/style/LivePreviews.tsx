@@ -98,7 +98,7 @@ export function WheelPreview() {
   const { box, scale } = useFit()
 
   return (
-    <div className="wheel-stage relative h-[920px] w-full min-w-0 overflow-hidden rounded-3xl border border-border/60 bg-stage">
+    <div className="wheel-stage relative h-[920px] w-full min-w-0 overflow-clip rounded-3xl border border-border/60 bg-stage">
       {/* The chart column leaves room for the panel (400px) and the gaps on its right. */}
       <div className="absolute inset-y-3 left-3 right-[424px] flex min-w-0 flex-col gap-2">
         <WheelChips state={state} actions={actions} />
