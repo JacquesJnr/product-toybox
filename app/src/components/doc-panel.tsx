@@ -35,7 +35,7 @@ export function DocPanel({ doc, onClose, onSelect }: { doc: Doc; onClose: () => 
   return (
     <>
       <motion.aside initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={SPRING} aria-label={doc.title}
-        className="flex w-[380px] shrink-0 flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-xl">
+        className="flex w-[380px] shrink-0 flex-col overflow-hidden rounded-3xl border border-border/60 bg-card shadow-soft">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div key={doc.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.18 }}
             className="flex min-h-0 flex-1 flex-col overflow-y-auto">

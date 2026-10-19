@@ -44,7 +44,7 @@ export function DomainDrawer({ domains = DEFAULT_DOMAINS, value, onChange, defau
             key="open"
             layoutId="domain-drawer"
             style={{ borderRadius: 20, transformOrigin: '0% 0%' }}
-            className="flex w-64 flex-col gap-1 overflow-hidden border border-border bg-card/95 p-2 shadow-[0_12px_40px_rgba(0,0,0,0.08)] backdrop-blur-sm"
+            className="flex w-64 flex-col gap-1 overflow-hidden border border-border/60 bg-card/90 p-2 shadow-soft backdrop-blur-md"
             role="group"
             aria-label="Filter by domain"
           >
@@ -106,7 +106,7 @@ export function DomainDrawer({ domains = DEFAULT_DOMAINS, value, onChange, defau
             whileTap={{ scale: 0.96 }}
             style={{ borderRadius: 20 }}
             aria-label="Open domain filter"
-            className="flex h-10 items-center gap-2 border border-border bg-card/95 px-3 text-sm font-medium text-foreground shadow-xs backdrop-blur-sm"
+            className="flex h-10 items-center gap-2 border border-border/60 bg-card/90 px-3 text-sm font-medium text-foreground shadow-soft backdrop-blur-md"
           >
             <ListFilter size={16} />
             {summary}

@@ -50,7 +50,7 @@ export function RiskCard({ topic: name, at = TODAY }: { topic: string; at?: numb
   const reading = aiReading(topic, at)
 
   return (
-    <div className="w-full max-w-135 overflow-hidden rounded-3xl border border-border bg-card font-mono text-foreground shadow-xl">
+    <div className="w-full max-w-135 overflow-hidden rounded-3xl border border-border/60 bg-card font-mono text-foreground shadow-soft">
       <div className="flex items-start justify-between gap-4 bg-muted/50 px-6 py-5">
         <div>
           <h3 className="mb-1 text-[9px] font-bold tracking-[0.2em] text-muted-foreground uppercase">Risk summary · {domainOfTopic(name)}</h3>

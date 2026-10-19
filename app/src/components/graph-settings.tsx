@@ -55,7 +55,7 @@ export function GraphSettings({ docs, domains, showOrphans, onShowOrphans, onAdd
       <AnimatePresence mode="popLayout" initial={false}>
         {open ? (
           <motion.div key="open" layoutId="graph-settings" style={{ borderRadius: 20, transformOrigin: '100% 0%' }}
-            className="flex max-h-[600px] w-96 flex-col overflow-hidden border border-border bg-card/95 shadow-[0_12px_40px_rgba(0,0,0,0.1)] backdrop-blur-sm">
+            className="flex max-h-[600px] w-96 flex-col overflow-hidden border border-border/60 bg-card/90 shadow-soft backdrop-blur-md">
             <header className="flex items-center justify-between border-b border-border px-4 py-3">
               <span className="flex items-center gap-2">
                 {step !== 'menu' && step !== 'reading' && <button aria-label="Back" onClick={() => setStep(step === 'review' ? 'add' : 'menu')} className="rounded-full p-1 text-muted-foreground hover:bg-muted"><ArrowLeft size={14} /></button>}
@@ -148,7 +148,7 @@ export function GraphSettings({ docs, domains, showOrphans, onShowOrphans, onAdd
         ) : (
           <motion.button key="closed" layoutId="graph-settings" onClick={() => setOpen(true)} whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.94 }}
             style={{ borderRadius: 20 }} aria-label="Open graph settings"
-            className="flex h-10 w-10 items-center justify-center border border-border bg-card/95 text-foreground shadow-xs backdrop-blur-sm">
+            className="flex h-10 w-10 items-center justify-center border border-border/60 bg-card/90 text-foreground shadow-soft backdrop-blur-md">
             <Settings2 size={18} />
           </motion.button>
         )}
