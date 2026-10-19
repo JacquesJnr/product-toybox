@@ -100,7 +100,7 @@ export function DocPanel({ doc, onClose, onSelect }: { doc: Doc; onClose: () => 
                 <h4 className={label}>Insights · {doc.insights.length}</h4>
                 {doc.insights.map((insight, index) => (
                   <motion.article key={index} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ ...SPRING, delay: 0.12 + index * 0.08 }}
-                    className="flex flex-col gap-2.5 rounded-2xl border border-primary/20 bg-card p-4 shadow-xs">
+                    className="ai-edge flex flex-col gap-2.5 rounded-2xl p-4 shadow-xs">
                     <p className="text-sm leading-snug">{insight.text}</p>
                     <div className="flex flex-wrap gap-1">{insight.tags.map(tag => <span key={tag} className="rounded-md bg-muted px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground uppercase">{tag}</span>)}</div>
                     <div className="flex items-center justify-between border-t border-border pt-2.5">

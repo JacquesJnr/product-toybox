@@ -26,6 +26,7 @@ const colorGroups: { title: string; note: string; names: string[] }[] = [
   { title: 'Text and action', note: 'From preset b6Tpl9I9Z2.', names: ['foreground', 'muted-foreground', 'primary', 'primary-foreground', 'ring', 'destructive'] },
   { title: 'Risk status', note: 'Within, near and over threshold.', names: ['status-within', 'status-near', 'status-over'] },
   { title: 'Charts', note: 'From the preset.', names: ['chart-1', 'chart-2', 'chart-3', 'chart-4', 'chart-5'] },
+  { title: 'AI', note: 'The rainbow from the toy tokens, with its subtle glow (ai-edge, ai-text, ai-glow). AI parts only: the AI projection, AI readings, found links.', names: ['ai-gradient'] },
 ]
 
 const domains = [

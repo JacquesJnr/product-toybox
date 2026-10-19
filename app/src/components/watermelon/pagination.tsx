@@ -66,8 +66,9 @@ export function Pagination({
         <AnimatePresence mode="popLayout" initial={false} custom={direction}>
           <motion.span key={text} custom={direction} variants={labelVariants} initial="initial" animate="animate" exit="exit"
             transition={{ type: 'spring', stiffness: 200, damping: 16, mass: 1.2 }}
-            className={`font-heading text-sm font-semibold whitespace-nowrap ${ai(currentPage) ? 'text-primary' : 'text-foreground'}`}>
-            {text}
+            className="font-heading text-sm font-semibold whitespace-nowrap">
+            {/* The roll animates filter (blur), so the AI glow sits on an inner span. */}
+            <span className={ai(currentPage) ? 'ai-text ai-glow' : 'text-foreground'}>{text}</span>
           </motion.span>
         </AnimatePresence>
       </div>

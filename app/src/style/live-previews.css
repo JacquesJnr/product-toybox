@@ -13,8 +13,8 @@
 .wheel-stage .spider-threshold { stroke: var(--foreground); stroke-opacity: 0.7; stroke-width: 1.5; stroke-dasharray: 5 4; }
 .wheel-stage .spider-reading-fill { fill: color-mix(in oklch, var(--foreground) 7%, transparent); }
 .wheel-stage .spider-reading { stroke: var(--foreground); stroke-width: 2; filter: none; }
-.wheel-stage .proj .spider-reading-fill { fill: color-mix(in oklch, var(--primary) 12%, transparent); }
-.wheel-stage .proj .spider-reading { stroke: var(--primary); filter: drop-shadow(0 0 4px color-mix(in oklch, var(--primary) 40%, transparent)); }
+.wheel-stage .proj .spider-reading-fill { fill: color-mix(in oklch, #8338EC 8%, transparent); }
+.wheel-stage .proj .spider-reading { stroke: url(#spider-rainbow); filter: var(--ai-glow); }
 
 .wheel-stage .spider-ring-label { color: var(--muted-foreground); font: 400 11px/1 var(--font-mono); }
 .wheel-stage .spider-label { font-family: var(--font-heading); font-weight: 600; }
@@ -38,7 +38,7 @@
 .wheel-stage .spider-tag { padding: 3px 10px; border: 1px solid color-mix(in oklch, var(--border) 60%, transparent); border-radius: 999px; background: var(--card); color: var(--muted-foreground); box-shadow: var(--shadow-soft); font-size: 11px; }
 
 .wheel-stage .spider-badge { padding: 5px 14px; border: 1px solid var(--foreground); border-radius: 999px; background: var(--foreground); color: var(--background); box-shadow: var(--shadow-soft); font: 600 15px/1.25 var(--font-heading); }
-.wheel-stage .proj .spider-badge { border: 1px solid color-mix(in oklch, var(--primary) 30%, transparent); background: var(--accent); color: var(--primary); filter: none; }
+.wheel-stage .proj .spider-badge { border: 1.5px solid transparent; background: linear-gradient(var(--card), var(--card)) padding-box, var(--ai-gradient) border-box; color: var(--foreground); filter: var(--ai-glow); }
 
 .wheel-stage .spider-tip { gap: 3px; padding: 10px 14px; border: 1px solid color-mix(in oklch, var(--border) 60%, transparent); border-radius: 14px; background: var(--card); box-shadow: var(--shadow-soft); }
 .wheel-stage .spider-tip-name { color: var(--foreground); font: 600 14px/1.4 var(--font-sans); }
@@ -57,9 +57,9 @@
 }
 @media (prefers-reduced-motion: reduce) { .wheel-stage .spider-diamond, .wheel-stage .spider-spoke { transition: none; } }
 @keyframes wheel-arrive { from { scale: 0.8; opacity: 0; } to { scale: 1; opacity: 1; } }
-@keyframes wheel-ai-glow { 50% { filter: drop-shadow(0 0 10px color-mix(in oklch, var(--primary) 60%, transparent)); } }
+@keyframes wheel-ai-glow { 50% { filter: var(--ai-glow-strong); } }
 @keyframes wheel-ai-fill { 50% { fill-opacity: 0.55; } }
-@keyframes wheel-ai-badge { 50% { box-shadow: 0 0 0 4px color-mix(in oklch, var(--primary) 12%, transparent), var(--shadow-soft); } }
+@keyframes wheel-ai-badge { 50% { filter: var(--ai-glow-strong); } }
 
 /* The reveal, on load, on a domain change and on Animate. Everything still fades in clockwise from 12 o'clock:
    the rings sweep in, then the labels, then the points sweep in. Once the points are in, the reading shape,
