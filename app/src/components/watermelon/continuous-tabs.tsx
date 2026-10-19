@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect, type FC } from "react";
+import { useState, useEffect, type FC, type ReactNode } from "react";
 import { motion, LayoutGroup } from "motion/react";
 
 /* ---------- Types ---------- */
 interface TabItem {
     id: string;
     label: string;
+    icon?: ReactNode;
 }
 
 interface ContinuousTabsProps {
@@ -90,13 +91,14 @@ export const ContinuousTabs: FC<ContinuousTabsProps> = ({
                             {/* Text */}
                             <motion.span
                                 layout="position"
-                                className={`relative z-10 text-sm sm:text-base font-semibold transition-colors duration-200
+                                className={`relative z-10 flex items-center gap-2 text-sm sm:text-base font-semibold transition-colors duration-200
                     ${isActive
                                         ? "text-primary-foreground "
                                         : "text-foreground hover:text-muted-foreground "
                                     }
 `}
                             >
+                                {tab.icon}
                                 {tab.label}
                             </motion.span>
                         </button>
