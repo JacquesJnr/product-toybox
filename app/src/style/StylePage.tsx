@@ -7,7 +7,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { ContinuousTabs } from '@/components/watermelon/continuous-tabs'
 import { CommandSearch } from '@/components/watermelon/command-search'
 import { FilterDisclosure } from '@/components/watermelon/filter-disclosure'
-import { CreditUsageCard } from '@/components/watermelon/credit-usage-card'
+import { RiskCard } from '@/components/risk-card'
 import { DiscreteTabs } from '@/components/watermelon/discrete-tabs'
 import { FrequencySelector, type FrequencyData } from '@/components/watermelon/frequency-selector'
 import { CarouselNavigator } from '@/components/watermelon/carousel-navigator'
@@ -86,18 +86,8 @@ export function StylePage() {
           <FilterDisclosure items={domains} defaultActiveId="risk-resilience" />
         </Section>
 
-        <Section title="Risk gauge" replaces="Meter">
-          <CreditUsageCard
-            usedCreditsPercent={72}
-            totalCreditsLabel="Supplier risk"
-            creditsUsedLabel="72% of threshold"
-            creditsLeftLabel="28% headroom"
-            usageHistory={[
-              { date: 'Sep 30', model: 'Single-source suppliers', credits: '128%', cost: 'over' },
-              { date: 'Sep 30', model: 'Late deliveries', credits: '91%', cost: 'near' },
-              { date: 'Sep 30', model: 'Supplier audits done', credits: '64%', cost: 'within' },
-            ]}
-          />
+        <Section title="Risk summary" replaces="Wheel panel topic view">
+          <RiskCard topic="Supplier risk" />
         </Section>
 
         <Section title="History / AI projection" replaces="Tabs">
