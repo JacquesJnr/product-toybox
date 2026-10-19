@@ -19,6 +19,12 @@ const ICONS: Partial<Record<Domain, LucideIcon>> = {
 // Domains added in settings were sorted by AI, so they carry the AI mark.
 export const domainIcon = (domain: Domain) => ICONS[domain] ?? Sparkles
 
+// Each domain keeps its color from the first toy tokens. New domains take primary.
+export const domainKey = (domain: Domain) => domain.toLowerCase().replace(/ and /g, '-').replace(/[^a-z]+/g, '-')
+export const domainColor = (domain: Domain) => ICONS[domain] ? `var(--domain-${domainKey(domain)})` : 'var(--primary)'
+// The 3-tone gradient from Figma (Toy Designs 204:6): neutral, a tint of the color, the color.
+export const domainGradient = (color: string) => `linear-gradient(90deg, var(--muted) 0%, color-mix(in oklch, ${color} 45%, white) 50%, ${color} 100%)`
+
 const ROW_SPRING = { type: 'spring', stiffness: 240, damping: 20, mass: 1 } as const
 
 export function DomainDrawer({ domains = DEFAULT_DOMAINS, value, onChange, defaultOpen = true }: {
@@ -56,6 +62,7 @@ export function DomainDrawer({ domains = DEFAULT_DOMAINS, value, onChange, defau
             </div>
             {domains.map((domain, index) => {
               const Icon = domainIcon(domain)
+              const color = domainColor(domain)
               const selected = value.has(domain)
               return (
                 <motion.button
@@ -66,21 +73,23 @@ export function DomainDrawer({ domains = DEFAULT_DOMAINS, value, onChange, defau
                   whileTap={{ scale: 0.98 }}
                   onClick={() => toggle(domain)}
                   aria-pressed={selected}
-                  className="flex w-full cursor-pointer items-center justify-between rounded-xl px-2 py-1.5 text-left transition-colors hover:bg-muted"
+                  style={{ '--row-gradient': domainGradient(color), background: selected ? 'var(--row-gradient)' : undefined } as React.CSSProperties}
+                  className="flex w-full cursor-pointer items-center justify-between rounded-full px-2.5 py-1.5 text-left transition-[background] hover:[background:var(--row-gradient)]"
                 >
                   <span className="flex items-center gap-3">
-                    <Icon size={16} className={selected ? 'text-primary' : 'text-muted-foreground'} />
+                    <Icon size={16} style={{ color }} />
                     <span className="text-sm font-medium text-foreground">{domain}</span>
                   </span>
                   <motion.span
-                    animate={{ backgroundColor: selected ? 'var(--primary)' : 'rgba(0,0,0,0)' }}
-                    className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 ${selected ? 'border-primary' : 'border-border'}`}
+                    animate={{ backgroundColor: selected ? 'var(--card)' : 'rgba(0,0,0,0)' }}
+                    style={{ borderColor: selected ? 'var(--card)' : undefined }}
+                    className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-border"
                   >
                     <motion.span
                       animate={{ scale: selected ? 1 : 0, opacity: selected ? 1 : 0 }}
                       transition={{ type: 'spring', stiffness: 520, damping: 30 }}
                     >
-                      <Check size={12} strokeWidth={3} className="text-primary-foreground" />
+                      <Check size={12} strokeWidth={3} style={{ color }} />
                     </motion.span>
                   </motion.span>
                 </motion.button>

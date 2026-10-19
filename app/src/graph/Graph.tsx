@@ -4,6 +4,7 @@ import type { FoundLink } from './found-links'
 import type { Doc } from '../types'
 import { arrivalStage, buildSimulation, linkShown, nodeShown, revealEnd, seed, tick, zoomAt } from './simulation'
 import type { SimNode } from './simulation'
+import { DEFAULT_DOMAINS, domainColor, domainKey } from '../components/domain-drawer'
 import './graph.css'
 import './play-motion.css'
 
@@ -186,6 +187,14 @@ export function Graph({ revealRun, foundLinks, docs, visibleIds, selectedId, onS
           event.currentTarget.releasePointerCapture(event.pointerId)
         }}
         onPointerCancel={release} onLostPointerCapture={release}>
+        <defs>{DEFAULT_DOMAINS.map(domain => {
+          const color = domainColor(domain)
+          return <linearGradient key={domain} id={`node-gradient-${domainKey(domain)}`}>
+            <stop offset="0%" style={{ stopColor: 'var(--muted)' }} />
+            <stop offset="50%" style={{ stopColor: `color-mix(in oklch, ${color} 45%, white)` }} />
+            <stop offset="100%" style={{ stopColor: color }} />
+          </linearGradient>
+        })}</defs>
         <g transform={`translate(${size.width / 2} ${size.height / 2}) scale(${cam.k}) translate(${-cam.x} ${-cam.y})`}>
           {links.map(l => {
             const s = nodePositions.get(l.source), t = nodePositions.get(l.target)
@@ -218,8 +227,12 @@ export function Graph({ revealRun, foundLinks, docs, visibleIds, selectedId, onS
                     data-document-id={n.id} data-state={state} aria-pressed={selectedId === n.id}
                     onPointerEnter={() => setHover(n.id)} onPointerLeave={() => setHover(null)}>
                     <circle r={Math.max(r + 3, 12 / cam.k)} fill="transparent" />
-                    {selectedId === n.id && <rect className="picked-ring" x={-r - 3} y={-r - 3} width={(r + 3) * 2} height={(r + 3) * 2} rx="2" transform="rotate(45)" />}
+                    {selectedId === n.id && <rect className="picked-ring" style={{ stroke: domainColor(doc.primaryDomain) }} x={-r - 3} y={-r - 3} width={(r + 3) * 2} height={(r + 3) * 2} rx="2" transform="rotate(45)" />}
                     <rect className={`node-diamond node-${state}`} x={-r} y={-r} width={r * 2} height={r * 2} rx="2" transform="rotate(45)"
+                      style={state === 'empty' || state === 'sorting' ? undefined : {
+                        fill: hover === n.id || selectedId === n.id ? `url(#node-gradient-${domainKey(doc.primaryDomain)})` : domainColor(doc.primaryDomain),
+                        stroke: hover === n.id || selectedId === n.id ? domainColor(doc.primaryDomain) : 'var(--surface)',
+                      }}
                       strokeDasharray={state === 'empty' || state === 'sorting' ? `${3 / cam.k} ${3 / cam.k}` : undefined} />
                     {/* The label sits centered under its node and never moves relative to it. */}
                     <text className="node-label" x={0} y={r * 1.42 + 14 / cam.k} textAnchor="middle" fontSize={12 / cam.k}>{doc.title}</text>

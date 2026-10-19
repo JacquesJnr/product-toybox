@@ -6,9 +6,8 @@
 .found-link { filter: var(--rainbow-glow); }
 .sorting-link { stroke: var(--peach); }
 .graph-node { cursor: pointer; outline: none; }
-/* Nodes sit on the stage like small cards: white, a hairline edge and a soft halo. Hover and pick fill them with primary. */
+/* Nodes take their primary domain's color, with a white edge and a soft halo. Hover and pick switch to the domain's 3-tone gradient (set inline in Graph.tsx). */
 .node-diamond { fill: var(--surface); stroke: var(--graphite); stroke-width: 1.25px; vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 2px oklch(0.25 0.02 220 / 0.18)); transition: fill 160ms ease-out, stroke 160ms ease-out; }
-.graph-node:hover .node-diamond, .graph-node[aria-pressed="true"] .node-diamond { fill: var(--peach); stroke: var(--peach); }
 .node-empty { fill: none; stroke: var(--graphite); stroke-width: 1px; vector-effect: non-scaling-stroke; filter: none; }
 .node-sorting { fill: var(--surface); stroke: var(--peach); stroke-width: 1.5px; vector-effect: non-scaling-stroke; }
 .picked-ring { fill: none; stroke: var(--peach); stroke-width: 1.5px; vector-effect: non-scaling-stroke; }
