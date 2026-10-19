@@ -37,7 +37,7 @@
 .wheel-stage .spider-pct { color: var(--status-over); font-family: var(--font-mono); }
 .wheel-stage .spider-tag { padding: 3px 10px; border: 1px solid color-mix(in oklch, var(--border) 60%, transparent); border-radius: 999px; background: var(--card); color: var(--muted-foreground); box-shadow: var(--shadow-soft); font-size: 11px; }
 
-.wheel-stage .spider-badge { padding: 5px 14px; border: 1px solid color-mix(in oklch, var(--border) 60%, transparent); border-radius: 999px; background: var(--card); color: var(--foreground); box-shadow: var(--shadow-soft); font: 600 15px/1.25 var(--font-heading); }
+.wheel-stage .spider-badge { padding: 5px 14px; border: 1px solid var(--foreground); border-radius: 999px; background: var(--foreground); color: var(--background); box-shadow: var(--shadow-soft); font: 600 15px/1.25 var(--font-heading); }
 .wheel-stage .proj .spider-badge { border: 1px solid color-mix(in oklch, var(--primary) 30%, transparent); background: var(--accent); color: var(--primary); filter: none; }
 
 .wheel-stage .spider-tip { gap: 3px; padding: 10px 14px; border: 1px solid color-mix(in oklch, var(--border) 60%, transparent); border-radius: 14px; background: var(--card); box-shadow: var(--shadow-soft); }
