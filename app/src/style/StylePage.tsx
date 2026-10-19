@@ -15,11 +15,18 @@ import { AccordionApp } from '@/components/watermelon/card-split-accordian'
 import { ContextualAIBar } from '@/components/watermelon/contextual-ai-bar'
 import Dialog4 from '@/components/watermelon/dialog-4'
 import { GraphPreview, WheelPreview } from './LivePreviews'
+import { DEFAULT_DOMAINS, domainColor, domainGradient, domainIcon } from '@/components/domain-drawer'
 
 // The style index: every picked component and the preset variables on one page.
 // Change the variables in src/index.css and this whole page follows.
 
-const colors = ['background', 'foreground', 'card', 'primary', 'primary-foreground', 'secondary', 'muted', 'muted-foreground', 'accent', 'destructive', 'border', 'ring', 'chart-1', 'chart-2', 'chart-3', 'chart-4', 'chart-5']
+// The color tokens in use, grouped by job. Each swatch reads the live CSS variable.
+const colorGroups: { title: string; note: string; names: string[] }[] = [
+  { title: 'Surfaces', note: 'The ladder: page, stage (Graph and Wheel fields), card. Depth comes from shadow-soft.', names: ['background', 'stage', 'card', 'muted', 'hairline', 'border'] },
+  { title: 'Text and action', note: 'From preset b6Tpl9I9Z2.', names: ['foreground', 'muted-foreground', 'primary', 'primary-foreground', 'ring', 'destructive'] },
+  { title: 'Risk status', note: 'Within, near and over threshold.', names: ['status-within', 'status-near', 'status-over'] },
+  { title: 'Charts', note: 'From the preset.', names: ['chart-1', 'chart-2', 'chart-3', 'chart-4', 'chart-5'] },
+]
 
 const domains = [
   { id: 'strategic-direction', label: 'Strategic direction', icon: PiCompass },
@@ -66,12 +73,26 @@ export function StylePage() {
         </Section>
 
         <Section title="Colors" replaces="tokens.css">
-          {colors.map(name => (
-            <div key={name} className="flex w-28 flex-col gap-1">
-              <div className="h-14 rounded-md border" style={{ background: `var(--${name})` }} />
-              <span className="font-mono text-xs">{name}</span>
+          <div className="flex w-full flex-col gap-6">
+            {colorGroups.map(group => (
+              <div key={group.title} className="flex flex-col gap-2">
+                <div className="flex items-baseline gap-3"><h3 className="text-[10px] font-bold tracking-[0.15em] text-muted-foreground uppercase">{group.title}</h3><span className="text-xs text-muted-foreground">{group.note}</span></div>
+                <div className="flex flex-wrap gap-3">{group.names.map(name => (
+                  <div key={name} className="flex w-28 flex-col gap-1">
+                    <div className="h-14 rounded-xl border border-border/60 shadow-soft" style={{ background: `var(--${name})` }} />
+                    <span className="font-mono text-[11px]">{name}</span>
+                  </div>))}</div>
+              </div>
+            ))}
+            <div className="flex flex-col gap-2">
+              <div className="flex items-baseline gap-3"><h3 className="text-[10px] font-bold tracking-[0.15em] text-muted-foreground uppercase">Domains</h3><span className="text-xs text-muted-foreground">Each domain's color, and its 3-tone gradient for hover and select (Toy Designs 204:6).</span></div>
+              <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-3">{DEFAULT_DOMAINS.map(domain => { const Icon = domainIcon(domain); const color = domainColor(domain); return (
+                <div key={domain} className="flex flex-col gap-1.5">
+                  <div className="flex h-10 items-center gap-2 rounded-full px-3 text-sm font-medium" style={{ background: domainGradient(color) }}><Icon size={16} style={{ color }} />{domain}</div>
+                  <span className="font-mono text-[11px] text-muted-foreground">{color.slice(4, -1)}</span>
+                </div>) })}</div>
             </div>
-          ))}
+          </div>
         </Section>
 
         <Section title="Type" replaces="Instrument Sans, Nunito">
