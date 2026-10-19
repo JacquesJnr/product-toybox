@@ -43,15 +43,3 @@ export function slotOf(a: number): Slot {
 }
 // The over tag takes the opposite slot.
 export const opposite = { top: 'bottom', bottom: 'top', left: 'right', right: 'left' } as const satisfies Record<Slot, Slot>
-
-// A closed curve through every point: each side is a cubic Bézier with Catmull-Rom handles, so the curve
-// passes through the nodes and turns smoothly at each one. tension 0 gives straight sides, 1 the full curve.
-export function smoothPath(pts: readonly { x: number; y: number }[], tension = 1) {
-  const n = pts.length, at = (i: number) => pts[(i + n) % n], f = (v: number) => v.toFixed(1)
-  let d = `M${f(pts[0].x)},${f(pts[0].y)}`
-  for (let i = 0; i < n; i++) {
-    const p0 = at(i - 1), p1 = at(i), p2 = at(i + 1), p3 = at(i + 2), k = tension / 6
-    d += ` C${f(p1.x + (p2.x - p0.x) * k)},${f(p1.y + (p2.y - p0.y) * k)} ${f(p2.x - (p3.x - p1.x) * k)},${f(p2.y - (p3.y - p1.y) * k)} ${f(p2.x)},${f(p2.y)}`
-  }
-  return d + 'Z'
-}
