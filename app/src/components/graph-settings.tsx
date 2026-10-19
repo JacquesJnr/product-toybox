@@ -3,7 +3,7 @@ import { AnimatePresence, motion, MotionConfig } from 'motion/react'
 import { ArrowLeft, Bot, Check, Play, Plus, Settings2, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { Doc, Domain } from '@/types'
-import { domainIcon } from './domain-drawer'
+import { domainColor, domainIcon } from './domain-drawer'
 import { EXAMPLE_DOMAINS, proposeDomain, type DomainProposal } from './domain-sorting'
 
 // Graph settings, anchored to the graph's top right. The main option: add a domain,
@@ -78,7 +78,7 @@ export function GraphSettings({ docs, domains, showOrphans, onShowOrphans, onAdd
                   <ul className="flex flex-col">
                     {domains.map(domain => { const Icon = domainIcon(domain); return (
                       <li key={domain} className="flex items-center justify-between rounded-lg px-2 py-1.5 text-sm">
-                        <span className="flex items-center gap-2.5"><Icon size={15} className="text-muted-foreground" />{domain}</span>
+                        <span className="flex items-center gap-2.5"><Icon size={15} style={{ color: domainColor(domain) }} />{domain}</span>
                         <span className="font-mono text-[11px] text-muted-foreground">{count(domain)} docs</span>
                       </li>) })}
                   </ul>

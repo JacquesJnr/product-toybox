@@ -6,7 +6,7 @@ import documents from '@/data/documents.json'
 import type { Doc } from '@/types'
 import { DocPreview } from './doc-preview'
 import { SourceDialog } from './source-dialog'
-import { domainIcon } from './domain-drawer'
+import { domainColor, domainIcon } from './domain-drawer'
 import Avatar3 from './watermelon/avatar-3'
 
 // The picked document. The vault part (header, preview, ledger) is still and matte;
@@ -49,8 +49,9 @@ export function DocPanel({ doc, onClose, onSelect }: { doc: Doc; onClose: () => 
               <h2 className="font-heading text-xl leading-tight font-semibold">{doc.title}</h2>
               <div className="flex flex-wrap gap-1.5">
                 {doc.domains.map(domain => { const Icon = domainIcon(domain); const primary = domain === doc.primaryDomain; return (
-                  <span key={domain} className={`flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-[11px] font-medium ${primary ? 'border-primary/30 bg-primary text-primary-foreground' : 'border-border text-foreground'}`}>
-                    <Icon size={12} />{domain}
+                  <span key={domain} style={primary ? { background: domainColor(domain), borderColor: 'transparent' } : undefined}
+                    className={`flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-[11px] font-medium ${primary ? 'text-white' : 'border-border text-foreground'}`}>
+                    <Icon size={12} style={primary ? undefined : { color: domainColor(domain) }} />{domain}
                   </span>) })}
               </div>
             </header>
