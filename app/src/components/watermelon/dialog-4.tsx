@@ -19,22 +19,22 @@ const Dialog4 = () => {
       <DialogTrigger>
         <Button
           variant="outline"
-          className="rounded-xl border border-zinc-200 bg-zinc-50 px-6 py-2 font-medium text-zinc-800 shadow-sm transition-all hover:bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800"
+          className="rounded-xl border border-border bg-muted px-6 py-2 font-medium text-foreground shadow-sm transition-all hover:bg-muted"
         >
           Scrollable Dialog
         </Button>
       </DialogTrigger>
-      <DialogContent className="border-border/40 dark:border-border/60 flex max-h-[min(650px,90vh)] flex-col gap-0 overflow-hidden rounded-xl border bg-white p-0 shadow-xl sm:max-w-md dark:bg-neutral-900">
+      <DialogContent className="border-border/40 flex max-h-[min(650px,90vh)] flex-col gap-0 overflow-hidden rounded-xl border bg-card p-0 shadow-xl sm:max-w-md ">
         <DialogHeader className="px-6 pt-6 pb-4 text-left">
-          <DialogTitle className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+          <DialogTitle className="text-lg font-semibold text-foreground ">
             v2.0 Release Notes
           </DialogTitle>
         </DialogHeader>
 
         <ScrollArea className="flex-1 overflow-y-auto">
           <div className="px-6 pb-6">
-            <DialogDescription className="text-neutral-600 dark:text-neutral-400">
-              <div className="space-y-4 [&_strong]:font-semibold [&_strong]:text-neutral-900 dark:[&_strong]:text-neutral-100">
+            <DialogDescription className="text-muted-foreground ">
+              <div className="space-y-4 [&_strong]:font-semibold [&_strong]:text-foreground dark:[&_strong]:text-primary-foreground">
                 <div className="space-y-1">
                   <p>
                     <strong>Overview:</strong>
@@ -114,12 +114,12 @@ const Dialog4 = () => {
           </div>
         </ScrollArea>
 
-        <DialogFooter className="border-border/30 dark:border-border/60 m-0 flex flex-col-reverse items-stretch gap-2 border-t bg-transparent p-4 sm:flex-row sm:items-center sm:justify-end sm:px-6 sm:pb-6">
-          <DialogClose render={<Button variant="ghost" className="flex w-full items-center justify-center gap-2 rounded-lg px-5 py-2.5 font-medium text-neutral-700 shadow-none transition hover:bg-neutral-100 sm:w-auto dark:text-neutral-200 dark:hover:bg-neutral-800" />}><ChevronLeftIcon className="size-4" />Back
+        <DialogFooter className="border-border/30 m-0 flex flex-col-reverse items-stretch gap-2 border-t bg-transparent p-4 sm:flex-row sm:items-center sm:justify-end sm:px-6 sm:pb-6">
+          <DialogClose render={<Button variant="ghost" className="flex w-full items-center justify-center gap-2 rounded-lg px-5 py-2.5 font-medium text-foreground shadow-none transition hover:bg-muted sm:w-auto" />}><ChevronLeftIcon className="size-4" />Back
                               </DialogClose>
           <Button
             type="button"
-            className="w-full rounded-lg border-none bg-linear-to-r from-blue-600 to-blue-400 px-7 py-2.5 font-semibold text-white shadow-md transition hover:from-blue-700 hover:to-blue-500 sm:w-auto dark:from-blue-500 dark:to-blue-400 dark:text-white dark:hover:from-blue-600 dark:hover:to-blue-500"
+            className="w-full rounded-lg border-none bg-linear-to-r from-primary to-chart-3 px-7 py-2.5 font-semibold text-primary-foreground shadow-md transition hover:from-primary hover:to-primary sm:w-auto"
           >
             Read More
           </Button>

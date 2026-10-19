@@ -71,17 +71,17 @@ export const DiscreteTabs: FC<DiscreteTabsProps> = ({
             >
               <div
                 className={cn(
-                  'flex h-12 cursor-pointer items-center justify-center rounded-full bg-zinc-50 border border-border px-3 dark:bg-zinc-900',
+'flex h-12 cursor-pointer items-center justify-center rounded-full bg-muted border border-border px-3 ',
                   isActive && '',
                 )}
                 tabIndex={0}
               >
                 <motion.div
                   className={cn(
-                    'flex items-center justify-center transition-colors duration-300',
+'flex items-center justify-center transition-colors duration-300',
                     isActive
                       ? tab.activeColor
-                      : 'text-neutral-800 dark:text-white',
+                      : 'text-foreground ',
                   )}
                 >
                   {tab.icon}
@@ -94,8 +94,8 @@ export const DiscreteTabs: FC<DiscreteTabsProps> = ({
                     marginLeft: isActive ? 8 : 0,
                   }}
                   className={cn(
-                    'relative overflow-hidden text-xl font-semibold whitespace-nowrap transition-colors duration-300',
-                    isActive ? tab.activeColor : 'text-black dark:text-white',
+'relative overflow-hidden text-xl font-semibold whitespace-nowrap transition-colors duration-300',
+                    isActive ? tab.activeColor : 'text-foreground ',
                   )}
                 >
                   {tab.label}
@@ -109,7 +109,7 @@ export const DiscreteTabs: FC<DiscreteTabsProps> = ({
                           duration: 0.5,
                           ease: 'linear',
                         }}
-                        className="absolute top-0 bottom-0 w-16 bg-linear-to-r from-transparent via-white/80 to-transparent dark:from-transparent dark:via-neutral-900/80 dark:to-transparent"
+                        className="absolute top-0 bottom-0 w-16 bg-linear-to-r from-transparent via-card/80 to-transparent"
                       />
                     )}
                   </AnimatePresence>
