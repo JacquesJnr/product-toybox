@@ -9,7 +9,7 @@ import { visibleIds } from '@/filters/visible'
 import { DEFAULT_DOMAINS, DomainDrawer } from '@/components/domain-drawer'
 import { GraphSettings } from '@/components/graph-settings'
 import { applyProposals } from '@/components/domain-sorting'
-import { DetailsPanel } from '@/details/DetailsPanel'
+import { DocPanel } from '@/components/doc-panel'
 import './live-previews.css'
 
 // The app's own Graph and Wheel, live, so motion and interaction can be tuned here.
@@ -47,7 +47,7 @@ export function GraphPreview() {
               onAddDomain={(domain, accepted) => { setDomainList(list => [...list, domain]); setVault(v => applyProposals(v, domain, accepted)) }} />
           </div>
         </div>
-        {selected && <DetailsPanel doc={selected} onClose={() => setSelectedId(null)} />}
+        {selected && <DocPanel doc={selected} onClose={() => setSelectedId(null)} onSelect={setSelectedId} />}
       </div>
     </div>
   )
