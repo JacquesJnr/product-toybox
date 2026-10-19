@@ -2,7 +2,8 @@ import { useId, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { findTopic, isProjection, pointsAt, statusOf, stopName, topicsOf, worstTopic } from '../model'
 import type { Point, Status, WheelActions, WheelState } from '../model'
-import type { WheelDomain } from '../../types'
+import type { Domain, WheelDomain } from '../../types'
+import { domainColor } from '../../components/domain-drawer'
 import { C, H, R, W, ang, hexPoints, hexR, labelSize, opposite, rad, slotOf, xy } from './geometry'
 import type { Slot } from './geometry'
 import './spider-chart.css'
@@ -16,6 +17,8 @@ const HUE: Record<WheelDomain, string> = {
   Legal: 'var(--domain-major-decisions)',
   Compliance: 'var(--domain-strategic-direction)',
 }
+// The style page names its Wheel domains after the Graph's, so look those up too.
+const hue = (domain: string) => HUE[domain as WheelDomain] ?? domainColor(domain as Domain)
 const LABEL: Record<Status, string> = { within: 'Within threshold', near: 'Near threshold', over: 'Over threshold' }
 const pct = (r: number) => `${Math.round(r * 100)}%`
 
@@ -29,9 +32,9 @@ function beside(slot: Slot, x: number, y: number, d: number): CSSProperties {
 
 // Domain and topic labels sit further out from the rim. Offsets from the rim to the label's near corner come
 // from frames 01 and 03; an upper-diagonal topic label clears the % label that the slot rule puts on top of its point.
-function rimLabel(a: number, whole: boolean): CSSProperties {
+function rimLabel(a: number, whole: boolean, n: number): CSSProperties {
   const cos = Math.cos(a), sin = Math.sin(a), upright = Math.abs(cos) < 0.2
-  const p = xy(a, R)
+  const p = xy(a, R, n)
   const [dx, dy] = whole ? [cos * 70, sin * (upright ? 43 : 70)]
     : upright ? [0, sin * 52]
     : Math.abs(sin) < 0.2 ? [cos * 36.3, 0]
@@ -82,7 +85,7 @@ export function SpiderChart({ state, actions }: { state: WheelState; actions: Wh
   const proj = isProjection(stop)
   const name = stopName(stop)
   const badge = proj ? `${name} (AI)` : name === 'Last board' ? 'Last Board' : name
-  const placed = points.map((p, i) => ({ p, a: ang(i, n), ...xy(ang(i, n), rad(p.ratio)) }))
+  const placed = points.map((p, i) => ({ p, a: ang(i, n), ...xy(ang(i, n), rad(p.ratio), n) }))
   const reading = placed.map(q => `${q.x.toFixed(1)},${q.y.toFixed(1)}`).join(' ')
   const ringAngle = Math.PI / 2 - Math.PI / n
   const hot = placed.find(q => q.p.name === hovered)
@@ -100,20 +103,20 @@ export function SpiderChart({ state, actions }: { state: WheelState; actions: Wh
             <stop offset="1" stopColor="#FFBE0B" />
           </linearGradient>
         </defs>
-        <polygon className="spider-overzone" points={hexPoints(R)} />
-        <polygon className="spider-inside" points={hexPoints(rad(1))} />
-        <polygon className="spider-ring" points={hexPoints(rad(0.5))} />
-        <polygon className="spider-ring" points={hexPoints(R)} />
-        <polygon className="spider-ring near" points={hexPoints(rad(0.8))} />
-        {placed.map(({ p, a }, i) => { const e = xy(a, R); return <line key={i} className={`spider-spoke${p.name === hovered ? ' hot' : ''}${p.name === state.picked ? ' picked' : ''}`} style={{ '--hue': HUE[p.domain] } as CSSProperties} x1={C.x} y1={C.y} x2={e.x} y2={e.y} /> })}
-        <polygon className="spider-threshold" points={hexPoints(rad(1))} />
+        <polygon className="spider-overzone" points={hexPoints(R, n)} />
+        <polygon className="spider-inside" points={hexPoints(rad(1), n)} />
+        <polygon className="spider-ring" points={hexPoints(rad(0.5), n)} />
+        <polygon className="spider-ring" points={hexPoints(R, n)} />
+        <polygon className="spider-ring near" points={hexPoints(rad(0.8), n)} />
+        {placed.map(({ p, a }, i) => { const e = xy(a, R, n); return <line key={i} className={`spider-spoke${p.name === hovered ? ' hot' : ''}${p.name === state.picked ? ' picked' : ''}`} style={{ '--hue': hue(p.domain) } as CSSProperties} x1={C.x} y1={C.y} x2={e.x} y2={e.y} /> })}
+        <polygon className="spider-threshold" points={hexPoints(rad(1), n)} />
         {/* Fill and stroke are separate so the projection glow follows the stroke only, as in Figma. */}
         <polygon className="spider-reading-fill" points={reading} />
         <polygon className="spider-reading" points={reading} />
       </svg>
 
       {[0.5, 1, 1.5].map(v => {
-        const h = rad(v) * hexR(ringAngle)
+        const h = rad(v) * hexR(ringAngle, n)
         return (
           <span key={v} className="spider-ring-label" style={{ left: C.x + h * Math.cos(ringAngle) + 4, top: C.y + h * Math.sin(ringAngle) + 2 }}>
             {v === 1.5 ? '150%+' : pct(v)}
@@ -123,7 +126,7 @@ export function SpiderChart({ state, actions }: { state: WheelState; actions: Wh
 
       {placed.map(({ p, a }) => (
         <span key={p.name} className={`spider-label${p.name === state.picked ? ' picked' : ''}`}
-          style={{ ...rimLabel(a, whole), color: HUE[p.domain] }} onClick={() => actions.pick(p.name)}>
+          style={{ ...rimLabel(a, whole, n), color: hue(p.domain) }} onClick={() => actions.pick(p.name)}>
           {p.name}
         </span>
       ))}
@@ -133,7 +136,7 @@ export function SpiderChart({ state, actions }: { state: WheelState; actions: Wh
           const picked = p.name === state.picked
           return (
             <g key={p.name} className={`spider-point ${p.status}${picked ? ' picked' : ''}${hovered === p.name ? ' hot' : ''}`}
-              transform={`translate(${x.toFixed(1)} ${y.toFixed(1)})`} style={{ '--hue': HUE[p.domain] } as CSSProperties} tabIndex={0} role="button" aria-pressed={picked}
+              transform={`translate(${x.toFixed(1)} ${y.toFixed(1)})`} style={{ '--hue': hue(p.domain) } as CSSProperties} tabIndex={0} role="button" aria-pressed={picked}
               aria-describedby={hovered === p.name ? tipId : undefined}
               aria-label={`${p.name}, ${pct(atStop.get(p.name)!)} of threshold, ${LABEL[statusOf(atStop.get(p.name)!)]}`}
               onClick={() => actions.pick(p.name)}
