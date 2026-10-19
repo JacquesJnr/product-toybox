@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react'
-import { Sparkles, Paperclip, AtSign, Search, Clock, History, Telescope } from 'lucide-react'
+import { Sparkles, Paperclip, AtSign, Search, Clock, History, Telescope, Network, Radar } from 'lucide-react'
 import { PiCompass, PiChartLineUp, PiCoins, PiShieldWarning, PiSealCheck, PiGavel, PiUsersThree } from 'react-icons/pi'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
@@ -75,7 +75,7 @@ export function StylePage() {
         </Section>
 
         <Section title="View switch" replaces="ToggleGroup">
-          <ContinuousTabs tabs={[{ id: 'graph', label: 'Graph' }, { id: 'wheel', label: 'Wheel' }, { id: 'search', label: 'Smart Search' }]} defaultActiveId="graph" />
+          <ContinuousTabs tabs={[{ id: 'graph', label: 'Graph', icon: <Network size={18} /> }, { id: 'wheel', label: 'Wheel', icon: <Radar size={18} /> }, { id: 'search', label: 'Smart Search', icon: <Sparkles size={18} /> }]} defaultActiveId="graph" />
         </Section>
 
         <Section title="Header search" replaces="Field + Input">
