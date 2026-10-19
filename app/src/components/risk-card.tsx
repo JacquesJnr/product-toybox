@@ -19,11 +19,12 @@ function Source({ text }: { text: string }) {
   )
 }
 
-function KriBar({ value, threshold }: { value: number; threshold: number }) {
+// Square segments with a clear gap, after the Watermelon credit-usage-card meter. The Wheel panel uses this bar too.
+export function KriBar({ value, threshold }: { value: number; threshold: number }) {
   const scale = Math.max(threshold * 1.5, value)
   const band = (at: number): Status => (at > threshold ? 'over' : at > threshold * 0.8 ? 'near' : 'within')
   return (
-    <div className="relative flex h-3 gap-px" aria-hidden="true">
+    <div className="relative flex h-3 gap-[3px]" aria-hidden="true">
       {Array.from({ length: SEGMENTS }, (_, i) => {
         const at = ((i + 0.5) / SEGMENTS) * scale
         const filled = at <= value
@@ -33,7 +34,7 @@ function KriBar({ value, threshold }: { value: number; threshold: number }) {
             initial={{ opacity: 0, scaleY: 0.4 }}
             animate={{ opacity: 1, scaleY: 1 }}
             transition={{ delay: i * 0.008, type: 'spring', stiffness: 300, damping: 24 }}
-            className={`flex-1 rounded-full ${filled ? bg[band(at)] : 'bg-secondary'}`}
+            className={`flex-1 rounded-[1px] ${filled ? bg[band(at)] : 'bg-secondary'}`}
           />
         )
       })}

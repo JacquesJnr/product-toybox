@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { domainOfTopic, findTopic, fixture, isDomain, isProjection, statusOf, topicsOf } from '@/wheel/model'
 import type { Status, WheelActions, WheelState } from '@/wheel/model'
 import { aiReading, aiSummary, labels, nearestStop, overview, percent, ratioOf, sortedRows, worstKri } from '@/wheel/panel/text'
+import { KriBar } from './risk-card'
 import logo from '@/wheel/panel/acme-logo.svg'
 import { wheelHue, wheelIcon } from './wheel-domain-picker'
 
@@ -16,24 +17,9 @@ import { wheelHue, wheelIcon } from './wheel-domain-picker'
 const SPRING = { type: 'spring', stiffness: 260, damping: 26 } as const
 const label = 'text-[10px] font-bold tracking-[0.15em] text-muted-foreground uppercase'
 const text: Record<Status, string> = { within: 'text-status-within', near: 'text-status-near', over: 'text-status-over' }
-const bg: Record<Status, string> = { within: 'bg-status-within', near: 'bg-status-near', over: 'bg-status-over' }
-const SEGMENTS = 40
 
 function Source({ text }: { text: string }) {
   return <a role="link" aria-disabled="true" className="inline-flex items-center gap-1 self-start font-mono text-[10px] tracking-wider text-muted-foreground uppercase">{text}<ArrowUpRight size={11} /></a>
-}
-
-function KriBar({ value, threshold }: { value: number; threshold: number }) {
-  const scale = Math.max(threshold * 1.5, value)
-  return (
-    <div className="relative flex h-3 gap-px" aria-hidden="true">
-      {Array.from({ length: SEGMENTS }, (_, i) => {
-        const at = ((i + 0.5) / SEGMENTS) * scale
-        return <span key={i} className={`flex-1 rounded-full ${at <= value ? bg[statusOf(at / threshold)] : 'bg-secondary'}`} />
-      })}
-      <span className="absolute -top-1 -bottom-1 w-0.5 rounded-full bg-foreground" style={{ left: `${(threshold / scale) * 100}%` }} />
-    </div>
-  )
 }
 
 export function WheelSidePanel({ state, actions, onCollapse }: { state: WheelState; actions: WheelActions; onCollapse?: () => void }) {
