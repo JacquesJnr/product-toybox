@@ -11,3 +11,52 @@
 .wheel-stage .wp-section { gap: 12px; padding-top: 20px; }
 .wheel-stage .wp-summary { gap: 10px; padding: 16px; }
 .wheel-stage .wp-for-you { padding: 16px; }
+
+/* The Wheel chart on the preset. Recorded readings are plain and still; the AI projection is tinted and breathes.
+   --hue is each spoke's and point's domain color (set in SpiderChart); --wheel-hue is the open domain's, or foreground. */
+.wheel-stage .spider-chart { font-family: var(--font-sans); }
+.wheel-stage .spider-overzone { fill: color-mix(in oklch, var(--status-over) 7%, transparent); }
+.wheel-stage .spider-inside { fill: color-mix(in oklch, var(--wheel-hue) 5%, var(--card)); }
+.wheel-stage .spider-ring { stroke: var(--border); }
+.wheel-stage .spider-ring.near { stroke: var(--status-near); stroke-opacity: 0.7; }
+.wheel-stage .spider-spoke { stroke: var(--hue); stroke-opacity: 0.35; stroke-width: 1; }
+.wheel-stage .spider-threshold { stroke: var(--foreground); stroke-opacity: 0.7; stroke-width: 1.5; stroke-dasharray: 5 4; }
+.wheel-stage .spider-reading-fill { fill: color-mix(in oklch, var(--foreground) 7%, transparent); }
+.wheel-stage .spider-reading { stroke: var(--foreground); stroke-width: 2; filter: none; }
+.wheel-stage .proj .spider-reading-fill { fill: color-mix(in oklch, var(--primary) 12%, transparent); }
+.wheel-stage .proj .spider-reading { stroke: var(--primary); filter: drop-shadow(0 0 4px color-mix(in oklch, var(--primary) 40%, transparent)); }
+
+.wheel-stage .spider-ring-label { color: var(--muted-foreground); font: 400 11px/1 var(--font-mono); }
+.wheel-stage .spider-label { font-family: var(--font-heading); font-weight: 600; }
+.wheel-stage .whole .spider-label { font-size: 17px; }
+.wheel-stage .spider-label.picked { text-decoration-thickness: 2px; text-underline-offset: 4px; }
+
+.wheel-stage .spider-diamond { fill: var(--hue); stroke: var(--card); stroke-width: 1.5; filter: drop-shadow(0 0 2px oklch(0.25 0.02 220 / 0.18)); }
+.wheel-stage .spider-halo { fill: color-mix(in oklch, var(--hue) 14%, transparent); stroke: none; }
+.wheel-stage .spider-pick { fill: none; stroke: var(--hue); stroke-width: 1.5; }
+.wheel-stage .spider-focus { stroke: var(--ring); }
+.wheel-stage .spider-point.hot .spider-diamond, .wheel-stage .spider-point.picked .spider-diamond { fill: var(--hue); }
+
+.wheel-stage .spider-pct { color: var(--status-over); font-family: var(--font-mono); }
+.wheel-stage .spider-tag { padding: 3px 10px; border: 1px solid color-mix(in oklch, var(--border) 60%, transparent); border-radius: 999px; background: var(--card); color: var(--muted-foreground); box-shadow: var(--shadow-soft); font-size: 11px; }
+
+.wheel-stage .spider-badge { padding: 5px 14px; border: 1px solid color-mix(in oklch, var(--border) 60%, transparent); border-radius: 999px; background: var(--card); color: var(--foreground); box-shadow: var(--shadow-soft); font: 600 15px/1.25 var(--font-heading); }
+.wheel-stage .proj .spider-badge { border: 1px solid color-mix(in oklch, var(--primary) 30%, transparent); background: var(--accent); color: var(--primary); filter: none; }
+
+.wheel-stage .spider-tip { gap: 3px; padding: 10px 14px; border: 1px solid color-mix(in oklch, var(--border) 60%, transparent); border-radius: 14px; background: var(--card); box-shadow: var(--shadow-soft); }
+.wheel-stage .spider-tip-name { color: var(--foreground); font: 600 14px/1.4 var(--font-sans); }
+.wheel-stage .spider-tip-sub { color: var(--muted-foreground); }
+.wheel-stage .spider-tip-row { color: var(--foreground); }
+.wheel-stage .spider-tip-score { color: var(--muted-foreground); font-family: var(--font-mono); }
+.wheel-stage .spider-rung { border: 2px solid var(--status-within); }
+.wheel-stage .spider-rung.near { border-color: var(--status-near); }
+.wheel-stage .spider-rung.over { border-color: var(--status-over); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .wheel-stage .proj .spider-reading { animation: wheel-ai-glow 3.2s ease-in-out infinite; }
+  .wheel-stage .proj .spider-reading-fill { animation: wheel-ai-fill 3.2s ease-in-out infinite; }
+  .wheel-stage .proj .spider-badge { animation: wheel-ai-badge 3.2s ease-in-out infinite; }
+}
+@keyframes wheel-ai-glow { 50% { filter: drop-shadow(0 0 10px color-mix(in oklch, var(--primary) 60%, transparent)); } }
+@keyframes wheel-ai-fill { 50% { fill-opacity: 0.55; } }
+@keyframes wheel-ai-badge { 50% { box-shadow: 0 0 0 4px color-mix(in oklch, var(--primary) 12%, transparent), var(--shadow-soft); } }
