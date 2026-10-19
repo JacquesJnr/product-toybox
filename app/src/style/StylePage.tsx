@@ -35,7 +35,7 @@ const docs = ['Board pack Q3', 'Strategy note', 'Charter', 'Policy v4', 'Control
 
 function Section({ title, replaces, children }: { title: string; replaces: string; children: ReactNode }) {
   return (
-    <section className="flex flex-col gap-3 rounded-lg border bg-card p-6">
+    <section className="flex flex-col gap-3 rounded-2xl border border-border/60 bg-card p-6 shadow-soft">
       <header className="flex items-baseline justify-between gap-4">
         <h2 className="font-heading text-lg font-semibold">{title}</h2>
         <span className="font-mono text-xs text-muted-foreground">replaces {replaces}</span>

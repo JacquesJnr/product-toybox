@@ -42,3 +42,21 @@ body { margin: 0; min-width: 1280px; }
 /* Risk status colors. Kept outside the preset blocks, so a new preset keeps them. */
 :root { --status-within: var(--chart-3); --status-near: oklch(0.769 0.165 70.08); --status-over: var(--destructive); }
 @theme inline { --color-status-within: var(--status-within); --color-status-near: var(--status-near); --color-status-over: var(--status-over); }
+
+/* Surfaces. One cool ladder over the preset: page, then stage (the Graph and Wheel fields), then white cards.
+   Light mode only, so the preset's .dark values still apply. */
+:root:not(.dark) {
+  --background: oklch(0.982 0.003 220);
+  --stage: oklch(0.958 0.006 220);
+  --card: oklch(1 0 0);
+  --popover: oklch(1 0 0);
+  --hairline: oklch(0.86 0.008 220);
+  --shadow-soft: 0 1px 2px oklch(0.25 0.02 220 / 0.05), 0 10px 30px -6px oklch(0.25 0.02 220 / 0.10);
+}
+/* The old toy tokens, mapped onto the preset, so the Graph, Wheel and previews share these surfaces. */
+:root {
+  --bench: var(--background); --surface: var(--card); --glass-28: var(--stage, var(--muted)); --glass-45: var(--hairline, var(--border));
+  --graphite: var(--muted-foreground); --body: var(--foreground); --ink: var(--foreground);
+  --peach: var(--primary); --peach-wash: color-mix(in oklch, var(--primary) 14%, transparent);
+}
+@theme inline { --color-stage: var(--stage); --color-hairline: var(--hairline); --shadow-soft: var(--shadow-soft); }
