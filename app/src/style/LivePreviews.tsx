@@ -39,7 +39,8 @@ export function GraphPreview() {
           <div className="absolute top-3 left-3 z-10">
             <DomainDrawer domains={domainList} value={domains} onChange={setDomains} />
           </div>
-          <div className="absolute top-3 left-1/2 z-10 -translate-x-1/2">
+          {/* As wide as the gap between the drawer (16rem) and settings allows, up to 24rem. */}
+          <div className="absolute top-3 left-1/2 z-10 w-[min(24rem,calc(100%-36rem))] -translate-x-1/2">
             <GraphSearch value={query} onChange={setQuery} matches={visible.size} total={vault.length} />
           </div>
           <div className="absolute top-3 right-3 z-10">

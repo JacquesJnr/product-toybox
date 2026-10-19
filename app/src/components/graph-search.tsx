@@ -17,8 +17,8 @@ export function GraphSearch({ value, onChange, matches, total }: { value: string
   }, [])
 
   return (
-    <motion.label layout transition={{ type: 'spring', bounce: 0.2, duration: 0.5 }}
-      className="flex h-10 w-80 items-center gap-2 rounded-full border border-border/60 bg-card/90 px-3.5 shadow-soft backdrop-blur-md focus-within:border-ring focus-within:w-96">
+    <motion.label
+      className="flex h-10 w-full items-center gap-2 rounded-full border border-border/60 bg-card/90 px-3.5 shadow-soft backdrop-blur-md focus-within:border-ring">
       <Search size={16} className="shrink-0 text-muted-foreground" />
       <input ref={input} value={value} onChange={event => onChange(event.target.value)} placeholder="Search the vault"
         onKeyDown={event => { if (event.key === 'Escape') { onChange(''); input.current?.blur() } }}
