@@ -4,8 +4,8 @@ import { ArrowUpRight, FileX, Sparkles, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import documents from '@/data/documents.json'
 import type { Doc } from '@/types'
-import { DocumentPreview } from '@/details/DocumentPreview'
-import { SourceViewer } from '@/details/SourceViewer'
+import { DocPreview } from './doc-preview'
+import { SourceDialog } from './source-dialog'
 import { domainIcon } from './domain-drawer'
 
 // The picked document. The vault part (header, preview, ledger) is still and matte;
@@ -63,8 +63,8 @@ export function DocPanel({ doc, onClose, onSelect }: { doc: Doc; onClose: () => 
             ) : (
               <div className="flex flex-col gap-2 px-5 pt-5">
                 <motion.button whileHover={{ y: -2 }} transition={SPRING} onClick={() => setSource({ documentId: doc.id })} aria-haspopup="dialog" aria-expanded={sourceOpen}
-                  className="overflow-hidden rounded-2xl border border-border bg-background text-left">
-                  <DocumentPreview doc={doc} />
+                  className="overflow-hidden rounded-2xl border border-border/60 text-left">
+                  <DocPreview doc={doc} />
                 </motion.button>
                 <Button variant="outline" size="sm" className="self-start" onClick={() => setSource({ documentId: doc.id })}>Open source<ArrowUpRight /></Button>
               </div>
@@ -106,7 +106,7 @@ export function DocPanel({ doc, onClose, onSelect }: { doc: Doc; onClose: () => 
           </motion.div>
         </AnimatePresence>
       </motion.aside>
-      {!missing && <SourceViewer doc={doc} open={sourceOpen} onOpenChange={open => { if (!open) setSource(null) }} highlightRef={source?.pageRef} />}
+      {!missing && <SourceDialog doc={doc} open={sourceOpen} onOpenChange={open => { if (!open) setSource(null) }} highlightRef={source?.pageRef} />}
     </>
   )
 }
