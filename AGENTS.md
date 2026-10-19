@@ -18,9 +18,9 @@ There is one app, `app/`, for the whole toybox (decision QS-030). New toys are b
 ## Stack and limits (from PRD §6)
 
 - React + Vite + TypeScript, from the default template. State lives in local component state.
-- The allowed dependencies are only: `react`, `react-dom`, `vite`, `@vitejs/plugin-react`, `typescript`, `@types/react`, `@types/react-dom`, `@base-ui/react`, and optionally `d3-force` with `@types/d3-force`. Anything else, ESLint included, needs approval.
-- Not allowed: no UI kit, CSS framework, state library, router, backend, live AI calls, analytics, or mobile layout. The minimum viewport is 1280px.
-- Base UI (unstyled) handles the standard controls only (the PRD lists the mapping). The Graph, Wheel, sphere, details panel, insight cards and risk ledger are custom React and SVG. Every visual comes from DESIGN.md tokens.
+- The allowed dependencies are only: `react`, `react-dom`, `vite`, `@vitejs/plugin-react`, `typescript`, `@types/react`, `@types/react-dom`, `@base-ui/react`, `tailwindcss`, `@tailwindcss/vite`, shadcn and the packages its CLI adds, Watermelon UI components (each one approved by Jacques) with their packages, and optionally `d3-force` with `@types/d3-force`. Anything else, ESLint included, needs approval.
+- Not allowed: no state library, router, backend, live AI calls, analytics, or mobile layout. The minimum viewport is 1280px.
+- shadcn (on Base UI) and Watermelon UI handle the standard controls (the PRD lists the mapping). Install components with the shadcn CLI from `app/`. The Graph, Wheel, sphere, details panel, insight cards and risk ledger are custom React and SVG. Every visual comes from the shadcn CSS variables, which come from the DESIGN.md tokens.
 - Fixtures live in `app/src/data/{documents,wheels,smart-search}.json`. Keep the PRD's filenames, fields, domain names and insight tags.
 - Popups need `isolation: isolate` on the app root. Vite `base: '/product-toybox/app/'` (GitHub Pages). Google Fonts is the only external request allowed.
 
