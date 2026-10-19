@@ -2,7 +2,9 @@
 
 The design system for Quantum State toys, and the design of the first toy, the Governance Brain (`app/`).
 
-A toy is tangible "smoke and mirrors", not the prototype. It fakes the data and the AI so a person can feel the experience. Every toy in this repo uses the universal toy style below. The Governance Brain section further down covers that toy only.
+A toy is tangible "smoke and mirrors", not the prototype. It fakes the data and the AI so a person can feel the experience. Every toy in this repo uses the vibe style below. The Governance Brain section further down covers that toy only.
+
+> **Vibe phase (Mo-19-Oct, branch `style/design`).** The style is in the vibe phase. The code is the source of truth for the style until Jacques moves it into Figma. The links below go to the earlier style.
 
 **Figma is the source of truth.** If this file and Figma disagree, Figma wins: report the conflict, and never fix this file yourself.
 
@@ -11,7 +13,63 @@ A toy is tangible "smoke and mirrors", not the prototype. It fakes the data and 
 
 ---
 
-## 1. The universal toy style
+## 1. The vibe style
+
+The toybox style now comes from a shadcn preset and Watermelon UI components. The old universal toy tokens no longer apply. The style is open: change it on the style page and keep what works.
+
+> "My existnig tokens do not matter - we're vibng new ones"
+>
+> — Jacques, Mo-19-Oct
+
+- **Style page:** `app/style.html`. In dev, it runs at `http://localhost:5180/product-toybox/app/style.html`. It shows the colors, the type and every picked component on one page.
+- **Where the values live:** the CSS variables in `app/src/index.css`. The shadcn config is in `app/components.json`.
+
+### 1.1 The preset
+
+shadcn preset `b2CPkFdo0`:
+
+| Setting | Value |
+| --- | --- |
+| Style | `base-lyra` (on Base UI) |
+| Base color | Stone |
+| Primary | Green, `oklch(0.508 0.118 165.612)` |
+| Font | Nunito Sans Variable, installed locally with Fontsource |
+| Radius | 0.625 rem |
+| Icons | Lucide |
+
+To try a new preset, run `npx shadcn@latest init -t vite -b base --preset <code> -y -f --reinstall` from `app/`.
+
+### 1.2 Components
+
+| App part | Component | Source |
+| --- | --- | --- |
+| View switch | `continuous-tabs` | Watermelon |
+| Header search | `command-search` | Watermelon |
+| Domain chips | `filter-disclosure` | Watermelon |
+| Risk gauge | `credit-usage-card` | Watermelon |
+| History / AI projection tabs | `discrete-tabs` | Watermelon |
+| Drawer timeframe | `frequency-selector` | Watermelon |
+| Governance History carousel | `carousel-navigator` | Watermelon |
+| Panel lists | `card-split-accordian` | Watermelon |
+| Smart Search input | `contextual-ai-bar` | Watermelon |
+| Source viewer | `dialog-4` | Watermelon |
+| Buttons, hover labels, chat log | `button`, `tooltip`, `scroll-area` | shadcn |
+
+Watermelon components are in `app/src/components/watermelon/`. shadcn components are in `app/src/components/ui/`. Install new ones with `npx shadcn@latest add <url or name>` from `app/`.
+
+### 1.3 Motion
+
+Watermelon components animate with `motion` (springs). The Graph, the Wheel and the sphere keep their own motion.
+
+### 1.4 Known gap
+
+> [!warning] The Watermelon components do not follow the preset. They use fixed Tailwind colors (zinc, neutral, white), about 230 in total, and no theme variables. If you change the preset, the shadcn parts change, but the Watermelon parts do not.
+
+To make a Watermelon component follow the preset, replace its fixed colors with theme classes, for example `bg-zinc-50` with `bg-muted` and `text-neutral-900` with `text-foreground`.
+
+### 1.5 The earlier style
+
+The universal toy style from Mo-12-Oct is in the git history of this file, before commit "Update DESIGN.md for the vibe style". Jacques's direction for it was:
 
 > "it will be intentionally flat, shifting backwards to the wiki tokens with a hint of playfullness"
 >
@@ -19,152 +77,7 @@ A toy is tangible "smoke and mirrors", not the prototype. It fakes the data and 
 >
 > — Jacques, Mo-12-Oct
 
-Flat, warm paper, one ink, line art. A hint of play, and a plain ledger style wherever the data gets dense. It blends three references, each with one job:
-
-| Source | Job |
-| --- | --- |
-| Boords | Warm paper: Alabaster page, Ash rules, Warm Umber text, Peach for small highlights. |
-| Opennote | The playful hand: outline line-art and icons in one ink, flat surfaces, tiny pops of color, bounce in code. |
-| Dries Bos | The ledger: square rows, full-width rules, mono for tabular data, arrow icons, 2.5D from outline offsets instead of shadows. |
-
-### 1.1 Color
-
-The wiki's six neutral tokens, with the same names and roles, warmed from cool gray to paper. Ink is signal only.
-
-| Token | Hex | Role |
-| --- | --- | --- |
-| Bench | `#FAFAF5` | Page background |
-| Surface | `#FFFFFF` | Cards, the details panel, chips at rest |
-| Glass 28 | `#E8E7E3` | Panels, data rows, the graph field |
-| Glass 45 | `#CECDCA` | Rules, hairlines, wheel spokes, graph links |
-| Graphite | `#6B6A68` | Labels, secondary text (5.2:1 on Bench), nodes |
-| Body | `#2D2824` | Running text |
-| Ink | `#121212` | Signal only: line art, headings, selected, focus |
-
-**One accent, the AI's hand.** Peach `#EB6C00` marks the AI's work only: a document being sorted, its dashed links, the "AI insight" mark, the source being read in Smart Search, and a highlighter wash at 14% behind words. It is never used for body text (2.9:1 on Bench).
-
-**The rainbow link, the only gradient.** It's drawn when Smart Search finds a relationship the graph didn't have. A 1 px linear gradient: `#3A86FF → #8338EC → #FF006E → #FB5607 → #FFBE0B`. It has a glow: a `#8338EC` drop shadow with 1.2 px blur and no offset. The same glow marks the Smart Search send arrow, which is Ink.
-
-**Risk.** Used for risk only: wheel rungs, the risk gauge and factor weights. Flat fills, no tints.
-
-| Rung | Hex |
-| --- | --- |
-| Within appetite | `#4E9A5B` |
-| Near the limit | `#D9A62E` |
-| Over appetite | `#C0504D` |
-
-**Domain hues.** Only on wheel labels, legend dots and the chat log's source dots. Never on the Graph view or the Smart Search sphere. A domain chip that's off shows its hue at 40%.
-
-| Domain | Hex |
-| --- | --- |
-| Strategic direction | `#3A7FB0` |
-| Strategy execution | `#4A9468` |
-| Financial stewardship | `#C99A2E` |
-| Risk and resilience | `#B85C5C` |
-| Controls and assurance | `#7650A8` |
-| Major decisions | `#2E8F8A` |
-| Remuneration | `#C2577F` |
-
-```css
-:root {
-  --bench: #FAFAF5;
-  --surface: #FFFFFF;
-  --glass-28: #E8E7E3;
-  --glass-45: #CECDCA;
-  --graphite: #6B6A68;
-  --body: #2D2824;
-  --ink: #121212;
-
-  --peach: #EB6C00;
-  --peach-wash: rgb(235 108 0 / 0.14);
-  --rainbow: linear-gradient(90deg, #3A86FF, #8338EC, #FF006E, #FB5607, #FFBE0B);
-  --rainbow-glow: drop-shadow(0 0 1.2px #8338EC);
-
-  --risk-within: #4E9A5B;
-  --risk-near: #D9A62E;
-  --risk-over: #C0504D;
-
-  --domain-strategic-direction: #3A7FB0;
-  --domain-strategy-execution: #4A9468;
-  --domain-financial-stewardship: #C99A2E;
-  --domain-risk-resilience: #B85C5C;
-  --domain-controls-assurance: #7650A8;
-  --domain-major-decisions: #2E8F8A;
-  --domain-remuneration: #C2577F;
-}
-```
-
-### 1.2 Type
-
-The wiki's font families, at toy sizes. Four sizes, two weights for the sans, plus mono for data.
-
-| Role | Font | Size / line height | Notes |
-| --- | --- | --- | --- |
-| Heading | Instrument Sans Medium 500 | 28 / 1.1 | letter-spacing -0.025em |
-| Title | Instrument Sans SemiBold 600 | 18 / 1.25 | |
-| Body | Nunito Regular 400 | 14 / 1.5 | |
-| Label | Instrument Sans Medium 500 | 12 / 1.3 | chips, node labels, buttons |
-| Data | JetBrains Mono Regular 400 | 12 / 1.0 | numbers, dates, table heads, metadata keys |
-
-Icons: Material Symbols Rounded, weight 300 (Light), outlined. Arrows such as ↗ go in JetBrains Mono, because Nunito doesn't have them.
-
-All four fonts are on Google Fonts.
-
-### 1.3 Space, shape, line
-
-- **Space:** 2 · 4 · 8 · 12 · 16 · 32. Element gap 8, card padding 12 to 16, sections 32.
-- **Radius:** 4 for cards, panels, chips and controls; 2 for small tags and nodes; 0 for the ledger.
-- **Lines:**
-  - Icons and outlines: 1.5 px Ink, round caps and joins.
-  - Hairlines and graph links: 1 px Glass 45.
-- **Lift (the 2.5D):** a hard offset with no blur, `box-shadow: 3px 3px 0 var(--ink)`. Use it only on a panel that is open or picked, such as the details panel, the risk summary or the agent chat.
-
-### 1.4 Two registers
-
-**Play** is the default: the graph, the wheel, Smart Search, chips, insight cards.
-- Radius 4.
-- Line art in Ink.
-- Nunito body text.
-- Outline icons.
-- Things can pop and settle.
-
-**Ledger** is for dense data: the risk summary's factors, metadata, any table.
-- Radius 0.
-- Full-width rules: 1 px Ink on top, Glass 45 between rows.
-- Rows padded 8 / 12.
-- JetBrains Mono for heads and numbers.
-- Only arrow and open icons.
-- No bounce and no lift.
-
-### 1.5 Motion (code only)
-
-Motion is not designed in Figma (decided Mo-12-Oct). The Motion page in Figma holds static storyboards only.
-
-- In play, things pop and settle with a small overshoot: `cubic-bezier(0.34, 1.56, 0.64, 1)`, 180 to 320 ms.
-- The ledger doesn't bounce.
-- Motion is the lowest priority: get it working first.
-
-### 1.6 Never
-
-- Gradients or blur shadows. The one exception is the rainbow link and its glow.
-- Tilts.
-- Dark sections.
-- Filled accent buttons. Actions are outlined in Ink on Surface; the only filled control is the selected segment of a view switch, which is Ink with Bench text.
-- Gradient Aura or a color wash behind the graph.
-
-### 1.7 Shared components
-
-- **Chip (domain filter):**
-  - On: Surface fill, 1.5 px Ink outline, Ink label, icon.
-  - Off: no fill, 1 px Glass 45 outline, Graphite label.
-  - Radius 4, padding 5 / 10.
-  - "Clear all" sits after the chips as a ghost button with a close icon.
-- **View switch:** a segmented control with a 1 px Ink outline and radius 4. The selected segment is Ink with Bench text; the others are Surface with Ink text.
-- **Search field:** Surface, 1 px Glass 45 outline, radius 4, a search icon, and a `/` key hint in mono.
-- **Tag:** Glass 28 fill, radius 2, Label size, Body color.
-- **Button:** outlined, 1.5 px Ink, Surface fill, radius 4, Label size, optional icon.
-- **Card:** Surface, 1 px Glass 45 outline, radius 4, padding 12 to 16.
-- **Panel:** Surface, 1.5 px Ink outline, radius 4, with lift.
+> [!note] Section 2 still names the earlier tokens (Ink, Peach, Glass and others). It changes as each part of the app moves to the new components.
 
 ---
 
