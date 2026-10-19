@@ -39,3 +39,6 @@ body { margin: 0; min-width: 1280px; }
     @apply bg-background text-foreground; }
   html {
     @apply font-sans; } }
+/* Risk status colors. Kept outside the preset blocks, so a new preset keeps them. */
+:root { --status-within: var(--chart-3); --status-near: oklch(0.769 0.165 70.08); --status-over: var(--destructive); }
+@theme inline { --color-status-within: var(--status-within); --color-status-near: var(--status-near); --color-status-over: var(--status-over); }
