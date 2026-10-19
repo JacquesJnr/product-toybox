@@ -53,7 +53,7 @@ export function StylePage() {
       <main className="mx-auto flex max-w-6xl flex-col gap-6 p-8">
         <header className="flex flex-col gap-1">
           <h1 className="font-heading text-3xl font-semibold">Governance Brain · style</h1>
-          <p className="text-muted-foreground">shadcn preset b2CPkFdo0 and the Watermelon picks. Example data.</p>
+          <p className="text-muted-foreground">shadcn preset b6Tpl9I9Z2 and the Watermelon picks. Example data.</p>
         </header>
 
         <Section title="Colors" replaces="tokens.css">
