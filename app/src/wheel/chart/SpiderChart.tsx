@@ -96,7 +96,8 @@ export function SpiderChart({ state, actions }: { state: WheelState; actions: Wh
       {/* Three layers so the style page can reveal them in turn: background, reading shape, points. */}
       <svg className="spider-svg spider-bg" width={W} height={H} viewBox={`0 0 ${W} ${H}`} aria-hidden="true">
         <defs>
-          <linearGradient id="spider-rainbow" x1="0" y1="0" x2="1" y2="1">
+          {/* Fixed to the chart, not to the reading's box, so the hues stay put while the shape moves. */}
+          <linearGradient id="spider-rainbow" gradientUnits="userSpaceOnUse" x1={C.x - R} y1={C.y - R} x2={C.x + R} y2={C.y + R}>
             <stop offset="0" stopColor="#3A86FF" />
             <stop offset="0.25" stopColor="#8338EC" />
             <stop offset="0.5" stopColor="#FF006E" />

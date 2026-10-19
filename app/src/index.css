@@ -67,7 +67,6 @@ body { margin: 0; min-width: 1280px; }
 :root {
   --ai-gradient: linear-gradient(135deg, #3A86FF, #8338EC, #FF006E, #FB5607, #FFBE0B);
   --ai-glow: var(--rainbow-glow);
-  --ai-glow-strong: drop-shadow(0 0 6px color-mix(in oklch, #8338EC 45%, transparent));
 }
 /* A rainbow edge. Set --ai-fill to tint the inside; it defaults to the card. */
 @utility ai-edge { border: 1.5px solid transparent; background: linear-gradient(var(--ai-fill, var(--card)), var(--ai-fill, var(--card))) padding-box, var(--ai-gradient) border-box; }
