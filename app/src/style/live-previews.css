@@ -26,7 +26,14 @@
 .wheel-stage .spider-halo { fill: color-mix(in oklch, var(--hue) 14%, transparent); stroke: none; }
 .wheel-stage .spider-pick { fill: none; stroke: var(--hue); stroke-width: 1.5; }
 .wheel-stage .spider-focus { stroke: var(--ring); }
-.wheel-stage .spider-point.hot .spider-diamond, .wheel-stage .spider-point.picked .spider-diamond { fill: var(--hue); }
+/* Hover and pick, as on the Graph's nodes: the diamond takes the middle of its domain's 3-tone gradient with a domain edge and grows;
+   its spoke lights up; the pick ring springs in. */
+.wheel-stage .spider-spoke { transition: stroke-opacity 160ms ease-out, stroke-width 160ms ease-out; }
+.wheel-stage .spider-spoke.hot, .wheel-stage .spider-spoke.picked { stroke-opacity: 0.9; stroke-width: 2; }
+.wheel-stage .spider-diamond { transform-box: fill-box; transform-origin: center; transition: fill 160ms ease-out, stroke 160ms ease-out, scale 220ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+.wheel-stage .spider-point.hot .spider-diamond, .wheel-stage .spider-point.picked .spider-diamond { fill: color-mix(in oklch, var(--hue) 45%, white); stroke: var(--hue); scale: 1.2; }
+.wheel-stage .spider-label { transition: opacity 160ms ease-out; }
+.wheel-stage .spider-label:hover { opacity: 0.75; }
 
 .wheel-stage .spider-pct { color: var(--status-over); font-family: var(--font-mono); }
 .wheel-stage .spider-tag { padding: 3px 10px; border: 1px solid color-mix(in oklch, var(--border) 60%, transparent); border-radius: 999px; background: var(--card); color: var(--muted-foreground); box-shadow: var(--shadow-soft); font-size: 11px; }
@@ -47,7 +54,10 @@
   .wheel-stage .proj .spider-reading { animation: wheel-ai-glow 3.2s ease-in-out infinite; }
   .wheel-stage .proj .spider-reading-fill { animation: wheel-ai-fill 3.2s ease-in-out infinite; }
   .wheel-stage .proj .spider-badge { animation: wheel-ai-badge 3.2s ease-in-out infinite; }
+  .wheel-stage .spider-pick, .wheel-stage .spider-halo { transform-box: fill-box; transform-origin: center; animation: wheel-arrive 220ms cubic-bezier(0.34, 1.56, 0.64, 1); }
 }
+@media (prefers-reduced-motion: reduce) { .wheel-stage .spider-diamond, .wheel-stage .spider-spoke { transition: none; } }
+@keyframes wheel-arrive { from { scale: 0.8; opacity: 0; } to { scale: 1; opacity: 1; } }
 @keyframes wheel-ai-glow { 50% { filter: drop-shadow(0 0 10px color-mix(in oklch, var(--primary) 60%, transparent)); } }
 @keyframes wheel-ai-fill { 50% { fill-opacity: 0.55; } }
 @keyframes wheel-ai-badge { 50% { box-shadow: 0 0 0 4px color-mix(in oklch, var(--primary) 12%, transparent), var(--shadow-soft); } }
