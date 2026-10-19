@@ -60,3 +60,22 @@
 @keyframes wheel-ai-glow { 50% { filter: drop-shadow(0 0 10px color-mix(in oklch, var(--primary) 60%, transparent)); } }
 @keyframes wheel-ai-fill { 50% { fill-opacity: 0.55; } }
 @keyframes wheel-ai-badge { 50% { box-shadow: 0 0 0 4px color-mix(in oklch, var(--primary) 12%, transparent), var(--shadow-soft); } }
+
+/* The reveal, on load, on a domain change and on Animate: the rings sweep in clockwise from 12 o'clock,
+   then the labels follow clockwise, then the reading shape and the points. Backwards fill only, so hover still works after. */
+@property --wheel-sweep { syntax: '<angle>'; inherits: false; initial-value: 370deg; }
+@media (prefers-reduced-motion: no-preference) {
+  .wheel-stage .spider-bg { mask-image: conic-gradient(#000 calc(var(--wheel-sweep) - 10deg), transparent var(--wheel-sweep)); animation: wheel-sweep 900ms cubic-bezier(0.65, 0, 0.35, 1) backwards; }
+  .wheel-stage .spider-ring-label { animation: wheel-fade 300ms 600ms ease-out backwards; }
+  .wheel-stage .spider-label { animation: wheel-fade 350ms ease-out backwards; animation-delay: calc(750ms + 500ms * var(--i) / var(--n)); }
+  .wheel-stage .spider-shape { transform-origin: 50% 50%; animation: wheel-grow 600ms 1350ms cubic-bezier(0.34, 1.56, 0.64, 1) backwards; }
+  .wheel-stage .spider-point { animation: wheel-fade 250ms ease-out backwards; animation-delay: calc(1450ms + 400ms * var(--i) / var(--n)); }
+  .wheel-stage .spider-point .spider-diamond { animation: wheel-pop 350ms cubic-bezier(0.34, 1.56, 0.64, 1) backwards; animation-delay: calc(1450ms + 400ms * var(--i) / var(--n)); }
+  .wheel-stage .spider-pct, .wheel-stage .spider-tag { animation: wheel-fade 300ms 1900ms ease-out backwards; }
+  .wheel-stage .spider-badge { animation: wheel-fade 300ms 1350ms ease-out backwards; }
+  .wheel-stage .proj .spider-badge { animation: wheel-fade 300ms 1350ms ease-out backwards, wheel-ai-badge 3.2s 1650ms ease-in-out infinite; }
+}
+@keyframes wheel-sweep { from { --wheel-sweep: 0deg; } }
+@keyframes wheel-fade { from { opacity: 0; } }
+@keyframes wheel-grow { from { opacity: 0; scale: 0.2; } }
+@keyframes wheel-pop { from { scale: 0; } }

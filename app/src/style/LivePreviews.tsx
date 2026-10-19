@@ -106,6 +106,7 @@ export function WheelPreview({ shared: { vault, domainList } }: { shared: Shared
     setDrawerOpen: drawerOpen => set({ drawerOpen }),
   }
   const { box, scale } = useFit()
+  const [revealRun, setRevealRun] = useState(0)
 
   return (
     <div className="wheel-stage relative h-[920px] w-full min-w-0 overflow-clip rounded-3xl border border-border/60 bg-stage">
@@ -115,11 +116,12 @@ export function WheelPreview({ shared: { vault, domainList } }: { shared: Shared
         <div className="relative z-20 h-10 shrink-0">
           <div className="absolute top-0 left-0"><WheelDomainPicker value={state.domain} onChange={actions.setDomain} /></div>
           <div className="absolute top-0 left-1/2 -translate-x-1/2"><WheelModeToggle mode={state.mode} onChange={actions.setMode} /></div>
-          <div className="absolute top-0 right-0"><WheelSettings projection={state.mode === 'projection'} /></div>
+          <div className="absolute top-0 right-0"><WheelSettings projection={state.mode === 'projection'} onAnimate={() => setRevealRun(run => run + 1)} /></div>
         </div>
         <div ref={box} className="relative min-h-0 flex-1">
           <div className="absolute top-1/2 left-1/2" style={{ width: W, height: H, transform: `translate(-50%, -50%) scale(${scale})`, '--wheel-hue': state.domain ? wheelHue(state.domain) : 'var(--foreground)' } as React.CSSProperties}>
-            <SpiderChart state={state} actions={actions} />
+            {/* A new key remounts the chart, which plays its reveal: on load, on a domain change and on Animate. */}
+            <SpiderChart key={`${state.domain}-${revealRun}`} state={state} actions={actions} />
           </div>
         </div>
         <WheelTimeline state={state} actions={actions} />
