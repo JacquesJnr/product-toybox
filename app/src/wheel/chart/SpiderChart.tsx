@@ -4,7 +4,7 @@ import { findTopic, isProjection, pointsAt, statusOf, stopName, topicsOf, worstT
 import type { Point, Status, WheelActions, WheelState } from '../model'
 import type { Domain, WheelDomain } from '../../types'
 import { domainColor } from '../../components/domain-drawer'
-import { C, H, R, W, ang, hexPoints, hexR, labelSize, opposite, rad, slotOf, xy } from './geometry'
+import { C, H, R, W, ang, hexPoints, hexR, labelSize, opposite, rad, slotOf, smoothPath, xy } from './geometry'
 import type { Slot } from './geometry'
 import './spider-chart.css'
 
@@ -86,7 +86,8 @@ export function SpiderChart({ state, actions }: { state: WheelState; actions: Wh
   const name = stopName(stop)
   const badge = proj ? `${name} (AI)` : name === 'Last board' ? 'Last Board' : name
   const placed = points.map((p, i) => ({ p, a: ang(i, n), ...xy(ang(i, n), rad(p.ratio), n) }))
-  const reading = placed.map(q => `${q.x.toFixed(1)},${q.y.toFixed(1)}`).join(' ')
+  // The reading is a smooth curve through the nodes, not a polygon.
+  const reading = smoothPath(placed)
   const ringAngle = Math.PI / 2 - Math.PI / n
   const hot = placed.find(q => q.p.name === hovered)
   const atStop = new Map(pointsAt(state.domain, stop).map(q => [q.name, q.ratio]))
@@ -115,8 +116,8 @@ export function SpiderChart({ state, actions }: { state: WheelState; actions: Wh
       </svg>
       <svg className="spider-svg spider-shape" width={W} height={H} viewBox={`0 0 ${W} ${H}`} aria-hidden="true">
         {/* Fill and stroke are separate so the projection glow follows the stroke only, as in Figma. */}
-        <polygon className="spider-reading-fill" points={reading} />
-        <polygon className="spider-reading" points={reading} />
+        <path className="spider-reading-fill" d={reading} />
+        <path className="spider-reading" d={reading} />
       </svg>
 
       {[0.5, 1, 1.5].map(v => {
