@@ -1,6 +1,6 @@
 import { useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
-import { X } from 'lucide-react'
+import { PanelRightOpen, X } from 'lucide-react'
 import documents from '@/data/documents.json'
 import type { Doc, Domain } from '@/types'
 import { Graph } from '@/graph/Graph'
@@ -138,7 +138,17 @@ export function WheelPreview({ shared: { vault, domainList } }: { shared: Shared
         <div className="relative z-20 h-10 shrink-0">
           <div className="absolute top-0 left-0"><WheelDomainPicker value={state.domain} onChange={actions.setDomain} /></div>
           <div className="absolute top-0 left-1/2 -translate-x-1/2"><WheelModeToggle mode={state.mode} onChange={actions.setMode} /></div>
-          <div className="absolute top-0 right-0"><WheelSettings projection={state.mode === 'projection'} onAnimate={() => setRevealRun(run => run + 1)} /></div>
+          <div className="absolute top-0 right-0 flex items-start gap-2">
+            {/* The way into the details panel without picking a node: it opens on the vault overview. */}
+            <AnimatePresence initial={false}>
+              {!panelOpen && <motion.button key="details" onClick={() => setPanelOpen(true)} aria-label="Open details"
+                initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
+                className="flex h-10 items-center gap-2 rounded-full border border-border/60 bg-card/90 px-4 text-sm font-medium text-foreground shadow-soft backdrop-blur-md">
+                <PanelRightOpen size={16} />Details
+              </motion.button>}
+            </AnimatePresence>
+            <WheelSettings projection={state.mode === 'projection'} onAnimate={() => setRevealRun(run => run + 1)} />
+          </div>
         </div>
         <div ref={box} className="relative min-h-0 flex-1">
           <div ref={frame} className="absolute top-1/2 left-1/2" style={{ width: W, height: H, transform: `translate(-50%, -50%) translate(${dx}px, ${dy}px) scale(${scale})`, '--wheel-hue': state.domain ? wheelHue(state.domain) : 'var(--foreground)' } as React.CSSProperties}>
