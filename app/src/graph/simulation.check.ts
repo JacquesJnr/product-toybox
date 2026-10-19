@@ -1,4 +1,4 @@
-import { arrivalStage, buildSimulation, tick, zoomAt } from './simulation.ts'
+import { arrivalStage, buildSimulation, linkShown, nodeShown, revealEnd, tick, zoomAt } from './simulation.ts'
 import type { Doc } from '../types'
 const check = (condition: boolean, message: string) => { if (!condition) throw new Error(message) }
 const docs: Doc[] = ['a', 'b'].map(id => ({ id, title: id, type: 'pdf', issued: '', from: '', domains: ['Major decisions'], primaryDomain: 'Major decisions', text: '', links: [{ targetId: id === 'a' ? 'b' : 'a', reason: 'cites' }], summary: '', insights: [] }))
@@ -19,4 +19,9 @@ check(Math.abs(cam.x + 80 / cam.k - next.x - 80 / next.k) < 1e-10, 'Zoom preserv
 check(Math.abs(cam.y + 120 / cam.k - next.y - 120 / next.k) < 1e-10, 'Zoom preserves cursor world y')
 check(zoomAt(cam, 0, 0, 1e6).k === 0.25 && zoomAt(cam, 0, 0, -1e6).k === 6, 'Zoom is bounded')
 check(arrivalStage(999) === 'waiting' && arrivalStage(1000) === 'arrived' && arrivalStage(1800) === 'sorting' && arrivalStage(5200) === 'settled', 'Arrival phases have defined boundaries')
+const [first, second] = buildSimulation(docs).nodes
+check(nodeShown(first, 0) && !nodeShown(second, 0), 'Animate shows nodes one at a time')
+check(nodeShown(second, 200) && !linkShown(first, second, 200), 'A new node is an orphan before it links')
+check(linkShown(first, second, revealEnd(2)), 'Every link shows by the end of the reveal')
+check(nodeShown(second, Infinity) && linkShown(first, second, Infinity), 'Outside Animate everything shows')
 console.log('Graph simulation self-check passes')

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { Tooltip } from '@base-ui/react/tooltip'
 import type { FoundLink } from './found-links'
 import type { Doc } from '../types'
-import { arrivalStage, buildSimulation, tick, zoomAt } from './simulation'
+import { arrivalStage, buildSimulation, linkShown, nodeShown, revealEnd, seed, tick, zoomAt } from './simulation'
 import type { SimNode } from './simulation'
 import { placeLabels } from './labels'
 import './graph.css'
@@ -24,9 +24,9 @@ export function Graph({ revealRun, foundLinks, docs, visibleIds, selectedId, onS
   const allLinks = useMemo(() => [...sim.links, ...foundLinks.map(link => ({ ...link, reason: 'shared-content' as const }))], [sim, foundLinks])
   const foundKeys = new Set(foundLinks.map(link => `${link.source}|${link.target}`))
   const svg = useRef<SVGSVGElement>(null)
-  const clock = useRef({ arrival: 0, animate: Infinity })
+  const clock = useRef({ arrival: 0, animate: Infinity, spawned: new Set<string>() })
   const [stage, setStage] = useState<ReturnType<typeof arrivalStage>>('waiting')
-  const [linkCount, setLinkCount] = useState(Infinity)
+  const [reveal, setReveal] = useState(Infinity)
   const nodeElements = useRef(new Map<string, SVGGElement>())
   const gradients = useRef(new Map<string, SVGLinearGradientElement>())
   const linkElements = useRef(new Map<string, SVGLineElement>())
@@ -35,10 +35,10 @@ export function Graph({ revealRun, foundLinks, docs, visibleIds, selectedId, onS
   const [hover, setHover] = useState<string | null>(null)
   const drag = useRef<{ node: SimNode | null; x: number; y: number; camX: number; camY: number; moved: boolean } | null>(null)
   const visible = useMemo(() => sim.nodes.filter(n => visibleIds.has(n.id)), [sim, visibleIds])
-  const nodes = sim.nodes.filter(n => visibleIds.has(n.id) && (n.id !== 'liquidity-review' || stage !== 'waiting'))
+  const nodes = sim.nodes.filter(n => visibleIds.has(n.id) && (n.id !== 'liquidity-review' || stage !== 'waiting') && nodeShown(n, reveal))
   const links = allLinks.filter(l => visibleIds.has(l.source) && visibleIds.has(l.target))
     .filter(l => (l.source !== 'liquidity-review' && l.target !== 'liquidity-review') || stage === 'sorting' || stage === 'settled')
-    .slice(0, linkCount)
+    .filter(l => linkShown(sim.byId.get(l.source)!, sim.byId.get(l.target)!, reveal))
   const nodePositions = new Map(nodes.map(n => [n.id, n]))
   const neighbours = new Set([hover])
   for (const l of links) {
@@ -69,12 +69,12 @@ export function Graph({ revealRun, foundLinks, docs, visibleIds, selectedId, onS
       sim.byId.get(link.target)!.deg++
     }
     sim.alpha = Math.max(sim.alpha, 0.4)
-    if (foundLinks.length) { clock.current.animate = Infinity; setLinkCount(Infinity) }
+    if (foundLinks.length) { clock.current.animate = Infinity; setReveal(Infinity) }
   }, [sim, allLinks, foundLinks, revealRun])
 
   useEffect(() => { sim.alpha = Math.max(sim.alpha, 0.4) }, [sim, visibleIds])
   useEffect(() => {
-    if (animateRun) { clock.current.animate = 0; setLinkCount(0); sim.alpha = Math.max(sim.alpha, 0.6) }
+    if (animateRun) { clock.current.animate = 0; clock.current.spawned.clear(); setReveal(0); sim.alpha = Math.max(sim.alpha, 0.6) }
   }, [animateRun, sim])
 
   useEffect(() => {
@@ -97,12 +97,18 @@ export function Graph({ revealRun, foundLinks, docs, visibleIds, selectedId, onS
           n.x = neighbour.x + 65; n.y = neighbour.y + 35
         }
       }
-      const forceNodes = visible.filter(n => n.id !== 'liquidity-review' || current === 'sorting' || current === 'settled')
+      const elapsed = clock.current.animate
+      const forceNodes = visible.filter(n => (n.id !== 'liquidity-review' || current === 'sorting' || current === 'settled') && nodeShown(n, elapsed))
       const forceIds = new Set(forceNodes.map(n => n.id))
-      const count = Math.floor(clock.current.animate / 100)
-      if (count !== drawnLinks) { drawnLinks = count; setLinkCount(count) }
-      if (count >= allLinks.length) clock.current.animate = Infinity
-      const forceLinks = allLinks.filter(l => forceIds.has(l.source) && forceIds.has(l.target)).slice(0, count)
+      const forceLinks = allLinks.filter(l => forceIds.has(l.source) && forceIds.has(l.target) && linkShown(sim.byId.get(l.source)!, sim.byId.get(l.target)!, elapsed))
+      // A node enters at its spiral seed as an orphan; its links pull it into place once they appear.
+      if (elapsed !== Infinity) for (const n of forceNodes) if (!clock.current.spawned.has(n.id)) {
+        clock.current.spawned.add(n.id)
+        Object.assign(n, seed(n.i), { vx: 0, vy: 0 })
+      }
+      const shown = forceNodes.length * 1000 + forceLinks.length
+      if (shown !== drawnLinks) { drawnLinks = shown; setReveal(elapsed) }
+      if (elapsed >= revealEnd(sim.nodes.length)) { clock.current.animate = Infinity; setReveal(Infinity) }
       // Tick on every frame, as the physics steps once per tick.
       {
         const start = performance.now()
