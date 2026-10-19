@@ -26,14 +26,15 @@ The toybox style now comes from a shadcn preset and Watermelon UI components. Th
 
 ### 1.1 The preset
 
-shadcn preset `b2CPkFdo0`:
+shadcn preset `b6Tpl9I9Z2`:
 
 | Setting | Value |
 | --- | --- |
-| Style | `base-lyra` (on Base UI) |
-| Base color | Stone |
+| Style | `base-maia` (on Base UI) |
+| Base color | Mist |
 | Primary | Green, `oklch(0.508 0.118 165.612)` |
-| Font | Nunito Sans Variable, installed locally with Fontsource |
+| Heading font | Space Grotesk Variable, installed locally with Fontsource |
+| Body font | Nunito Sans Variable, installed locally with Fontsource |
 | Radius | 0.625 rem |
 | Icons | Lucide |
 
@@ -60,6 +61,8 @@ Watermelon components are in `app/src/components/watermelon/`. shadcn components
 ### 1.3 Motion
 
 Watermelon components animate with `motion` (springs). The Graph, the Wheel and the sphere keep their own motion.
+
+The motion reference for the toybox is the point cloud: floating nodes in continuous, smooth motion, as on [Auros](https://styles.refero.design/style/21cfe0c1-778d-4613-9f47-a5718eb929b3) and [Ameba](https://styles.refero.design/style/371df039-a090-402b-b2e4-21ab38e07625). The Smart Search sphere already moves this way. Use these sites for motion only, not for color or type.
 
 ### 1.4 Watermelon colors
 
