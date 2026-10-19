@@ -2,7 +2,6 @@
 .material-symbols-rounded { color: var(--graphite); font-family: 'Material Symbols Rounded'; font-size: 16px; line-height: 1; font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20; }
 .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
-/* The Wheel stage: the parts keep their look, only their fixed widths give way to the stage. */
 /* The Wheel chart on the preset. Recorded readings are plain and still; the AI projection is tinted and breathes.
    --hue is each spoke's and point's domain color (set in SpiderChart); --wheel-hue is the open domain's, or foreground. */
 .wheel-stage .spider-chart { font-family: var(--font-sans); }
