@@ -6,6 +6,7 @@ import { WheelView } from '@/wheel/WheelView'
 import { visibleIds } from '@/filters/visible'
 import { DEFAULT_DOMAINS, DomainDrawer } from '@/components/domain-drawer'
 import { GraphSettings } from '@/components/graph-settings'
+import { GraphSearch } from '@/components/graph-search'
 import { applyProposals } from '@/components/domain-sorting'
 import { DocPanel } from '@/components/doc-panel'
 import './live-previews.css'
@@ -22,11 +23,12 @@ export function GraphPreview() {
   const [vault, setVault] = useState(docs)
   const [domainList, setDomainList] = useState<Domain[]>(DEFAULT_DOMAINS)
   const [showOrphans, setShowOrphans] = useState(true)
+  const [query, setQuery] = useState('')
   const visible = useMemo(() => {
-    const ids = visibleIds(vault, domains, '', domainList.length)
+    const ids = visibleIds(vault, domains, query, domainList.length)
     if (!showOrphans) for (const doc of vault) if (!vault.some(other => other.id === doc.id ? other.links.length : other.links.some(l => l.targetId === doc.id))) ids.delete(doc.id)
     return ids
-  }, [vault, domains, domainList, showOrphans])
+  }, [vault, domains, domainList, showOrphans, query])
   const selected = vault.find(doc => doc.id === selectedId)
 
   return (
@@ -36,6 +38,9 @@ export function GraphPreview() {
           <Graph revealRun={0} foundLinks={[]} docs={docs} visibleIds={visible} selectedId={selectedId} onSelect={setSelectedId} active animateRun={animateRun} />
           <div className="absolute top-3 left-3 z-10">
             <DomainDrawer domains={domainList} value={domains} onChange={setDomains} />
+          </div>
+          <div className="absolute top-3 left-1/2 z-10 -translate-x-1/2">
+            <GraphSearch value={query} onChange={setQuery} matches={visible.size} total={vault.length} />
           </div>
           <div className="absolute top-3 right-3 z-10">
             <GraphSettings docs={vault} domains={domainList} showOrphans={showOrphans} onShowOrphans={setShowOrphans}
