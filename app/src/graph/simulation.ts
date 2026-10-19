@@ -13,12 +13,22 @@ export interface SimNode {
 }
 export interface SimLink { source: string; target: string; reason: Link['reason'] }
 
+// A spiral start position, so nodes spread out before the forces take over.
+export function seed(i: number) {
+  const a = i * 2.39996, r = 30 + Math.sqrt(i) * 40
+  return { x: Math.cos(a) * r, y: Math.sin(a) * r }
+}
+
+// Animate reveals the graph in three steps for each node: invisible, then an orphan, then linked.
+export const APPEAR_STEP = 140
+export const LINK_DELAY = 700
+export const nodeShown = (node: SimNode, elapsed: number) => elapsed >= node.i * APPEAR_STEP
+export const linkShown = (source: SimNode, target: SimNode, elapsed: number) =>
+  elapsed >= Math.max(source.i, target.i) * APPEAR_STEP + LINK_DELAY
+export const revealEnd = (nodeCount: number) => (nodeCount - 1) * APPEAR_STEP + LINK_DELAY
+
 export function buildSimulation(docs: Doc[]) {
-  const nodes = docs.map((doc, i): SimNode => {
-    const a = i * 2.39996
-    const r = 30 + Math.sqrt(i) * 40
-    return { id: doc.id, x: Math.cos(a) * r, y: Math.sin(a) * r, vx: 0, vy: 0, fx: null, fy: null, deg: 0, i }
-  })
+  const nodes = docs.map((doc, i): SimNode => ({ id: doc.id, ...seed(i), vx: 0, vy: 0, fx: null, fy: null, deg: 0, i }))
   const byId = new Map(nodes.map(n => [n.id, n]))
   const links: SimLink[] = []
   const seen = new Set<string>()
