@@ -2,6 +2,7 @@ import { Sparkles } from 'lucide-react'
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog'
 import type { Doc } from '@/types'
 import { DocPreview } from './doc-preview'
+import Avatar3 from './watermelon/avatar-3'
 
 // The source document, opened from the panel. Same ladder as the panel: a header band,
 // the preview on the stage, AI's evidence callout, then the document text.
@@ -16,7 +17,10 @@ export function SourceDialog({ doc, open, onOpenChange, highlightRef }: { doc: D
         <header className="flex flex-col gap-2 bg-muted/50 px-6 pt-5 pb-5">
           <span className="text-[10px] font-bold tracking-[0.15em] text-muted-foreground uppercase">Source document · {TYPE[doc.type]}</span>
           <DialogTitle className="font-heading text-2xl leading-tight font-semibold">{doc.title}</DialogTitle>
-          <DialogDescription className="font-mono text-[11px] text-muted-foreground">{doc.from} · {doc.issued}</DialogDescription>
+          <DialogDescription className="flex items-center gap-2.5 text-[13px] text-muted-foreground">
+            <Avatar3 name={doc.author?.name ?? null} size="sm" />
+            <span><span className="font-semibold text-foreground">{doc.author?.name ?? 'Unknown author'}</span>{doc.author && ` · ${doc.author.role}`}<span className="font-mono text-[11px]"> · {doc.issued}</span></span>
+          </DialogDescription>
         </header>
         <div className="flex flex-col gap-5 overflow-y-auto px-6 py-6">
           <DocPreview doc={doc} highlightRef={highlightRef} large />

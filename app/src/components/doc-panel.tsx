@@ -7,6 +7,7 @@ import type { Doc } from '@/types'
 import { DocPreview } from './doc-preview'
 import { SourceDialog } from './source-dialog'
 import { domainIcon } from './domain-drawer'
+import Avatar3 from './watermelon/avatar-3'
 
 // The picked document. The vault part (header, preview, ledger) is still and matte;
 // the AI part (summary, insights) is tinted and moves in, so AI's role reads at a glance.
@@ -71,6 +72,13 @@ export function DocPanel({ doc, onClose, onSelect }: { doc: Doc; onClose: () => 
             )}
 
             <dl className="mx-5 mt-5 grid grid-cols-[88px_1fr] gap-x-3 border-t border-foreground/80 font-mono text-[11px]">
+              <dt className="border-b border-border py-2.5 text-muted-foreground uppercase">author</dt>
+              <dd className="flex items-center gap-2.5 border-b border-border py-2">
+                <Avatar3 name={doc.author?.name ?? null} />
+                {doc.author
+                  ? <span className="flex flex-col font-sans"><span className="text-[13px] font-semibold">{doc.author.name}</span><span className="text-[11px] text-muted-foreground">{doc.author.role}</span></span>
+                  : <span className="font-sans text-[13px] text-muted-foreground">Unknown</span>}
+              </dd>
               {[['issued', doc.issued || '—'], ['from', doc.from || '—']].map(([name, value]) => (
                 <div key={name} className="contents"><dt className="border-b border-border py-2 text-muted-foreground uppercase">{name}</dt><dd className="border-b border-border py-2">{value}</dd></div>
               ))}

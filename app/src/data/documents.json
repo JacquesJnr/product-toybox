@@ -5,6 +5,10 @@
     "type": "pdf",
     "issued": "2026-09-18",
     "from": "Office of the Company Secretary",
+    "author": {
+      "name": "Amira Haddad",
+      "role": "Company Secretary"
+    },
     "domains": [
       "Strategic direction",
       "Financial stewardship",
@@ -66,6 +70,10 @@
     "type": "pdf",
     "issued": "2026-07-02",
     "from": "Chief Strategy Officer",
+    "author": {
+      "name": "Daniel Okafor",
+      "role": "Chief Strategy Officer"
+    },
     "domains": [
       "Strategic direction",
       "Strategy execution"
@@ -105,6 +113,10 @@
     "type": "pdf",
     "issued": "2025-11-14",
     "from": "Board of Directors",
+    "author": {
+      "name": "Amira Haddad",
+      "role": "Company Secretary"
+    },
     "domains": [
       "Strategic direction",
       "Controls and assurance"
@@ -144,6 +156,10 @@
     "type": "pdf",
     "issued": "2026-05-20",
     "from": "Governance Office",
+    "author": {
+      "name": "Rahul Mehta",
+      "role": "Head of Governance"
+    },
     "domains": [
       "Controls and assurance",
       "Remuneration"
@@ -183,6 +199,10 @@
     "type": "pdf",
     "issued": "2026-08-29",
     "from": "Financial Controller",
+    "author": {
+      "name": "Sofia Lindqvist",
+      "role": "Financial Controller"
+    },
     "domains": [
       "Controls and assurance",
       "Financial stewardship",
@@ -232,6 +252,10 @@
     "type": "video",
     "issued": "2026-09-10",
     "from": "Office of the Company Secretary",
+    "author": {
+      "name": "Amira Haddad",
+      "role": "Company Secretary"
+    },
     "domains": [
       "Major decisions",
       "Remuneration"
@@ -271,6 +295,10 @@
     "type": "sheet",
     "issued": "2026-09-12",
     "from": "Finance Planning",
+    "author": {
+      "name": "Tom Brennan",
+      "role": "Head of Financial Planning"
+    },
     "domains": [
       "Financial stewardship",
       "Strategy execution"
@@ -314,6 +342,10 @@
     "type": "sheet",
     "issued": "2026-06-30",
     "from": "People Operations",
+    "author": {
+      "name": "Grace Mwangi",
+      "role": "People Operations Lead"
+    },
     "domains": [
       "Strategy execution",
       "Controls and assurance"
@@ -349,6 +381,10 @@
     "type": "sheet",
     "issued": "2026-08-31",
     "from": "Chief Risk Officer",
+    "author": {
+      "name": "Elena Petrova",
+      "role": "Chief Risk Officer"
+    },
     "domains": [
       "Risk and resilience",
       "Controls and assurance"
@@ -401,6 +437,10 @@
     "type": "pdf",
     "issued": "2026-04-03",
     "from": "Head of Internal Audit",
+    "author": {
+      "name": "Marcus Chen",
+      "role": "Head of Internal Audit"
+    },
     "domains": [
       "Controls and assurance",
       "Risk and resilience"
@@ -440,6 +480,10 @@
     "type": "pdf",
     "issued": "2026-08-22",
     "from": "Procurement Director",
+    "author": {
+      "name": "Lucía Romero",
+      "role": "Procurement Director"
+    },
     "domains": [
       "Risk and resilience",
       "Major decisions"
@@ -483,6 +527,10 @@
     "type": "pdf",
     "issued": "2026-09-05",
     "from": "Treasurer",
+    "author": {
+      "name": "Yusuf Al-Mansouri",
+      "role": "Treasurer"
+    },
     "domains": [
       "Financial stewardship",
       "Risk and resilience"
@@ -522,6 +570,10 @@
     "type": "image",
     "issued": "2026-02-01",
     "from": "Risk and Insurance Manager",
+    "author": {
+      "name": "Hannah Weiss",
+      "role": "Risk and Insurance Manager"
+    },
     "domains": [
       "Risk and resilience",
       "Financial stewardship"
@@ -561,6 +613,10 @@
     "type": "pdf",
     "issued": "30 Sep 2026",
     "from": "Risk office · Board pack Q3",
+    "author": {
+      "name": "Elena Petrova",
+      "role": "Chief Risk Officer"
+    },
     "domains": [
       "Risk and resilience"
     ],
@@ -616,6 +672,10 @@
     "type": "pdf",
     "issued": "2026-09-16",
     "from": "Remuneration Committee Secretary",
+    "author": {
+      "name": "Oliver Grant",
+      "role": "Remuneration Committee Secretary"
+    },
     "domains": [
       "Remuneration",
       "Major decisions"
@@ -659,6 +719,10 @@
     "type": "pdf",
     "issued": "2026-08-06",
     "from": "Governance Office",
+    "author": {
+      "name": "Rahul Mehta",
+      "role": "Head of Governance"
+    },
     "domains": [
       "Strategic direction"
     ],
@@ -684,6 +748,7 @@
     "type": "pdf",
     "issued": "",
     "from": "",
+    "author": null,
     "domains": [
       "Remuneration"
     ],
@@ -699,6 +764,10 @@
     "type": "pdf",
     "issued": "2026-10-01",
     "from": "Finance Planning",
+    "author": {
+      "name": "Tom Brennan",
+      "role": "Head of Financial Planning"
+    },
     "domains": [
       "Financial stewardship"
     ],

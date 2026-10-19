@@ -25,6 +25,7 @@ export interface Doc {
   type: 'pdf' | 'video' | 'sheet' | 'image'
   issued: string
   from: string
+  author: { name: string; role: string } | null
   domains: Domain[]
   primaryDomain: Domain
   text: string

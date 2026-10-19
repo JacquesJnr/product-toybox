@@ -107,7 +107,7 @@ The IDs are what section 8 checks against.
 - `app/src/data/smart-search.json`
 
 **Each document has:**
-- `id`, `title`, `type` (`pdf | video | sheet | image`), `issued`, `from`, `domains`, `primaryDomain`, `text`;
+- `id`, `title`, `type` (`pdf | video | sheet | image`), `issued`, `from`, `author` (`{name, role}`, or `null` when the document is not in the vault), `domains`, `primaryDomain`, `text`;
 - `links[{targetId, reason}]`, where `reason` is `shared-content | same-author | cites`;
 - `summary`;
 - `insights[{text, tags, pageRef, confidence}]`. A `pageRef` can be a page, a timestamp, a cell or a region.

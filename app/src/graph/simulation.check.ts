@@ -1,7 +1,7 @@
 import { arrivalStage, buildSimulation, linkShown, nodeShown, revealEnd, tick, zoomAt } from './simulation.ts'
 import type { Doc } from '../types'
 const check = (condition: boolean, message: string) => { if (!condition) throw new Error(message) }
-const docs: Doc[] = ['a', 'b'].map(id => ({ id, title: id, type: 'pdf', issued: '', from: '', domains: ['Major decisions'], primaryDomain: 'Major decisions', text: '', links: [{ targetId: id === 'a' ? 'b' : 'a', reason: 'cites' }], summary: '', insights: [] }))
+const docs: Doc[] = ['a', 'b'].map(id => ({ id, title: id, type: 'pdf', issued: '', from: '', author: null, domains: ['Major decisions'], primaryDomain: 'Major decisions', text: '', links: [{ targetId: id === 'a' ? 'b' : 'a', reason: 'cites' }], summary: '', insights: [] }))
 const sim = buildSimulation(docs)
 check(sim.links.length === 1, 'Reverse fixture references make one visual spring')
 const pinned = sim.nodes[0]
