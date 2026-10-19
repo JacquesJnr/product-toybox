@@ -3,7 +3,6 @@
 .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
 /* The Wheel stage: the parts keep their look, only their fixed widths give way to the stage. */
-.wheel-stage .wheel-topbar { width: 100%; margin: 0; }
 .wheel-stage .wheel-panel { width: 100%; max-height: 100%; margin: 0; }
 /* The panel gets more room than in the app. */
 .wheel-stage .wp-banner { padding: 32px 28px 24px; gap: 10px; }

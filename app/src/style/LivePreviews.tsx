@@ -5,8 +5,8 @@ import { Graph } from '@/graph/Graph'
 import { SpiderChart } from '@/wheel/chart/SpiderChart'
 import { WheelDrawer } from '@/wheel/drawer/WheelDrawer'
 import { WheelPanel } from '@/wheel/panel/WheelPanel'
-import { ChartTopBar } from '@/wheel/controls/WheelControls'
 import { WheelDomainPicker } from '@/components/wheel-domain-picker'
+import { WheelLegend, WheelModeToggle } from '@/components/wheel-controls'
 import { LAST_STOP, TODAY, topicsOf } from '@/wheel/model'
 import { H, W } from '@/wheel/chart/geometry'
 import type { WheelActions, WheelState } from '@/wheel/model'
@@ -105,8 +105,10 @@ export function WheelPreview() {
         {/* The picker opens over the chart, as the Graph's domain drawer does. */}
         <div className="relative z-20 h-10 shrink-0">
           <div className="absolute top-0 left-0"><WheelDomainPicker value={state.domain} onChange={actions.setDomain} /></div>
+          <div className="absolute top-0 right-0"><WheelModeToggle mode={state.mode} onChange={actions.setMode} /></div>
         </div>
-        <ChartTopBar state={state} actions={actions} />
+        {/* The legend floats in the chart's empty top-right corner, under the toggle. */}
+        <div className="absolute top-12 right-0 z-10"><WheelLegend projection={state.mode === 'projection'} /></div>
         <div ref={box} className="relative min-h-0 flex-1">
           <div className="absolute top-1/2 left-1/2" style={{ width: W, height: H, transform: `translate(-50%, -50%) scale(${scale})` }}>
             <SpiderChart state={state} actions={actions} />
