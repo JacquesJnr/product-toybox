@@ -81,15 +81,15 @@ export function DomainDrawer({ domains = DEFAULT_DOMAINS, value, onChange, defau
                     <span className="text-sm font-medium text-foreground">{domain}</span>
                   </span>
                   <motion.span
-                    animate={{ backgroundColor: selected ? 'var(--card)' : 'rgba(0,0,0,0)' }}
-                    style={{ borderColor: selected ? 'var(--card)' : undefined }}
+                    animate={{ backgroundColor: selected ? 'var(--foreground)' : 'rgba(0,0,0,0)' }}
+                    style={{ borderColor: selected ? 'var(--foreground)' : undefined }}
                     className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-border"
                   >
                     <motion.span
                       animate={{ scale: selected ? 1 : 0, opacity: selected ? 1 : 0 }}
                       transition={{ type: 'spring', stiffness: 520, damping: 30 }}
                     >
-                      <Check size={12} strokeWidth={3} style={{ color }} />
+                      <Check size={12} strokeWidth={3} className="text-background" />
                     </motion.span>
                   </motion.span>
                 </motion.button>
