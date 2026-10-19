@@ -24,28 +24,28 @@ const DEFAULT_AUTO_DELAY = 5000;
 
 const DEFAULT_THEMES: ThemeConfig[] = [
   {
-    bg: 'bg-zinc-100',
-    button: 'bg-zinc-900',
-    dot: 'bg-zinc-300',
-    progress: 'bg-zinc-300',
+    bg: 'bg-muted',
+    button: 'bg-primary',
+    dot: 'bg-secondary',
+    progress: 'bg-secondary',
   },
   {
-    bg: 'bg-blue-100',
-    button: 'bg-blue-600',
-    dot: 'bg-blue-300',
-    progress: 'bg-blue-300',
+    bg: 'bg-accent',
+    button: 'bg-primary',
+    dot: 'bg-chart-3',
+    progress: 'bg-chart-3',
   },
   {
-    bg: 'bg-green-100',
-    button: 'bg-green-600',
-    dot: 'bg-green-400',
-    progress: 'bg-green-400',
+    bg: 'bg-accent',
+    button: 'bg-primary',
+    dot: 'bg-primary',
+    progress: 'bg-primary',
   },
   {
-    bg: 'bg-yellow-100',
-    button: 'bg-yellow-400',
-    dot: 'bg-yellow-300',
-    progress: 'bg-yellow-300',
+    bg: 'bg-accent',
+    button: 'bg-chart-2',
+    dot: 'bg-chart-2',
+    progress: 'bg-chart-2',
   },
 ];
 
@@ -102,7 +102,7 @@ const ArrowButton = ({ children, onClick, themeColor, disabled }: any) => {
     <motion.button
       onClick={onClick}
       whileTap={{ scale: 0.9 }}
-      className={`flex h-12 w-12 items-center justify-center rounded-full text-white shadow-sm transition-colors cursor-pointer duration-300 ${disabled ? 'bg-gray-300 opacity-50' : themeColor}`}
+      className={`flex h-12 w-12 items-center justify-center rounded-full text-primary-foreground shadow-sm transition-colors cursor-pointer duration-300 ${disabled ? 'bg-secondary opacity-50' : themeColor}`}
     >
       {children}
     </motion.button>
@@ -127,14 +127,14 @@ const Indicator = ({
       layout
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
       style={{ borderRadius:24}}
-      className={`relative h-3 cursor-pointer  focus:outline-none ${isActive ? `w-12 ${theme.progress}` : `w-3 ${theme.dot}`} transition-colors duration-300`}
+      className={`relative h-3 cursor-pointer focus:outline-none ${isActive ? `w-12 ${theme.progress}` : `w-3 ${theme.dot}`} transition-colors duration-300`}
     >
       {isActive && (
         <motion.div
           initial={{ width: '0%' }}
           animate={{ width: '100%' }}
           transition={{ duration: autoDelay / 1000, ease: 'linear' }}
-          className="absolute inset-0 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.5)]"
+          className="absolute inset-0 rounded-full bg-card shadow-[0_0_8px_rgba(255,255,255,0.5)]"
         />
       )}
     </motion.button>

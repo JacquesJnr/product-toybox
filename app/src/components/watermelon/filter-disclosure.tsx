@@ -79,7 +79,7 @@ export const FilterDisclosure: FC<FilterDisclosureProps> = ({
                 transition: { duration: 0 },
               }}
               style={{ transformOrigin: '50% 100%', borderRadius: 32 }}
-              className="absolute z-20 flex w-[300px] flex-col gap-[4px] overflow-hidden rounded-2xl border-[1.6px] border-[#E5E5E9] bg-[#FEFEFE] p-[8px] shadow-[0_12px_40px_rgba(0,0,0,0.08)] will-change-transform dark:border-neutral-800 dark:bg-neutral-900 dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+              className="absolute z-20 flex w-[300px] flex-col gap-[4px] overflow-hidden rounded-2xl border-[1.6px] border-border bg-card p-[8px] shadow-[0_12px_40px_rgba(0,0,0,0.08)] will-change-transform dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
             >
               {items.map((item, index) => {
                 const Icon = item.icon;
@@ -93,20 +93,20 @@ export const FilterDisclosure: FC<FilterDisclosureProps> = ({
                     onClick={() => handleSelect(item.id)}
                     whileTap={{ scale: 0.98 }}
                     transition={{ ...SPRING, delay: (3 + index) * 0.05 }}
-                    className="flex w-full cursor-pointer items-center justify-between rounded-[16px] px-[12px] py-[10px] transition-colors hover:bg-[#F6F5FA] dark:hover:bg-neutral-800/60"
+                    className="flex w-full cursor-pointer items-center justify-between rounded-[16px] px-[12px] py-[10px] transition-colors hover:bg-card "
                   >
                     <div className="flex items-center gap-[28px]">
-                      <Icon className="h-[24px] w-[24px] text-[#AFAEB9] dark:text-neutral-500" />
-                      <span className="text-[18px] font-bold tracking-tight text-[#535257] dark:text-neutral-200">
+                      <Icon className="h-[24px] w-[24px] text-muted-foreground " />
+                      <span className="text-[18px] font-bold tracking-tight text-foreground ">
                         {item.label}
                       </span>
                     </div>
 
                     <motion.div
                       animate={{
-                        backgroundColor: selected ? '#31C051' : 'rgba(0,0,0,0)',
+                        backgroundColor: selected ? 'var(--primary)' : 'rgba(0,0,0,0)',
                       }}
-                      className={`flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-full border-[3px] ${selected ? 'border-[#31C051]' : 'border-[#ADADB2] dark:border-neutral-700'} `}
+                      className={`flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-full border-[3px] ${selected ? 'border-primary' : 'border-border '} `}
                     >
                       <motion.div
                         animate={{
@@ -119,7 +119,7 @@ export const FilterDisclosure: FC<FilterDisclosureProps> = ({
                           damping: 30,
                         }}
                       >
-                        <BsCheckLg className="h-[16px] w-[16px] text-white" />
+                        <BsCheckLg className="h-[16px] w-[16px] text-primary-foreground" />
                       </motion.div>
                     </motion.div>
                   </motion.button>
@@ -142,9 +142,9 @@ export const FilterDisclosure: FC<FilterDisclosureProps> = ({
                 style={{
                   borderRadius: 32,
                 }}
-                className="z-30 flex h-[60px] w-[60px] cursor-pointer items-center justify-center rounded-full border-[1.6px] border-[#E5E5E9] bg-[#FEFEFE] shadow-xs will-change-transform dark:border-neutral-800 dark:bg-neutral-900"
+                className="z-30 flex h-[60px] w-[60px] cursor-pointer items-center justify-center rounded-full border-[1.6px] border-border bg-card shadow-xs will-change-transform"
               >
-                <PiFunnelSimpleBold className="h-[30px] w-[30px] text-[#272729] dark:text-neutral-100" />
+                <PiFunnelSimpleBold className="h-[30px] w-[30px] text-foreground " />
               </motion.button>
 
               <motion.div
@@ -155,7 +155,7 @@ export const FilterDisclosure: FC<FilterDisclosureProps> = ({
                   bounce: 0,
                   duration: 1.2,
                 }}
-                className="z-10 -ml-[12px] flex h-[60px] w-[60px] items-center justify-center rounded-full border-[1.6px] border-[#E5E5E9] bg-[#FEFEFE] opacity-80 shadow-xs dark:border-neutral-800 dark:bg-neutral-900"
+                className="z-10 -ml-[12px] flex h-[60px] w-[60px] items-center justify-center rounded-full border-[1.6px] border-border bg-card opacity-80 shadow-xs"
               >
                 <AnimatePresence mode="popLayout" initial={false}>
                   <motion.div
@@ -164,7 +164,7 @@ export const FilterDisclosure: FC<FilterDisclosureProps> = ({
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.6 }}
                   >
-                    <ActiveIcon className="h-[24px] w-[24px] text-[#AFAEB9] dark:text-neutral-500" />
+                    <ActiveIcon className="h-[24px] w-[24px] text-muted-foreground " />
                   </motion.div>
                 </AnimatePresence>
               </motion.div>

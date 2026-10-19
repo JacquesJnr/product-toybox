@@ -61,11 +61,11 @@ Watermelon components are in `app/src/components/watermelon/`. shadcn components
 
 Watermelon components animate with `motion` (springs). The Graph, the Wheel and the sphere keep their own motion.
 
-### 1.4 Known gap
+### 1.4 Watermelon colors
 
-> [!warning] The Watermelon components do not follow the preset. They use fixed Tailwind colors (zinc, neutral, white), about 230 in total, and no theme variables. If you change the preset, the shadcn parts change, but the Watermelon parts do not.
+Watermelon components come with fixed Tailwind colors. On Mo-19-Oct, all of them (about 230) were changed to theme classes, so the whole style page follows the preset. The `dark:` color overrides were removed, because the theme variables switch in `.dark`.
 
-To make a Watermelon component follow the preset, replace its fixed colors with theme classes, for example `bg-zinc-50` with `bg-muted` and `text-neutral-900` with `text-foreground`.
+> [!warning] A new Watermelon component comes with fixed colors again. After you install one, replace its colors with theme classes: surfaces to `bg-card` or `bg-muted`, text to `text-foreground` or `text-muted-foreground`, borders to `border-border`, strong colors to `bg-primary`.
 
 ### 1.5 The earlier style
 

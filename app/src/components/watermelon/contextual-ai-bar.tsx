@@ -32,11 +32,11 @@ export const ContextualAIBar: React.FC<ContextualAIBarProps> = ({
     <motion.div
       layout
       transition={spring}
-      className="relative flex w-full max-w-[calc(100vw-32px)] items-center justify-between overflow-hidden rounded-full border border-[#e8e8e9]/30 bg-neutral-100 p-1 shadow-sm sm:max-w-md dark:border-neutral-800/30 dark:bg-neutral-900/60"
+      className="relative flex w-full max-w-[calc(100vw-32px)] items-center justify-between overflow-hidden rounded-full border border-border/30 bg-muted p-1 shadow-sm sm:max-w-md"
     >
       <motion.div
         layout
-        className="flex shrink-0 items-center gap-1 rounded-full bg-white p-1 shadow-md dark:bg-neutral-800"
+        className="flex shrink-0 items-center gap-1 rounded-full bg-card p-1 shadow-md "
       >
         <motion.button
           onClick={() => setIsExpanded(false)}
@@ -47,7 +47,7 @@ export const ContextualAIBar: React.FC<ContextualAIBarProps> = ({
             <motion.div
               layoutId="active-pill"
               transition={spring}
-              className="absolute inset-0 rounded-full bg-neutral-200 dark:bg-neutral-700"
+              className="absolute inset-0 rounded-full bg-secondary "
             />
           )}
 
@@ -63,7 +63,7 @@ export const ContextualAIBar: React.FC<ContextualAIBarProps> = ({
             <motion.div
               layoutId="active-pill"
               transition={spring}
-              className="absolute inset-0 rounded-full bg-neutral-200 dark:bg-neutral-700"
+              className="absolute inset-0 rounded-full bg-secondary "
             />
           )}
 
@@ -98,14 +98,14 @@ export const ContextualAIBar: React.FC<ContextualAIBarProps> = ({
               autoFocus
               type="text"
               placeholder={placeholder}
-              className="w-full flex-1 border-none bg-transparent text-lg text-gray-800 placeholder-gray-400 outline-none sm:text-xl dark:text-neutral-100 dark:placeholder-neutral-500"
+              className="w-full flex-1 border-none bg-transparent text-lg text-foreground placeholder:text-muted-foreground outline-none sm:text-xl"
             />
 
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.92 }}
               transition={spring}
-              className="shrink-0 rounded-full border border-gray-100 bg-[#fcfcfc] p-2.5 text-black shadow-md hover:bg-gray-50 sm:p-3 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100 dark:hover:bg-neutral-700"
+              className="shrink-0 rounded-full border border-border bg-card p-2.5 text-foreground shadow-md hover:bg-muted sm:p-3"
             >
               <ArrowRight
                 size={20}
@@ -130,7 +130,7 @@ const ToolIcon = ({ children }: { children: React.ReactNode }) => (
       damping: 26,
       mass: 1.1,
     }}
-    className="cursor-pointer text-[#040404] dark:text-neutral-100"
+    className="cursor-pointer text-foreground "
   >
     {children}
   </motion.div>

@@ -41,35 +41,35 @@ const DEFAULT_ITEMS: AccordionItemData[] = [
     title: 'What is Interaction Design?',
     icon: <HiCursorArrowRipple className="size-3 -rotate-10 md:size-4" />,
     content:
-      'Interaction design focuses on creating engaging interfaces with well-thought-out behaviors and actions.',
+'Interaction design focuses on creating engaging interfaces with well-thought-out behaviors and actions.',
   },
   {
     id: 2,
     title: 'Principles & Patterns',
     icon: <Layers size={24} />,
     content:
-      'Fundamental guidelines and repeated solutions that ensure consistency and usability in design.',
+'Fundamental guidelines and repeated solutions that ensure consistency and usability in design.',
   },
   {
     id: 3,
     title: 'Usability & Accessibility',
     icon: <PiHandTap size={26} className="-rotate-20" />,
     content:
-      'Designing experiences that are easy to use and accessible to people of all abilities.',
+'Designing experiences that are easy to use and accessible to people of all abilities.',
   },
   {
     id: 4,
     title: 'Prototyping & Testing',
     icon: <Send size={24} />,
     content:
-      'Rapid experimentation and validation of ideas through prototypes and real user testing.',
+'Rapid experimentation and validation of ideas through prototypes and real user testing.',
   },
   {
     id: 5,
     title: 'UX Optimisation',
     icon: <IoIosTimer size={26} />,
     content:
-      'Improving user experience by analyzing behavior and refining interactions over time.',
+'Improving user experience by analyzing behavior and refining interactions over time.',
   },
 ];
 
@@ -134,7 +134,7 @@ const AccordionItem: FC<AccordionItemProps> = ({
             borderBottomLeftRadius,
             borderBottomRightRadius,
           }}
-          className="overflow-hidden border-solid border-zinc-200 bg-zinc-50 will-change-transform dark:border-zinc-800 dark:bg-zinc-900"
+          className="overflow-hidden border-solid border-border bg-muted will-change-transform"
           style={{
             borderTopWidth,
             borderBottomWidth,
@@ -151,13 +151,13 @@ const AccordionItem: FC<AccordionItemProps> = ({
             <div className="flex items-center gap-[12px]">
               {item.icon}
 
-              <span className="text-sm font-bold text-[#272729] md:text-lg dark:text-zinc-100">
+              <span className="text-sm font-bold text-foreground md:text-lg ">
                 {item.title}
               </span>
             </div>
 
             <motion.div animate={{ rotate: isOpen ? 180 : 0 }}>
-              <ChevronDown className="size-5 text-neutral-400 md:size-[1.625rem] dark:text-zinc-600" />
+              <ChevronDown className="size-5 text-muted-foreground md:size-[1.625rem] " />
             </motion.div>
           </button>
 
@@ -170,7 +170,7 @@ const AccordionItem: FC<AccordionItemProps> = ({
             className="overflow-hidden will-change-transform"
           >
             <div ref={ref}>
-              <div className="px-5 pb-5 text-xs font-medium text-[#545359] md:text-[18px] dark:text-zinc-400">
+              <div className="px-5 pb-5 text-xs font-medium text-foreground md:text-[18px] ">
                 {item.content}
               </div>
             </div>
