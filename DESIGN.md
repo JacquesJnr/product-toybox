@@ -21,7 +21,7 @@ The toybox style now comes from a shadcn preset and Watermelon UI components. Th
 >
 > — Jacques, Mo-19-Oct
 
-- **Style page:** `app/style.html`. In dev, it runs at `http://localhost:5180/product-toybox/app/style.html`. It shows the colors, the type and every picked component on one page.
+- **Style page:** `app/style.html`. In dev, it runs at `http://localhost:5173/product-toybox/app/style.html`. It shows the colors, the type and every picked component on one page.
 - **Where the values live:** the CSS variables in `app/src/index.css`. The shadcn config is in `app/components.json`.
 
 ### 1.1 The preset
