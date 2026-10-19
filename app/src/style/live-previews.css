@@ -3,15 +3,6 @@
 .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
 /* The Wheel stage: the parts keep their look, only their fixed widths give way to the stage. */
-.wheel-stage .wheel-panel { width: 100%; max-height: 100%; margin: 0; }
-/* The panel gets more room than in the app. */
-.wheel-stage .wp-banner { padding: 32px 28px 24px; gap: 10px; }
-.wheel-stage .wp-content { padding: 28px; gap: 20px; }
-.wheel-stage .wp-content.wp-vault { padding-top: 24px; }
-.wheel-stage .wp-section { gap: 12px; padding-top: 20px; }
-.wheel-stage .wp-summary { gap: 10px; padding: 16px; }
-.wheel-stage .wp-for-you { padding: 16px; }
-
 /* The Wheel chart on the preset. Recorded readings are plain and still; the AI projection is tinted and breathes.
    --hue is each spoke's and point's domain color (set in SpiderChart); --wheel-hue is the open domain's, or foreground. */
 .wheel-stage .spider-chart { font-family: var(--font-sans); }
