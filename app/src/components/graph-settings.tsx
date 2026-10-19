@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, MotionConfig } from 'motion/react'
-import { ArrowLeft, Bot, Check, Plus, Settings2, X } from 'lucide-react'
+import { ArrowLeft, Bot, Check, Play, Plus, Settings2, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { Doc, Domain } from '@/types'
 import { domainIcon } from './domain-drawer'
@@ -12,12 +12,13 @@ import { EXAMPLE_DOMAINS, proposeDomain, type DomainProposal } from './domain-so
 type Step = 'menu' | 'add' | 'reading' | 'review'
 const READ_MS = 110
 
-export function GraphSettings({ docs, domains, showOrphans, onShowOrphans, onAddDomain }: {
+export function GraphSettings({ docs, domains, showOrphans, onShowOrphans, onAddDomain, onAnimate }: {
   docs: Doc[]
   domains: Domain[]
   showOrphans: boolean
   onShowOrphans: (show: boolean) => void
   onAddDomain: (domain: Domain, accepted: DomainProposal[]) => void
+  onAnimate: () => void
 }) {
   const [open, setOpen] = useState(false)
   const [step, setStep] = useState<Step>('menu')
@@ -78,6 +79,11 @@ export function GraphSettings({ docs, domains, showOrphans, onShowOrphans, onAdd
                   </ul>
                   <Button variant="outline" onClick={() => { setNotice(null); setStep('add') }}><Plus />Add a domain</Button>
                   <p className="text-[11px] leading-snug text-muted-foreground">AI reads every document and suggests which ones move to the new domain or also belong in it. You approve each change.</p>
+                </section>
+                <section className="flex flex-col gap-2">
+                  <h3 className="text-[10px] font-bold tracking-[0.15em] text-muted-foreground uppercase">Motion</h3>
+                  <Button variant="outline" onClick={onAnimate}><Play />Animate</Button>
+                  <p className="text-[11px] leading-snug text-muted-foreground">Replays how the vault sorts itself: each document appears, then links to the others.</p>
                 </section>
                 <section className="flex flex-col gap-2">
                   <h3 className="text-[10px] font-bold tracking-[0.15em] text-muted-foreground uppercase">Display</h3>
