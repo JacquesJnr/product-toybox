@@ -61,3 +61,15 @@ body { margin: 0; min-width: 1280px; }
   --peach: var(--primary); --peach-wash: color-mix(in oklch, var(--primary) 14%, transparent);
 }
 @theme inline { --color-stage: var(--stage); --color-hairline: var(--hairline); --shadow-soft: var(--shadow-soft); }
+
+/* AI: the rainbow and its subtle glow from the toy tokens (tokens.css --rainbow, --rainbow-glow), on the preset.
+   AI parts carry it: the AI projection, AI readings and summaries, and the links Smart Search finds. */
+:root {
+  --ai-gradient: linear-gradient(135deg, #3A86FF, #8338EC, #FF006E, #FB5607, #FFBE0B);
+  --ai-glow: var(--rainbow-glow);
+  --ai-glow-strong: drop-shadow(0 0 6px color-mix(in oklch, #8338EC 45%, transparent));
+}
+/* A rainbow edge. Set --ai-fill to tint the inside; it defaults to the card. */
+@utility ai-edge { border: 1.5px solid transparent; background: linear-gradient(var(--ai-fill, var(--card)), var(--ai-fill, var(--card))) padding-box, var(--ai-gradient) border-box; }
+@utility ai-glow { filter: var(--ai-glow); }
+@utility ai-text { background: var(--ai-gradient); background-clip: text; -webkit-background-clip: text; color: transparent; }

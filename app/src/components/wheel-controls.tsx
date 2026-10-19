@@ -23,9 +23,9 @@ export function WheelModeToggle({ mode, onChange }: { mode: TimeMode; onChange: 
           const ai = value === 'projection'
           return (
             <Tabs.Tab key={value} value={value} aria-label={label} title={label}
-              className={`relative flex h-8 items-center gap-1.5 rounded-full px-3 text-xs font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring ${active ? (ai ? 'text-primary' : 'text-background') : 'text-muted-foreground hover:text-foreground'}`}>
+              className={`relative flex h-8 items-center gap-1.5 rounded-full px-3 text-xs font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring ${active ? (ai ? 'text-foreground' : 'text-background') : 'text-muted-foreground hover:text-foreground'}`}>
               {active && <motion.span layoutId="wheel-mode-pill" transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                className={`absolute inset-0 rounded-full ${ai ? 'border border-primary/30 bg-accent' : 'bg-foreground'}`} />}
+                className={`absolute inset-0 rounded-full ${ai ? 'ai-edge ai-glow' : 'bg-foreground'}`} />}
               <Icon size={15} className="relative" />
               <span className="relative">{label}</span>
             </Tabs.Tab>
