@@ -1,8 +1,14 @@
-import { useMemo, useState } from 'react'
+import { useLayoutEffect, useMemo, useRef, useState } from 'react'
 import documents from '@/data/documents.json'
 import type { Doc, Domain } from '@/types'
 import { Graph } from '@/graph/Graph'
-import { WheelView } from '@/wheel/WheelView'
+import { SpiderChart } from '@/wheel/chart/SpiderChart'
+import { WheelDrawer } from '@/wheel/drawer/WheelDrawer'
+import { WheelPanel } from '@/wheel/panel/WheelPanel'
+import { ChartTopBar, WheelChips } from '@/wheel/controls/WheelControls'
+import { LAST_STOP, TODAY, topicsOf } from '@/wheel/model'
+import { H, W } from '@/wheel/chart/geometry'
+import type { WheelActions, WheelState } from '@/wheel/model'
 import { visibleIds } from '@/filters/visible'
 import { DEFAULT_DOMAINS, DomainDrawer } from '@/components/domain-drawer'
 import { GraphSettings } from '@/components/graph-settings'
@@ -55,10 +61,56 @@ export function GraphPreview() {
   )
 }
 
+const wheelStart: WheelState = { domain: null, picked: null, t: TODAY, mode: 'history', drawerView: 'history', drawerOpen: true }
+
+// Scale the chart's fixed 784 × 555 frame (SVG and its HTML labels together) to fit the box it sits in.
+function useFit() {
+  const box = useRef<HTMLDivElement>(null)
+  const [scale, setScale] = useState(1)
+  useLayoutEffect(() => {
+    const el = box.current!
+    const observer = new ResizeObserver(() => setScale(Math.min(el.clientWidth / W, el.clientHeight / H)))
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+  return { box, scale }
+}
+
+// The Wheel's parts in one stage, like the Graph: chips and controls on top, the chart scaled to fit,
+// the timeline at the bottom and the panel floating on the right. State and actions are the ones WheelView uses.
 export function WheelPreview() {
+  const [state, setState] = useState(wheelStart)
+  const set = (patch: Partial<WheelState>) => setState(s => ({ ...s, ...patch }))
+  const actions: WheelActions = {
+    setDomain: domain => setState(s => {
+      if (!domain) return { ...s, domain, picked: null }
+      const topics = topicsOf(domain).map(x => x.topic)
+      return { ...s, domain, picked: s.picked && topics.includes(s.picked) ? s.picked : topics[0] }
+    }),
+    pick: name => set({ picked: name }),
+    setTime: t => set({ t: Math.max(0, Math.min(LAST_STOP, t)) }),
+    setMode: mode => setState(s => ({ ...s, mode, t: mode === 'projection' ? Math.max(s.t, TODAY + 1) : Math.min(s.t, TODAY) })),
+    setDrawerView: drawerView => set({ drawerView }),
+    setDrawerOpen: drawerOpen => set({ drawerOpen }),
+  }
+  const { box, scale } = useFit()
+
   return (
-    <div className="flex h-[880px] w-full flex-col">
-      <WheelView hidden={false} />
+    <div className="wheel-stage relative h-[800px] w-full min-w-0 overflow-hidden rounded-3xl border border-border/60 bg-stage">
+      {/* The chart column leaves room for the panel (380px) and the gaps on its right. */}
+      <div className="absolute inset-y-3 left-3 right-[404px] flex min-w-0 flex-col gap-2">
+        <WheelChips state={state} actions={actions} />
+        <ChartTopBar state={state} actions={actions} />
+        <div ref={box} className="relative min-h-0 flex-1">
+          <div className="absolute top-1/2 left-1/2" style={{ width: W, height: H, transform: `translate(-50%, -50%) scale(${scale})` }}>
+            <SpiderChart state={state} actions={actions} />
+          </div>
+        </div>
+        <WheelDrawer state={state} actions={actions} />
+      </div>
+      <div className="absolute inset-y-3 right-3 flex w-[380px]">
+        <WheelPanel state={state} actions={actions} />
+      </div>
     </div>
   )
 }
