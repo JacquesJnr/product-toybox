@@ -191,13 +191,18 @@ None of the three found links exists in the starting graph. Each appears only af
 - `vite`, `@vitejs/plugin-react`;
 - `typescript`, `@types/react`, `@types/react-dom`;
 - `@base-ui/react`, for the standard controls (see **Base UI** below);
+- `tailwindcss` and `@tailwindcss/vite`, for styles;
+- shadcn ([docs](https://ui.shadcn.com/docs)) and the packages its CLI adds (for example `clsx`, `tailwind-merge`, `class-variance-authority`, `tw-animate-css`, an icon library and `@types/node`);
+- Watermelon UI components ([docs](https://ui.watermelon.sh/installation)), installed with the shadcn CLI, with the packages each component needs. Jacques approves each component before it is installed;
 - optional: `d3-force` and `@types/d3-force`, for graph layout and Animate.
 
 **Not allowed:**
-- a styled UI kit, CSS framework, state library or router;
+- a state library or router;
 - template extras such as ESLint packages, which need approval like any other dependency.
 
-**Base UI** ([docs](https://base-ui.com/react/overview/quick-start)) is unstyled. It handles behavior: keyboard, focus, accessibility, and open and close. Every visual comes from DESIGN.md.
+> **Decided (Mo-19-Oct, branch `style/design`):** the toybox uses shadcn and Watermelon UI for its standard controls. This replaces the rule "no styled UI kit or CSS framework". The test is whether a component library keeps the speed of an HTML sketch.
+
+**Base UI** ([docs](https://base-ui.com/react/overview/quick-start)) is unstyled. It handles behavior: keyboard, focus, accessibility, and open and close. shadcn uses Base UI as its primitive layer and adds the look. Every visual comes from the shadcn CSS variables, and those variables come from the DESIGN.md tokens.
 
 Use it for these controls:
 
