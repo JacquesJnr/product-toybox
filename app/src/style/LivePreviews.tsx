@@ -1,4 +1,6 @@
 import { useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { AnimatePresence, motion } from 'motion/react'
+import { X } from 'lucide-react'
 import documents from '@/data/documents.json'
 import type { Doc, Domain } from '@/types'
 import { Graph } from '@/graph/Graph'
@@ -109,6 +111,8 @@ export function WheelPreview({ shared: { vault, domainList } }: { shared: Shared
   // Runs before the Wheel's parts render, so they all read the Graph's domains.
   useMemo(() => syncWheelDomains(domainList, vault), [domainList, vault])
   const [state, setState] = useState(wheelStart)
+  // The details panel starts collapsed and opens when a node is picked, so the wheel has the whole stage until then.
+  const [panelOpen, setPanelOpen] = useState(false)
   const set = (patch: Partial<WheelState>) => setState(s => ({ ...s, ...patch }))
   const actions: WheelActions = {
     setDomain: domain => setState(s => {
@@ -116,7 +120,8 @@ export function WheelPreview({ shared: { vault, domainList } }: { shared: Shared
       const topics = topicsOf(domain).map(x => x.topic)
       return { ...s, domain, picked: s.picked && topics.includes(s.picked) ? s.picked : topics[0] }
     }),
-    pick: name => set({ picked: name }),
+    // Picking a node opens the details panel. The panel's own back button picks null and keeps it open.
+    pick: name => { set({ picked: name }); if (name) setPanelOpen(true) },
     setTime: t => set({ t: Math.max(0, Math.min(LAST_STOP, t)) }),
     setMode: mode => setState(s => ({ ...s, mode, t: mode === 'projection' ? Math.max(s.t, TODAY + 1) : Math.min(s.t, TODAY) })),
     setDrawerView: drawerView => set({ drawerView }),
@@ -127,8 +132,8 @@ export function WheelPreview({ shared: { vault, domainList } }: { shared: Shared
 
   return (
     <div className="wheel-stage relative h-[920px] w-full min-w-0 overflow-clip rounded-3xl border border-border/60 bg-stage">
-      {/* The chart column leaves room for the panel (400px) and the gaps on its right. */}
-      <div className="absolute inset-y-3 left-3 right-[424px] flex min-w-0 flex-col gap-2">
+      {/* With the panel open, the chart column leaves room for it (400px) and the gaps on its right. The wheel refits as it moves. */}
+      <div className={`absolute inset-y-3 left-3 flex min-w-0 flex-col gap-2 transition-[right] duration-300 ease-out ${panelOpen ? 'right-[424px]' : 'right-3'}`}>
         {/* The picker opens over the chart, as the Graph's domain drawer does. */}
         <div className="relative z-20 h-10 shrink-0">
           <div className="absolute top-0 left-0"><WheelDomainPicker value={state.domain} onChange={actions.setDomain} /></div>
@@ -143,9 +148,19 @@ export function WheelPreview({ shared: { vault, domainList } }: { shared: Shared
         </div>
         <WheelTimeline state={state} actions={actions} />
       </div>
-      <div className="absolute inset-y-3 right-3 flex w-[400px]">
-        <WheelSidePanel state={state} actions={actions} />
-      </div>
+      <AnimatePresence>
+        {panelOpen && (
+          <motion.div key="panel" className="absolute inset-y-3 right-3 flex w-[400px]"
+            initial={{ opacity: 0, x: 32 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 32 }} transition={{ type: 'spring', bounce: 0.15, duration: 0.45 }}>
+            <WheelSidePanel state={state} actions={actions} />
+            {/* Closing deselects, as closing the Graph's document panel does. */}
+            <button aria-label="Close details" onClick={() => { setPanelOpen(false); actions.pick(null) }}
+              className="absolute top-3 right-3 z-10 rounded-full bg-card/80 p-1.5 text-muted-foreground shadow-soft backdrop-blur-md hover:bg-muted hover:text-foreground">
+              <X size={14} />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
