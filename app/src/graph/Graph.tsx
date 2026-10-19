@@ -80,6 +80,8 @@ export function Graph({ revealRun, foundLinks, docs, visibleIds, selectedId, onS
   useEffect(() => {
     if (!active) return
     let frame = 0, last = performance.now(), lastTick = 0, drawnLinks = Infinity
+    // Label widths only change with zoom, and this loop restarts on zoom, so measure each label once.
+    const labelWidths = new Map<string, number>()
     const loop = (now: number) => {
       const delta = Math.max(0, now - last)
       last = now
@@ -101,8 +103,8 @@ export function Graph({ revealRun, foundLinks, docs, visibleIds, selectedId, onS
       if (count !== drawnLinks) { drawnLinks = count; setLinkCount(count) }
       if (count >= allLinks.length) clock.current.animate = Infinity
       const forceLinks = allLinks.filter(l => forceIds.has(l.source) && forceIds.has(l.target)).slice(0, count)
-      const interval = sim.alpha > 0.05 || sim.alphaTarget > 0 ? 1000 / 30 : 100
-      if (now - lastTick >= interval || before !== current) {
+      // Tick on every frame, as the physics steps once per tick.
+      {
         const start = performance.now()
         tick(sim, forceNodes, forceLinks, now)
         svg.current!.dataset.frameGapMs = (now - lastTick).toFixed(1)
@@ -110,10 +112,13 @@ export function Graph({ revealRun, foundLinks, docs, visibleIds, selectedId, onS
         lastTick = now
         for (const n of sim.nodes) nodeElements.current.get(n.id)?.setAttribute('transform', `translate(${n.x} ${n.y})`)
         const labelNodes = forceNodes.map(node => {
-          const text = nodeElements.current.get(node.id)?.querySelector<SVGTextElement>('.node-label')
+          if (!labelWidths.has(node.id)) {
+            const text = nodeElements.current.get(node.id)?.querySelector<SVGTextElement>('.node-label')
+            if (text) labelWidths.set(node.id, text.getComputedTextLength() * cam.k)
+          }
           return { id: node.id, x: node.x * cam.k, y: node.y * cam.k,
             radius: 3.2 * Math.sqrt(1 + node.deg * 1.4) * 1.42,
-            width: (text?.getComputedTextLength() ?? 0) * cam.k }
+            width: labelWidths.get(node.id) ?? 0 }
         })
         for (const label of placeLabels(labelNodes)) {
           const text = nodeElements.current.get(label.id)?.querySelector('.node-label')
