@@ -1,24 +1,28 @@
 import { useState } from 'react'
 import { AnimatePresence, motion, MotionConfig } from 'motion/react'
-import { Banknote, Check, ClipboardCheck, Compass, Gavel, Landmark, ListFilter, Rocket, Shield, X, type LucideIcon } from 'lucide-react'
+import { Banknote, Check, ClipboardCheck, Compass, Gavel, Landmark, ListFilter, Rocket, Shield, Sparkles, X, type LucideIcon } from 'lucide-react'
 import type { Domain } from '@/types'
 
 // The Graph's domain filter as a drawer inside the graph. Built from Watermelon's
 // filter-disclosure (the pill that springs open into a card), made multi-select.
 
-const DOMAINS: { domain: Domain; icon: LucideIcon }[] = [
-  { domain: 'Strategic direction', icon: Compass },
-  { domain: 'Strategy execution', icon: Rocket },
-  { domain: 'Financial stewardship', icon: Landmark },
-  { domain: 'Risk and resilience', icon: Shield },
-  { domain: 'Controls and assurance', icon: ClipboardCheck },
-  { domain: 'Major decisions', icon: Gavel },
-  { domain: 'Remuneration', icon: Banknote },
-]
+export const DEFAULT_DOMAINS: Domain[] = ['Strategic direction', 'Strategy execution', 'Financial stewardship', 'Risk and resilience', 'Controls and assurance', 'Major decisions', 'Remuneration']
+const ICONS: Partial<Record<Domain, LucideIcon>> = {
+  'Strategic direction': Compass,
+  'Strategy execution': Rocket,
+  'Financial stewardship': Landmark,
+  'Risk and resilience': Shield,
+  'Controls and assurance': ClipboardCheck,
+  'Major decisions': Gavel,
+  Remuneration: Banknote,
+}
+// Domains added in settings were sorted by AI, so they carry the AI mark.
+export const domainIcon = (domain: Domain) => ICONS[domain] ?? Sparkles
 
 const ROW_SPRING = { type: 'spring', stiffness: 240, damping: 20, mass: 1 } as const
 
-export function DomainDrawer({ value, onChange, defaultOpen = true }: {
+export function DomainDrawer({ domains = DEFAULT_DOMAINS, value, onChange, defaultOpen = true }: {
+  domains?: Domain[]
   value: ReadonlySet<Domain>
   onChange: (next: Set<Domain>) => void
   defaultOpen?: boolean
@@ -30,7 +34,7 @@ export function DomainDrawer({ value, onChange, defaultOpen = true }: {
     else next.add(domain)
     onChange(next)
   }
-  const summary = value.size === 0 ? 'All domains' : `${value.size} of ${DOMAINS.length} domains`
+  const summary = value.size === 0 ? 'All domains' : `${value.size} of ${domains.length} domains`
 
   return (
     <MotionConfig transition={{ type: 'spring', bounce: 0.25, duration: 0.6 }}>
@@ -50,7 +54,8 @@ export function DomainDrawer({ value, onChange, defaultOpen = true }: {
                 <X size={14} />
               </button>
             </div>
-            {DOMAINS.map(({ domain, icon: Icon }, index) => {
+            {domains.map((domain, index) => {
+              const Icon = domainIcon(domain)
               const selected = value.has(domain)
               return (
                 <motion.button
