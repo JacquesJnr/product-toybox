@@ -3,7 +3,7 @@ import { visibleIds } from './visible.ts'
 
 const doc = (id: string, domains: Domain[], title: string, text: string, insight: string): Doc => ({
   id, domains, title, text,
-  type: 'pdf', issued: '', from: '', primaryDomain: domains[0], links: [], summary: '',
+  type: 'pdf', issued: '', from: '', author: null, primaryDomain: domains[0], links: [], summary: '',
   insights: [{ text: insight, tags: [], pageRef: 'p. 1', confidence: 1 }],
 })
 const docs = [

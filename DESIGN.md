@@ -54,6 +54,7 @@ To try a new preset, run `npx shadcn@latest init -t vite -b base --preset <code>
 | Panel lists | `card-split-accordian` | Watermelon |
 | Smart Search input | `contextual-ai-bar` | Watermelon |
 | Source viewer | `dialog-4` | Watermelon |
+| Author avatar | `avatar-3` (square, tinted initials) | Watermelon |
 | Buttons, hover labels, chat log | `button`, `tooltip`, `scroll-area` | shadcn |
 
 Watermelon components are in `app/src/components/watermelon/`. shadcn components are in `app/src/components/ui/`. Install new ones with `npx shadcn@latest add <url or name>` from `app/`.
