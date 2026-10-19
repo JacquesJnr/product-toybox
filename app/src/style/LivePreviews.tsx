@@ -63,13 +63,15 @@ export function GraphPreview() {
 
 const wheelStart: WheelState = { domain: null, picked: null, t: TODAY, mode: 'history', drawerView: 'history', drawerOpen: true }
 
-// Scale the chart's fixed 784 × 555 frame (SVG and its HTML labels together) to fit the box it sits in.
+// Scale the chart's fixed 784 × 555 frame (SVG and its HTML labels together) to fit the box it sits in, never above 1.
+// The frame's outer 24 px on each side hold no labels, so they may run into the column's margin.
+const FIT_W = W - 48
 function useFit() {
   const box = useRef<HTMLDivElement>(null)
   const [scale, setScale] = useState(1)
   useLayoutEffect(() => {
     const el = box.current!
-    const observer = new ResizeObserver(() => setScale(Math.min(el.clientWidth / W, el.clientHeight / H)))
+    const observer = new ResizeObserver(() => setScale(Math.min(1, el.clientWidth / FIT_W, el.clientHeight / H)))
     observer.observe(el)
     return () => observer.disconnect()
   }, [])
@@ -96,9 +98,9 @@ export function WheelPreview() {
   const { box, scale } = useFit()
 
   return (
-    <div className="wheel-stage relative h-[800px] w-full min-w-0 overflow-hidden rounded-3xl border border-border/60 bg-stage">
-      {/* The chart column leaves room for the panel (380px) and the gaps on its right. */}
-      <div className="absolute inset-y-3 left-3 right-[404px] flex min-w-0 flex-col gap-2">
+    <div className="wheel-stage relative h-[920px] w-full min-w-0 overflow-hidden rounded-3xl border border-border/60 bg-stage">
+      {/* The chart column leaves room for the panel (400px) and the gaps on its right. */}
+      <div className="absolute inset-y-3 left-3 right-[424px] flex min-w-0 flex-col gap-2">
         <WheelChips state={state} actions={actions} />
         <ChartTopBar state={state} actions={actions} />
         <div ref={box} className="relative min-h-0 flex-1">
@@ -108,7 +110,7 @@ export function WheelPreview() {
         </div>
         <WheelDrawer state={state} actions={actions} />
       </div>
-      <div className="absolute inset-y-3 right-3 flex w-[380px]">
+      <div className="absolute inset-y-3 right-3 flex w-[400px]">
         <WheelPanel state={state} actions={actions} />
       </div>
     </div>
