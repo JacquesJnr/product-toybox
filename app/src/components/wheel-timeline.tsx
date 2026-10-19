@@ -151,9 +151,10 @@ export function WheelTimeline({ state, actions }: { state: WheelState; actions: 
   const chapter = Math.min(TODAY - 1, Math.floor(tb))
   const Toggle = state.drawerOpen ? ChevronDown : ChevronUp
 
-  // A bottom-aligned stack: the playback card (collapsible, open by default, fixed layout) over the timeframe
-  // pagination, which is always visible. Playback covers history only, so the AI projection disables it.
+  // A bottom-aligned stack: the timeframe pagination, always visible, over the playback card (collapsible, open by
+  // default, fixed layout). Playback covers history only, so the AI projection disables it.
   return <div ref={root} className="flex min-w-0 flex-col items-center gap-2">
+    <Pagination totalPages={LAST_STOP + 1} value={here + 1} onChange={page => histGo(page - 1)} label={page => stopLabel(page - 1)} ai={page => isProjection(page - 1)} />
     <Button ref={pull} className={`flex h-7 w-12 items-center justify-center rounded-full text-muted-foreground hover:text-foreground ${float} ${focus}`}
       aria-expanded={state.drawerOpen} aria-controls={id} aria-label={`${state.drawerOpen ? 'Collapse' : 'Expand'} Governance Playback`} onClick={() => actions.setDrawerOpen(!state.drawerOpen)}>
       <Toggle size={16} />
@@ -185,6 +186,5 @@ export function WheelTimeline({ state, actions }: { state: WheelState; actions: 
             </div>
       </div>
     </div>
-    <Pagination totalPages={LAST_STOP + 1} value={here + 1} onChange={page => histGo(page - 1)} label={page => stopLabel(page - 1)} ai={page => isProjection(page - 1)} />
   </div>
 }
