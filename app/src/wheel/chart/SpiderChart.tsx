@@ -105,7 +105,7 @@ export function SpiderChart({ state, actions }: { state: WheelState; actions: Wh
         <polygon className="spider-ring" points={hexPoints(rad(0.5))} />
         <polygon className="spider-ring" points={hexPoints(R)} />
         <polygon className="spider-ring near" points={hexPoints(rad(0.8))} />
-        {placed.map(({ a }, i) => { const e = xy(a, R); return <line key={i} className="spider-spoke" x1={C.x} y1={C.y} x2={e.x} y2={e.y} /> })}
+        {placed.map(({ p, a }, i) => { const e = xy(a, R); return <line key={i} className={`spider-spoke${p.name === hovered ? ' hot' : ''}${p.name === state.picked ? ' picked' : ''}`} style={{ '--hue': HUE[p.domain] } as CSSProperties} x1={C.x} y1={C.y} x2={e.x} y2={e.y} /> })}
         <polygon className="spider-threshold" points={hexPoints(rad(1))} />
         {/* Fill and stroke are separate so the projection glow follows the stroke only, as in Figma. */}
         <polygon className="spider-reading-fill" points={reading} />
@@ -133,7 +133,7 @@ export function SpiderChart({ state, actions }: { state: WheelState; actions: Wh
           const picked = p.name === state.picked
           return (
             <g key={p.name} className={`spider-point ${p.status}${picked ? ' picked' : ''}${hovered === p.name ? ' hot' : ''}`}
-              transform={`translate(${x.toFixed(1)} ${y.toFixed(1)})`} tabIndex={0} role="button" aria-pressed={picked}
+              transform={`translate(${x.toFixed(1)} ${y.toFixed(1)})`} style={{ '--hue': HUE[p.domain] } as CSSProperties} tabIndex={0} role="button" aria-pressed={picked}
               aria-describedby={hovered === p.name ? tipId : undefined}
               aria-label={`${p.name}, ${pct(atStop.get(p.name)!)} of threshold, ${LABEL[statusOf(atStop.get(p.name)!)]}`}
               onClick={() => actions.pick(p.name)}
