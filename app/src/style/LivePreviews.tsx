@@ -1,6 +1,6 @@
 import { useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
-import { PanelRightOpen, X } from 'lucide-react'
+import { PanelRightOpen } from 'lucide-react'
 import documents from '@/data/documents.json'
 import type { Doc, Domain } from '@/types'
 import { Graph } from '@/graph/Graph'
@@ -162,12 +162,8 @@ export function WheelPreview({ shared: { vault, domainList } }: { shared: Shared
         {panelOpen && (
           <motion.div key="panel" className="absolute inset-y-3 right-3 flex w-[400px]"
             initial={{ opacity: 0, x: 32 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 32 }} transition={{ type: 'spring', bounce: 0.15, duration: 0.45 }}>
-            <WheelSidePanel state={state} actions={actions} />
-            {/* Closing deselects, as closing the Graph's document panel does. */}
-            <button aria-label="Close details" onClick={() => { setPanelOpen(false); actions.pick(null) }}
-              className="absolute top-3 right-3 z-10 rounded-full bg-card/80 p-1.5 text-muted-foreground shadow-soft backdrop-blur-md hover:bg-muted hover:text-foreground">
-              <X size={14} />
-            </button>
+            {/* Collapsing deselects, as closing the Graph's document panel does. */}
+            <WheelSidePanel state={state} actions={actions} onCollapse={() => { setPanelOpen(false); actions.pick(null) }} />
           </motion.div>
         )}
       </AnimatePresence>
