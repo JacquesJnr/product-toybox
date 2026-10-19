@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { motion } from 'motion/react'
 import { Collapsible } from '@base-ui/react/collapsible'
-import { ArrowRight, ArrowUpRight, BrainCircuit, ChevronLeft, ChevronRight, MessageSquare, Sparkles, UserRound } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, BrainCircuit, ChevronLeft, ChevronRight, MessageSquare, PanelRightClose, Sparkles, UserRound } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { domainOfTopic, findTopic, fixture, isDomain, isProjection, statusOf, topicsOf } from '@/wheel/model'
 import type { Status, WheelActions, WheelState } from '@/wheel/model'
@@ -36,7 +36,7 @@ function KriBar({ value, threshold }: { value: number; threshold: number }) {
   )
 }
 
-export function WheelSidePanel({ state, actions }: { state: WheelState; actions: WheelActions }) {
+export function WheelSidePanel({ state, actions, onCollapse }: { state: WheelState; actions: WheelActions; onCollapse?: () => void }) {
   const [domainsOpen, setDomainsOpen] = useState(false)
   const [topicsOpen, setTopicsOpen] = useState(false)
   const scroller = useRef<HTMLDivElement>(null)
@@ -60,6 +60,8 @@ export function WheelSidePanel({ state, actions }: { state: WheelState; actions:
   const allTopics = fixture.domains.flatMap(d => d.topics).length
   const back = () => state.domain ? actions.setDomain(null) : actions.pick(null)
   const DomainIcon = domain ? wheelIcon(domain) : null
+  const collapse = onCollapse && <button aria-label="Collapse details" title="Collapse details" onClick={onCollapse}
+    className="-ml-1.5 rounded-full p-1 text-muted-foreground hover:bg-muted hover:text-foreground"><PanelRightClose size={16} /></button>
 
   return (
     <motion.aside initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={SPRING} aria-label={name || `${fixture.business} governance vault`}
@@ -69,7 +71,7 @@ export function WheelSidePanel({ state, actions }: { state: WheelState; actions:
 
             <header className="flex flex-col gap-3 bg-muted/50 px-7 pt-6 pb-6">
               {!name ? <>
-                <span className={label}>Governance vault</span>
+                <div className="flex items-center gap-1.5">{collapse}<span className={label}>Governance vault</span></div>
                 <div className="flex items-center gap-3">
                   <img src={logo} alt="" width="40" height="40" className="rounded-xl" />
                   <h2 tabIndex={-1} className="font-heading text-2xl leading-tight font-semibold outline-none">{fixture.business}</h2>
@@ -77,8 +79,10 @@ export function WheelSidePanel({ state, actions }: { state: WheelState; actions:
                 <span className="text-xs text-muted-foreground">{fixture.domains.length} domains, {allTopics} topics</span>
               </> : <>
                 <div className="flex items-center justify-between">
-                  {!topic ? <button onClick={back} className="-ml-1 flex items-center gap-0.5 rounded-full py-0.5 pr-2 text-xs font-medium text-muted-foreground hover:bg-muted hover:text-foreground"><ChevronLeft size={14} />{fixture.business}</button>
-                    : <span className={label}>Topic</span>}
+                  <div className="flex items-center gap-1.5">{collapse}
+                    {!topic ? <button onClick={back} className="flex items-center gap-0.5 rounded-full py-0.5 pr-2 text-xs font-medium text-muted-foreground hover:bg-muted hover:text-foreground"><ChevronLeft size={14} />{fixture.business}</button>
+                      : <span className={label}>Topic</span>}
+                  </div>
                   {projected && <span className="flex items-center gap-1 rounded-full border border-primary/30 bg-accent px-2 py-0.5 text-[10px] font-semibold text-primary"><Sparkles size={11} />AI projection</span>}
                 </div>
                 <h2 tabIndex={-1} className="font-heading text-2xl leading-tight font-semibold outline-none">{name}</h2>
