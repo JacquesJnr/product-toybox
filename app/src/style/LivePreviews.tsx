@@ -6,7 +6,7 @@ import { SpiderChart } from '@/wheel/chart/SpiderChart'
 import { WheelSidePanel } from '@/components/wheel-panel'
 import { WheelTimeline } from '@/components/wheel-timeline'
 import { WheelDomainPicker, wheelHue } from '@/components/wheel-domain-picker'
-import { WheelLegend, WheelModeToggle } from '@/components/wheel-controls'
+import { WheelSettings, WheelModeToggle } from '@/components/wheel-controls'
 import { LAST_STOP, TODAY, topicsOf } from '@/wheel/model'
 import { H, W } from '@/wheel/chart/geometry'
 import type { WheelActions, WheelState } from '@/wheel/model'
@@ -114,10 +114,9 @@ export function WheelPreview({ shared: { vault, domainList } }: { shared: Shared
         {/* The picker opens over the chart, as the Graph's domain drawer does. */}
         <div className="relative z-20 h-10 shrink-0">
           <div className="absolute top-0 left-0"><WheelDomainPicker value={state.domain} onChange={actions.setDomain} /></div>
-          <div className="absolute top-0 right-0"><WheelModeToggle mode={state.mode} onChange={actions.setMode} /></div>
+          <div className="absolute top-0 left-1/2 -translate-x-1/2"><WheelModeToggle mode={state.mode} onChange={actions.setMode} /></div>
+          <div className="absolute top-0 right-0"><WheelSettings projection={state.mode === 'projection'} /></div>
         </div>
-        {/* The legend floats in the chart's empty top-right corner, under the toggle. */}
-        <div className="absolute top-12 right-0 z-10"><WheelLegend projection={state.mode === 'projection'} /></div>
         <div ref={box} className="relative min-h-0 flex-1">
           <div className="absolute top-1/2 left-1/2" style={{ width: W, height: H, transform: `translate(-50%, -50%) scale(${scale})`, '--wheel-hue': state.domain ? wheelHue(state.domain) : 'var(--foreground)' } as React.CSSProperties}>
             <SpiderChart state={state} actions={actions} />

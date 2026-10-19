@@ -1,10 +1,11 @@
-import { motion } from 'motion/react'
+import { useState } from 'react'
+import { AnimatePresence, motion, MotionConfig } from 'motion/react'
 import { Tabs } from '@base-ui/react/tabs'
-import { History, Sparkles } from 'lucide-react'
+import { History, Settings2, Sparkles, X } from 'lucide-react'
 import type { TimeMode } from '@/wheel/model'
 
 // The Wheel's floating controls, in the style of the Graph's search and settings:
-// the History / AI projection toggle and the chart legend.
+// the History / AI projection toggle and the settings, which hold the chart legend.
 
 const float = 'border border-border/60 bg-card/90 shadow-soft backdrop-blur-md'
 
@@ -37,10 +38,40 @@ export function WheelModeToggle({ mode, onChange }: { mode: TimeMode; onChange: 
 export function WheelLegend({ projection }: { projection: boolean }) {
   const reading = projection ? 'var(--primary)' : 'var(--foreground)'
   return (
-    <div className={`flex flex-col gap-1.5 rounded-2xl px-3.5 py-2.5 text-[11px] font-medium text-muted-foreground ${float}`}>
+    <div className="flex flex-col gap-2 px-2 text-xs font-medium text-muted-foreground">
       <span className="flex items-center gap-2"><svg width="20" height="2" aria-hidden="true"><line y1="1" x2="20" y2="1" stroke="var(--foreground)" strokeWidth="1.5" strokeDasharray="4 3" /></svg>KRI threshold (set by the board)</span>
       <span className="flex items-center gap-2"><svg width="20" height="2" aria-hidden="true"><line y1="1" x2="20" y2="1" stroke={reading} strokeWidth="2" /></svg>Reading</span>
       <span className="flex items-center gap-2"><span className="flex w-5 justify-center" aria-hidden="true"><i className="size-2 rounded-full bg-status-over" /></span>Over threshold</span>
     </div>
+  )
+}
+
+// Wheel settings, anchored to the stage's top right like the Graph's: a button that unfolds into a card.
+export function WheelSettings({ projection }: { projection: boolean }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <MotionConfig transition={{ type: 'spring', bounce: 0.2, duration: 0.55 }}>
+      <AnimatePresence mode="popLayout" initial={false}>
+        {open ? (
+          <motion.div key="open" layoutId="wheel-settings" style={{ borderRadius: 20, transformOrigin: '100% 0%' }}
+            className="flex w-80 flex-col overflow-hidden border border-border/60 bg-card/90 shadow-soft backdrop-blur-md">
+            <header className="flex items-center justify-between border-b border-border px-4 py-3">
+              <span className="font-heading text-sm font-semibold">Wheel settings</span>
+              <button aria-label="Close settings" onClick={() => setOpen(false)} className="rounded-full p-1 text-muted-foreground hover:bg-muted"><X size={14} /></button>
+            </header>
+            <section className="flex flex-col gap-2 p-4">
+              <h3 className="text-[10px] font-bold tracking-[0.15em] text-muted-foreground uppercase">Legend</h3>
+              <WheelLegend projection={projection} />
+            </section>
+          </motion.div>
+        ) : (
+          <motion.button key="closed" layoutId="wheel-settings" onClick={() => setOpen(true)} whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.94 }}
+            style={{ borderRadius: 20 }} aria-label="Open wheel settings"
+            className="flex h-10 w-10 items-center justify-center border border-border/60 bg-card/90 text-foreground shadow-soft backdrop-blur-md">
+            <Settings2 size={18} />
+          </motion.button>
+        )}
+      </AnimatePresence>
+    </MotionConfig>
   )
 }
