@@ -4,7 +4,6 @@ import type { FoundLink } from './found-links'
 import type { Doc } from '../types'
 import { arrivalStage, buildSimulation, linkShown, nodeShown, revealEnd, seed, tick, zoomAt } from './simulation'
 import type { SimNode } from './simulation'
-import { placeLabels } from './labels'
 import './graph.css'
 import './play-motion.css'
 
@@ -80,8 +79,6 @@ export function Graph({ revealRun, foundLinks, docs, visibleIds, selectedId, onS
   useEffect(() => {
     if (!active) return
     let frame = 0, last = performance.now(), lastTick = 0, drawnLinks = Infinity
-    // Label widths only change with zoom, and this loop restarts on zoom, so measure each label once.
-    const labelWidths = new Map<string, number>()
     const loop = (now: number) => {
       const delta = Math.max(0, now - last)
       last = now
@@ -117,21 +114,6 @@ export function Graph({ revealRun, foundLinks, docs, visibleIds, selectedId, onS
         svg.current!.dataset.arrivalElapsed = clock.current.arrival.toFixed(0)
         lastTick = now
         for (const n of sim.nodes) nodeElements.current.get(n.id)?.setAttribute('transform', `translate(${n.x} ${n.y})`)
-        const labelNodes = forceNodes.map(node => {
-          if (!labelWidths.has(node.id)) {
-            const text = nodeElements.current.get(node.id)?.querySelector<SVGTextElement>('.node-label')
-            if (text) labelWidths.set(node.id, text.getComputedTextLength() * cam.k)
-          }
-          return { id: node.id, x: node.x * cam.k, y: node.y * cam.k,
-            radius: 3.2 * Math.sqrt(1 + node.deg * 1.4) * 1.42,
-            width: labelWidths.get(node.id) ?? 0 }
-        })
-        for (const label of placeLabels(labelNodes)) {
-          const text = nodeElements.current.get(label.id)?.querySelector('.node-label')
-          text?.setAttribute('x', String(label.x / cam.k))
-          text?.setAttribute('y', String(label.y / cam.k))
-          text?.setAttribute('text-anchor', 'start')
-        }
         for (const l of allLinks) {
           const element = linkElements.current.get(`${l.source}|${l.target}`)
           if (!element) continue
@@ -231,7 +213,6 @@ export function Graph({ revealRun, foundLinks, docs, visibleIds, selectedId, onS
               const degree = allLinks.filter(link => link.source === n.id || link.target === n.id).length
               const r = 3.2 * Math.sqrt(1 + degree * 1.4) / cam.k
               const state = n.id === 'employment-contracts' ? 'empty' : n.id === 'liquidity-review' && stage === 'sorting' ? 'sorting' : degree === 0 ? 'orphan' : 'linked'
-              const labelLeft = n.x < -20
               return <g key={n.id} ref={element => { if (element) nodeElements.current.set(n.id, element); else nodeElements.current.delete(n.id) }} transform={`translate(${n.x} ${n.y})`} opacity={hover && !neighbours.has(n.id) ? 0.15 : 1}>
                   <g role="button" tabIndex={0} className="graph-node" aria-label={doc.title}
                     data-document-id={n.id} data-state={state} aria-pressed={selectedId === n.id}
@@ -240,7 +221,8 @@ export function Graph({ revealRun, foundLinks, docs, visibleIds, selectedId, onS
                     {selectedId === n.id && <rect className="picked-ring" x={-r - 3} y={-r - 3} width={(r + 3) * 2} height={(r + 3) * 2} rx="2" transform="rotate(45)" />}
                     <rect className={`node-diamond node-${state}`} x={-r} y={-r} width={r * 2} height={r * 2} rx="2" transform="rotate(45)"
                       strokeDasharray={state === 'empty' || state === 'sorting' ? `${3 / cam.k} ${3 / cam.k}` : undefined} />
-                    <text className="node-label" x={(labelLeft ? -1 : 1) * (r * 1.42 + 8 / cam.k)} y={4 / cam.k} textAnchor={labelLeft ? 'end' : 'start'} fontSize={12 / cam.k}>{doc.title}</text>
+                    {/* The label sits centered under its node and never moves relative to it. */}
+                    <text className="node-label" x={0} y={r * 1.42 + 14 / cam.k} textAnchor="middle" fontSize={12 / cam.k}>{doc.title}</text>
                     {state === 'sorting' && <text className="sorting-caption" y={(r * 1.5) + 14 / cam.k} textAnchor="middle" fontSize={12 / cam.k}>sorting…</text>}
                   </g>
               </g>

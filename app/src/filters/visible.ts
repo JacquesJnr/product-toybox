@@ -1,8 +1,8 @@
 import type { Doc, Domain } from '../types'
 
-export function visibleIds(docs: Doc[], domains: ReadonlySet<Domain>, query: string): Set<string> {
+export function visibleIds(docs: Doc[], domains: ReadonlySet<Domain>, query: string, domainCount = 7): Set<string> {
   const search = query.toLowerCase()
-  const filterDomains = domains.size > 0 && domains.size < 7
+  const filterDomains = domains.size > 0 && domains.size < domainCount
 
   return new Set(docs.filter((doc) =>
     (!filterDomains || doc.domains.some((domain) => domains.has(domain))) &&
