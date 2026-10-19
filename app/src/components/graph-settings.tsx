@@ -69,6 +69,11 @@ export function GraphSettings({ docs, domains, showOrphans, onShowOrphans, onAdd
               {step === 'menu' && <div className="flex flex-col gap-5">
                 {notice && <p className="flex items-center gap-2 rounded-xl bg-accent px-3 py-2 text-xs text-accent-foreground"><Check size={14} />{notice}</p>}
                 <section className="flex flex-col gap-2">
+                  <h3 className="text-[10px] font-bold tracking-[0.15em] text-muted-foreground uppercase">Motion</h3>
+                  <Button variant="outline" onClick={onAnimate}><Play />Animate</Button>
+                  <p className="text-[11px] leading-snug text-muted-foreground">Replays how the vault sorts itself: each document appears, then links to the others.</p>
+                </section>
+                <section className="flex flex-col gap-2">
                   <h3 className="text-[10px] font-bold tracking-[0.15em] text-muted-foreground uppercase">Domains · {domains.length}</h3>
                   <ul className="flex flex-col">
                     {domains.map(domain => { const Icon = domainIcon(domain); return (
@@ -79,11 +84,6 @@ export function GraphSettings({ docs, domains, showOrphans, onShowOrphans, onAdd
                   </ul>
                   <Button variant="outline" onClick={() => { setNotice(null); setStep('add') }}><Plus />Add a domain</Button>
                   <p className="text-[11px] leading-snug text-muted-foreground">AI reads every document and suggests which ones move to the new domain or also belong in it. You approve each change.</p>
-                </section>
-                <section className="flex flex-col gap-2">
-                  <h3 className="text-[10px] font-bold tracking-[0.15em] text-muted-foreground uppercase">Motion</h3>
-                  <Button variant="outline" onClick={onAnimate}><Play />Animate</Button>
-                  <p className="text-[11px] leading-snug text-muted-foreground">Replays how the vault sorts itself: each document appears, then links to the others.</p>
                 </section>
                 <section className="flex flex-col gap-2">
                   <h3 className="text-[10px] font-bold tracking-[0.15em] text-muted-foreground uppercase">Display</h3>
