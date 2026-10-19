@@ -14,6 +14,7 @@ import { CarouselNavigator } from '@/components/watermelon/carousel-navigator'
 import { AccordionApp } from '@/components/watermelon/card-split-accordian'
 import { ContextualAIBar } from '@/components/watermelon/contextual-ai-bar'
 import Dialog4 from '@/components/watermelon/dialog-4'
+import { GraphPreview, WheelPreview } from './LivePreviews'
 
 // The style index: every picked component and the preset variables on one page.
 // Change the variables in src/index.css and this whole page follows.
@@ -50,11 +51,19 @@ export function StylePage() {
 
   return (
     <TooltipProvider>
-      <main className="mx-auto flex max-w-6xl flex-col gap-6 p-8">
+      <main className="mx-auto flex max-w-7xl flex-col gap-6 p-8">
         <header className="flex flex-col gap-1">
           <h1 className="font-heading text-3xl font-semibold">Governance Brain · style</h1>
           <p className="text-muted-foreground">shadcn preset b6Tpl9I9Z2 and the Watermelon picks. Example data.</p>
         </header>
+
+        <Section title="Graph · live" replaces="the app's Graph view">
+          <GraphPreview />
+        </Section>
+
+        <Section title="Wheel · live" replaces="the app's Wheel view">
+          <WheelPreview />
+        </Section>
 
         <Section title="Colors" replaces="tokens.css">
           {colors.map(name => (
