@@ -14,7 +14,7 @@ import { CarouselNavigator } from '@/components/watermelon/carousel-navigator'
 import { AccordionApp } from '@/components/watermelon/card-split-accordian'
 import { ContextualAIBar } from '@/components/watermelon/contextual-ai-bar'
 import Dialog4 from '@/components/watermelon/dialog-4'
-import { GraphPreview, WheelPreview, useSharedVault } from './LivePreviews'
+import { GraphPreview, SmartSearchPreview, WheelPreview, useSharedVault } from './LivePreviews'
 import { DEFAULT_DOMAINS, domainColor, domainGradient, domainIcon } from '@/components/domain-drawer'
 
 // The style index: every picked component and the preset variables on one page.
@@ -72,6 +72,10 @@ export function StylePage() {
 
         <Section title="Wheel · live" replaces="the app's Wheel view">
           <WheelPreview shared={vault} />
+        </Section>
+
+        <Section title="Smart Search · live" replaces="the app's Smart Search view">
+          <SmartSearchPreview shared={vault} />
         </Section>
 
         <Section title="Colors" replaces="tokens.css">

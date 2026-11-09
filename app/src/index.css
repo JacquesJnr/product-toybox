@@ -72,3 +72,6 @@ body { margin: 0; min-width: 1280px; }
 @utility ai-edge { border: 1.5px solid transparent; background: linear-gradient(var(--ai-fill, var(--card)), var(--ai-fill, var(--card))) padding-box, var(--ai-gradient) border-box; }
 @utility ai-glow { filter: var(--ai-glow); }
 @utility ai-text { background: var(--ai-gradient); background-clip: text; -webkit-background-clip: text; color: transparent; }
+
+/* Icon font helper, shared by the app and the style page. */
+.material-symbols-rounded { color: var(--graphite); font-family: 'Material Symbols Rounded'; font-size: 16px; line-height: 1; font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20; }
