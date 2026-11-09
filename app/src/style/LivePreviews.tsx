@@ -51,7 +51,7 @@ export function GraphPreview({ shared: { vault, setVault, domainList, setDomainL
     <div className="flex w-full flex-col gap-4">
       <div className="flex h-[640px] gap-6">
         <div className="relative flex min-w-0 flex-1">
-          <Graph revealRun={0} foundLinks={[]} docs={docs} visibleIds={visible} selectedId={selectedId} onSelect={setSelectedId} active animateRun={animateRun} />
+          <Graph revealRun={0} foundLinks={[]} docs={docs} vault={vault} visibleIds={visible} selectedId={selectedId} onSelect={setSelectedId} active animateRun={animateRun} />
           <div className="absolute top-3 left-3 z-10">
             <DomainDrawer domains={domainList} value={domains} onChange={setDomains} />
           </div>
