@@ -14,6 +14,7 @@ import { CarouselNavigator } from '@/components/watermelon/carousel-navigator'
 import { AccordionApp } from '@/components/watermelon/card-split-accordian'
 import { ContextualAIBar } from '@/components/watermelon/contextual-ai-bar'
 import Dialog4 from '@/components/watermelon/dialog-4'
+import { BoardRoomStyle, ExportStyle, QueryStyle } from './StageStyles'
 import { GraphPreview, SmartSearchPreview, WheelPreview, useSharedVault } from './LivePreviews'
 import { DEFAULT_DOMAINS, domainColor, domainGradient, domainIcon } from '@/components/domain-drawer'
 
@@ -76,6 +77,18 @@ export function StylePage() {
 
         <Section title="Smart Search · live" replaces="the app's Smart Search view">
           <SmartSearchPreview shared={vault} />
+        </Section>
+
+        <Section title="Stage 5 · Query" replaces="mid-fi Query">
+          <QueryStyle />
+        </Section>
+
+        <Section title="Stage 6 · Board Simulation Room" replaces="mid-fi Board Simulation Room">
+          <BoardRoomStyle />
+        </Section>
+
+        <Section title="Stage 7 · Export Query" replaces="mid-fi Export Query">
+          <ExportStyle />
         </Section>
 
         <Section title="Colors" replaces="tokens.css">
