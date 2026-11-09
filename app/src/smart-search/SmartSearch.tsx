@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
-import type { FormEvent } from 'react'
-import { Button } from '@base-ui/react/button'
-import { Field } from '@base-ui/react/field'
-import { ScrollArea } from '@base-ui/react/scroll-area'
-import { Input } from '@base-ui/react/input'
+import { AnimatePresence, motion } from 'motion/react'
+import { ArrowLeftRight, ArrowUpRight, ChevronRight, CirclePlus, Clock, CornerDownRight, FileSearch, Info, Network, Paperclip, AtSign, Sparkles } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { ContextualAIBar } from '@/components/watermelon/contextual-ai-bar'
+import { domainColor } from '@/components/domain-drawer'
 import scriptsData from '../data/smart-search.json'
-import type { Doc, Domain } from '../types'
+import type { Doc } from '../types'
 import { Sphere } from './Sphere'
-import sendArrow from './send-arrow.svg'
 import './smart-search.css'
 
 type Script = {
@@ -19,15 +19,9 @@ type Script = {
 }
 
 const scripts = scriptsData as Script[]
-const domainColors: Record<Domain, string> = {
-  'Strategic direction': 'var(--domain-strategic-direction)',
-  'Strategy execution': 'var(--domain-strategy-execution)',
-  'Financial stewardship': 'var(--domain-financial-stewardship)',
-  'Risk and resilience': 'var(--domain-risk-resilience)',
-  'Controls and assurance': 'var(--domain-controls-assurance)',
-  'Major decisions': 'var(--domain-major-decisions)',
-  Remuneration: 'var(--domain-remuneration)',
-}
+const SPRING = { type: 'spring', stiffness: 260, damping: 26 } as const
+const label = 'text-[10px] font-bold tracking-[0.15em] text-muted-foreground uppercase'
+const dotColor = (docs: Doc[], title: string) => domainColor(docs.find(item => item.title === title)?.primaryDomain ?? 'Strategic direction')
 
 export function SmartSearch({ docs, onOpenSource, onShowOnGraph }: {
   docs: Doc[]
@@ -85,83 +79,78 @@ export function SmartSearch({ docs, onOpenSource, onShowOnGraph }: {
     setRunIndex(index)
   }
 
-  function submitQuestion(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
+  function submitQuestion() {
     const index = scripts.findIndex(item => item.question === question.trim())
     if (index >= 0) startRun(index)
   }
 
   return (
     <section className={`smart-search smart-search--${phase}`} aria-label="Smart Search">
+      <AnimatePresence mode="wait" initial={false}>
       {phase === 'ask' ? (
-        <div className="smart-search__ask">
-          <p className="smart-search__eyebrow">SMART SEARCH · READS ACROSS MEANING</p>
-          <form className="smart-search__form" onSubmit={submitQuestion}>
-            <Field.Root className="smart-search__field">
-              <Field.Label className="visually-hidden">Ask across the whole vault</Field.Label>
-              <span className="material-symbols-rounded smart-search__sparkle" aria-hidden="true">auto_awesome</span>
-              <Input value={question} onValueChange={setQuestion} placeholder="Ask across the whole vault" aria-label="Ask across the whole vault" />
-              <Button className="smart-search__send" type="submit" disabled={!scripts.some(item => item.question === question.trim())} aria-label="Run suggested question">
-                <img src={sendArrow} alt="" />
-              </Button>
-            </Field.Root>
-          </form>
-          <div className="smart-search__suggestions">
-            <p>Suggested questions · the only runs in the toy</p>
-            <div className="smart-search__suggestion-list">
-              {scripts.map((item, index) => <Button className="smart-search__suggestion" key={item.question} onClick={() => startRun(index)}>
-                <span className="material-symbols-rounded" aria-hidden="true">subdirectory_arrow_right</span>{item.question}
-              </Button>)}
+        <motion.div key="ask" className="smart-search__ask" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={SPRING}>
+          <p className={label}>Smart Search · reads across meaning</p>
+          <ContextualAIBar defaultExpanded className="max-w-none" placeholder="Ask across the whole vault"
+            musicIcon={<Clock size={18} />} sparkleIcon={<Sparkles size={18} className="text-primary" />}
+            tools={[<Paperclip key="a" size={18} />, <AtSign key="b" size={18} />]}
+            value={question} onValueChange={setQuestion} onSubmit={submitQuestion}
+            submitDisabled={!scripts.some(item => item.question === question.trim())} submitLabel="Run suggested question" />
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-xs text-muted-foreground">Suggested questions · the only runs in the toy</p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {scripts.map((item, index) => <motion.button key={item.question} onClick={() => startRun(index)} whileHover={{ y: -1 }} whileTap={{ scale: 0.97 }}
+                className="flex items-center gap-1.5 rounded-full border border-border/60 bg-card px-3.5 py-1.5 text-sm shadow-soft hover:border-ring">
+                <CornerDownRight size={14} className="text-muted-foreground" />{item.question}
+              </motion.button>)}
             </div>
           </div>
-        </div>
+        </motion.div>
       ) : script && (
-        <aside className="smart-search__chat" aria-label="Smart Search agent chat">
-          <header className="smart-search__chat-header">
-            <span className="material-symbols-rounded smart-search__chat-sparkle" aria-hidden="true">auto_awesome</span>
-            <h2>Smart Search</h2>
-            <span className="smart-search__counter">{phase === 'answer' ? '6 sources read' : `${readCount} sources read`}</span>
+        <motion.aside key="chat" aria-label="Smart Search agent chat" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={SPRING}
+          className="smart-search__chat flex flex-col gap-3 overflow-y-auto rounded-3xl border border-border/60 bg-card p-5 shadow-soft">
+          <header className="flex items-center gap-2">
+            <Sparkles size={18} className="text-primary" />
+            <h2 className="flex-1 font-heading text-base font-semibold">Smart Search</h2>
+            <span className="rounded-full bg-muted px-2.5 py-0.5 font-mono text-[11px] text-muted-foreground">{phase === 'answer' ? 6 : readCount} sources read</span>
           </header>
-          <p className="smart-search__question">{script.question}</p>
+          <p className="rounded-2xl bg-muted/60 px-4 py-2.5 text-sm">{script.question}</p>
           {phase === 'reading' ? <>
-            <hr />
-            <p className="smart-search__working">WORKING</p>
-            <ScrollArea.Root className="smart-search__log-scroll"><ScrollArea.Viewport className="smart-search__log" aria-live="polite">
-              {script.log.slice(0, logCount).map((line, index) => <LogLine key={`${index}-${line}`} line={line} docs={docs} />)}
-            </ScrollArea.Viewport></ScrollArea.Root>
-            {logCount === script.log.length && <p className="smart-search__writing">Writing the answer <span aria-hidden="true" /></p>}
+            <p className={label}>Working</p>
+            <ScrollArea className="max-h-64"><div className="flex flex-col gap-2 pr-3" aria-live="polite">
+              <AnimatePresence initial={false}>
+                {script.log.slice(0, logCount).map((line, index) => <LogLine key={`${index}-${line}`} line={line} docs={docs} />)}
+              </AnimatePresence>
+            </div></ScrollArea>
+            {logCount === script.log.length && <p className="text-sm text-muted-foreground">Writing the answer <span className="smart-search__caret" aria-hidden="true" /></p>}
           </> : <>
-            <p className="smart-search__read-summary">▸ Read 6 sources · used 2 tools</p>
-            <hr />
-            <h3 className="smart-search__answer-heading"><span className="material-symbols-rounded" aria-hidden="true">auto_awesome</span>Answer</h3>
-            <p className="smart-search__answer">{script.answer}</p>
-            <h3 className="smart-search__sources-heading">Sources · 6</h3>
-            <div className="smart-search__source-list">
-              {reads.map(read => {
-                const doc = docs.find(item => item.id === read.documentId)
-                return <Button key={read.documentId} className="smart-search__source" onClick={() => onOpenSource(read.documentId)}>
-                  <span className="smart-search__source-dot" style={{ background: domainColors[doc?.primaryDomain ?? 'Strategic direction'] }} aria-hidden="true" />
-                  {read.title}<span className="smart-search__source-arrow" aria-hidden="true">↗</span>
-                </Button>
-              })}
+            <p className="flex items-center gap-1 font-mono text-[11px] text-muted-foreground"><ChevronRight size={12} />Read 6 sources · used 2 tools</p>
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={SPRING}
+              className="ai-edge flex flex-col gap-3 rounded-2xl p-4 [--ai-fill:color-mix(in_oklch,var(--primary)_4%,var(--card))]">
+              <h3 className="flex items-center gap-1.5 font-heading text-sm font-semibold"><Sparkles size={15} className="text-primary" />Answer</h3>
+              <p className="text-sm leading-relaxed">{script.answer}</p>
+            </motion.div>
+            <h3 className={label}>Sources · 6</h3>
+            <div className="flex flex-wrap gap-1.5">
+              {reads.map(read => <button key={read.documentId} onClick={() => onOpenSource(read.documentId)}
+                className="flex items-center gap-1.5 rounded-full border border-border/60 bg-card px-2.5 py-1 text-xs hover:border-ring">
+                <span className="size-1.5 rounded-full" style={{ background: dotColor(docs, read.title) }} aria-hidden="true" />
+                {read.title}<ArrowUpRight size={12} className="text-muted-foreground" />
+              </button>)}
             </div>
-            <div className="smart-search__connection" aria-label={`New connection: ${script.foundLink.source} to ${script.foundLink.target}`}>
-              <p>NEW CONNECTION · found by meaning, not on the graph yet</p>
-              <div><span className="smart-search__diamond" /> <span className="smart-search__rainbow-link" /> <span className="smart-search__diamond" /></div>
-              <footer><span>{script.foundLink.source}</span><span>{script.foundLink.target}</span></footer>
+            <div className="flex flex-col gap-2 rounded-2xl bg-muted/60 p-3" aria-label={`New connection: ${script.foundLink.source} to ${script.foundLink.target}`}>
+              <p className={label}>New connection · found by meaning, not on the graph yet</p>
+              <div className="flex h-2 items-center gap-1"><span className="smart-search__diamond" /><span className="h-px flex-1 ai-glow" style={{ background: 'var(--ai-gradient)' }} /><span className="smart-search__diamond" /></div>
+              <footer className="flex justify-between text-xs"><span>{script.foundLink.source}</span><span>{script.foundLink.target}</span></footer>
             </div>
-            <div className="smart-search__actions">
-              <Button className="smart-search__action" onClick={() => onShowOnGraph(script.foundLink)}>
-                <span className="material-symbols-rounded" aria-hidden="true">hub</span>Show on the graph
-              </Button>
-              <Button className="smart-search__action" disabled>
-                <span className="material-symbols-rounded" aria-hidden="true">add_circle</span>Create a query
-              </Button>
-              <span className="smart-search__query-note">↳ Leads into the query toy</span>
+            <div className="flex flex-wrap items-center gap-2">
+              <Button onClick={() => onShowOnGraph(script.foundLink)}><Network />Show on the graph</Button>
+              <Button variant="outline" disabled><CirclePlus />Create a query</Button>
+              <span className="font-mono text-[10px] text-muted-foreground">↳ Leads into the query toy</span>
             </div>
           </>}
-        </aside>
+        </motion.aside>
       )}
+      </AnimatePresence>
       <div className="smart-search__sphere">
         <Sphere phase={phase} reads={reads} readingIndex={readingIndex} />
       </div>
@@ -170,19 +159,13 @@ export function SmartSearch({ docs, onOpenSource, onShowOnGraph }: {
 }
 
 function LogLine({ line, docs }: { line: string; docs: Doc[] }) {
-  if (line.startsWith('Reading ')) {
-    const title = line.slice('Reading '.length)
-    const doc = docs.find(item => item.title === title)
-    return <div className="smart-search__log-line"><span className="smart-search__log-dot" style={{ background: domainColors[doc?.primaryDomain ?? 'Strategic direction'] }} />
-      <span className="smart-search__log-kind">Reading</span><span>{title}</span>
-    </div>
-  }
-  if (line.startsWith('Tool · ')) return <div className="smart-search__log-line">
-    <span className="material-symbols-rounded" aria-hidden="true">manage_search</span><span className="smart-search__log-kind">Tool</span><span>{line.slice('Tool · '.length)}</span>
-  </div>
-  const comparison = line.startsWith('Comparing ')
-  return <div className="smart-search__log-line">
-    <span className="material-symbols-rounded" aria-hidden="true">{comparison ? 'compare_arrows' : 'info'}</span>
-    <span className="smart-search__log-kind">{comparison ? 'Comparing' : ''}</span><span>{comparison ? line.slice('Comparing '.length) : line}</span>
-  </div>
+  const [kind, text, lead] = line.startsWith('Reading ') ? ['Reading', line.slice(8), <span className="size-1.5 rounded-full" style={{ background: dotColor(docs, line.slice(8)) }} />]
+    : line.startsWith('Tool · ') ? ['Tool', line.slice(7), <FileSearch size={14} />]
+    : line.startsWith('Comparing ') ? ['Comparing', line.slice(10), <ArrowLeftRight size={14} />]
+    : ['', line, <Info size={14} />]
+  return <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={SPRING}
+    className="grid grid-cols-[16px_72px_minmax(0,1fr)] items-center gap-2 text-xs">
+    <span className="grid place-items-center text-muted-foreground">{lead}</span>
+    <span className="font-mono text-[10px] text-muted-foreground">{kind}</span><span>{text}</span>
+  </motion.div>
 }

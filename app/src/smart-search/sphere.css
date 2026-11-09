@@ -10,6 +10,10 @@
 }
 
 .sphere--ask { opacity: 0.4; }
+/* Reading and Answer: drag to turn the sphere. */
+.sphere--reading, .sphere--answer { pointer-events: auto; cursor: grab; touch-action: none; }
+.sphere--reading:active, .sphere--answer:active { cursor: grabbing; }
+.sphere__annotation { transition: opacity 200ms var(--sphere-ease); }
 .sphere__point { fill: var(--graphite); }
 /* Figma 144:230 and 144:359: every node read stays Peach, in Reading and in the Answer. */
 .sphere__point--read { fill: var(--peach); }
@@ -24,8 +28,6 @@
 
 .sphere--reading .sphere__leader { stroke-linecap: butt; stroke-dasharray: 3 3; }
 .sphere__leader-dot { fill: var(--peach); }
-
-.sphere__label-slot--left { text-align: right; }
 
 .sphere__label {
   display: inline-block;
@@ -45,7 +47,7 @@
 @media (prefers-reduced-motion: no-preference) {
   .sphere { transition: opacity 240ms var(--sphere-ease); }
   .sphere__point { transition: fill 200ms var(--sphere-ease); }
-  .sphere__annotation { animation: sphere-fade 240ms var(--sphere-ease) both; }
+  .sphere__annotation { animation: sphere-fade 240ms var(--sphere-ease) backwards; }
   .sphere__label {
     transform-origin: center;
     animation: sphere-label-settle 240ms var(--sphere-ease) both;
