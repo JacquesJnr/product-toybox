@@ -48,7 +48,8 @@ export function MacOSSidebar({ header, nav, footer, defaultOpen = true, children
 }
 
 // One row. Open: icon, label and a trailing slot. Collapsed: the icon alone, with the label on hover.
-export function SidebarItem({ icon, label, active, onClick, trailing, indent = 0, title }: {
+// slide: rows that share one slide id work as a switch, one active at a time, and the active pill slides between them.
+export function SidebarItem({ icon, label, active, onClick, trailing, indent = 0, title, slide }: {
   icon: ReactNode
   label: ReactNode
   active?: boolean
@@ -56,6 +57,7 @@ export function SidebarItem({ icon, label, active, onClick, trailing, indent = 0
   trailing?: ReactNode
   indent?: number
   title?: string
+  slide?: string
 }) {
   const isOpen = useSidebarOpen()
   const [hovered, setHovered] = useState(false)
@@ -70,7 +72,8 @@ export function SidebarItem({ icon, label, active, onClick, trailing, indent = 0
       style={isOpen ? { paddingLeft: 10 + indent * 18 } : undefined}
     >
       <AnimatePresence>
-        {active && <motion.span className="absolute inset-0 z-0 rounded-md bg-sidebar-accent ring-1 ring-sidebar-border" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2, ease: 'easeOut' }} />}
+        {active && slide && <motion.span layoutId={slide} className="absolute inset-0 z-0 rounded-md bg-sidebar-accent ring-1 ring-sidebar-border" transition={{ type: 'spring', stiffness: 400, damping: 32 }} />}
+        {active && !slide && <motion.span className="absolute inset-0 z-0 rounded-md bg-sidebar-accent ring-1 ring-sidebar-border" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2, ease: 'easeOut' }} />}
         {hovered && !active && <motion.span layoutId="sidebar-hover-bg" className="absolute inset-0 z-0 rounded-md bg-sidebar-accent/60" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ type: 'spring', stiffness: 350, damping: 30 }} />}
       </AnimatePresence>
       <span className={`relative z-10 grid size-4 shrink-0 place-items-center ${active ? 'text-foreground' : 'text-muted-foreground'}`}>{icon}</span>
