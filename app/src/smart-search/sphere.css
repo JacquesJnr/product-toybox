@@ -9,7 +9,8 @@
   user-select: none;
 }
 
-.sphere--ask { opacity: 0.4; }
+/* Ask: the cloud's 40% is applied per node in Sphere.tsx, so the wave's highlights can reach full strength. */
+.sphere--ask .sphere__point { transition: none; }
 /* Reading and Answer: drag to turn the sphere. */
 .sphere--reading, .sphere--answer { pointer-events: auto; cursor: grab; touch-action: none; }
 .sphere--reading:active, .sphere--answer:active { cursor: grabbing; }
