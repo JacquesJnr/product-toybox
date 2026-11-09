@@ -15,6 +15,7 @@ import { AccordionApp } from '@/components/watermelon/card-split-accordian'
 import { ContextualAIBar } from '@/components/watermelon/contextual-ai-bar'
 import Dialog4 from '@/components/watermelon/dialog-4'
 import { BoardRoomStyle, ExportStyle, QueryStyle } from './StageStyles'
+import { AppSidebarStyle } from './AppSidebar'
 import { GraphPreview, SmartSearchPreview, WheelPreview, useSharedVault } from './LivePreviews'
 import { DEFAULT_DOMAINS, domainColor, domainGradient, domainIcon } from '@/components/domain-drawer'
 
@@ -77,6 +78,10 @@ export function StylePage() {
 
         <Section title="Smart Search · live" replaces="the app's Smart Search view">
           <SmartSearchPreview shared={vault} />
+        </Section>
+
+        <Section title="App sidebar · Query hub" replaces="mid-fi icon rail (Brain, Queries, Vault, Room, Exports)">
+          <AppSidebarStyle />
         </Section>
 
         <Section title="Stage 5 · Query" replaces="mid-fi Query">
