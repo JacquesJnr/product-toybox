@@ -56,10 +56,11 @@ export function QueryStyle() {
   const nodes = [...startNodes, ...(keep ? [suggestion] : []), ...added.nodes]
   const links = [...startLinks, ...(keep ? [{ ...suggestion.link, text: 'M3 depends on regional training finishing first.' }] : []), ...added.links]
   return (
-    <div className="flex w-full flex-col gap-4">
+    // One centered vertical chain: header, stats, Query graph, Analysis, suggested change.
+    <div className="mx-auto flex w-full max-w-3xl flex-col gap-4">
       {/* Header: the question is the title, the focus sits under it. */}
-      <div className="flex items-end justify-between gap-6">
-        <div className="flex max-w-2xl flex-col gap-1">
+      <div className="flex flex-col items-center gap-4 text-center">
+        <div className="flex flex-col items-center gap-1">
           <span className={label}>Query</span>
           <h3 className="font-heading text-3xl font-semibold">Is the Q1 go-live ready?</h3>
           <p className="text-muted-foreground">Focus: can the consolidated ledger go live in Q1 FY27 without breaching the approved budget or the board's risk appetite?</p>
@@ -77,8 +78,7 @@ export function QueryStyle() {
         <span className="ml-auto rounded-full bg-muted px-2.5 py-1 text-xs text-muted-foreground">Owner · M. Vale</span>
       </div>
 
-      <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] items-start gap-4">
-        {/* The Query graph sits left, as in the mid-fi. */}
+      <div className="flex flex-col gap-4">
         <QueryGraph nodes={nodes} links={links} suggestionState={suggested} onSuggestion={setSuggested}
           onAdd={(n, l) => setAdded({ nodes: [...added.nodes, ...n], links: [...added.links, ...l] })} />
 

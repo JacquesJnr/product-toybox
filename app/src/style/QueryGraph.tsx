@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'motion/react'
-import { ArrowUpRight, Check, Plus, Sparkles, StickyNote, X } from 'lucide-react'
+import { ArrowUpRight, Check, ChevronDown, Plus, Sparkles, StickyNote, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { domainColor, domainGradient } from '@/components/domain-drawer'
 import { NewQueryDialog } from './NewQueryDialog'
@@ -76,6 +76,7 @@ export function QueryGraph({ nodes, links, onAdd, suggestionState, onSuggestion 
   const [picked, setPicked] = useState<string>('m3')
   const [hover, setHover] = useState<string | null>(null)
   const [choosing, setChoosing] = useState(false)
+  const [open, setOpen] = useState(true)
   const at = new Map(nodes.map(n => [n.id, n]))
   const showSuggestion = suggestionState === 'open'
   if (showSuggestion) at.set(suggestion.id, suggestion)
@@ -98,11 +99,16 @@ export function QueryGraph({ nodes, links, onAdd, suggestionState, onSuggestion 
   return (
     <div className="flex flex-col gap-3 rounded-2xl border border-border/60 bg-card p-4 shadow-soft">
       <div className="flex items-center justify-between">
-        <span className={label}>Query graph</span>
+        <button className="flex items-center gap-1.5" aria-expanded={open} onClick={() => setOpen(!open)}>
+          <ChevronDown size={14} className={`text-muted-foreground transition-transform ${open ? '' : '-rotate-90'}`} />
+          <span className={label}>Query graph</span>
+          {!open && <span className="text-xs text-muted-foreground">· {nodes.length} nodes · {links.length} links</span>}
+        </button>
         <Button variant="outline" size="sm" onClick={() => setChoosing(true)}><Plus size={14} />Add</Button>
       </div>
 
-      <div className="relative h-[360px] overflow-hidden rounded-xl border border-border bg-stage">
+      {open && <>
+      <div className="relative h-[400px] overflow-hidden rounded-xl border border-border bg-stage">
         <svg viewBox="0 0 400 360" className="absolute inset-0 h-full w-full select-none">
           {[...links, ...(showSuggestion ? [suggestion.link] : [])].map(l => {
             const s = at.get(l.a)!, t = at.get(l.b)!, key = linkKey(l)
@@ -143,6 +149,7 @@ export function QueryGraph({ nodes, links, onAdd, suggestionState, onSuggestion 
       {pickedLink && <LinkDetails link={pickedLink} title={id => at.get(id)?.title ?? ''} />}
       {!pickedNode && !pickedLink && <p className="text-sm text-muted-foreground">Click a node or a link to see its details.</p>}
       {suggestionState !== 'open' && <button className="self-start text-xs text-muted-foreground underline" onClick={() => { onSuggestion('open'); setPicked(suggestion.id) }}>Training plan {suggestionState} · undo</button>}
+      </>}
 
       <NewQueryDialog open={choosing} onOpenChange={setChoosing} onCreate={() => {}} onAdd={add} />
     </div>
