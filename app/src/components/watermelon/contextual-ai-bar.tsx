@@ -33,6 +33,8 @@ export const ContextualAIBar: React.FC<ContextualAIBarProps> = ({
   className = 'sm:max-w-md',
 }) => {
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
+  // Toybox: one layout id per bar, so two bars on a page cannot share the pill (issue #22).
+  const pillId = React.useId();
 
   const spring = {
     type: 'spring',
@@ -58,7 +60,7 @@ export const ContextualAIBar: React.FC<ContextualAIBarProps> = ({
         >
           {!isExpanded && (
             <motion.div
-              layoutId="active-pill"
+              layoutId={pillId}
               transition={spring}
               className="absolute inset-0 rounded-full bg-secondary "
             />
@@ -74,7 +76,7 @@ export const ContextualAIBar: React.FC<ContextualAIBarProps> = ({
         >
           {isExpanded && (
             <motion.div
-              layoutId="active-pill"
+              layoutId={pillId}
               transition={spring}
               className="absolute inset-0 rounded-full bg-secondary "
             />
