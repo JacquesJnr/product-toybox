@@ -17,9 +17,11 @@ interface GraphProps {
   onSelect: (id: string | null) => void
   active: boolean
   animateRun: number
+  // The vault as settings change it, same order as docs. Colors read it, so a moved node recolors without a new layout.
+  vault?: Doc[]
 }
 
-export function Graph({ revealRun, foundLinks, docs, visibleIds, selectedId, onSelect, active, animateRun }: GraphProps) {
+export function Graph({ revealRun, foundLinks, docs, visibleIds, selectedId, onSelect, active, animateRun, vault = docs }: GraphProps) {
   const sim = useMemo(() => buildSimulation(docs), [docs])
   const allLinks = useMemo(() => [...sim.links, ...foundLinks.map(link => ({ ...link, reason: 'shared-content' as const }))], [sim, foundLinks])
   const foundKeys = new Set(foundLinks.map(link => `${link.source}|${link.target}`))
@@ -187,7 +189,7 @@ export function Graph({ revealRun, foundLinks, docs, visibleIds, selectedId, onS
           event.currentTarget.releasePointerCapture(event.pointerId)
         }}
         onPointerCancel={release} onLostPointerCapture={release}>
-        <defs>{DEFAULT_DOMAINS.map(domain => {
+        <defs>{[...new Set([...DEFAULT_DOMAINS, ...vault.map(d => d.primaryDomain)])].map(domain => {
           const color = domainColor(domain)
           return <linearGradient key={domain} id={`node-gradient-${domainKey(domain)}`}>
             <stop offset="0%" style={{ stopColor: 'var(--muted)' }} />
@@ -218,7 +220,7 @@ export function Graph({ revealRun, foundLinks, docs, visibleIds, selectedId, onS
             </g>
           })}
             {nodes.map(n => {
-              const doc = docs[n.i]
+              const doc = vault[n.i]
               const degree = allLinks.filter(link => link.source === n.id || link.target === n.id).length
               const r = 3.2 * Math.sqrt(1 + degree * 1.4) / cam.k
               const state = n.id === 'employment-contracts' ? 'empty' : n.id === 'liquidity-review' && stage === 'sorting' ? 'sorting' : degree === 0 ? 'orphan' : 'linked'
