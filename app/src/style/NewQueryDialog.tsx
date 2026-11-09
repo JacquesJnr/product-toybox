@@ -12,7 +12,8 @@ import documents from '@/data/documents.json'
 import type { Doc } from '@/types'
 
 // New Query, in two steps (Query.md): the Insight Chooser, then Create new Query.
-// A Query needs at least one insight, so Continue stays off until one is chosen.
+// Continue stays off until one insight is chosen. Start from scratch is the other way in:
+// a Query with no insights yet, which gathers them later.
 // Vault insights are plain and still; AI suggestions are dashed and tinted.
 
 const docs = documents as Doc[]
@@ -29,7 +30,14 @@ function suggestFor(chosen: Set<string>) {
 }
 
 // Scripted AI: focuses written from the chosen insights' documents and domains.
+// From scratch there is nothing chosen, so AI reads the whole vault for what may need the board.
 function focusesFor(items: Item[]) {
+  if (items.length === 0) return [
+    'Is supplier exposure still inside the risk appetite the board approved?',
+    'Does the 2027 forecast hold if the capex plan slips a quarter?',
+    'Do the open audit findings close before year-end?',
+    'Should executive incentives change after the September review?',
+  ]
   const titles = [...new Set(items.map(x => x.doc.title))]
   const domain = items[0].doc.primaryDomain.toLowerCase()
   return [
@@ -68,13 +76,13 @@ function Steps({ onCreate, onCancel }: { onCreate: (q: NewQuery) => void; onCanc
     <>
       <DialogHeader>
         <DialogTitle className="font-heading text-xl">Create new Query</DialogTitle>
-        <DialogDescription>Name the board question and set its focus. {picked.length} {picked.length === 1 ? 'insight' : 'insights'} carried in.</DialogDescription>
+        <DialogDescription>Name the board question and set its focus. {picked.length === 0 ? 'From scratch: no insights yet. Add them from the Query.' : `${picked.length} ${picked.length === 1 ? 'insight' : 'insights'} carried in.`}</DialogDescription>
       </DialogHeader>
-      <div className="flex flex-wrap gap-1.5">{picked.map(x => <span key={x.key} className="rounded-full border border-border/80 bg-muted/60 px-2 py-0.5 font-mono text-[10px]">{x.doc.title} · {x.insight.pageRef}</span>)}</div>
+      {picked.length > 0 && <div className="flex flex-wrap gap-1.5">{picked.map(x => <span key={x.key} className="rounded-full border border-border/80 bg-muted/60 px-2 py-0.5 font-mono text-[10px]">{x.doc.title} · {x.insight.pageRef}</span>)}</div>}
       <label className="flex flex-col gap-1.5"><span className={label}>Name</span><Input autoFocus value={name} onChange={e => setName(e.target.value)} placeholder="One board question, e.g. Is the Q1 go-live ready?" /></label>
       <label className="flex flex-col gap-1.5"><span className={label}>Focus</span><Textarea value={focus} onChange={e => setFocus(e.target.value)} placeholder="What does the board need to know?" rows={2} /></label>
       <div className="flex flex-col gap-2">
-        <span className={`flex items-center gap-1.5 ${label}`}><Sparkles size={11} className="ai-glow text-[#8338EC]" />Suggested focuses</span>
+        <span className={`flex items-center gap-1.5 ${label}`}><Sparkles size={11} className="ai-glow text-[#8338EC]" />Suggested focuses{picked.length === 0 && ' · from the whole vault'}</span>
         {focusesFor(picked).map((f, i) => (
           <motion.button key={f} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} onClick={() => setFocus(f)}
             className={`ai-edge rounded-xl px-3 py-2 text-left text-sm [--ai-fill:color-mix(in_oklch,var(--popover)_94%,#8338EC)] ${focus === f ? 'font-medium' : 'text-foreground/80'}`}>{f}</motion.button>
@@ -92,7 +100,7 @@ function Steps({ onCreate, onCancel }: { onCreate: (q: NewQuery) => void; onCanc
     <>
       <DialogHeader>
         <DialogTitle className="font-heading text-xl">Choose insights</DialogTitle>
-        <DialogDescription>A Query starts from at least one insight in the vault.</DialogDescription>
+        <DialogDescription>Start from insights in the vault, or from scratch and gather them later.</DialogDescription>
       </DialogHeader>
       <div className="flex items-center gap-3">
         <div className="relative flex-1"><Search size={14} className="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground" /><Input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search the vault" className="pl-8" /></div>
@@ -127,6 +135,7 @@ function Steps({ onCreate, onCancel }: { onCreate: (q: NewQuery) => void; onCanc
       <DialogFooter>
         <span className="mr-auto self-center text-xs text-muted-foreground">{chosen.size} chosen</span>
         <Button variant="outline" onClick={onCancel}>Cancel</Button>
+        <Button variant="outline" onClick={() => { setChosen(new Set()); setStep('create') }}>Start from scratch</Button>
         <Button disabled={chosen.size === 0} onClick={() => setStep('create')}>Continue</Button>
       </DialogFooter>
     </>
