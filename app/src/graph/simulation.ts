@@ -71,6 +71,10 @@ export function tick(sim: Simulation, nodes: SimNode[], links: SimLink[], now: n
   }
   for (const n of nodes) {
     n.vx -= n.x * 0.012 * alpha; n.vy -= n.y * 0.012 * alpha
+    // A node with no links has nothing holding it, and settled alpha (0.02) makes the pull above too weak against
+    // the repulsion of the whole cluster, so it drifts out to the 500-unit cutoff and the camera frames it (issue #24).
+    // This pull holds it about 130 units out, at the edge of the cluster.
+    if (n.deg === 0) { n.vx -= n.x * 0.003; n.vy -= n.y * 0.003 }
     n.vx += Math.sin(now * 0.0004 + n.i * 1.7) * 0.004
     n.vy += Math.cos(now * 0.00035 + n.i * 2.3) * 0.004
     if (n.fx !== null && n.fy !== null) { n.x = n.fx; n.y = n.fy; n.vx = n.vy = 0 }
