@@ -1,7 +1,8 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import { motion } from 'motion/react'
-import { ArrowUpRight, Bot, Check, Circle, CircleDashed, FileText, Mail, Plus, RefreshCw, Sparkles, X } from 'lucide-react'
+import { ArrowUpRight, Bot, Check, Circle, FileText, Mail, RefreshCw, Sparkles, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { QueryGraph, startLinks, startNodes, suggestion, type QLink, type QNode } from './QueryGraph'
 
 // Style directions for app-map stages 5, 6 and 7 (Query, Board Simulation Room, Export Query).
 // Content from the mid-fi screens on the wiki. The rule from the style page holds:
@@ -48,6 +49,12 @@ const findingStyle: Record<Finding['kind'], string> = {
 
 export function QueryStyle() {
   const [accepted, setAccepted] = useState<boolean | null>(null)
+  const [added, setAdded] = useState<{ nodes: QNode[]; links: QLink[] }>({ nodes: [], links: [] })
+  const [suggested, setSuggested] = useState<'open' | 'accepted' | 'rejected'>('open')
+  // An accepted suggestion becomes a plain vault node and link.
+  const keep = suggested === 'accepted'
+  const nodes = [...startNodes, ...(keep ? [suggestion] : []), ...added.nodes]
+  const links = [...startLinks, ...(keep ? [{ ...suggestion.link, text: 'M3 depends on regional training finishing first.' }] : []), ...added.links]
   return (
     <div className="flex w-full flex-col gap-4">
       {/* Header: the question is the title, the focus sits under it. */}
@@ -64,13 +71,18 @@ export function QueryStyle() {
       </div>
 
       <div className="flex items-center gap-10 rounded-2xl border border-border/60 bg-card px-5 py-4 shadow-soft">
-        <Stat name="Insights" value="8 from 5 sources" />
+        <Stat name="Nodes" value={`${nodes.length} · ${links.length} links`} />
         <Stat name="What's new" value="2 since yesterday" />
         <Stat name="Readiness" value="Financial data: ERP live, read-only" />
         <span className="ml-auto rounded-full bg-muted px-2.5 py-1 text-xs text-muted-foreground">Owner · M. Vale</span>
       </div>
 
-      <div className="grid grid-cols-[1fr_320px] gap-4">
+      <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] items-start gap-4">
+        {/* The Query graph sits left, as in the mid-fi. */}
+        <QueryGraph nodes={nodes} links={links} suggestionState={suggested} onSuggestion={setSuggested}
+          onAdd={(n, l) => setAdded({ nodes: [...added.nodes, ...n], links: [...added.links, ...l] })} />
+
+        <div className="flex flex-col gap-4">
         {/* The Analysis is AI-written, so it carries the rainbow edge. */}
         <div className="ai-edge flex flex-col gap-4 rounded-2xl p-5 shadow-soft">
           <div className="flex items-center justify-between">
@@ -92,16 +104,6 @@ export function QueryStyle() {
             </motion.div>
           ))}
         </div>
-
-        <div className="flex flex-col gap-4">
-          {/* Insight list: vault material, still. The suggested one is AI, so dashed and tinted. */}
-          <div className="flex flex-col gap-2 rounded-2xl border border-border/60 bg-card p-4 shadow-soft">
-            <div className="flex items-center justify-between"><span className={label}>Insights in this Query</span><Button variant="ghost" size="sm"><Plus size={14} />Add</Button></div>
-            {['M3 go-live', 'Programme report', 'Risk R-22', 'Budget line', 'Decision D-114', 'CoreSys contract'].map(name => (
-              <div key={name} className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm hover:bg-muted"><FileText size={14} className="text-muted-foreground" />{name}</div>
-            ))}
-            <div className="flex items-center gap-2 rounded-lg border border-dashed border-[#8338EC]/40 bg-[#8338EC]/5 px-2 py-1.5 text-sm text-muted-foreground"><CircleDashed size={14} className="text-[#8338EC]" />Suggested: Training plan</div>
-          </div>
 
           {/* A suggested change from AI Chat. Accept or reject; the director decides. */}
           <div className="ai-edge flex flex-col gap-3 rounded-2xl p-4 shadow-soft [--ai-fill:color-mix(in_oklch,var(--card)_94%,#8338EC)]">

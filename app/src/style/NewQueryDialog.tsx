@@ -52,15 +52,16 @@ function focusesFor(titles: string[], edge?: [string, string]) {
 
 export type NewQuery = { question: string; focus: string; insights: number }
 
-export function NewQueryDialog({ open, onOpenChange, onCreate }: { open: boolean; onOpenChange: (open: boolean) => void; onCreate: (q: NewQuery) => void }) {
+// With onAdd, the chooser adds nodes to an open Query instead of making a new one (the Query graph's Add, T78).
+export function NewQueryDialog({ open, onOpenChange, onCreate, onAdd }: { open: boolean; onOpenChange: (open: boolean) => void; onCreate: (q: NewQuery) => void; onAdd?: (ids: string[]) => void }) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-5xl">{open && <Steps onCreate={onCreate} onCancel={() => onOpenChange(false)} />}</DialogContent>
+      <DialogContent className="sm:max-w-5xl">{open && <Steps onCreate={onCreate} onAdd={onAdd} onCancel={() => onOpenChange(false)} />}</DialogContent>
     </Dialog>
   )
 }
 
-function Steps({ onCreate, onCancel }: { onCreate: (q: NewQuery) => void; onCancel: () => void }) {
+function Steps({ onCreate, onAdd, onCancel }: { onCreate: (q: NewQuery) => void; onAdd?: (ids: string[]) => void; onCancel: () => void }) {
   const [step, setStep] = useState<'choose' | 'create'>('choose')
   const [nodes, setNodes] = useState<Set<string>>(new Set())
   const [edges, setEdges] = useState<Set<string>>(new Set())
@@ -126,8 +127,12 @@ function Steps({ onCreate, onCancel }: { onCreate: (q: NewQuery) => void; onCanc
       <DialogFooter>
         <span className="mr-auto self-center text-xs text-muted-foreground">{inQuery.size} nodes · {edges.size} links</span>
         <Button variant="outline" onClick={onCancel}>Cancel</Button>
-        <Button variant="outline" onClick={() => { setNodes(new Set()); setEdges(new Set()); setStep('create') }}>Start from scratch</Button>
-        <Button disabled={count === 0} onClick={() => setStep('create')}>Continue</Button>
+        {onAdd
+          ? <Button disabled={count === 0} onClick={() => onAdd([...inQuery])}>Add to Query</Button>
+          : <>
+            <Button variant="outline" onClick={() => { setNodes(new Set()); setEdges(new Set()); setStep('create') }}>Start from scratch</Button>
+            <Button disabled={count === 0} onClick={() => setStep('create')}>Continue</Button>
+          </>}
       </DialogFooter>
     </>
   )
