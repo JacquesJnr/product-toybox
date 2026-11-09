@@ -19,6 +19,7 @@ import { GraphSearch } from '@/components/graph-search'
 import { applyProposals } from '@/components/domain-sorting'
 import { DocPanel } from '@/components/doc-panel'
 import { syncWheelDomains } from '@/components/wheel-domains'
+import { SmartSearch } from '@/smart-search/SmartSearch'
 import './live-previews.css'
 
 // The app's own Graph and Wheel, live, so motion and interaction can be tuned here.
@@ -167,6 +168,22 @@ export function WheelPreview({ shared: { vault, domainList } }: { shared: Shared
           </motion.div>
         )}
       </AnimatePresence>
+    </div>
+  )
+}
+
+// The app's Smart Search, live: run a suggested question to see Reading and Answer. Sources open the document panel.
+export function SmartSearchPreview({ shared: { vault } }: { shared: SharedVault }) {
+  const [run, setRun] = useState(0)
+  const [selectedId, setSelectedId] = useState<string | null>(null)
+  const selected = vault.find(doc => doc.id === selectedId)
+  return (
+    <div className="relative flex h-[760px] w-full gap-6 overflow-clip rounded-3xl border border-border/60 bg-stage">
+      {/* A new key resets the run, as the app's reload does. */}
+      <SmartSearch key={run} docs={vault} onOpenSource={setSelectedId} onShowOnGraph={() => {}} />
+      <button onClick={() => { setRun(r => r + 1); setSelectedId(null) }}
+        className="absolute top-3 right-3 z-10 h-10 rounded-full border border-border/60 bg-card/90 px-4 text-sm font-medium shadow-soft backdrop-blur-md">Reset</button>
+      {selected && <div className="absolute inset-y-3 right-3 z-20 flex"><DocPanel doc={selected} onClose={() => setSelectedId(null)} onSelect={setSelectedId} /></div>}
     </div>
   )
 }
