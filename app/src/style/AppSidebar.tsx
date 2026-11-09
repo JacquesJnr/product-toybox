@@ -6,7 +6,6 @@ import DropdownMenu14, { type Workspace } from '@/components/watermelon/dropdown
 import Avatar3 from '@/components/watermelon/avatar-3'
 import { ContinuousTabs } from '@/components/watermelon/continuous-tabs'
 import { Button } from '@/components/ui/button'
-import { domainColor, domainIcon } from '@/components/domain-drawer'
 import type { Domain } from '@/types'
 import { BoardRoomStyle, ExportStyle, QueryStyle } from './StageStyles'
 import { NewQueryDialog, type NewQuery } from './NewQueryDialog'
@@ -199,10 +198,9 @@ function QueryHub({ queries, onOpen, onNew }: { queries: Query[]; onOpen: (p: Pa
       ]} />
       <div className="flex flex-col rounded-2xl border border-border/60 bg-card shadow-soft">
         {shown.map(q => {
-          const Icon = domainIcon(q.domain)
           return (
             <button key={q.id} onClick={() => onOpen(`${q.id}:analysis`)} className="grid grid-cols-[28px_1fr_150px_90px_100px_32px] items-center gap-4 border-b border-border/60 px-5 py-4 text-left last:border-0 hover:bg-muted/50">
-              <Icon size={18} style={{ color: domainColor(q.domain) }} />
+              <span className="text-muted-foreground"><TypeIcon type="query" size={18} /></span>
               <span className="flex min-w-0 flex-col gap-0.5"><span className="truncate font-medium">{q.question}</span><span className="text-xs text-muted-foreground">{q.domain}</span></span>
               <span className="flex items-center gap-2 text-sm"><StateMark state={q.state} />{stateLabel[q.state]}</span>
               <span className="flex items-center gap-1.5 font-mono text-xs text-muted-foreground"><ScrollText size={12} />{q.insights}</span>
