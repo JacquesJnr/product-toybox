@@ -87,9 +87,17 @@ export function SpiderChart({ state, actions }: { state: WheelState; actions: Wh
   const badge = proj ? `${name} (AI)` : name === 'Last board' ? 'Last Board' : name
   const placed = points.map((p, i) => ({ p, a: ang(i, n), ...xy(ang(i, n), rad(p.ratio), n) }))
   const reading = placed.map(q => `${q.x.toFixed(1)},${q.y.toFixed(1)}`).join(' ')
-  const ringAngle = Math.PI / 2 - Math.PI / n
   const hot = placed.find(q => q.p.name === hovered)
   const atStop = new Map(pointsAt(state.domain, stop).map(q => [q.name, q.ratio]))
+  // The ring labels (50%, 100%, 150%+) sit in the gap between the two spokes with the lowest readings at this stop,
+  // so a large over-threshold value such as 200% never lands on them (issue #25). It moves only when the stop changes.
+  const ringGap = placed.reduce((best, _, i) => {
+    const high = Math.max(atStop.get(placed[i].p.name) ?? 0, atStop.get(placed[(i + 1) % n].p.name) ?? 0)
+    return high < best.high ? { i, high } : best
+  }, { i: 0, high: Infinity }).i
+  const ringAngle = ang(ringGap, n) + Math.PI / n
+  // On the left half the labels run outward to the left, so they never slide under the center badge.
+  const left = Math.cos(ringAngle) < -0.01
 
   return (
     <div className={`spider-chart${whole ? ' whole' : ''}${proj ? ' proj' : ''}`}>
@@ -122,7 +130,7 @@ export function SpiderChart({ state, actions }: { state: WheelState; actions: Wh
       {[0.5, 1, 1.5].map(v => {
         const h = rad(v) * hexR(ringAngle, n)
         return (
-          <span key={v} className="spider-ring-label" style={{ left: C.x + h * Math.cos(ringAngle) + 4, top: C.y + h * Math.sin(ringAngle) + 2 }}>
+          <span key={v} className="spider-ring-label" style={{ left: C.x + h * Math.cos(ringAngle) + (left ? -4 : 4), top: C.y + h * Math.sin(ringAngle) + 2, translate: left ? '-100% 0' : undefined }}>
             {v === 1.5 ? '150%+' : pct(v)}
           </span>
         )
