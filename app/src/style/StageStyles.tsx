@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import { motion } from 'motion/react'
-import { ArrowUpRight, Bot, Check, Circle, FileText, Mail, RefreshCw, Sparkles, X } from 'lucide-react'
+import { ArrowUpRight, Bot, Check, Circle, FileText, Mail, Pencil, RefreshCw, Sparkles, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { QueryGraph, startLinks, startNodes, suggestion, type QLink, type QNode } from './QueryGraph'
 
@@ -63,10 +63,11 @@ export function QueryStyle() {
         <div className="flex flex-col items-center gap-1">
           <span className={label}>Query</span>
           <h3 className="font-heading text-3xl font-semibold">Is the Q1 go-live ready?</h3>
-          <p className="text-muted-foreground">Focus: can the consolidated ledger go live in Q1 FY27 without breaching the approved budget or the board's risk appetite?</p>
+          <p className="text-muted-foreground">Focus: can the consolidated ledger go live in Q1 FY27 without breaching the approved budget or the board's risk appetite?
+            <Button variant="ghost" size="icon-xs" aria-label="Edit the focus" title="Edit the focus" className="ml-1 align-middle text-muted-foreground"><Pencil /></Button>
+          </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline">Edit the focus</Button>
           <Button>Open Board Simulation Room</Button>
         </div>
       </div>
