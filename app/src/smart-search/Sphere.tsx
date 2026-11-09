@@ -66,7 +66,34 @@ function project(rotation: Rotation) {
 const IDLE_SPEED = 0.18 // rad/s
 const SPRING_K = 9, SPRING_C = 6 // critically damped: starts and stops gently, settles in about a second
 const DRAG = 0.008 // rad per px
+
+// Ask only: waves of nodes light up in the primary green and swell, like a crowd wave or breathing.
+// The patterns are fixed to the sphere, so they turn with it. Each runs PATTERN_TIME s, then cross-fades to the next.
+const PATTERN_TIME = 7, FADE_TIME = 1.2
+const ripples = [{ x: 0.4, y: -0.5, z: 0.77 }, { x: -0.6, y: 0.3, z: 0.74 }, { x: 0.1, y: 0.6, z: -0.79 }]
+const patterns: ((p: Point, t: number, run: number) => number)[] = [
+  // 1. Crowd wave: a band of longitude sweeps round the sphere.
+  (p, t) => Math.max(0, Math.cos(Math.atan2(p.x, p.z) - t * 1.4)) ** 10,
+  // 2. Breathing rings: bands of latitude roll from pole to pole, the whole sphere swelling slightly in time.
+  (p, t) => 0.12 * (1 + Math.sin(t * 1.6)) / 2 + 0.88 * Math.max(0, Math.cos(p.y * Math.PI * 1.5 - t * 2.2)) ** 8,
+  // 3. Ripple: a ring spreads out from a point on the sphere, from a new point each time.
+  (p, t, run) => {
+    const c = ripples[run % ripples.length]
+    const distance = Math.acos(Math.max(-1, Math.min(1, p.x * c.x + p.y * c.y + p.z * c.z)))
+    const radius = (t % 3.5) * 1.1
+    return Math.exp(-((distance - radius) ** 2) / 0.03) * Math.max(0, 1 - radius / 3.6)
+  },
+]
+function highlight(p: Point, seconds: number) {
+  const run = Math.floor(seconds / PATTERN_TIME), into = seconds - run * PATTERN_TIME
+  const now = patterns[run % patterns.length](p, into, run)
+  if (into < PATTERN_TIME - FADE_TIME) return now
+  const blend = (into - (PATTERN_TIME - FADE_TIME)) / FADE_TIME
+  return now * (1 - blend) + patterns[(run + 1) % patterns.length](p, into - PATTERN_TIME, run + 1) * blend
+}
 const COAST = 2.5 // per second
+
+const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 export function Sphere({ phase, reads, readingIndex }: SphereProps) {
   // Rotation lives in refs and every frame is written to the DOM. React renders the diamonds and labels once per change.
@@ -91,13 +118,20 @@ export function Sphere({ phase, reads, readingIndex }: SphereProps) {
 
   function paint() {
     const projected = project(rotation.current)
+    const waving = live.current.phase === 'ask' && !reducedMotion()
+    const seconds = performance.now() / 1000
     for (const point of [...projected].sort((a, b) => a.z - b.z)) {
       const rect = rects.current[point.index]
       if (!rect) continue
-      rect.setAttribute('x', String(point.x - point.size / 2)); rect.setAttribute('y', String(point.y - point.size / 2))
-      rect.setAttribute('width', String(point.size)); rect.setAttribute('height', String(point.size))
+      // In Ask the cloud is faint (40%) and the wave lifts nodes to full strength.
+      const h = waving ? highlight(points[point.index], seconds) : 0
+      const size = point.size * (1 + 0.7 * h)
+      rect.setAttribute('x', String(point.x - size / 2)); rect.setAttribute('y', String(point.y - size / 2))
+      rect.setAttribute('width', String(size)); rect.setAttribute('height', String(size))
       rect.setAttribute('transform', `rotate(45 ${point.x} ${point.y})`)
-      if (!rect.classList.contains('sphere__point--read')) rect.setAttribute('opacity', String(point.opacity))
+      rect.style.fill = h > 0.02 ? `color-mix(in oklch, var(--primary) ${Math.round(h * 100)}%, var(--graphite))` : ''
+      const faint = live.current.phase === 'ask' ? point.opacity * 0.4 : point.opacity
+      if (!rect.classList.contains('sphere__point--read')) rect.setAttribute('opacity', String(faint + (1 - faint) * 0.85 * h))
       cloud.current?.appendChild(rect)
     }
     live.current.labelPoints.forEach((index, i) => {
@@ -126,7 +160,7 @@ export function Sphere({ phase, reads, readingIndex }: SphereProps) {
   useLayoutEffect(() => paint())
 
   useEffect(() => {
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const reduced = reducedMotion()
     let frame = 0, last = performance.now()
     function loop(now: number) {
       const dt = Math.min(0.05, (now - last) / 1000)
