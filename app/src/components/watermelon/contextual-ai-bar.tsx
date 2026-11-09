@@ -10,6 +10,13 @@ export interface ContextualAIBarProps {
   tools?: React.ReactNode[];
   musicIcon: React.ReactNode;
   sparkleIcon: React.ReactNode;
+  // Toybox additions: a controlled input that submits, and a width override.
+  value?: string;
+  onValueChange?: (value: string) => void;
+  onSubmit?: () => void;
+  submitDisabled?: boolean;
+  submitLabel?: string;
+  className?: string;
 }
 
 export const ContextualAIBar: React.FC<ContextualAIBarProps> = ({
@@ -18,6 +25,12 @@ export const ContextualAIBar: React.FC<ContextualAIBarProps> = ({
   tools = [],
   musicIcon,
   sparkleIcon,
+  value,
+  onValueChange,
+  onSubmit,
+  submitDisabled,
+  submitLabel = 'Send',
+  className = 'sm:max-w-md',
 }) => {
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
 
@@ -32,7 +45,7 @@ export const ContextualAIBar: React.FC<ContextualAIBarProps> = ({
     <motion.div
       layout
       transition={spring}
-      className="relative flex w-full max-w-[calc(100vw-32px)] items-center justify-between overflow-hidden rounded-full border border-border/30 bg-muted p-1 shadow-sm sm:max-w-md"
+      className={`relative flex w-full max-w-[calc(100vw-32px)] items-center justify-between overflow-hidden rounded-full border border-border/30 bg-muted p-1 shadow-sm ${className}`}
     >
       <motion.div
         layout
@@ -98,14 +111,21 @@ export const ContextualAIBar: React.FC<ContextualAIBarProps> = ({
               autoFocus
               type="text"
               placeholder={placeholder}
+              aria-label={placeholder}
+              value={value}
+              onChange={event => onValueChange?.(event.target.value)}
+              onKeyDown={event => { if (event.key === 'Enter' && !submitDisabled) onSubmit?.() }}
               className="w-full flex-1 border-none bg-transparent text-lg text-foreground placeholder:text-muted-foreground outline-none sm:text-xl"
             />
 
             <motion.button
+              onClick={onSubmit}
+              disabled={submitDisabled}
+              aria-label={submitLabel}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.92 }}
               transition={spring}
-              className="shrink-0 rounded-full border border-border bg-card p-2.5 text-foreground shadow-md hover:bg-muted sm:p-3"
+              className="shrink-0 disabled:opacity-50 rounded-full border border-border bg-card p-2.5 text-foreground shadow-md hover:bg-muted sm:p-3"
             >
               <ArrowRight
                 size={20}
