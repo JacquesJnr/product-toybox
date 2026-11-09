@@ -97,9 +97,10 @@ export function SmartSearch({ docs, onOpenSource, onShowOnGraph }: {
             submitDisabled={!scripts.some(item => item.question === question.trim())} submitLabel="Run suggested question" />
           <div className="flex flex-col items-center gap-2">
             <p className="text-xs text-muted-foreground">Suggested questions · the only runs in the toy</p>
+            {/* Three chips fit the 948px column on one row, as in Figma 208:298 (issue #23). They wrap only when the stage is narrower. */}
             <div className="flex flex-wrap justify-center gap-2">
               {scripts.map((item, index) => <motion.button key={item.question} onClick={() => startRun(index)} whileHover={{ y: -1 }} whileTap={{ scale: 0.97 }}
-                className="flex items-center gap-1.5 rounded-full border border-border/60 bg-card px-3.5 py-1.5 text-sm shadow-soft hover:border-ring">
+                className="flex items-center gap-1 rounded-full border border-border/60 bg-card px-3 py-1.5 text-sm shadow-soft hover:border-ring">
                 <CornerDownRight size={14} className="text-muted-foreground" />{item.question}
               </motion.button>)}
             </div>
