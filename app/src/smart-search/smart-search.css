@@ -1,13 +1,15 @@
-/* Layout only: where the Ask, the chat and the sphere sit in each phase. The look is Tailwind on the preset. */
+/* Layout only: where the Ask, the chat and the sphere sit in each phase. The look is Tailwind on the preset.
+   Waiting sphere: 450px, its dots starting about 20px under the chips, as in Figma 208:298. */
 .smart-search { position: relative; flex: 1; min-height: 620px; overflow: hidden; }
 
 .smart-search__ask {
-  /* Centered with margins, not a transform: motion animates the transform for the slide-in. */
+  /* Figma 208:298: the column is 948 wide so the chips sit on one row; the bar is 760.
+     Centered with margins, not a transform: motion animates the transform for the slide-in. */
   position: absolute; top: 80px; left: 0; right: 0; z-index: 1; margin-inline: auto;
-  display: flex; width: min(720px, 90%); flex-direction: column; align-items: center; gap: 16px;
+  display: flex; width: min(948px, 94%); flex-direction: column; align-items: center; gap: 16px;
 }
 
-.smart-search__sphere { position: absolute; z-index: 0; top: 300px; left: 50%; width: 300px; transform: translateX(-50%); pointer-events: none; }
+.smart-search__sphere { position: absolute; z-index: 0; top: 228px; left: 50%; width: 450px; transform: translateX(-50%); pointer-events: none; }
 .smart-search--reading .smart-search__sphere, .smart-search--answer .smart-search__sphere { pointer-events: auto; }
 .smart-search__sphere .sphere { max-width: 100%; }
 .smart-search--reading .smart-search__sphere,

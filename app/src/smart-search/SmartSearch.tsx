@@ -90,7 +90,7 @@ export function SmartSearch({ docs, onOpenSource, onShowOnGraph }: {
       {phase === 'ask' ? (
         <motion.div key="ask" className="smart-search__ask" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={SPRING}>
           <p className={label}>Smart Search · reads across meaning</p>
-          <ContextualAIBar defaultExpanded className="max-w-none" placeholder="Ask across the whole vault"
+          <ContextualAIBar defaultExpanded className="max-w-[760px]" placeholder="Ask across the whole vault"
             musicIcon={<Clock size={18} />} sparkleIcon={<Sparkles size={18} className="text-primary" />}
             tools={[<Paperclip key="a" size={18} />, <AtSign key="b" size={18} />]}
             value={question} onValueChange={setQuestion} onSubmit={submitQuestion}
