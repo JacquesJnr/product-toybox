@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { sourceLabels } from './annotations'
 import './sphere.css'
 
@@ -52,56 +52,82 @@ if (import.meta.env.DEV) {
   }
 }
 
-export function Sphere({ phase, reads, readingIndex }: SphereProps) {
-  const [rotation, setRotation] = useState<Rotation>({ x: 0, y: 0 })
-  const currentRotation = useRef(rotation)
-  const activeRead = phase === 'reading' && readingIndex !== null ? reads[readingIndex] : undefined
-  const activePoint = activeRead ? pointIndex(activeRead.documentId) : null
+// The one ease-in-out curve for every sphere animation. sphere.css has the same curve as --sphere-ease.
+const easeInOutCubic = (t: number) => t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2
 
-  useEffect(() => {
-    if (phase === 'answer' || (phase === 'reading' && activePoint === null)) return
-    const start = currentRotation.current
-    const target = phase === 'ask' ? { x: 0, y: 0 } : front(points[activePoint!])
-    const delta = { x: shortestAngle(start.x, target.x), y: shortestAngle(start.y, target.y) }
-    const duration = phase === 'ask' || window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 650
-    let frame = 0
-    const started = performance.now()
-    function animate(time: number) {
-      const progress = duration === 0 ? 1 : Math.min((time - started) / duration, 1)
-      const eased = progress * progress * (3 - 2 * progress)
-      const next = { x: start.x + delta.x * eased, y: start.y + delta.y * eased }
-      currentRotation.current = next
-      setRotation(next)
-      if (progress < 1) frame = requestAnimationFrame(animate)
-    }
-    frame = requestAnimationFrame(animate)
-    // Finish within the one-second read even when animation frames are delayed.
-    const settle = window.setTimeout(() => {
-      cancelAnimationFrame(frame)
-      currentRotation.current = target
-      setRotation(target)
-    }, duration)
-    return () => { cancelAnimationFrame(frame); window.clearTimeout(settle) }
-  }, [phase, activePoint])
-
-  const projected = points.map((point, index) => {
+function project(rotation: Rotation) {
+  return points.map((point, index) => {
     const turned = rotate(point, rotation)
     const depth = (turned.z + 1) / 2
     return { index, x: 323 + turned.x * 258, y: 323 + turned.y * 258, z: turned.z,
       size: 1.4 + depth * 4, opacity: 0.12 + depth * 0.78 }
   })
-  const labels = phase === 'answer' ? reads : activeRead ? [activeRead] : []
-  const sourcePoints = new Set(labels.map(read => pointIndex(read.documentId)))
+}
+
+export function Sphere({ phase, reads, readingIndex }: SphereProps) {
+  // React holds only the rotation a turn ends on. Each frame of a turn is written to the DOM directly.
+  const [rotation, setRotation] = useState<Rotation>({ x: 0, y: 0 })
+  const currentRotation = useRef(rotation)
+  const cloud = useRef<SVGGElement>(null)
+  const rects = useRef<(SVGRectElement | null)[]>([])
+  const activeRead = phase === 'reading' && readingIndex !== null ? reads[readingIndex] : undefined
+  const activePoint = activeRead ? pointIndex(activeRead.documentId) : null
+  // Sorts the diamonds back to front and places them. React keeps them in index order and never moves them.
+  function paint(next: Rotation) {
+    const sorted = project(next).sort((a, b) => a.z - b.z)
+    for (const point of sorted) {
+      const rect = rects.current[point.index]
+      if (!rect) continue
+      rect.setAttribute('x', String(point.x - point.size / 2)); rect.setAttribute('y', String(point.y - point.size / 2))
+      rect.setAttribute('width', String(point.size)); rect.setAttribute('height', String(point.size))
+      rect.setAttribute('transform', `rotate(45 ${point.x} ${point.y})`)
+      if (!rect.classList.contains('sphere__point--read')) rect.setAttribute('opacity', String(point.opacity))
+      cloud.current?.appendChild(rect)
+    }
+  }
+  // Labels wait until the turn that brings their node to the front has stopped, then fade in.
+  const turnKey = `${phase}-${activePoint}`
+  const [settledKey, setSettledKey] = useState(turnKey)
+
+  useEffect(() => {
+    if (phase === 'answer' || (phase === 'reading' && activePoint === null)) { setSettledKey(turnKey); return }
+    const start = currentRotation.current
+    const target = phase === 'ask' ? { x: 0, y: 0 } : front(points[activePoint!])
+    const delta = { x: shortestAngle(start.x, target.x), y: shortestAngle(start.y, target.y) }
+    // 650 ms ends well inside the one-second read, so each turn stops before the next read starts.
+    const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 650
+    let frame = 0
+    const started = performance.now()
+    function animate(time: number) {
+      const progress = duration === 0 ? 1 : Math.min((time - started) / duration, 1)
+      const eased = easeInOutCubic(progress)
+      const next = { x: start.x + delta.x * eased, y: start.y + delta.y * eased }
+      currentRotation.current = next
+      paint(next)
+      if (progress < 1) frame = requestAnimationFrame(animate)
+      else { setRotation(target); setSettledKey(turnKey) }
+    }
+    frame = requestAnimationFrame(animate)
+    return () => cancelAnimationFrame(frame)
+  }, [phase, activePoint, turnKey])
+
+  const projected = project(rotation)
+  // After each render (React writes the diamonds in index order), also mid-turn when the chat re-renders.
+  useLayoutEffect(() => paint(currentRotation.current))
+  // Every node read so far stays Peach. Labels: the active node while reading, every source in the answer.
+  const readPoints = new Set((phase === 'answer' ? reads : phase === 'reading' && readingIndex !== null ? reads.slice(0, readingIndex + 1) : []).map(read => pointIndex(read.documentId)))
+  const labels = settledKey !== turnKey ? [] : phase === 'answer' ? reads : activeRead ? [activeRead] : []
   const annotations = sourceLabels(labels.map(read => ({ ...projected[pointIndex(read.documentId)], title: read.title })))
 
   return (
     <svg className={`sphere sphere--${phase}`} viewBox="0 0 646 646" aria-hidden="true" focusable="false">
-      <g className="sphere__cloud">
-        {[...projected].sort((a, b) => a.z - b.z).map(point => (
-          <rect key={point.index} className={sourcePoints.has(point.index) ? 'sphere__point sphere__point--source' : 'sphere__point'}
+      <g ref={cloud} className="sphere__cloud">
+        {projected.map(point => (
+          <rect key={point.index} ref={element => { rects.current[point.index] = element }}
+            className={readPoints.has(point.index) ? 'sphere__point sphere__point--read' : 'sphere__point'}
             x={point.x - point.size / 2} y={point.y - point.size / 2}
             width={point.size} height={point.size} rx={0.7}
-            opacity={sourcePoints.has(point.index) ? 1 : point.opacity}
+            opacity={readPoints.has(point.index) ? 1 : point.opacity}
             transform={`rotate(45 ${point.x} ${point.y})`} />
         ))}
       </g>
@@ -111,6 +137,7 @@ export function Sphere({ phase, reads, readingIndex }: SphereProps) {
         return (
           <g key={read.documentId} className="sphere__annotation">
             <path className="sphere__leader" d={`M ${point.x} ${point.y} L ${label.endX} ${label.endY}`} />
+            {phase === 'reading' && <circle className="sphere__leader-dot" cx={label.endX} cy={label.endY} r={2} />}
             <foreignObject className={label.endX === label.x ? 'sphere__label-slot' : 'sphere__label-slot sphere__label-slot--left'}
               x={label.x} y={label.y} width={label.width} height={24}>
               <span className="sphere__label">{read.title}<span className="sphere__status"> · {phase === 'reading' ? 'reading' : 'source'}</span></span>
