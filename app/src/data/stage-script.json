@@ -1,232 +1,313 @@
 {
-  "id": "incentive-gate",
-  "question": "Should the board release executive incentive payments while delivery evidence is unverified, downside liquidity is tightening, and launch risk is unowned?",
-  "focus": "Protect investment and delivery capacity: weigh incentive release against downside cash headroom and unowned launch exposure; choose deferral to the next meeting or expedited review without treating missing target proof as missed targets.",
+  "id": "meridian-q1-go-live",
+  "question": "Is the Q1 go-live ready?",
+  "focus": "Can the consolidated ledger go live in Q1 FY27 without breaching the approved budget or the board's risk appetite?",
   "documentIds": [
+    "programme-report-sep",
+    "risk-update-r22",
+    "cutover-checklist",
+    "training-plan",
+    "programme-budget",
+    "migration-rehearsal",
+    "audit-preimpl",
+    "steerco-oct",
+    "coresys-cr",
     "board-pack-q3",
-    "exec-pay-review",
-    "policy-v4",
-    "minutes-sep",
-    "controls-memo",
+    "charter",
     "forecast-2027",
-    "liquidity-review",
-    "board-risk-report",
+    "training-log",
+    "supplier-review",
     "employment-contracts"
   ],
   "linkIds": [
+    "programme-report-sep->board-pack-q3",
+    "programme-report-sep->forecast-2027",
+    "risk-update-r22->charter",
+    "risk-update-r22->programme-report-sep",
+    "cutover-checklist->risk-update-r22",
+    "cutover-checklist->migration-rehearsal",
+    "cutover-checklist->training-plan",
+    "cutover-checklist->coresys-cr",
+    "training-plan->training-log",
+    "training-plan->cutover-checklist",
+    "training-plan->programme-report-sep",
+    "training-plan->employment-contracts",
+    "programme-budget->forecast-2027",
+    "programme-budget->programme-report-sep",
+    "programme-budget->board-pack-q3",
+    "migration-rehearsal->cutover-checklist",
+    "migration-rehearsal->risk-update-r22",
+    "audit-preimpl->cutover-checklist",
+    "audit-preimpl->coresys-cr",
+    "steerco-oct->programme-report-sep",
+    "steerco-oct->risk-update-r22",
+    "steerco-oct->board-pack-q3",
+    "coresys-cr->supplier-review",
+    "coresys-cr->steerco-oct",
+    "coresys-cr->programme-budget",
+    "board-pack-q3->charter",
     "board-pack-q3->forecast-2027",
-    "board-pack-q3->board-risk-report",
-    "board-pack-q3->exec-pay-review",
-    "board-pack-q3->minutes-sep",
-    "board-pack-q3->policy-v4",
-    "exec-pay-review->minutes-sep",
-    "exec-pay-review->policy-v4",
-    "exec-pay-review->board-pack-q3",
-    "exec-pay-review->employment-contracts",
-    "policy-v4->controls-memo",
-    "policy-v4->exec-pay-review",
-    "policy-v4->board-pack-q3",
-    "minutes-sep->board-pack-q3",
-    "minutes-sep->exec-pay-review",
-    "minutes-sep->controls-memo",
-    "controls-memo->policy-v4",
+    "charter->board-pack-q3",
     "forecast-2027->board-pack-q3",
-    "liquidity-review->forecast-2027",
-    "liquidity-review->board-pack-q3",
-    "board-risk-report->board-pack-q3"
+    "forecast-2027->supplier-review",
+    "supplier-review->forecast-2027"
   ],
   "sources": [
     {
-      "documentId": "board-pack-q3",
-      "passage": "text, paragraph 1",
+      "documentId": "programme-report-sep",
+      "passage": "p. 14",
       "status": "available",
-      "text": "Quarterly decisions are assessed against the charter and approved risk appetite. The board reviewed the 2027 forecast, supplier exposure, capital allocation and executive incentive proposals."
+      "text": "Milestone M3, go-live of the consolidated ledger in Q1 FY27, is on track. No material risks to the date have been identified by the programme office."
     },
     {
-      "documentId": "board-pack-q3",
-      "passage": "insight: p. 12",
+      "documentId": "risk-update-r22",
+      "passage": "insight: R-22",
       "status": "available",
-      "text": "Forecast movements affect the proposed capital and incentive decisions."
+      "text": "The Q1 go-live (M3) is rated high risk, with four open risks against the same milestone."
     },
     {
-      "documentId": "exec-pay-review",
-      "passage": "text, paragraph 1",
+      "documentId": "risk-update-r22",
+      "passage": "R-22, appetite note",
       "status": "available",
-      "text": "The committee reviewed proposed incentive payments and noted that delivery target evidence must be confirmed before payment. The follow-up check is assigned to Finance."
+      "text": "The board's risk appetite statement (§3) sets a low appetite for finance-system change: no core financial system goes live with an open high-rated risk."
     },
     {
-      "documentId": "exec-pay-review",
-      "passage": "insight: p. 3",
+      "documentId": "programme-report-sep",
+      "passage": "insight: p. 9",
       "status": "available",
-      "text": "The file does not include evidence that the proposed delivery targets were met."
+      "text": "Spend stands at 62% of the approved AED 48m budget."
     },
     {
-      "documentId": "policy-v4",
-      "passage": "text, paragraph 1",
+      "documentId": "programme-budget",
+      "passage": "D3",
       "status": "available",
-      "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+      "text": "The approved programme envelope is AED 48m, of which AED 29.8m (62%) is committed. Contingency of AED 2.4m (5%) is undrawn."
     },
     {
-      "documentId": "minutes-sep",
-      "passage": "text, paragraph 1",
+      "documentId": "programme-budget",
+      "passage": "insight: D14",
       "status": "available",
-      "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
+      "text": "A one-quarter slip adds about AED 2.1m, inside the AED 2.4m contingency."
     },
     {
-      "documentId": "controls-memo",
-      "passage": "text, paragraph 1",
+      "documentId": "programme-budget",
+      "passage": "insight: D22",
       "status": "available",
-      "text": "Control owners must retain evidence of review, record exceptions and escalate overdue actions. Finance checks incentive calculations against approved targets before payment."
+      "text": "The slip estimate excludes CoreSys support fees after 31 March 2027."
     },
     {
-      "documentId": "controls-memo",
+      "documentId": "cutover-checklist",
+      "passage": "insight: C4",
+      "status": "available",
+      "text": "23 of 31 go-live criteria are met; five open criteria are rated critical."
+    },
+    {
+      "documentId": "cutover-checklist",
+      "passage": "C4",
+      "status": "available",
+      "text": "Five open criteria are rated critical: migration reconciliation within the 0.5% tolerance (failed at rehearsal 2), regional training completion of at least 90% (not started), named owners for the intercompany and fixed-asset workstreams (open), bank payment file testing (in progress) and segregation-of-duties mapping (in progress)."
+    },
+    {
+      "documentId": "cutover-checklist",
+      "passage": "F12",
+      "status": "available",
+      "text": "Cutover is planned for the weekend of 6–7 February 2027. Rollback to the legacy ledger stays available for 60 days after cutover."
+    },
+    {
+      "documentId": "cutover-checklist",
+      "passage": "insight: A31",
+      "status": "available",
+      "text": "Vendor support and exit terms are not a checklist criterion."
+    },
+    {
+      "documentId": "training-plan",
+      "passage": "insight: C3",
+      "status": "available",
+      "text": "No regional training date is confirmed; sessions are pencilled from 16 November to 18 December."
+    },
+    {
+      "documentId": "training-plan",
+      "passage": "text",
+      "status": "available",
+      "text": "Sessions are pencilled from 16 November to 18 December 2026; the trainer contract is unsigned and no regional date is confirmed. Trained to date: 0 of 140. The go-live gate requires 90% (126 users)."
+    },
+    {
+      "documentId": "migration-rehearsal",
+      "passage": "p. 3",
+      "status": "available",
+      "text": "1,180 items (2.9%) failed reconciliation, against a go-live tolerance of 0.5%; rehearsal 1 in August failed 4.6%."
+    },
+    {
+      "documentId": "migration-rehearsal",
+      "passage": "insight: p. 5",
+      "status": "available",
+      "text": "Most breaks sit in intercompany balances and fixed-asset sub-ledgers."
+    },
+    {
+      "documentId": "audit-preimpl",
+      "passage": "insight: p. 4",
+      "status": "available",
+      "text": "Segregation-of-duties roles for 34 users are not yet mapped."
+    },
+    {
+      "documentId": "audit-preimpl",
+      "passage": "insight: p. 6",
+      "status": "available",
+      "text": "The go/no-go criteria do not cover vendor support or exit arrangements."
+    },
+    {
+      "documentId": "audit-preimpl",
+      "passage": "insight: p. 7",
+      "status": "available",
+      "text": "Internal Audit gives no opinion on vendor continuity."
+    },
+    {
+      "documentId": "steerco-oct",
+      "passage": "insight: 00:31:40",
+      "status": "available",
+      "text": "D-114: a go/no-go recommendation goes to the December board on 16 December."
+    },
+    {
+      "documentId": "steerco-oct",
+      "passage": "insight: 00:48:05",
+      "status": "available",
+      "text": "Procurement was asked to confirm CoreSys support terms before the December board."
+    },
+    {
+      "documentId": "coresys-cr",
+      "passage": "insight: p. 1",
+      "status": "available",
+      "text": "CoreSys states that standard support for the legacy ledger ends on 31 March 2027."
+    },
+    {
+      "documentId": "coresys-cr",
       "passage": "insight: p. 2",
       "status": "available",
-      "text": "Finance owns the documented target check before incentive payment."
+      "text": "CR-07 cites clause 14.2 of the CoreSys master services agreement; the agreement is not attached and has not been reviewed by Legal."
+    },
+    {
+      "documentId": "board-pack-q3",
+      "passage": "text",
+      "status": "available",
+      "text": "Quarterly decisions are assessed against the charter and approved risk appetite."
+    },
+    {
+      "documentId": "charter",
+      "passage": "insight: p. 2",
+      "status": "available",
+      "text": "The board sets appetite; executives own delivery and controls."
     },
     {
       "documentId": "forecast-2027",
-      "passage": "text, paragraph 1",
+      "passage": "text",
       "status": "available",
       "text": "The base case includes planned platform investment, supplier continuity costs and forecast incentive expense. Liquidity remains within the board threshold in the base case but narrows under the downside scenario."
     },
     {
-      "documentId": "liquidity-review",
-      "passage": "text, paragraph 1",
+      "documentId": "training-plan",
+      "passage": "F10",
       "status": "available",
-      "text": "Liquidity headroom is sensitive to delayed receipts and supplier payment timing. The downside case approaches the board threshold; treasury will update the forecast after collections are confirmed."
-    },
-    {
-      "documentId": "liquidity-review",
-      "passage": "insight: p. 1",
-      "status": "available",
-      "text": "Downside headroom approaches the board threshold if receipts are delayed."
-    },
-    {
-      "documentId": "board-risk-report",
-      "passage": "text, paragraph 1",
-      "status": "available",
-      "text": "Two critical suppliers remain outside the board’s recovery expectations. The report summarizes untested plans, risk-register actions, insurance limits and the forecast cost of service interruption. Nobody clearly owns the risk for the new market launch."
-    },
-    {
-      "documentId": "board-risk-report",
-      "passage": "insight: p. 7",
-      "status": "available",
-      "text": "Nobody clearly owns the risk for the new market launch."
+      "text": "Any weekend sessions during the close depend on what the employment contracts allow."
     },
     {
       "documentId": "employment-contracts",
       "passage": "Document content",
       "status": "unavailable",
-      "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Contract terms cannot be inferred from the citation."
+      "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Whether staff can be required to train at weekends cannot be inferred from the citation."
     }
   ],
   "analysis": {
     "agreement": [
       {
-        "id": "capital-choice",
-        "text": "Forecast movements affect proposed capital and incentive decisions; the base case includes planned platform investment, supplier continuity costs and forecast incentive expense.",
+        "id": "spend-on-plan",
+        "text": "Spend is on plan: AED 29.8m (62%) of the approved AED 48m is committed, and the AED 2.4m contingency is undrawn.",
         "documentIds": [
-          "board-pack-q3",
-          "forecast-2027"
+          "programme-report-sep",
+          "programme-budget"
         ],
         "linkIds": [
-          "board-pack-q3->forecast-2027"
+          "programme-budget->programme-report-sep"
         ],
         "sources": [
+          {
+            "documentId": "programme-report-sep",
+            "passage": "insight: p. 9",
+            "status": "available",
+            "text": "Spend stands at 62% of the approved AED 48m budget."
+          },
+          {
+            "documentId": "programme-budget",
+            "passage": "D3",
+            "status": "available",
+            "text": "The approved programme envelope is AED 48m, of which AED 29.8m (62%) is committed. Contingency of AED 2.4m (5%) is undrawn."
+          }
+        ],
+        "support": "supported"
+      },
+      {
+        "id": "same-open-items",
+        "text": "The risk register, the cutover checklist and the rehearsal results point at the same open items: reconciliation outside tolerance, regional training not started, and no owner for the intercompany and fixed-asset workstreams. The rehearsal breaks sit in exactly those two unowned workstreams.",
+        "documentIds": [
+          "risk-update-r22",
+          "cutover-checklist",
+          "migration-rehearsal"
+        ],
+        "linkIds": [
+          "cutover-checklist->risk-update-r22",
+          "cutover-checklist->migration-rehearsal",
+          "migration-rehearsal->risk-update-r22"
+        ],
+        "sources": [
+          {
+            "documentId": "risk-update-r22",
+            "passage": "R-18 to R-21",
+            "status": "available",
+            "text": "Four open risks sit against the same milestone: R-18 migrated balances do not yet reconcile within tolerance; R-19 regional finance training is not yet scheduled; R-20 the intercompany and fixed-asset workstreams have no named owner; R-21 bank payment file testing is incomplete."
+          },
+          {
+            "documentId": "cutover-checklist",
+            "passage": "C4",
+            "status": "available",
+            "text": "Five open criteria are rated critical: migration reconciliation within the 0.5% tolerance (failed at rehearsal 2), regional training completion of at least 90% (not started), named owners for the intercompany and fixed-asset workstreams (open), bank payment file testing (in progress) and segregation-of-duties mapping (in progress)."
+          },
+          {
+            "documentId": "migration-rehearsal",
+            "passage": "insight: p. 5",
+            "status": "available",
+            "text": "Most breaks sit in intercompany balances and fixed-asset sub-ledgers."
+          }
+        ],
+        "support": "supported"
+      },
+      {
+        "id": "board-decides",
+        "text": "The go/no-go call belongs to the December board on 16 December (D-114), judged against the cutover checklist and the approved risk appetite. Executives own delivery; the board sets appetite.",
+        "documentIds": [
+          "steerco-oct",
+          "board-pack-q3",
+          "charter"
+        ],
+        "linkIds": [
+          "steerco-oct->board-pack-q3"
+        ],
+        "sources": [
+          {
+            "documentId": "steerco-oct",
+            "passage": "insight: 00:31:40",
+            "status": "available",
+            "text": "D-114: a go/no-go recommendation goes to the December board on 16 December."
+          },
           {
             "documentId": "board-pack-q3",
-            "passage": "insight: p. 12",
+            "passage": "text",
             "status": "available",
-            "text": "Forecast movements affect the proposed capital and incentive decisions."
+            "text": "Quarterly decisions are assessed against the charter and approved risk appetite."
           },
           {
-            "documentId": "forecast-2027",
-            "passage": "text, paragraph 1",
+            "documentId": "charter",
+            "passage": "insight: p. 2",
             "status": "available",
-            "text": "The base case includes planned platform investment, supplier continuity costs and forecast incentive expense. Liquidity remains within the board threshold in the base case but narrows under the downside scenario."
-          }
-        ],
-        "support": "supported"
-      },
-      {
-        "id": "launch-exposure",
-        "text": "The board risk report identifies two critical suppliers outside the board’s recovery expectations and no clear owner for new market launch risk.",
-        "documentIds": [
-          "board-risk-report"
-        ],
-        "linkIds": [],
-        "sources": [
-          {
-            "documentId": "board-risk-report",
-            "passage": "text, paragraph 1",
-            "status": "available",
-            "text": "Two critical suppliers remain outside the board’s recovery expectations. The report summarizes untested plans, risk-register actions, insurance limits and the forecast cost of service interruption. Nobody clearly owns the risk for the new market launch."
-          },
-          {
-            "documentId": "board-risk-report",
-            "passage": "insight: p. 7",
-            "status": "available",
-            "text": "Nobody clearly owns the risk for the new market launch."
-          }
-        ],
-        "support": "supported"
-      },
-      {
-        "id": "approval-gate",
-        "text": "Incentive payments require documented delivery-target evidence and second-person review before approval. The pay review assigns the follow-up check to Finance.",
-        "documentIds": [
-          "policy-v4",
-          "exec-pay-review"
-        ],
-        "linkIds": [
-          "policy-v4->exec-pay-review"
-        ],
-        "sources": [
-          {
-            "documentId": "policy-v4",
-            "passage": "text, paragraph 1",
-            "status": "available",
-            "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
-          },
-          {
-            "documentId": "exec-pay-review",
-            "passage": "text, paragraph 1",
-            "status": "available",
-            "text": "The committee reviewed proposed incentive payments and noted that delivery target evidence must be confirmed before payment. The follow-up check is assigned to Finance."
-          }
-        ],
-        "support": "supported"
-      },
-      {
-        "id": "return-owner",
-        "text": "Finance checks incentive calculations against approved targets before payment. The committee assigned the evidence check to Finance for return at the next meeting; treasury will update the forecast after collections are confirmed.",
-        "documentIds": [
-          "controls-memo",
-          "minutes-sep",
-          "liquidity-review"
-        ],
-        "linkIds": [
-          "minutes-sep->controls-memo"
-        ],
-        "sources": [
-          {
-            "documentId": "controls-memo",
-            "passage": "text, paragraph 1",
-            "status": "available",
-            "text": "Control owners must retain evidence of review, record exceptions and escalate overdue actions. Finance checks incentive calculations against approved targets before payment."
-          },
-          {
-            "documentId": "minutes-sep",
-            "passage": "text, paragraph 1",
-            "status": "available",
-            "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
-          },
-          {
-            "documentId": "liquidity-review",
-            "passage": "text, paragraph 1",
-            "status": "available",
-            "text": "Liquidity headroom is sensitive to delayed receipts and supplier payment timing. The downside case approaches the board threshold; treasury will update the forecast after collections are confirmed."
+            "text": "The board sets appetite; executives own delivery and controls."
           }
         ],
         "support": "supported"
@@ -234,27 +315,53 @@
     ],
     "conflict": [
       {
-        "id": "cash-tension",
-        "text": "Forecast 2027 says base-case liquidity remains within the board threshold; Liquidity review says the downside case approaches that threshold. These documents give competing bases for a release decision: base-case capacity versus downside vulnerability. This is a scenario-dependent conflict in decision signals, not a factual contradiction or evidence of a threshold breach.",
+        "id": "m3-status",
+        "text": "The programme report says M3 is on track and that no material risks to the date have been identified. The risk register, updated four days earlier, rates the same milestone high with four open risks. Both are shown; neither overrides the other.",
         "documentIds": [
-          "forecast-2027",
-          "liquidity-review"
+          "programme-report-sep",
+          "risk-update-r22"
         ],
         "linkIds": [
-          "liquidity-review->forecast-2027"
+          "risk-update-r22->programme-report-sep"
         ],
         "sources": [
           {
-            "documentId": "forecast-2027",
-            "passage": "text, paragraph 1",
+            "documentId": "programme-report-sep",
+            "passage": "p. 14",
             "status": "available",
-            "text": "The base case includes planned platform investment, supplier continuity costs and forecast incentive expense. Liquidity remains within the board threshold in the base case but narrows under the downside scenario."
+            "text": "Milestone M3, go-live of the consolidated ledger in Q1 FY27, is on track. No material risks to the date have been identified by the programme office."
           },
           {
-            "documentId": "liquidity-review",
-            "passage": "text, paragraph 1",
+            "documentId": "risk-update-r22",
+            "passage": "insight: R-22",
             "status": "available",
-            "text": "Liquidity headroom is sensitive to delayed receipts and supplier payment timing. The downside case approaches the board threshold; treasury will update the forecast after collections are confirmed."
+            "text": "The Q1 go-live (M3) is rated high risk, with four open risks against the same milestone."
+          }
+        ],
+        "support": "supported"
+      },
+      {
+        "id": "rollback-window",
+        "text": "The rollback plan outlasts the vendor: with cutover on 6–7 February and 60 days of rollback, the legacy ledger is needed into early April, but CoreSys states its standard support ends on 31 March 2027. The support date is the vendor's statement, not checked against the contract.",
+        "documentIds": [
+          "cutover-checklist",
+          "coresys-cr"
+        ],
+        "linkIds": [
+          "cutover-checklist->coresys-cr"
+        ],
+        "sources": [
+          {
+            "documentId": "cutover-checklist",
+            "passage": "F12",
+            "status": "available",
+            "text": "Cutover is planned for the weekend of 6–7 February 2027. Rollback to the legacy ledger stays available for 60 days after cutover."
+          },
+          {
+            "documentId": "coresys-cr",
+            "passage": "insight: p. 1",
+            "status": "available",
+            "text": "CoreSys states that standard support for the legacy ledger ends on 31 March 2027."
           }
         ],
         "support": "supported"
@@ -262,32 +369,82 @@
     ],
     "assumptions": [
       {
-        "id": "safe-to-wait",
-        "text": "Flip assumption: waiting for the next meeting creates no material contractual or retention cost. This is not established in the vault. If wrong, change from waiting for the next meeting to expedited review as soon as the evidence and cash gates can be assessed; it would not justify asserting targets were met or bypassing policy. Resolve with signed payment terms, a confirmed meeting date and documented retention exposure.",
+        "id": "training-holds",
+        "text": "Regional training finishes before cutover. No source confirms it: no regional date is fixed, the trainer contract is unsigned and nobody is trained yet.",
         "documentIds": [
-          "minutes-sep",
-          "employment-contracts",
-          "exec-pay-review"
+          "programme-report-sep",
+          "training-plan"
+        ],
+        "linkIds": [
+          "training-plan->programme-report-sep"
+        ],
+        "sources": [
+          {
+            "documentId": "programme-report-sep",
+            "passage": "insight: p. 15",
+            "status": "available",
+            "text": "Training for regional finance teams begins in November, ahead of the December readiness review."
+          },
+          {
+            "documentId": "training-plan",
+            "passage": "insight: C3",
+            "status": "available",
+            "text": "No regional training date is confirmed; sessions are pencilled from 16 November to 18 December."
+          },
+          {
+            "documentId": "training-plan",
+            "passage": "text",
+            "status": "available",
+            "text": "Sessions are pencilled from 16 November to 18 December 2026; the trainer contract is unsigned and no regional date is confirmed. Trained to date: 0 of 140. The go-live gate requires 90% (126 users)."
+          }
+        ],
+        "support": "unknown"
+      },
+      {
+        "id": "rehearsal-3",
+        "text": "Rehearsal 3 on 5–6 December brings reconciliation inside 0.5%. Failures fell from 4.6% to 2.9%; no source forecasts the third result.",
+        "documentIds": [
+          "migration-rehearsal"
         ],
         "linkIds": [],
         "sources": [
           {
-            "documentId": "minutes-sep",
-            "passage": "text, paragraph 1",
+            "documentId": "migration-rehearsal",
+            "passage": "p. 3",
             "status": "available",
-            "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
+            "text": "1,180 items (2.9%) failed reconciliation, against a go-live tolerance of 0.5%; rehearsal 1 in August failed 4.6%."
           },
           {
-            "documentId": "employment-contracts",
-            "passage": "Document content",
-            "status": "unavailable",
-            "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Contract terms cannot be inferred from the citation."
+            "documentId": "migration-rehearsal",
+            "passage": "p. 6",
+            "status": "available",
+            "text": "Rehearsal 3 is scheduled for 5–6 December 2026; a fourth rehearsal fits only if go-live moves."
+          }
+        ],
+        "support": "unknown"
+      },
+      {
+        "id": "contingency-in-forecast",
+        "text": "The 2027 forecast's planned platform investment already carries the programme contingency, so a slip inside contingency does not move liquidity. No source states this.",
+        "documentIds": [
+          "forecast-2027",
+          "programme-budget"
+        ],
+        "linkIds": [
+          "programme-budget->forecast-2027"
+        ],
+        "sources": [
+          {
+            "documentId": "forecast-2027",
+            "passage": "text",
+            "status": "available",
+            "text": "The base case includes planned platform investment, supplier continuity costs and forecast incentive expense. Liquidity remains within the board threshold in the base case but narrows under the downside scenario."
           },
           {
-            "documentId": "exec-pay-review",
-            "passage": "insight: p. 3",
+            "documentId": "programme-budget",
+            "passage": "insight: D14",
             "status": "available",
-            "text": "The file does not include evidence that the proposed delivery targets were met."
+            "text": "A one-quarter slip adds about AED 2.1m, inside the AED 2.4m contingency."
           }
         ],
         "support": "unknown"
@@ -295,173 +452,126 @@
     ],
     "unknowns": [
       {
-        "id": "target-proof",
-        "text": "Whether delivery targets were met is unknown. The pay review explicitly lacks proof; that is absence of evidence, not evidence targets were missed. Resolve with approved target definitions, actual delivery results and a documented second-person review.",
+        "id": "green-vs-criteria",
+        "text": "Whether the programme is still green. The September report calls it green; the 6 November checklist has five critical criteria open. Six weeks separate them, so this may be change over time rather than a contradiction, and no later status report is in the vault to say which.",
         "documentIds": [
-          "exec-pay-review",
-          "policy-v4"
+          "programme-report-sep",
+          "cutover-checklist"
         ],
         "linkIds": [],
         "sources": [
           {
-            "documentId": "exec-pay-review",
-            "passage": "insight: p. 3",
+            "documentId": "programme-report-sep",
+            "passage": "text",
             "status": "available",
-            "text": "The file does not include evidence that the proposed delivery targets were met."
+            "text": "Overall programme status is green."
           },
           {
-            "documentId": "policy-v4",
-            "passage": "text, paragraph 1",
+            "documentId": "cutover-checklist",
+            "passage": "insight: C4",
             "status": "available",
-            "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+            "text": "23 of 31 go-live criteria are met; five open criteria are rated critical."
           }
         ],
         "support": "unknown"
       },
       {
-        "id": "payment-size",
-        "text": "The proposed payout amount and its incremental cash impact are not in the vault. The forecast includes incentive expense but supplies no amount or payment schedule in its text. Resolve with the payout schedule and a reconciled cash-flow model showing the effect of release versus deferral.",
+        "id": "failed-cutover-cost",
+        "text": "The cost of going live in Q1 and failing. Finance has costed a one-quarter slip at about AED 2.1m, but no source costs a failed cutover or a rollback to the legacy ledger. The board can see the price of waiting, not the price of being wrong.",
         "documentIds": [
-          "forecast-2027",
-          "exec-pay-review"
+          "programme-budget"
         ],
         "linkIds": [],
         "sources": [
           {
-            "documentId": "forecast-2027",
-            "passage": "text, paragraph 1",
+            "documentId": "programme-budget",
+            "passage": "D14",
             "status": "available",
-            "text": "The base case includes planned platform investment, supplier continuity costs and forecast incentive expense. Liquidity remains within the board threshold in the base case but narrows under the downside scenario."
-          },
-          {
-            "documentId": "exec-pay-review",
-            "passage": "text, paragraph 1",
-            "status": "available",
-            "text": "The committee reviewed proposed incentive payments and noted that delivery target evidence must be confirmed before payment. The follow-up check is assigned to Finance."
+            "text": "A one-quarter slip of go-live adds about AED 2.1m: AED 0.9m for parallel running of the legacy ledger, AED 0.8m for extended contractor cover and AED 0.4m for an extra migration rehearsal and retraining."
           }
         ],
         "support": "unknown"
       },
       {
-        "id": "payment-date",
-        "text": "The payout date and any contractual deadline are not in the vault. Return at the next meeting is an evidence-check deadline, not a payment date. Resolve with signed payment terms, a payment calendar and the actual next-meeting date.",
+        "id": "vendor-terms",
+        "text": "Vendor support and exit terms. CR-07 cites clause 14.2 of the CoreSys master services agreement, but the agreement is not in the vault and Legal has not read it. The price, the real notice period and whether support can run past 31 March 2027 are unknown. This is absence of evidence, not evidence that the terms are bad.",
         "documentIds": [
-          "minutes-sep",
-          "employment-contracts"
-        ],
-        "linkIds": [],
-        "sources": [
-          {
-            "documentId": "minutes-sep",
-            "passage": "text, paragraph 1",
-            "status": "available",
-            "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
-          },
-          {
-            "documentId": "employment-contracts",
-            "passage": "Document content",
-            "status": "unavailable",
-            "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Contract terms cannot be inferred from the citation."
-          }
-        ],
-        "support": "unknown"
-      },
-      {
-        "id": "retention-cost",
-        "text": "Any retention risk or business cost of delaying incentives is not in the vault. It must not be treated as zero or asserted as a reason to pay. Resolve with documented retention exposure, affected roles and evidence of consequences of delay.",
-        "documentIds": [
-          "exec-pay-review",
-          "employment-contracts"
-        ],
-        "linkIds": [],
-        "sources": [
-          {
-            "documentId": "exec-pay-review",
-            "passage": "text, paragraph 1",
-            "status": "available",
-            "text": "The committee reviewed proposed incentive payments and noted that delivery target evidence must be confirmed before payment. The follow-up check is assigned to Finance."
-          },
-          {
-            "documentId": "employment-contracts",
-            "passage": "Document content",
-            "status": "unavailable",
-            "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Contract terms cannot be inferred from the citation."
-          }
-        ],
-        "support": "unknown"
-      },
-      {
-        "id": "contract-rights",
-        "text": "Whether the missing employment contracts create payment obligations, discretion or exceptions is unknown. The cited contracts are not in the vault. Resolve with signed contracts and an assessment of the applicable payment provisions; the citation alone establishes no entitlement.",
-        "documentIds": [
-          "employment-contracts",
-          "exec-pay-review"
+          "coresys-cr",
+          "audit-preimpl"
         ],
         "linkIds": [
-          "exec-pay-review->employment-contracts"
+          "audit-preimpl->coresys-cr"
         ],
         "sources": [
           {
-            "documentId": "employment-contracts",
-            "passage": "Document content",
-            "status": "unavailable",
-            "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Contract terms cannot be inferred from the citation."
+            "documentId": "coresys-cr",
+            "passage": "insight: p. 2",
+            "status": "available",
+            "text": "CR-07 cites clause 14.2 of the CoreSys master services agreement; the agreement is not attached and has not been reviewed by Legal."
           },
           {
-            "documentId": "exec-pay-review",
-            "passage": "text, paragraph 1",
+            "documentId": "coresys-cr",
+            "passage": "p. 2",
             "status": "available",
-            "text": "The committee reviewed proposed incentive payments and noted that delivery target evidence must be confirmed before payment. The follow-up check is assigned to Finance."
-          }
-        ],
-        "support": "unknown"
-      },
-      {
-        "id": "cash-after-release",
-        "text": "Whether release leaves adequate downside headroom after confirmed collections is unknown. The vault gives no quantified headroom, threshold, payout impact or completed post-collections update. Resolve with treasury’s dated update, confirmed receipts, payment timing and the applicable board threshold.",
-        "documentIds": [
-          "liquidity-review",
-          "forecast-2027"
-        ],
-        "linkIds": [
-          "liquidity-review->forecast-2027"
-        ],
-        "sources": [
-          {
-            "documentId": "liquidity-review",
-            "passage": "text, paragraph 1",
-            "status": "available",
-            "text": "Liquidity headroom is sensitive to delayed receipts and supplier payment timing. The downside case approaches the board threshold; treasury will update the forecast after collections are confirmed."
+            "text": "CR-07 does not state a price."
           },
           {
-            "documentId": "forecast-2027",
-            "passage": "text, paragraph 1",
-            "status": "available",
-            "text": "The base case includes planned platform investment, supplier continuity costs and forecast incentive expense. Liquidity remains within the board threshold in the base case but narrows under the downside scenario."
-          }
-        ],
-        "support": "unknown"
-      },
-      {
-        "id": "launch-pay-link",
-        "text": "Whether incentive targets include launch milestones, and whether release changes launch delivery or risk ownership, is unknown. Neither the pay review nor the risk report states that relationship. Resolve with the incentive scorecard, milestone mapping and an accepted launch-risk owner and action plan.",
-        "documentIds": [
-          "exec-pay-review",
-          "board-risk-report"
-        ],
-        "linkIds": [],
-        "sources": [
-          {
-            "documentId": "exec-pay-review",
-            "passage": "insight: p. 3",
-            "status": "available",
-            "text": "The file does not include evidence that the proposed delivery targets were met."
-          },
-          {
-            "documentId": "board-risk-report",
+            "documentId": "audit-preimpl",
             "passage": "insight: p. 7",
             "status": "available",
-            "text": "Nobody clearly owns the risk for the new market launch."
+            "text": "Internal Audit gives no opinion on vendor continuity."
+          }
+        ],
+        "support": "unknown"
+      },
+      {
+        "id": "weekend-training",
+        "text": "Whether regional finance staff can be required to train at weekends during the January close, the only fallback if December sessions slip. The training plan points to the employment contracts, which are not in the vault; their terms cannot be inferred.",
+        "documentIds": [
+          "training-plan",
+          "employment-contracts"
+        ],
+        "linkIds": [
+          "training-plan->employment-contracts"
+        ],
+        "sources": [
+          {
+            "documentId": "training-plan",
+            "passage": "F10",
+            "status": "available",
+            "text": "Any weekend sessions during the close depend on what the employment contracts allow."
+          },
+          {
+            "documentId": "employment-contracts",
+            "passage": "Document content",
+            "status": "unavailable",
+            "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Whether staff can be required to train at weekends cannot be inferred from the citation."
+          }
+        ],
+        "support": "unknown"
+      },
+      {
+        "id": "vendor-not-tested",
+        "text": "Nothing in the go/no-go tests the vendor: vendor support is not a checklist criterion, and Internal Audit says the criteria do not cover it. That shows the risk has not been assessed, not that it is small.",
+        "documentIds": [
+          "cutover-checklist",
+          "audit-preimpl"
+        ],
+        "linkIds": [
+          "audit-preimpl->cutover-checklist"
+        ],
+        "sources": [
+          {
+            "documentId": "cutover-checklist",
+            "passage": "insight: A31",
+            "status": "available",
+            "text": "Vendor support and exit terms are not a checklist criterion."
+          },
+          {
+            "documentId": "audit-preimpl",
+            "passage": "insight: p. 6",
+            "status": "available",
+            "text": "The go/no-go criteria do not cover vendor support or exit arrangements."
           }
         ],
         "support": "unknown"
@@ -473,131 +583,185 @@
     "steps": [
       {
         "agent": "Finance",
-        "text": "The forecast already includes incentive expense alongside platform investment and supplier continuity costs, and base-case liquidity is within threshold. I favour expedited review rather than waiting automatically for another meeting, but only once the target and second-person checks and post-collections cash assessment are available. Finance owns the target check; Sofia Lindqvist is the Controls memo author and Financial Controller, not a separately named assignee in its text. We do not know the payout amount or its incremental cash effect. This is a scripted position.",
         "documentIds": [
+          "programme-budget",
           "forecast-2027",
-          "controls-memo",
-          "liquidity-review"
+          "programme-report-sep"
         ],
+        "text": "Scenario: go-live slips one quarter. A one-quarter slip costs about AED 2.1m (parallel running AED 0.9m, contractor cover AED 0.8m, extra rehearsal and retraining AED 0.4m) against an undrawn AED 2.4m contingency, leaving AED 0.3m. The delay is affordable on these figures. But it is not free, and AED 2.1m of parallel running trains nobody: a slip only pays if it fixes the constraint. Two caveats I would put to the board: the estimate excludes CoreSys fees after 31 March 2027, which could eat the AED 0.3m and more; the 2027 forecast's downside liquidity is already narrower; and nobody has costed the other branch, a failed Q1 cutover and rollback, so the board is pricing only the cost of waiting. Position: the delay is affordable; hold Q1 to a hard gate on 16 December and slip only if the gate fails. Scripted position.",
         "sources": [
           {
+            "documentId": "programme-budget",
+            "passage": "insight: D14",
+            "status": "available",
+            "text": "A one-quarter slip adds about AED 2.1m, inside the AED 2.4m contingency."
+          },
+          {
+            "documentId": "programme-budget",
+            "passage": "D14",
+            "status": "available",
+            "text": "A one-quarter slip of go-live adds about AED 2.1m: AED 0.9m for parallel running of the legacy ledger, AED 0.8m for extended contractor cover and AED 0.4m for an extra migration rehearsal and retraining."
+          },
+          {
+            "documentId": "programme-budget",
+            "passage": "insight: D22",
+            "status": "available",
+            "text": "The slip estimate excludes CoreSys support fees after 31 March 2027."
+          },
+          {
+            "documentId": "programme-budget",
+            "passage": "D3",
+            "status": "available",
+            "text": "The approved programme envelope is AED 48m, of which AED 29.8m (62%) is committed. Contingency of AED 2.4m (5%) is undrawn."
+          },
+          {
             "documentId": "forecast-2027",
-            "passage": "text, paragraph 1",
+            "passage": "text",
             "status": "available",
             "text": "The base case includes planned platform investment, supplier continuity costs and forecast incentive expense. Liquidity remains within the board threshold in the base case but narrows under the downside scenario."
-          },
-          {
-            "documentId": "controls-memo",
-            "passage": "insight: p. 2",
-            "status": "available",
-            "text": "Finance owns the documented target check before incentive payment."
-          },
-          {
-            "documentId": "liquidity-review",
-            "passage": "text, paragraph 1",
-            "status": "available",
-            "text": "Liquidity headroom is sensitive to delayed receipts and supplier payment timing. The downside case approaches the board threshold; treasury will update the forecast after collections are confirmed."
           }
         ]
       },
       {
         "agent": "Risk",
-        "text": "The later Liquidity review puts downside cash near the board threshold, while the Board risk report identifies untested supplier recovery and unowned launch risk. I favour returning at the next meeting to review incentives with cash and execution exposure. There is no proof of a threshold breach and no evidence that holding incentives would fix launch ownership. This is a scripted risk judgement, not a documented payment veto.",
         "documentIds": [
-          "liquidity-review",
-          "board-risk-report",
-          "minutes-sep"
+          "risk-update-r22",
+          "charter",
+          "migration-rehearsal"
         ],
+        "text": "R-22 rates the Q1 go-live high, with four open risks against M3. The board's appetite statement, as recorded in the register, allows no core financial system to go live with an open high-rated risk. Rehearsal 2 failed 2.9% of items against a 0.5% tolerance. On today's evidence a Q1 go-live sits outside appetite; going ahead would need the board to accept that exception explicitly, on the record. The delay is safer. Position: slip one quarter now, unless rehearsal 3 passes and R-22 is re-rated below high before 16 December. Scripted position.",
         "sources": [
           {
-            "documentId": "liquidity-review",
-            "passage": "insight: p. 1",
+            "documentId": "risk-update-r22",
+            "passage": "insight: R-22",
             "status": "available",
-            "text": "Downside headroom approaches the board threshold if receipts are delayed."
+            "text": "The Q1 go-live (M3) is rated high risk, with four open risks against the same milestone."
           },
           {
-            "documentId": "board-risk-report",
-            "passage": "text, paragraph 1",
+            "documentId": "risk-update-r22",
+            "passage": "R-22, appetite note",
             "status": "available",
-            "text": "Two critical suppliers remain outside the board’s recovery expectations. The report summarizes untested plans, risk-register actions, insurance limits and the forecast cost of service interruption. Nobody clearly owns the risk for the new market launch."
+            "text": "The board's risk appetite statement (§3) sets a low appetite for finance-system change: no core financial system goes live with an open high-rated risk."
           },
           {
-            "documentId": "minutes-sep",
-            "passage": "text, paragraph 1",
+            "documentId": "charter",
+            "passage": "insight: p. 2",
             "status": "available",
-            "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
+            "text": "The board sets appetite; executives own delivery and controls."
+          },
+          {
+            "documentId": "migration-rehearsal",
+            "passage": "p. 3",
+            "status": "available",
+            "text": "1,180 items (2.9%) failed reconciliation, against a go-live tolerance of 0.5%; rehearsal 1 in August failed 4.6%."
           }
         ]
       },
       {
         "agent": "Operations",
-        "text": "The Board pack explicitly connects forecast movements to capital and incentive decisions. The committee asked Finance for evidence at the next meeting, and Policy v4 requires documented target achievement and second-person review before approval. Return the delivery results so we can distinguish missing proof from actual missed targets; do not assume these targets are launch milestones. Preserve investment and delivery options while the evidence is assembled. This is a scripted recommendation.",
         "documentIds": [
-          "board-pack-q3",
-          "minutes-sep",
-          "policy-v4",
-          "exec-pay-review"
+          "training-plan",
+          "cutover-checklist",
+          "training-log",
+          "employment-contracts"
         ],
+        "text": "Fix the tightest constraint, and that is training, not migration. 140 users must be trained and assessed before they get access; 0 are trained, no regional date is confirmed and the trainer contract is unsigned. The year-end close freezes training from 4 to 22 January, so if December sessions slip only two weeks remain before cutover. Overdue control-owner modules in the training log show completion dates already slipping elsewhere. Training is the critical path for both dates: a slip without a signed trainer contract just moves the problem. The weekend fallback during the close depends on employment contracts that are not in the vault. Leading indicator for the board: trainer contract signed and regional dates confirmed this month. Scripted position.",
         "sources": [
           {
-            "documentId": "board-pack-q3",
-            "passage": "insight: p. 12",
+            "documentId": "training-plan",
+            "passage": "text",
             "status": "available",
-            "text": "Forecast movements affect the proposed capital and incentive decisions."
+            "text": "Sessions are pencilled from 16 November to 18 December 2026; the trainer contract is unsigned and no regional date is confirmed. Trained to date: 0 of 140. The go-live gate requires 90% (126 users)."
           },
           {
-            "documentId": "minutes-sep",
-            "passage": "text, paragraph 1",
+            "documentId": "training-plan",
+            "passage": "insight: B2",
             "status": "available",
-            "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
+            "text": "Users without training receive no ledger access at cutover."
           },
           {
-            "documentId": "policy-v4",
-            "passage": "text, paragraph 1",
+            "documentId": "training-plan",
+            "passage": "insight: F9",
             "status": "available",
-            "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+            "text": "Sessions that slip past December leave two weeks of training before cutover."
           },
           {
-            "documentId": "exec-pay-review",
-            "passage": "insight: p. 3",
+            "documentId": "training-plan",
+            "passage": "F10",
             "status": "available",
-            "text": "The file does not include evidence that the proposed delivery targets were met."
+            "text": "Any weekend sessions during the close depend on what the employment contracts allow."
+          },
+          {
+            "documentId": "employment-contracts",
+            "passage": "Document content",
+            "status": "unavailable",
+            "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Whether staff can be required to train at weekends cannot be inferred from the citation."
+          },
+          {
+            "documentId": "cutover-checklist",
+            "passage": "C4",
+            "status": "available",
+            "text": "Five open criteria are rated critical: migration reconciliation within the 0.5% tolerance (failed at rehearsal 2), regional training completion of at least 90% (not started), named owners for the intercompany and fixed-asset workstreams (open), bank payment file testing (in progress) and segregation-of-duties mapping (in progress)."
+          },
+          {
+            "documentId": "training-log",
+            "passage": "text",
+            "status": "available",
+            "text": "Several control-owner modules remain overdue; managers have been asked to confirm completion dates."
           }
         ]
       },
       {
         "agent": "Challenger",
-        "text": "Our preference to wait assumes no material contractual or retention cost before the next meeting. Employment contracts are not in the vault; neither the payout deadline nor retention exposure is supplied. If that assumption fails, expedite review rather than infer permission to pay. The pay review says target evidence is absent, not that targets were missed. Demand the terms, amounts and dated cash update before choosing between deferral and expedited review. This is a scripted challenge.",
         "documentIds": [
-          "employment-contracts",
-          "exec-pay-review",
-          "minutes-sep",
-          "liquidity-review"
+          "coresys-cr",
+          "audit-preimpl",
+          "supplier-review",
+          "steerco-oct"
         ],
+        "text": "Neither the programme report nor the risk register tests the vendor. CoreSys says legacy support ends on 31 March 2027. A February cutover with 60 days of rollback needs the legacy ledger into April; a one-quarter slip runs it to mid-year. If support cannot be extended, both dates fail. CR-07 cites a 90-day notice period under clause 14.2; if that reading is right, notice falls due around 1 January 2027, two weeks after the December board. Nobody at Meridian has read the agreement, Audit gives no opinion and the go/no-go criteria do not ask. Evidence is missing on the vendor contract. That is a gap, not a finding that the terms are bad. Scripted position.",
         "sources": [
           {
-            "documentId": "employment-contracts",
-            "passage": "Document content",
-            "status": "unavailable",
-            "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Contract terms cannot be inferred from the citation."
+            "documentId": "coresys-cr",
+            "passage": "insight: p. 1",
+            "status": "available",
+            "text": "CoreSys states that standard support for the legacy ledger ends on 31 March 2027."
           },
           {
-            "documentId": "exec-pay-review",
-            "passage": "insight: p. 3",
+            "documentId": "coresys-cr",
+            "passage": "p. 2",
             "status": "available",
-            "text": "The file does not include evidence that the proposed delivery targets were met."
+            "text": "CR-07 cites clause 14.2 of the CoreSys master services agreement for extension pricing and a 90-day notice period."
           },
           {
-            "documentId": "minutes-sep",
-            "passage": "text, paragraph 1",
+            "documentId": "coresys-cr",
+            "passage": "p. 2",
             "status": "available",
-            "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
+            "text": "CR-07 does not state a price."
           },
           {
-            "documentId": "liquidity-review",
-            "passage": "text, paragraph 1",
+            "documentId": "audit-preimpl",
+            "passage": "insight: p. 6",
             "status": "available",
-            "text": "Liquidity headroom is sensitive to delayed receipts and supplier payment timing. The downside case approaches the board threshold; treasury will update the forecast after collections are confirmed."
+            "text": "The go/no-go criteria do not cover vendor support or exit arrangements."
+          },
+          {
+            "documentId": "audit-preimpl",
+            "passage": "insight: p. 7",
+            "status": "available",
+            "text": "Internal Audit gives no opinion on vendor continuity."
+          },
+          {
+            "documentId": "supplier-review",
+            "passage": "text",
+            "status": "available",
+            "text": "Contract reviews identify service dependencies; owners are confirming recovery evidence and escalation contacts."
+          },
+          {
+            "documentId": "steerco-oct",
+            "passage": "insight: 00:48:05",
+            "status": "available",
+            "text": "Procurement was asked to confirm CoreSys support terms before the December board."
           }
         ]
       }
@@ -605,182 +769,130 @@
     "result": {
       "agreement": [
         {
-          "id": "defer-release",
-          "text": "Scripted recommendation: do not release now; bring the decision back at the next meeting with verified targets, second-person review, contract terms and a post-collections cash assessment. Review the unowned launch exposure alongside the capital decision, without inventing a launch-linked payout condition. Named alternative: expedite review before that meeting once the same evidence gates can be assessed. Deferral preserves the option to retain cash while uncertainty is resolved; expedited review reduces possible delay costs, which are unquantified. This is a recommendation, not a documented board decision or proof of its optimality.",
+          "id": "slip-affordable",
+          "text": "A one-quarter slip is affordable within contingency on the figures supplied: about AED 2.1m against AED 2.4m, before any CoreSys fees.",
           "documentIds": [
-            "board-pack-q3",
-            "policy-v4",
-            "exec-pay-review",
-            "minutes-sep",
-            "liquidity-review",
-            "board-risk-report",
-            "employment-contracts"
+            "programme-budget"
           ],
           "linkIds": [],
           "sources": [
             {
-              "documentId": "board-pack-q3",
-              "passage": "insight: p. 12",
+              "documentId": "programme-budget",
+              "passage": "insight: D14",
               "status": "available",
-              "text": "Forecast movements affect the proposed capital and incentive decisions."
+              "text": "A one-quarter slip adds about AED 2.1m, inside the AED 2.4m contingency."
             },
             {
-              "documentId": "policy-v4",
-              "passage": "text, paragraph 1",
+              "documentId": "programme-budget",
+              "passage": "insight: D22",
               "status": "available",
-              "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
-            },
-            {
-              "documentId": "exec-pay-review",
-              "passage": "insight: p. 3",
-              "status": "available",
-              "text": "The file does not include evidence that the proposed delivery targets were met."
-            },
-            {
-              "documentId": "minutes-sep",
-              "passage": "text, paragraph 1",
-              "status": "available",
-              "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
-            },
-            {
-              "documentId": "liquidity-review",
-              "passage": "text, paragraph 1",
-              "status": "available",
-              "text": "Liquidity headroom is sensitive to delayed receipts and supplier payment timing. The downside case approaches the board threshold; treasury will update the forecast after collections are confirmed."
-            },
-            {
-              "documentId": "board-risk-report",
-              "passage": "insight: p. 7",
-              "status": "available",
-              "text": "Nobody clearly owns the risk for the new market launch."
-            },
-            {
-              "documentId": "employment-contracts",
-              "passage": "Document content",
-              "status": "unavailable",
-              "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Contract terms cannot be inferred from the citation."
+              "text": "The slip estimate excludes CoreSys support fees after 31 March 2027."
             }
           ],
-          "support": "unknown"
+          "support": "supported"
+        },
+        {
+          "id": "not-ready-today",
+          "text": "On today's evidence M3 does not meet its own go-live criteria: 23 of 31 are met and five critical criteria are open.",
+          "documentIds": [
+            "cutover-checklist"
+          ],
+          "linkIds": [],
+          "sources": [
+            {
+              "documentId": "cutover-checklist",
+              "passage": "insight: C4",
+              "status": "available",
+              "text": "23 of 31 go-live criteria are met; five open criteria are rated critical."
+            },
+            {
+              "documentId": "cutover-checklist",
+              "passage": "C4",
+              "status": "available",
+              "text": "Five open criteria are rated critical: migration reconciliation within the 0.5% tolerance (failed at rehearsal 2), regional training completion of at least 90% (not started), named owners for the intercompany and fixed-asset workstreams (open), bank payment file testing (in progress) and segregation-of-duties mapping (in progress)."
+            }
+          ],
+          "support": "supported"
         }
       ],
       "disagreement": [
         {
-          "id": "review-timing",
-          "text": "Scripted material disagreement: Finance favours expedited review once target and second-person checks and updated cash evidence are available, using the forecast that already includes incentive expense. Risk favours returning at the next meeting to consider downside cash vulnerability and launch ownership alongside incentives. The trade-off is earlier resolution of possible payment obligations versus more time to test cash and execution exposure. Neither position establishes a right to release now, a quantified delay cost or a causal link between pay and launch risk.",
+          "id": "q1-or-slip",
+          "text": "Go live in Q1 or slip one quarter. Finance weighs cost: the slip is affordable but buys nothing unless training and reconciliation are fixed, so hold Q1 to a hard gate on 16 December. Risk weighs appetite: R-22 is high and the appetite statement allows no go-live with an open high-rated risk, so slip now. They read the same figures and reach opposite recommendations. The positions are scripted; the figures are sourced.",
           "documentIds": [
-            "forecast-2027",
-            "controls-memo",
-            "liquidity-review",
-            "board-risk-report",
-            "minutes-sep",
-            "employment-contracts"
+            "programme-budget",
+            "risk-update-r22",
+            "steerco-oct"
           ],
-          "linkIds": [],
+          "linkIds": [
+            "risk-update-r22->programme-report-sep",
+            "programme-budget->programme-report-sep"
+          ],
           "sources": [
             {
-              "documentId": "forecast-2027",
-              "passage": "text, paragraph 1",
+              "documentId": "programme-budget",
+              "passage": "insight: D14",
               "status": "available",
-              "text": "The base case includes planned platform investment, supplier continuity costs and forecast incentive expense. Liquidity remains within the board threshold in the base case but narrows under the downside scenario."
+              "text": "A one-quarter slip adds about AED 2.1m, inside the AED 2.4m contingency."
             },
             {
-              "documentId": "controls-memo",
-              "passage": "text, paragraph 1",
+              "documentId": "risk-update-r22",
+              "passage": "insight: R-22",
               "status": "available",
-              "text": "Control owners must retain evidence of review, record exceptions and escalate overdue actions. Finance checks incentive calculations against approved targets before payment."
+              "text": "The Q1 go-live (M3) is rated high risk, with four open risks against the same milestone."
             },
             {
-              "documentId": "liquidity-review",
-              "passage": "text, paragraph 1",
+              "documentId": "risk-update-r22",
+              "passage": "R-22, appetite note",
               "status": "available",
-              "text": "Liquidity headroom is sensitive to delayed receipts and supplier payment timing. The downside case approaches the board threshold; treasury will update the forecast after collections are confirmed."
+              "text": "The board's risk appetite statement (§3) sets a low appetite for finance-system change: no core financial system goes live with an open high-rated risk."
             },
             {
-              "documentId": "board-risk-report",
-              "passage": "insight: p. 7",
+              "documentId": "steerco-oct",
+              "passage": "insight: 00:31:40",
               "status": "available",
-              "text": "Nobody clearly owns the risk for the new market launch."
-            },
-            {
-              "documentId": "minutes-sep",
-              "passage": "text, paragraph 1",
-              "status": "available",
-              "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
-            },
-            {
-              "documentId": "employment-contracts",
-              "passage": "Document content",
-              "status": "unavailable",
-              "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Contract terms cannot be inferred from the citation."
+              "text": "D-114: a go/no-go recommendation goes to the December board on 16 December."
             }
           ],
-          "support": "unknown"
+          "support": "supported"
         }
       ],
       "missingEvidence": [
         {
-          "id": "decision-pack",
-          "text": "Proposed missing-evidence condition: Finance returns target results, second-person review and the payout amount/schedule at the next meeting; obtain signed contract terms and retention evidence, and treasury’s forecast after collections are confirmed. Put a named launch-risk owner and action plan before the board as a separate execution issue. Until then, release affordability, the cost of waiting and target achievement remain unknown. The expanded decision pack and launch action are scripted requests, not already assigned or completed commitments.",
+          "id": "coresys-contract",
+          "text": "No agent could assess vendor continuity: the CoreSys master services agreement is not in the vault. Condition for either date: Legal reads clause 14.2 (support end, extension price, notice period) before the 16 December board. Until then the Q1 rollback window and the slip option both rest on an unread contract. Absence of evidence, not evidence of bad terms.",
           "documentIds": [
-            "minutes-sep",
-            "controls-memo",
-            "policy-v4",
-            "exec-pay-review",
-            "forecast-2027",
-            "liquidity-review",
-            "board-risk-report",
-            "employment-contracts"
+            "coresys-cr",
+            "audit-preimpl",
+            "steerco-oct"
           ],
-          "linkIds": [],
+          "linkIds": [
+            "audit-preimpl->coresys-cr"
+          ],
           "sources": [
             {
-              "documentId": "minutes-sep",
-              "passage": "text, paragraph 1",
+              "documentId": "coresys-cr",
+              "passage": "insight: p. 2",
               "status": "available",
-              "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
+              "text": "CR-07 cites clause 14.2 of the CoreSys master services agreement; the agreement is not attached and has not been reviewed by Legal."
             },
             {
-              "documentId": "controls-memo",
-              "passage": "text, paragraph 1",
+              "documentId": "coresys-cr",
+              "passage": "p. 2",
               "status": "available",
-              "text": "Control owners must retain evidence of review, record exceptions and escalate overdue actions. Finance checks incentive calculations against approved targets before payment."
+              "text": "CR-07 does not state a price."
             },
             {
-              "documentId": "policy-v4",
-              "passage": "text, paragraph 1",
-              "status": "available",
-              "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
-            },
-            {
-              "documentId": "exec-pay-review",
-              "passage": "insight: p. 3",
-              "status": "available",
-              "text": "The file does not include evidence that the proposed delivery targets were met."
-            },
-            {
-              "documentId": "forecast-2027",
-              "passage": "text, paragraph 1",
-              "status": "available",
-              "text": "The base case includes planned platform investment, supplier continuity costs and forecast incentive expense. Liquidity remains within the board threshold in the base case but narrows under the downside scenario."
-            },
-            {
-              "documentId": "liquidity-review",
-              "passage": "text, paragraph 1",
-              "status": "available",
-              "text": "Liquidity headroom is sensitive to delayed receipts and supplier payment timing. The downside case approaches the board threshold; treasury will update the forecast after collections are confirmed."
-            },
-            {
-              "documentId": "board-risk-report",
+              "documentId": "audit-preimpl",
               "passage": "insight: p. 7",
               "status": "available",
-              "text": "Nobody clearly owns the risk for the new market launch."
+              "text": "Internal Audit gives no opinion on vendor continuity."
             },
             {
-              "documentId": "employment-contracts",
-              "passage": "Document content",
-              "status": "unavailable",
-              "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Contract terms cannot be inferred from the citation."
+              "documentId": "steerco-oct",
+              "passage": "insight: 00:48:05",
+              "status": "available",
+              "text": "Procurement was asked to confirm CoreSys support terms before the December board."
             }
           ],
           "support": "unknown"
@@ -788,122 +900,160 @@
       ],
       "assumptions": [
         {
-          "id": "safe-to-wait",
-          "text": "Flip assumption: waiting for the next meeting creates no material contractual or retention cost. This is not established in the vault. If wrong, change from waiting for the next meeting to expedited review as soon as the evidence and cash gates can be assessed; it would not justify asserting targets were met or bypassing policy. Resolve with signed payment terms, a confirmed meeting date and documented retention exposure.",
+          "id": "room-rehearsal",
+          "text": "Rehearsal 3 reconciles inside 0.5% in time for the board. No source forecasts it.",
           "documentIds": [
-            "minutes-sep",
-            "employment-contracts",
-            "exec-pay-review"
+            "migration-rehearsal"
           ],
           "linkIds": [],
           "sources": [
             {
-              "documentId": "minutes-sep",
-              "passage": "text, paragraph 1",
+              "documentId": "migration-rehearsal",
+              "passage": "p. 6",
               "status": "available",
-              "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
-            },
+              "text": "Rehearsal 3 is scheduled for 5–6 December 2026; a fourth rehearsal fits only if go-live moves."
+            }
+          ],
+          "support": "unknown"
+        },
+        {
+          "id": "room-training",
+          "text": "Regional training can be confirmed and delivered before the January freeze. No date is confirmed.",
+          "documentIds": [
+            "training-plan"
+          ],
+          "linkIds": [],
+          "sources": [
             {
-              "documentId": "employment-contracts",
-              "passage": "Document content",
-              "status": "unavailable",
-              "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Contract terms cannot be inferred from the citation."
-            },
-            {
-              "documentId": "exec-pay-review",
-              "passage": "insight: p. 3",
+              "documentId": "training-plan",
+              "passage": "insight: C3",
               "status": "available",
-              "text": "The file does not include evidence that the proposed delivery targets were met."
+              "text": "No regional training date is confirmed; sessions are pencilled from 16 November to 18 December."
+            }
+          ],
+          "support": "unknown"
+        },
+        {
+          "id": "room-vendor-date",
+          "text": "CoreSys's 31 March support date is accurate. It is the vendor's statement, unchecked against the contract.",
+          "documentIds": [
+            "coresys-cr"
+          ],
+          "linkIds": [],
+          "sources": [
+            {
+              "documentId": "coresys-cr",
+              "passage": "insight: p. 1",
+              "status": "available",
+              "text": "CoreSys states that standard support for the legacy ledger ends on 31 March 2027."
             }
           ],
           "support": "unknown"
         }
       ],
-      "reasoningSummary": "Recommendation: defer release now and return at the next meeting; named alternative: expedited review before that meeting once the same evidence and cash gates can be assessed. The company objective is to protect capacity for investment, supplier continuity and delivery while making a defensible incentive decision. The base forecast includes incentive expense and is within threshold, but the later downside review approaches the threshold; the board pack explicitly links forecasts to incentive decisions. Missing target proof prevents us from calling delivery either achieved or failed. Launch ownership is a separate documented execution exposure, not a proven incentive target or payment condition. Deferral preserves cash optionality during uncertainty; expedited review reduces possible contractual or retention costs, neither of which is quantified. The flip assumption is that waiting creates no material contractual or retention cost: if wrong, accelerate the review, without bypassing policy. Finance owns the evidence check for return at the next meeting (Minutes · Sep; Controls memo). Sofia Lindqvist is the Controls memo author, Financial Controller; using her as coordination contact is a proposal, not a sourced personal assignment. Treasury updates the forecast after collections are confirmed (Liquidity review); no completion date is supplied. The proposed board decision is release versus deferral: Board pack Q3 records board review of incentive proposals, not an existing release resolution or delegated approval authority. The next meeting date, payout amount/date, contract rights and retention exposure are unknown. Request a launch-risk owner and action plan separately; no source names that owner or a deadline. All recommendations and agent positions are scripted judgements, not source conclusions.",
+      "reasoningSummary": "Recommendation for the 16 December board (D-114): do not approve a Q1 go-live on today's evidence; approve it conditionally. Q1 proceeds only if, by the board: (1) rehearsal 3 reconciles inside the 0.5% tolerance; (2) the trainer contract is signed and regional dates are confirmed; (3) owners are named for the intercompany and fixed-asset workstreams, so R-22 can be re-rated below high; (4) Legal has read clause 14.2 of the CoreSys agreement. If any condition fails, slip one quarter: about AED 2.1m, inside the AED 2.4m contingency, before CoreSys fees. Before the board, Finance should also cost a failed Q1 cutover and rollback: today only the cost of waiting is priced. Three variables drive the call: reconciliation, training and vendor support. The flip assumption is that CoreSys support can run past 31 March 2027 at a price inside the remaining AED 0.3m. If it cannot, neither date is safe and the board faces a vendor decision, not a timing one; and if the cited 90-day notice is right, that decision is due about two weeks after the board. Proposed owners: the Programme Director for the checklist and the R-22 re-rating, Procurement with Legal for CoreSys, People Operations for training, the Financial Controller for reconciliation sign-off. Owners, conditions and agent positions are scripted judgements, not recorded decisions.",
       "sources": [
         {
-          "documentId": "board-pack-q3",
-          "passage": "text, paragraph 1",
+          "documentId": "programme-report-sep",
+          "passage": "p. 14",
           "status": "available",
-          "text": "Quarterly decisions are assessed against the charter and approved risk appetite. The board reviewed the 2027 forecast, supplier exposure, capital allocation and executive incentive proposals."
+          "text": "Milestone M3, go-live of the consolidated ledger in Q1 FY27, is on track. No material risks to the date have been identified by the programme office."
         },
         {
-          "documentId": "board-pack-q3",
-          "passage": "insight: p. 12",
+          "documentId": "risk-update-r22",
+          "passage": "insight: R-22",
           "status": "available",
-          "text": "Forecast movements affect the proposed capital and incentive decisions."
+          "text": "The Q1 go-live (M3) is rated high risk, with four open risks against the same milestone."
         },
         {
-          "documentId": "exec-pay-review",
-          "passage": "text, paragraph 1",
+          "documentId": "risk-update-r22",
+          "passage": "R-22, appetite note",
           "status": "available",
-          "text": "The committee reviewed proposed incentive payments and noted that delivery target evidence must be confirmed before payment. The follow-up check is assigned to Finance."
+          "text": "The board's risk appetite statement (§3) sets a low appetite for finance-system change: no core financial system goes live with an open high-rated risk."
         },
         {
-          "documentId": "exec-pay-review",
-          "passage": "insight: p. 3",
+          "documentId": "cutover-checklist",
+          "passage": "insight: C4",
           "status": "available",
-          "text": "The file does not include evidence that the proposed delivery targets were met."
+          "text": "23 of 31 go-live criteria are met; five open criteria are rated critical."
         },
         {
-          "documentId": "policy-v4",
-          "passage": "text, paragraph 1",
+          "documentId": "cutover-checklist",
+          "passage": "C4",
           "status": "available",
-          "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+          "text": "Five open criteria are rated critical: migration reconciliation within the 0.5% tolerance (failed at rehearsal 2), regional training completion of at least 90% (not started), named owners for the intercompany and fixed-asset workstreams (open), bank payment file testing (in progress) and segregation-of-duties mapping (in progress)."
         },
         {
-          "documentId": "minutes-sep",
-          "passage": "text, paragraph 1",
+          "documentId": "training-plan",
+          "passage": "insight: C3",
           "status": "available",
-          "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
+          "text": "No regional training date is confirmed; sessions are pencilled from 16 November to 18 December."
         },
         {
-          "documentId": "controls-memo",
-          "passage": "text, paragraph 1",
+          "documentId": "training-plan",
+          "passage": "text",
           "status": "available",
-          "text": "Control owners must retain evidence of review, record exceptions and escalate overdue actions. Finance checks incentive calculations against approved targets before payment."
+          "text": "Sessions are pencilled from 16 November to 18 December 2026; the trainer contract is unsigned and no regional date is confirmed. Trained to date: 0 of 140. The go-live gate requires 90% (126 users)."
         },
         {
-          "documentId": "controls-memo",
-          "passage": "insight: p. 2",
+          "documentId": "programme-budget",
+          "passage": "insight: D14",
           "status": "available",
-          "text": "Finance owns the documented target check before incentive payment."
+          "text": "A one-quarter slip adds about AED 2.1m, inside the AED 2.4m contingency."
         },
         {
-          "documentId": "forecast-2027",
-          "passage": "text, paragraph 1",
+          "documentId": "programme-budget",
+          "passage": "insight: D22",
           "status": "available",
-          "text": "The base case includes planned platform investment, supplier continuity costs and forecast incentive expense. Liquidity remains within the board threshold in the base case but narrows under the downside scenario."
+          "text": "The slip estimate excludes CoreSys support fees after 31 March 2027."
         },
         {
-          "documentId": "liquidity-review",
-          "passage": "text, paragraph 1",
+          "documentId": "migration-rehearsal",
+          "passage": "p. 3",
           "status": "available",
-          "text": "Liquidity headroom is sensitive to delayed receipts and supplier payment timing. The downside case approaches the board threshold; treasury will update the forecast after collections are confirmed."
+          "text": "1,180 items (2.9%) failed reconciliation, against a go-live tolerance of 0.5%; rehearsal 1 in August failed 4.6%."
         },
         {
-          "documentId": "liquidity-review",
+          "documentId": "coresys-cr",
           "passage": "insight: p. 1",
           "status": "available",
-          "text": "Downside headroom approaches the board threshold if receipts are delayed."
+          "text": "CoreSys states that standard support for the legacy ledger ends on 31 March 2027."
         },
         {
-          "documentId": "board-risk-report",
-          "passage": "text, paragraph 1",
+          "documentId": "coresys-cr",
+          "passage": "insight: p. 2",
           "status": "available",
-          "text": "Two critical suppliers remain outside the board’s recovery expectations. The report summarizes untested plans, risk-register actions, insurance limits and the forecast cost of service interruption. Nobody clearly owns the risk for the new market launch."
+          "text": "CR-07 cites clause 14.2 of the CoreSys master services agreement; the agreement is not attached and has not been reviewed by Legal."
         },
         {
-          "documentId": "board-risk-report",
+          "documentId": "coresys-cr",
+          "passage": "p. 2",
+          "status": "available",
+          "text": "CR-07 cites clause 14.2 of the CoreSys master services agreement for extension pricing and a 90-day notice period."
+        },
+        {
+          "documentId": "audit-preimpl",
+          "passage": "insight: p. 6",
+          "status": "available",
+          "text": "The go/no-go criteria do not cover vendor support or exit arrangements."
+        },
+        {
+          "documentId": "audit-preimpl",
           "passage": "insight: p. 7",
           "status": "available",
-          "text": "Nobody clearly owns the risk for the new market launch."
+          "text": "Internal Audit gives no opinion on vendor continuity."
         },
         {
-          "documentId": "employment-contracts",
-          "passage": "Document content",
-          "status": "unavailable",
-          "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Contract terms cannot be inferred from the citation."
+          "documentId": "steerco-oct",
+          "passage": "insight: 00:31:40",
+          "status": "available",
+          "text": "D-114: a go/no-go recommendation goes to the December board on 16 December."
+        },
+        {
+          "documentId": "steerco-oct",
+          "passage": "insight: 00:48:05",
+          "status": "available",
+          "text": "Procurement was asked to confirm CoreSys support terms before the December board."
         }
       ]
     }
@@ -911,13 +1061,13 @@
   "metadata": {
     "confidence": {
       "status": "available",
-      "value": "Source insight confidence, not decision confidence: board-pack-q3 p. 6 = 0.92; board-pack-q3 p. 12 = 0.89; exec-pay-review p. 3 = 0.96; policy-v4 p. 8 = 0.96; minutes-sep 00:42:10 = 0.91; controls-memo p. 2 = 0.93; controls-memo p. 4 = 0.9; forecast-2027 C18 = 0.92; liquidity-review p. 1 = 0.94; board-risk-report p. 4 = 0.92; board-risk-report p. 7 = 0.78. employment-contracts confidence unavailable: no insights. No confidence is supplied for the recommendation or unknowns."
+      "value": "Source insight confidence, not decision confidence: audit-preimpl p. 4 = 0.93; audit-preimpl p. 6 = 0.91; audit-preimpl p. 7 = 0.85; board-pack-q3 p. 12 = 0.89; board-pack-q3 p. 6 = 0.92; charter p. 2 = 0.97; coresys-cr p. 1 = 0.88; coresys-cr p. 2 = 0.9; cutover-checklist A31 = 0.82; cutover-checklist C4 = 0.95; cutover-checklist F12 = 0.9; forecast-2027 C18 = 0.92; migration-rehearsal p. 3 = 0.96; migration-rehearsal p. 5 = 0.9; programme-budget D14 = 0.9; programme-budget D22 = 0.88; programme-report-sep p. 14 = 0.88; programme-report-sep p. 15 = 0.84; programme-report-sep p. 21 = 0.6; programme-report-sep p. 9 = 0.95; risk-update-r22 R-20 = 0.9; risk-update-r22 R-22 = 0.93; risk-update-r22 R-22, appetite note = 0.86; steerco-oct 00:31:40 = 0.94; steerco-oct 00:48:05 = 0.9; supplier-review p. 4 = 0.96; training-log B14 = 0.88; training-plan B2 = 0.9; training-plan C3 = 0.92; training-plan F9 = 0.87. employment-contracts confidence unavailable: no insights. The CoreSys master services agreement has no confidence: it is not in the vault. No confidence is supplied for the recommendation."
     },
     "freshness": {
       "status": "available",
-      "value": "Document issued dates: board-pack-q3 = 2026-09-18; exec-pay-review = 2026-09-16; policy-v4 = 2026-05-20; minutes-sep = 2026-09-10; controls-memo = 2026-08-29; forecast-2027 = 2026-09-12; liquidity-review = 2026-10-01; board-risk-report = 30 Sep 2026. employment-contracts freshness unavailable: issued date empty. Issue dates do not establish current cash, completed checks or continuing policy validity. The later Liquidity review is not a completed post-collections forecast."
+      "value": "Document issued dates: programme-report-sep = 2026-09-22; risk-update-r22 = 2026-09-18; cutover-checklist = 2026-11-06; training-plan = 2026-11-04; programme-budget = 2026-10-20; migration-rehearsal = 2026-10-29; audit-preimpl = 2026-11-02; steerco-oct = 2026-10-14; coresys-cr = 2026-11-03; board-pack-q3 = 2026-09-18; charter = 2025-11-14; forecast-2027 = 2026-09-12; training-log = 2026-06-30; supplier-review = 2026-08-22; employment-contracts = . The programme report (22 Sep) is four days newer than R-22 (18 Sep); the cutover checklist (6 Nov) is the latest readiness record. employment-contracts freshness unavailable: issued date empty. The CoreSys agreement has no date: it is not in the vault. No status report after 22 Sep is in the vault."
     },
     "modelLabel": "Scripted local-model representation; no model is running.",
-    "scriptedLabel": "All Analysis and Room output is scripted from local fixtures. Recommendations, alternatives and agent positions are simulated judgements, not recorded board decisions."
+    "scriptedLabel": "All Analysis and Room output is scripted from local fixtures. Recommendations, conditions and agent positions are simulated judgements, not recorded board decisions."
   }
 }

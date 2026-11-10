@@ -799,5 +799,553 @@
         "confidence": 0.94
       }
     ]
+  },
+  {
+    "id": "programme-report-sep",
+    "title": "FY26 programme report · Sep",
+    "type": "pdf",
+    "issued": "2026-09-22",
+    "from": "CFO Office",
+    "author": {
+      "name": "James Whitfield",
+      "role": "Programme Director, FY26 Transformation"
+    },
+    "domains": [
+      "Strategy execution",
+      "Financial stewardship",
+      "Major decisions"
+    ],
+    "primaryDomain": "Strategy execution",
+    "text": "Overall programme status is green. The programme remains within its approved envelope: AED 29.8m of the approved AED 48m has been committed to date (62%), in line with the phasing agreed by the board in March. Milestone M3, go-live of the consolidated ledger in Q1 FY27, is on track. No material risks to the date have been identified by the programme office. Training for regional finance teams begins in November, with a readiness review scheduled for the December board. The intercompany and fixed-asset workstreams have no named owner.",
+    "links": [
+      {
+        "targetId": "board-pack-q3",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "forecast-2027",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "strategy-note",
+        "reason": "shared-content"
+      }
+    ],
+    "summary": "The September board report on the finance transformation. It reports the programme green and go-live milestone M3 on track for Q1 FY27, with spend at 62% of the approved AED 48m.",
+    "insights": [
+      {
+        "text": "Go-live milestone M3 is reported as on track.",
+        "tags": [
+          "Delivery",
+          "Strategy"
+        ],
+        "pageRef": "p. 14",
+        "confidence": 0.88
+      },
+      {
+        "text": "Spend stands at 62% of the approved AED 48m budget.",
+        "tags": [
+          "Capital"
+        ],
+        "pageRef": "p. 9",
+        "confidence": 0.95
+      },
+      {
+        "text": "Training for regional finance teams begins in November, ahead of the December readiness review.",
+        "tags": [
+          "People",
+          "Delivery"
+        ],
+        "pageRef": "p. 15",
+        "confidence": 0.84
+      },
+      {
+        "text": "Two workstreams report no named owner.",
+        "tags": [
+          "Ownership",
+          "Delivery"
+        ],
+        "pageRef": "p. 21",
+        "confidence": 0.6
+      }
+    ]
+  },
+  {
+    "id": "risk-update-r22",
+    "title": "Risk register update · R-22",
+    "type": "sheet",
+    "issued": "2026-09-18",
+    "from": "Chief Risk Officer",
+    "author": {
+      "name": "Elena Petrova",
+      "role": "Chief Risk Officer"
+    },
+    "domains": [
+      "Risk and resilience",
+      "Controls and assurance",
+      "Major decisions"
+    ],
+    "primaryDomain": "Risk and resilience",
+    "text": "R-22, go-live of the consolidated ledger (milestone M3, Q1 FY27), is rated high. Four open risks sit against the same milestone: R-18 migrated balances do not yet reconcile within tolerance; R-19 regional finance training is not yet scheduled; R-20 the intercompany and fixed-asset workstreams have no named owner; R-21 bank payment file testing is incomplete. The board's risk appetite statement (§3) sets a low appetite for finance-system change: no core financial system goes live with an open high-rated risk. The mitigation owner for R-22 is the Programme Director; next review 30 November 2026.",
+    "links": [
+      {
+        "targetId": "risk-register",
+        "reason": "same-author"
+      },
+      {
+        "targetId": "board-risk-report",
+        "reason": "same-author"
+      },
+      {
+        "targetId": "charter",
+        "reason": "cites"
+      },
+      {
+        "targetId": "programme-report-sep",
+        "reason": "shared-content"
+      }
+    ],
+    "summary": "Group risk register update of 18 September. It rates the Q1 ledger go-live (R-22) high, with four open risks against milestone M3.",
+    "insights": [
+      {
+        "text": "The Q1 go-live (M3) is rated high risk, with four open risks against the same milestone.",
+        "tags": [
+          "Delivery",
+          "Continuity"
+        ],
+        "pageRef": "R-22",
+        "confidence": 0.93
+      },
+      {
+        "text": "Going live with an open high-rated risk falls outside the board's stated appetite for finance-system change.",
+        "tags": [
+          "Strategy",
+          "Controls"
+        ],
+        "pageRef": "R-22, appetite note",
+        "confidence": 0.86
+      },
+      {
+        "text": "Two workstreams have no named owner.",
+        "tags": [
+          "Ownership"
+        ],
+        "pageRef": "R-20",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "id": "cutover-checklist",
+    "title": "Cutover readiness checklist",
+    "type": "sheet",
+    "issued": "2026-11-06",
+    "from": "Financial Controller",
+    "author": {
+      "name": "Sofia Lindqvist",
+      "role": "Financial Controller"
+    },
+    "domains": [
+      "Controls and assurance",
+      "Strategy execution"
+    ],
+    "primaryDomain": "Controls and assurance",
+    "text": "Cutover readiness at 6 November: 23 of 31 go-live criteria met. Five open criteria are rated critical: migration reconciliation within the 0.5% tolerance (failed at rehearsal 2), regional training completion of at least 90% (not started), named owners for the intercompany and fixed-asset workstreams (open), bank payment file testing (in progress) and segregation-of-duties mapping (in progress). Cutover is planned for the weekend of 6–7 February 2027. Rollback to the legacy ledger stays available for 60 days after cutover. Vendor support and exit terms are not a checklist criterion.",
+    "links": [
+      {
+        "targetId": "controls-memo",
+        "reason": "same-author"
+      },
+      {
+        "targetId": "risk-update-r22",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "migration-rehearsal",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "training-plan",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "coresys-cr",
+        "reason": "shared-content"
+      }
+    ],
+    "summary": "Go-live criteria for the consolidated ledger, tracked weekly. 23 of 31 are met; five critical criteria remain open three months before cutover.",
+    "insights": [
+      {
+        "text": "23 of 31 go-live criteria are met; five open criteria are rated critical.",
+        "tags": [
+          "Delivery",
+          "Controls"
+        ],
+        "pageRef": "C4",
+        "confidence": 0.95
+      },
+      {
+        "text": "Rollback to the legacy ledger stays available for 60 days after cutover.",
+        "tags": [
+          "Continuity"
+        ],
+        "pageRef": "F12",
+        "confidence": 0.9
+      },
+      {
+        "text": "Vendor support and exit terms are not a checklist criterion.",
+        "tags": [
+          "Supply chain",
+          "Controls"
+        ],
+        "pageRef": "A31",
+        "confidence": 0.82
+      }
+    ]
+  },
+  {
+    "id": "training-plan",
+    "title": "Ledger training plan",
+    "type": "sheet",
+    "issued": "2026-11-04",
+    "from": "People Operations",
+    "author": {
+      "name": "Grace Mwangi",
+      "role": "People Operations Lead"
+    },
+    "domains": [
+      "Strategy execution",
+      "Controls and assurance"
+    ],
+    "primaryDomain": "Strategy execution",
+    "text": "140 finance users across five regional teams must complete ledger training and pass a sandbox assessment before they receive access at cutover. Sessions are pencilled from 16 November to 18 December 2026; the trainer contract is unsigned and no regional date is confirmed. Trained to date: 0 of 140. The go-live gate requires 90% (126 users). The year-end close freezes training from 4 to 22 January 2027, so sessions that slip past December leave two weeks before the 6–7 February cutover. Any weekend sessions during the close depend on what the employment contracts allow.",
+    "links": [
+      {
+        "targetId": "training-log",
+        "reason": "same-author"
+      },
+      {
+        "targetId": "cutover-checklist",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "programme-report-sep",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "employment-contracts",
+        "reason": "cites"
+      }
+    ],
+    "summary": "Plans ledger training for 140 regional finance users. No date is confirmed, nobody is trained yet, and the January close leaves little room if sessions slip.",
+    "insights": [
+      {
+        "text": "No regional training date is confirmed; sessions are pencilled from 16 November to 18 December.",
+        "tags": [
+          "People",
+          "Delivery"
+        ],
+        "pageRef": "C3",
+        "confidence": 0.92
+      },
+      {
+        "text": "Users without training receive no ledger access at cutover.",
+        "tags": [
+          "People",
+          "Controls"
+        ],
+        "pageRef": "B2",
+        "confidence": 0.9
+      },
+      {
+        "text": "Sessions that slip past December leave two weeks of training before cutover.",
+        "tags": [
+          "People",
+          "Continuity"
+        ],
+        "pageRef": "F9",
+        "confidence": 0.87
+      }
+    ]
+  },
+  {
+    "id": "programme-budget",
+    "title": "Programme budget and slip cost",
+    "type": "sheet",
+    "issued": "2026-10-20",
+    "from": "Finance Planning",
+    "author": {
+      "name": "Tom Brennan",
+      "role": "Head of Financial Planning"
+    },
+    "domains": [
+      "Financial stewardship",
+      "Major decisions"
+    ],
+    "primaryDomain": "Financial stewardship",
+    "text": "The approved programme envelope is AED 48m, of which AED 29.8m (62%) is committed. Contingency of AED 2.4m (5%) is undrawn. A one-quarter slip of go-live adds about AED 2.1m: AED 0.9m for parallel running of the legacy ledger, AED 0.8m for extended contractor cover and AED 0.4m for an extra migration rehearsal and retraining. That fits inside contingency with AED 0.3m to spare. The estimate excludes any CoreSys support fees after 31 March 2027, which depend on contract terms Finance has not seen.",
+    "links": [
+      {
+        "targetId": "forecast-2027",
+        "reason": "same-author"
+      },
+      {
+        "targetId": "liquidity-review",
+        "reason": "same-author"
+      },
+      {
+        "targetId": "programme-report-sep",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "board-pack-q3",
+        "reason": "shared-content"
+      }
+    ],
+    "summary": "Tracks the AED 48m programme envelope and costs a one-quarter go-live slip at about AED 2.1m, inside contingency but before vendor fees.",
+    "insights": [
+      {
+        "text": "A one-quarter slip adds about AED 2.1m, inside the AED 2.4m contingency.",
+        "tags": [
+          "Capital"
+        ],
+        "pageRef": "D14",
+        "confidence": 0.9
+      },
+      {
+        "text": "The slip estimate excludes CoreSys support fees after 31 March 2027.",
+        "tags": [
+          "Capital",
+          "Supply chain"
+        ],
+        "pageRef": "D22",
+        "confidence": 0.88
+      }
+    ]
+  },
+  {
+    "id": "migration-rehearsal",
+    "title": "Migration rehearsal 2 results",
+    "type": "pdf",
+    "issued": "2026-10-29",
+    "from": "Data Migration",
+    "author": {
+      "name": "Farah Siddiqui",
+      "role": "Data Migration Lead"
+    },
+    "domains": [
+      "Controls and assurance",
+      "Strategy execution"
+    ],
+    "primaryDomain": "Controls and assurance",
+    "text": "Rehearsal 2 (24–26 October) loaded 41,200 open items into the new ledger. 1,180 items (2.9%) failed reconciliation, against a go-live tolerance of 0.5%; rehearsal 1 in August failed 4.6%. Most breaks sit in intercompany balances and fixed-asset sub-ledgers. Rehearsal 3 is scheduled for 5–6 December 2026; a fourth rehearsal fits only if go-live moves.",
+    "links": [
+      {
+        "targetId": "cutover-checklist",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "risk-update-r22",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "controls-memo",
+        "reason": "shared-content"
+      }
+    ],
+    "summary": "Results of the second ledger migration rehearsal. Reconciliation is improving but still six times the go-live tolerance.",
+    "insights": [
+      {
+        "text": "Rehearsal 2 left 2.9% of items unreconciled, against a 0.5% go-live tolerance.",
+        "tags": [
+          "Controls",
+          "Delivery"
+        ],
+        "pageRef": "p. 3",
+        "confidence": 0.96
+      },
+      {
+        "text": "Most breaks sit in intercompany balances and fixed-asset sub-ledgers.",
+        "tags": [
+          "Controls",
+          "Ownership"
+        ],
+        "pageRef": "p. 5",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "id": "audit-preimpl",
+    "title": "Pre-implementation audit review",
+    "type": "pdf",
+    "issued": "2026-11-02",
+    "from": "Head of Internal Audit",
+    "author": {
+      "name": "Marcus Chen",
+      "role": "Head of Internal Audit"
+    },
+    "domains": [
+      "Controls and assurance",
+      "Risk and resilience"
+    ],
+    "primaryDomain": "Controls and assurance",
+    "text": "Internal Audit rates the ledger partially ready. Control design in the new ledger is adequate, but segregation-of-duties roles for 34 users are not yet mapped. The go/no-go criteria do not cover vendor support or exit arrangements. Internal Audit has not reviewed the CoreSys contract and gives no opinion on vendor continuity.",
+    "links": [
+      {
+        "targetId": "audit-plan",
+        "reason": "same-author"
+      },
+      {
+        "targetId": "cutover-checklist",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "controls-memo",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "coresys-cr",
+        "reason": "shared-content"
+      }
+    ],
+    "summary": "Internal Audit review before go-live: partially ready, with unmapped user roles and no go/no-go test of vendor support.",
+    "insights": [
+      {
+        "text": "Segregation-of-duties roles for 34 users are not yet mapped.",
+        "tags": [
+          "Controls",
+          "Compliance"
+        ],
+        "pageRef": "p. 4",
+        "confidence": 0.93
+      },
+      {
+        "text": "The go/no-go criteria do not cover vendor support or exit arrangements.",
+        "tags": [
+          "Supply chain",
+          "Controls"
+        ],
+        "pageRef": "p. 6",
+        "confidence": 0.91
+      },
+      {
+        "text": "Internal Audit gives no opinion on vendor continuity.",
+        "tags": [
+          "Continuity",
+          "Compliance"
+        ],
+        "pageRef": "p. 7",
+        "confidence": 0.85
+      }
+    ]
+  },
+  {
+    "id": "steerco-oct",
+    "title": "Steering committee · Oct",
+    "type": "video",
+    "issued": "2026-10-14",
+    "from": "FY26 Transformation Steering Committee",
+    "author": {
+      "name": "James Whitfield",
+      "role": "Programme Director, FY26 Transformation"
+    },
+    "domains": [
+      "Major decisions",
+      "Strategy execution"
+    ],
+    "primaryDomain": "Major decisions",
+    "text": "The steering committee reviewed the high rating on R-22 and kept the Q1 FY27 go-live date while rehearsal 3 runs. Decision D-114: a go/no-go recommendation goes to the December board on 16 December, based on the cutover readiness checklist. Procurement was asked to confirm CoreSys support terms before that board. Owners for the intercompany and fixed-asset workstreams remain open.",
+    "links": [
+      {
+        "targetId": "programme-report-sep",
+        "reason": "same-author"
+      },
+      {
+        "targetId": "risk-update-r22",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "board-pack-q3",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "strategy-note",
+        "reason": "shared-content"
+      }
+    ],
+    "summary": "Records the steering committee keeping the Q1 date despite R-22 and sending the go/no-go decision to the December board (D-114).",
+    "insights": [
+      {
+        "text": "D-114: a go/no-go recommendation goes to the December board on 16 December.",
+        "tags": [
+          "Delivery",
+          "Strategy"
+        ],
+        "pageRef": "00:31:40",
+        "confidence": 0.94
+      },
+      {
+        "text": "Procurement was asked to confirm CoreSys support terms before the December board.",
+        "tags": [
+          "Supply chain",
+          "Ownership"
+        ],
+        "pageRef": "00:48:05",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "id": "coresys-cr",
+    "title": "CoreSys change request CR-07",
+    "type": "pdf",
+    "issued": "2026-11-03",
+    "from": "Procurement",
+    "author": {
+      "name": "Lucía Romero",
+      "role": "Procurement Director"
+    },
+    "domains": [
+      "Risk and resilience",
+      "Major decisions"
+    ],
+    "primaryDomain": "Risk and resilience",
+    "text": "CoreSys has submitted change request CR-07. CoreSys states that standard support for the legacy ledger ends on 31 March 2027 and proposes extended support to 30 September 2027. CR-07 cites clause 14.2 of the CoreSys master services agreement for extension pricing and a 90-day notice period. The agreement is not attached, is not in the vault and has not been reviewed by Legal. CR-07 does not state a price.",
+    "links": [
+      {
+        "targetId": "supplier-review",
+        "reason": "same-author"
+      },
+      {
+        "targetId": "steerco-oct",
+        "reason": "shared-content"
+      },
+      {
+        "targetId": "programme-budget",
+        "reason": "shared-content"
+      }
+    ],
+    "summary": "Vendor change request to extend legacy ledger support. It rests on a contract clause nobody at Meridian has read.",
+    "insights": [
+      {
+        "text": "CoreSys states that standard support for the legacy ledger ends on 31 March 2027.",
+        "tags": [
+          "Supply chain",
+          "Continuity"
+        ],
+        "pageRef": "p. 1",
+        "confidence": 0.88
+      },
+      {
+        "text": "CR-07 cites clause 14.2 of the CoreSys master services agreement; the agreement is not attached and has not been reviewed by Legal.",
+        "tags": [
+          "Supply chain",
+          "Compliance"
+        ],
+        "pageRef": "p. 2",
+        "confidence": 0.9
+      }
+    ]
   }
 ]
