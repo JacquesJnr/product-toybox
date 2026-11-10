@@ -210,6 +210,8 @@ An AI-powered search across meaning and relationships, not only the links alread
 
 ### 2.9 Placeholder data
 
+> **Replacement data (stages 5–7):** this section describes the current seed. If Jacques replaces `documents.json`, `wheels.json` and `smart-search.json` with his dad's files, the supplied files win over the lists and topics below (PRD B13–B15).
+
 Use the documents on the Figma sheet as the seed vault:
 - **Linked documents:** Board pack Q3 (the hub), Strategy note, Charter, Policy v4, Controls memo, Minutes · Sep, Forecast 2027, Training log, Risk register, Audit plan, Supplier review, Treasury update, Insurance schedule, Board risk report, Exec pay review.
 - **The orphan:** Draft charter.

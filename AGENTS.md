@@ -10,10 +10,13 @@ There is one app, `app/`, for the whole toybox (decision QS-030). New toys are b
 
 ## Sources of truth
 
-- `PRD.md` covers behavior, scope, stack, allowed dependencies, fixtures, build order and acceptance checks (A1–A11, which map to behaviors B1–B16). Read it before planning any app work.
+- `PRD.md` covers behavior, scope, stack, allowed dependencies, fixtures, build order and acceptance checks (A1–A25, which map to behaviors B1–B33). Read it before planning any app work.
 - `DESIGN.md` covers looks: section 1 is the universal toy style every toy uses, section 2 is the Governance Brain.
+- Stages 5–7 (Query, Board Simulation Room, Export Query) are not in `DESIGN.md` or Figma. Their look comes from the style page (`app/src/style/StageStyles.tsx`) once Jacques approves it there. The build plan is `docs/plans/2026-11-10-quantum-state-stages-5-7-design.md`.
 - Figma (file `lWqJ4xxExzCi9KsAotwLDe`, Toy Designs) beats DESIGN.md on looks. If they disagree, report the conflict and never "fix" DESIGN.md yourself.
 - For whoever builds the app, `PRD.md`, `DESIGN.md`, `README.md` and everything outside `app/` are read-only. All app files (package files, config, source, assets, build output, `app/qa/` screenshots) go inside `app/`. No root-level config.
+- One exception, for stages 5–7 only: one named leaf edits `PRD.md` and `AGENTS.md`, after Jacques approves the exact diff. No builder does.
+- Put stages 5–7 evidence under `app/qa/thursday-toys/`. Untracked files already in `app/qa/` may be Jacques's work: never delete, overwrite or commit them as a group.
 
 ## Stack and limits (from PRD §6)
 
@@ -21,7 +24,7 @@ There is one app, `app/`, for the whole toybox (decision QS-030). New toys are b
 - The allowed dependencies are only: `react`, `react-dom`, `vite`, `@vitejs/plugin-react`, `typescript`, `@types/react`, `@types/react-dom`, `@base-ui/react`, `tailwindcss`, `@tailwindcss/vite`, shadcn and the packages its CLI adds, Watermelon UI components (each one approved by Jacques) with their packages, and optionally `d3-force` with `@types/d3-force`. Anything else, ESLint included, needs approval.
 - Not allowed: no state library, router, backend, live AI calls, analytics, or mobile layout. The minimum viewport is 1280px.
 - shadcn (on Base UI) and Watermelon UI handle the standard controls (the PRD lists the mapping). Install components with the shadcn CLI from `app/`. The Graph, Wheel, sphere, details panel, insight cards and risk ledger are custom React and SVG. Every visual comes from the shadcn CSS variables, which come from the DESIGN.md tokens.
-- Fixtures live in `app/src/data/{documents,wheels,smart-search}.json`. Keep the PRD's filenames, fields, domain names and insight tags.
+- Fixtures live in `app/src/data/{documents,wheels,smart-search}.json`. Keep the PRD's filenames, fields, domain names and insight tags. Jacques may replace those three files with his dad's files in the same format; agents never collect, write or edit them. `app/src/data/stage-script.json` holds the stages 5–7 case and refers to documents by ID.
 - Popups need `isolation: isolate` on the app root. Vite `base: '/product-toybox/app/'` (GitHub Pages). Google Fonts is the only external request allowed.
 
 ## Commands (run from `app/` once it is scaffolded)
@@ -34,7 +37,9 @@ npm run build
 npm run preview
 ```
 
-There is no test runner. Acceptance means typecheck and build after the last edit, then walking the PRD §8 checks in the user's Chrome (Claude in Chrome or the Codex Chrome plugin) at 1280 and 1440px, never in a terminal browser. Report each check as pass, fail or unverified.
+There is no test runner. Pure logic has `*.check.ts` assertion files beside it, run with Node. Acceptance means typecheck and build after the last edit, then walking the PRD §8 checks with `terminal-browser` at 1280 and 1440px. Report each check as pass, fail or unverified.
+
+`terminal-browser` rules: the browser runs in its own window and is already open. Find it with `terminal-browser ls --all --json`. Open your own tab with `terminal-browser new-tab --browser <key> '<url>'`, target every action with `--browser <key> --tab <id>`, and release the tab with `terminal-browser action done --browser <key> --tab <id>`. Never run `terminal-browser open`, never run `new-tab` without `--browser`, and never use a tab that someone else uses.
 
 ## Working rules
 
