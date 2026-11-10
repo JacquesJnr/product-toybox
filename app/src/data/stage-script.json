@@ -1,0 +1,496 @@
+{
+  "id": "incentive-gate",
+  "question": "Can the board approve the proposed executive incentive payments, and what evidence must be confirmed first?",
+  "focus": "Test approval readiness: delivery-target evidence, second-person review, Finance accountability and unavailable employment contract terms.",
+  "documentIds": [
+    "policy-v4",
+    "controls-memo",
+    "minutes-sep",
+    "exec-pay-review",
+    "employment-contracts"
+  ],
+  "linkIds": [
+    "policy-v4->controls-memo",
+    "policy-v4->exec-pay-review",
+    "controls-memo->policy-v4",
+    "minutes-sep->exec-pay-review",
+    "minutes-sep->controls-memo",
+    "exec-pay-review->minutes-sep",
+    "exec-pay-review->policy-v4",
+    "exec-pay-review->employment-contracts"
+  ],
+  "sources": [
+    {
+      "documentId": "policy-v4",
+      "passage": "text, paragraph 1",
+      "status": "available",
+      "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+    },
+    {
+      "documentId": "controls-memo",
+      "passage": "text, paragraph 1",
+      "status": "available",
+      "text": "Control owners must retain evidence of review, record exceptions and escalate overdue actions. Finance checks incentive calculations against approved targets before payment."
+    },
+    {
+      "documentId": "minutes-sep",
+      "passage": "text, paragraph 1",
+      "status": "available",
+      "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
+    },
+    {
+      "documentId": "exec-pay-review",
+      "passage": "text, paragraph 1",
+      "status": "available",
+      "text": "The committee reviewed proposed incentive payments and noted that delivery target evidence must be confirmed before payment. The follow-up check is assigned to Finance."
+    },
+    {
+      "documentId": "exec-pay-review",
+      "passage": "insight: p. 3",
+      "status": "available",
+      "text": "The file does not include evidence that the proposed delivery targets were met."
+    },
+    {
+      "documentId": "employment-contracts",
+      "passage": "Document content",
+      "status": "unavailable",
+      "reason": "Not in the vault; author, document text, insights and issued date are unavailable."
+    }
+  ],
+  "analysis": {
+    "agreement": [
+      {
+        "id": "review-gate",
+        "text": "Incentive payments require documented delivery-target evidence and a second-person review before approval.",
+        "documentIds": [
+          "policy-v4"
+        ],
+        "linkIds": [],
+        "sources": [
+          {
+            "documentId": "policy-v4",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+          }
+        ],
+        "support": "supported"
+      },
+      {
+        "id": "finance-owner",
+        "text": "Finance checks incentive calculations against approved targets before payment; the committee assigned the follow-up evidence check to Finance.",
+        "documentIds": [
+          "controls-memo",
+          "exec-pay-review"
+        ],
+        "linkIds": [],
+        "sources": [
+          {
+            "documentId": "controls-memo",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "Control owners must retain evidence of review, record exceptions and escalate overdue actions. Finance checks incentive calculations against approved targets before payment."
+          },
+          {
+            "documentId": "exec-pay-review",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "The committee reviewed proposed incentive payments and noted that delivery target evidence must be confirmed before payment. The follow-up check is assigned to Finance."
+          }
+        ],
+        "support": "supported"
+      }
+    ],
+    "conflict": [
+      {
+        "id": "evidence-gap",
+        "text": "The proposal is not evidence-ready for approval: policy requires documented target evidence, but the pay review file does not include evidence that the proposed delivery targets were met.",
+        "documentIds": [
+          "policy-v4",
+          "exec-pay-review"
+        ],
+        "linkIds": [
+          "policy-v4->exec-pay-review"
+        ],
+        "sources": [
+          {
+            "documentId": "policy-v4",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+          },
+          {
+            "documentId": "exec-pay-review",
+            "passage": "insight: p. 3",
+            "status": "available",
+            "text": "The file does not include evidence that the proposed delivery targets were met."
+          }
+        ],
+        "support": "supported"
+      }
+    ],
+    "assumptions": [
+      {
+        "id": "later-check",
+        "text": "Assumption to test: Finance can provide the outstanding target evidence and a documented second-person review before any approval. The sources assign a check but do not confirm it is complete.",
+        "documentIds": [
+          "policy-v4",
+          "minutes-sep",
+          "exec-pay-review"
+        ],
+        "linkIds": [],
+        "sources": [
+          {
+            "documentId": "policy-v4",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+          },
+          {
+            "documentId": "minutes-sep",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
+          },
+          {
+            "documentId": "exec-pay-review",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "The committee reviewed proposed incentive payments and noted that delivery target evidence must be confirmed before payment. The follow-up check is assigned to Finance."
+          }
+        ],
+        "support": "unknown"
+      }
+    ],
+    "unknowns": [
+      {
+        "id": "targets-met",
+        "text": "Whether the proposed delivery targets were actually met remains unknown; absence of evidence in the pay review does not establish failure to meet them.",
+        "documentIds": [
+          "exec-pay-review"
+        ],
+        "linkIds": [],
+        "sources": [
+          {
+            "documentId": "exec-pay-review",
+            "passage": "insight: p. 3",
+            "status": "available",
+            "text": "The file does not include evidence that the proposed delivery targets were met."
+          }
+        ],
+        "support": "unknown"
+      },
+      {
+        "id": "contract-terms",
+        "text": "Whether employment contract terms create additional payment obligations or conditions is unknown because the cited contracts are not in the vault.",
+        "documentIds": [
+          "exec-pay-review",
+          "employment-contracts"
+        ],
+        "linkIds": [
+          "exec-pay-review->employment-contracts"
+        ],
+        "sources": [
+          {
+            "documentId": "exec-pay-review",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "The committee reviewed proposed incentive payments and noted that delivery target evidence must be confirmed before payment. The follow-up check is assigned to Finance."
+          },
+          {
+            "documentId": "employment-contracts",
+            "passage": "Document content",
+            "status": "unavailable",
+            "reason": "Not in the vault; author, document text, insights and issued date are unavailable."
+          }
+        ],
+        "support": "unknown"
+      }
+    ]
+  },
+  "room": {
+    "scenario": "Can we proceed with the decision in this Query, and under what conditions?",
+    "steps": [
+      {
+        "agent": "Finance",
+        "text": "The follow-up check belongs to Finance. I propose agreement in principle only, withholding formal approval until delivery-target evidence and second-person review are documented. This is a scripted proposal, not a permission established by the sources.",
+        "documentIds": [
+          "controls-memo",
+          "exec-pay-review",
+          "policy-v4"
+        ],
+        "sources": [
+          {
+            "documentId": "controls-memo",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "Control owners must retain evidence of review, record exceptions and escalate overdue actions. Finance checks incentive calculations against approved targets before payment."
+          },
+          {
+            "documentId": "exec-pay-review",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "The committee reviewed proposed incentive payments and noted that delivery target evidence must be confirmed before payment. The follow-up check is assigned to Finance."
+          },
+          {
+            "documentId": "policy-v4",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+          }
+        ]
+      },
+      {
+        "agent": "Risk",
+        "text": "The policy makes documented target evidence and second-person review prerequisites to approval. The pay review says target evidence is absent from the file. That is an approval-readiness gap, not proof the targets were missed.",
+        "documentIds": [
+          "policy-v4",
+          "exec-pay-review"
+        ],
+        "sources": [
+          {
+            "documentId": "policy-v4",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+          },
+          {
+            "documentId": "exec-pay-review",
+            "passage": "insight: p. 3",
+            "status": "available",
+            "text": "The file does not include evidence that the proposed delivery targets were met."
+          }
+        ]
+      },
+      {
+        "agent": "Operations",
+        "text": "The September minutes assign the evidence check to Finance for return at the next meeting. I would ask Finance to return the evidence and review record; the supplied minutes do not confirm completion.",
+        "documentIds": [
+          "minutes-sep",
+          "policy-v4"
+        ],
+        "sources": [
+          {
+            "documentId": "minutes-sep",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
+          },
+          {
+            "documentId": "policy-v4",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+          }
+        ]
+      },
+      {
+        "agent": "Challenger",
+        "text": "I disagree with agreement in principle now. Defer the decision until target evidence and second-person review are available, and obtain the cited employment contracts to check their terms. This is a scripted recommendation; unavailable contracts do not prove an obligation or an exemption.",
+        "documentIds": [
+          "policy-v4",
+          "exec-pay-review",
+          "employment-contracts"
+        ],
+        "sources": [
+          {
+            "documentId": "policy-v4",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+          },
+          {
+            "documentId": "exec-pay-review",
+            "passage": "insight: p. 3",
+            "status": "available",
+            "text": "The file does not include evidence that the proposed delivery targets were met."
+          },
+          {
+            "documentId": "employment-contracts",
+            "passage": "Document content",
+            "status": "unavailable",
+            "reason": "Not in the vault; author, document text, insights and issued date are unavailable."
+          }
+        ]
+      }
+    ],
+    "result": {
+      "agreement": [
+        {
+          "id": "room-gate",
+          "text": "Policy requires documented target evidence and second-person review before incentive payment approval; Finance has the follow-up evidence check.",
+          "documentIds": [
+            "policy-v4",
+            "exec-pay-review"
+          ],
+          "linkIds": [],
+          "sources": [
+            {
+              "documentId": "policy-v4",
+              "passage": "text, paragraph 1",
+              "status": "available",
+              "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+            },
+            {
+              "documentId": "exec-pay-review",
+              "passage": "text, paragraph 1",
+              "status": "available",
+              "text": "The committee reviewed proposed incentive payments and noted that delivery target evidence must be confirmed before payment. The follow-up check is assigned to Finance."
+            }
+          ],
+          "support": "supported"
+        }
+      ],
+      "disagreement": [
+        {
+          "id": "approval-timing",
+          "text": "Scripted disagreement: Finance proposes agreement in principle with formal approval withheld pending checks; Challenger proposes deferring the decision until those checks and contract review are available. These are simulated positions, not recorded source recommendations; the evidence does not establish that agreement in principle is permissible.",
+          "documentIds": [
+            "policy-v4",
+            "exec-pay-review",
+            "employment-contracts"
+          ],
+          "linkIds": [],
+          "sources": [
+            {
+              "documentId": "policy-v4",
+              "passage": "text, paragraph 1",
+              "status": "available",
+              "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+            },
+            {
+              "documentId": "exec-pay-review",
+              "passage": "insight: p. 3",
+              "status": "available",
+              "text": "The file does not include evidence that the proposed delivery targets were met."
+            },
+            {
+              "documentId": "employment-contracts",
+              "passage": "Document content",
+              "status": "unavailable",
+              "reason": "Not in the vault; author, document text, insights and issued date are unavailable."
+            }
+          ],
+          "support": "unknown"
+        }
+      ],
+      "missingEvidence": [
+        {
+          "id": "release-condition",
+          "text": "Proposed condition: return with documented evidence that targets were met, the second-person review, and the missing employment contracts for review before deciding whether payment can proceed. The supplied evidence does not establish that this condition has been satisfied.",
+          "documentIds": [
+            "policy-v4",
+            "exec-pay-review",
+            "employment-contracts"
+          ],
+          "linkIds": [],
+          "sources": [
+            {
+              "documentId": "policy-v4",
+              "passage": "text, paragraph 1",
+              "status": "available",
+              "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+            },
+            {
+              "documentId": "exec-pay-review",
+              "passage": "insight: p. 3",
+              "status": "available",
+              "text": "The file does not include evidence that the proposed delivery targets were met."
+            },
+            {
+              "documentId": "employment-contracts",
+              "passage": "Document content",
+              "status": "unavailable",
+              "reason": "Not in the vault; author, document text, insights and issued date are unavailable."
+            }
+          ],
+          "support": "unknown"
+        }
+      ],
+      "assumptions": [
+        {
+          "id": "later-check",
+          "text": "Assumption to test: Finance can provide the outstanding target evidence and a documented second-person review before any approval. The sources assign a check but do not confirm it is complete.",
+          "documentIds": [
+            "policy-v4",
+            "minutes-sep",
+            "exec-pay-review"
+          ],
+          "linkIds": [],
+          "sources": [
+            {
+              "documentId": "policy-v4",
+              "passage": "text, paragraph 1",
+              "status": "available",
+              "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+            },
+            {
+              "documentId": "minutes-sep",
+              "passage": "text, paragraph 1",
+              "status": "available",
+              "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
+            },
+            {
+              "documentId": "exec-pay-review",
+              "passage": "text, paragraph 1",
+              "status": "available",
+              "text": "The committee reviewed proposed incentive payments and noted that delivery target evidence must be confirmed before payment. The follow-up check is assigned to Finance."
+            }
+          ],
+          "support": "unknown"
+        }
+      ],
+      "reasoningSummary": "The policy states the approval prerequisites. The pay review records a Finance follow-up and missing target evidence; the minutes do not confirm that the check was completed. The simulation agrees on the evidence gate but disagrees on agreement in principle versus deferral. Contract terms cannot be assessed because the cited document is unavailable. This supports identifying conditions and uncertainty, not asserting payment approval, target failure or contractual entitlement.",
+      "sources": [
+        {
+          "documentId": "policy-v4",
+          "passage": "text, paragraph 1",
+          "status": "available",
+          "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+        },
+        {
+          "documentId": "controls-memo",
+          "passage": "text, paragraph 1",
+          "status": "available",
+          "text": "Control owners must retain evidence of review, record exceptions and escalate overdue actions. Finance checks incentive calculations against approved targets before payment."
+        },
+        {
+          "documentId": "minutes-sep",
+          "passage": "text, paragraph 1",
+          "status": "available",
+          "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
+        },
+        {
+          "documentId": "exec-pay-review",
+          "passage": "text, paragraph 1",
+          "status": "available",
+          "text": "The committee reviewed proposed incentive payments and noted that delivery target evidence must be confirmed before payment. The follow-up check is assigned to Finance."
+        },
+        {
+          "documentId": "exec-pay-review",
+          "passage": "insight: p. 3",
+          "status": "available",
+          "text": "The file does not include evidence that the proposed delivery targets were met."
+        },
+        {
+          "documentId": "employment-contracts",
+          "passage": "Document content",
+          "status": "unavailable",
+          "reason": "Not in the vault; author, document text, insights and issued date are unavailable."
+        }
+      ]
+    }
+  },
+  "metadata": {
+    "confidence": {
+      "status": "available",
+      "value": "Source insight confidence only: policy-v4 p. 8 = 0.96; controls-memo p. 2 = 0.93, p. 4 = 0.90; minutes-sep 00:42:10 = 0.91; exec-pay-review p. 3 = 0.96. employment-contracts: unavailable (no insights). No case-level or simulated recommendation confidence is supplied."
+    },
+    "freshness": {
+      "status": "available",
+      "value": "Issued dates: policy-v4 2026-05-20; controls-memo 2026-08-29; minutes-sep 2026-09-10; exec-pay-review 2026-09-16. employment-contracts: unavailable (issued date empty). These are document issue dates, not confirmation that evidence or policy is current."
+    },
+    "modelLabel": "Scripted local-model representation; no model is running.",
+    "scriptedLabel": "All Analysis and Room output is scripted from the supplied local fixtures."
+  }
+}
