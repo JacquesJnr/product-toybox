@@ -8,13 +8,13 @@ export function roomReady(state: StageState): boolean { return !!state.query && 
 export function exportReady(state: StageState): boolean { return roomReady(state) && state.run?.queryId === state.query?.id && state.run?.status === 'complete' && !!state.run.result && state.run.disagreementOpened && state.run.prepared }
 export function startRun(state: StageState, id: string, now: number): StageState {
   if (!roomReady(state) || !id.trim() || !Number.isFinite(now) || state.run?.status === 'running' || state.run?.id === id) return state
-  return { ...state, run: { id, queryId: state.query!.id, startedAt: now, status: 'running', completedSteps: 0, result: null, disagreementOpened: false, prepared: false }, snapshot: null }
+  return { ...state, run: { id, queryId: state.query!.id, startedAt: now, completedAt: null, status: 'running', completedSteps: 0, result: null, disagreementOpened: false, prepared: false }, snapshot: null }
 }
 export function stepRun(state: StageState, id: string, now: number, result: RoomResult): StageState {
   const run = state.run
   if (!run || run.id !== id || run.status !== 'running' || !Number.isFinite(now)) return state
   const completedSteps = Math.max(run.completedSteps, Math.min(4, Math.max(0, Math.floor((now - run.startedAt) / 2000))))
-  return { ...state, run: { ...run, completedSteps, status: completedSteps === 4 ? 'complete' : 'running', result: completedSteps === 4 ? result : null } }
+  return { ...state, run: { ...run, completedSteps, completedAt: completedSteps === 4 ? run.startedAt + 8000 : null, status: completedSteps === 4 ? 'complete' : 'running', result: completedSteps === 4 ? result : null } }
 }
 export function openDisagreement(state: StageState, id: string): StageState {
   if (state.run?.id !== id || state.run.status !== 'complete') return state
