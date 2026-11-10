@@ -210,7 +210,7 @@ An AI-powered search across meaning and relationships, not only the links alread
 
 ### 2.9 Placeholder data
 
-> **Added data (stages 5–7):** this section describes the seed. Stages 5–7 add documents to it from the case-driven data brief (PRD B13). The seed documents and topics below stay.
+> **Added data (stages 5–7):** this section describes the seed. Stages 5–7 add documents to it for the app map's Meridian go-live case (PRD B13). The seed documents and topics below stay.
 
 Use the documents on the Figma sheet as the seed vault:
 - **Linked documents:** Board pack Q3 (the hub), Strategy note, Charter, Policy v4, Controls memo, Minutes · Sep, Forecast 2027, Training log, Risk register, Audit plan, Supplier review, Treasury update, Insurance schedule, Board risk report, Exec pay review.

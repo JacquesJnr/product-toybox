@@ -145,7 +145,7 @@ The IDs are what section 8 checks against.
 
 **Stages 5–7** add a fourth file, `app/src/data/stage-script.json`. It holds what the document format does not: the demo selection, the Analysis findings and the Room script. It refers to documents and links by their IDs in `documents.json`.
 
-**Extension data.** The stages 5–7 data extends the seed. New documents are added to `documents.json`, and no existing record changes. The case-driven data brief, `docs/plans/2026-11-10-case-data-brief.md`, lists the documents to add. Jacques and his dad supply material, and an agent drafts documents to fill the gaps. Jacques approves every added document. `stage-script.json` is then rewritten on the extended data.
+**Extension data.** The stages 5–7 data extends the seed. New documents are added to `documents.json`, and no existing record changes. Agents generate the added documents from the app map's own case: Meridian Group asks "Is the Q1 go-live ready?" for its finance-system go-live (vault `Quantum State/Design.md`, mid-fi screens 3–7). The added documents connect to the seed. Jacques approves the result in the app. `stage-script.json` is rewritten on the extended data. His dad's data can be added later in the same way; no build step waits for it.
 
 **Each document has:**
 - `id`, `title`, `type` (`pdf | video | sheet | image`), `issued`, `from`, `author` (`{name, role}`, or `null` when the document is not in the vault), `domains`, `primaryDomain`, `text`;
@@ -157,7 +157,7 @@ The IDs are what section 8 checks against.
 - `documentId`, `topic`, `riskScore`, `appetite`, `rung`;
 - `factors[{factor, weight, evidenceRef}]`.
 
-**B14 Seed boundary.** Use exactly the documents in the supplied `documents.json`. That is the seed in DESIGN.md 2.9 plus the documents added from the data brief. Employment contracts gets no source content. The roughly 260 sphere nodes are decoration, not documents. Use only the insight tags in DESIGN.md 2.7. Every claim, score and insight is fictional.
+**B14 Seed boundary.** Use exactly the documents in the supplied `documents.json`. That is the seed in DESIGN.md 2.9 plus the added stages 5–7 documents. Employment contracts gets no source content. The roughly 260 sphere nodes are decoration, not documents. Use only the insight tags in DESIGN.md 2.7. Every claim, score and insight is fictional.
 
 Added documents do not change B2, B6, B9 or the three Smart Search scripts.
 
@@ -270,7 +270,7 @@ The toy's own components stay custom, hand-built in React and SVG, and never in 
 - No root-level config.
 - `DESIGN.md`, `README.md`, `PRD.md` and anything outside `app/` are read-only.
 - **Stages 5–7 exception:** one named leaf edits `PRD.md` and `AGENTS.md`, and only after Jacques approves the exact diff. Every builder treats both as read-only.
-- Agents add documents to `documents.json` only from the approved data brief. Agents never collect material, and never change existing records, `wheels.json` or `smart-search.json` (B13).
+- Agents add documents to `documents.json` only for the stages 5–7 extension (B13). Agents never collect outside material, and never change existing records, `wheels.json` or `smart-search.json`.
 - Put stages 5–7 evidence under `app/qa/thursday-toys/`. Untracked files already in `app/qa/` may be Jacques's work: do not delete, overwrite or commit them as a group.
 
 **Assets:**
