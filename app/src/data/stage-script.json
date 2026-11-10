@@ -1,42 +1,52 @@
 {
   "id": "incentive-gate",
-  "question": "Can the board approve the proposed executive incentive payments, and what evidence must be confirmed first?",
-  "focus": "Test approval readiness: delivery-target evidence, second-person review, Finance accountability and unavailable employment contract terms.",
+  "question": "Should the board release executive incentive payments while delivery evidence is unverified, downside liquidity is tightening, and launch risk is unowned?",
+  "focus": "Protect investment and delivery capacity: weigh incentive release against downside cash headroom and unowned launch exposure; choose deferral to the next meeting or expedited review without treating missing target proof as missed targets.",
   "documentIds": [
-    "policy-v4",
-    "controls-memo",
-    "minutes-sep",
+    "board-pack-q3",
     "exec-pay-review",
+    "policy-v4",
+    "minutes-sep",
+    "controls-memo",
+    "forecast-2027",
+    "liquidity-review",
+    "board-risk-report",
     "employment-contracts"
   ],
   "linkIds": [
-    "policy-v4->controls-memo",
-    "policy-v4->exec-pay-review",
-    "controls-memo->policy-v4",
-    "minutes-sep->exec-pay-review",
-    "minutes-sep->controls-memo",
+    "board-pack-q3->forecast-2027",
+    "board-pack-q3->board-risk-report",
+    "board-pack-q3->exec-pay-review",
+    "board-pack-q3->minutes-sep",
+    "board-pack-q3->policy-v4",
     "exec-pay-review->minutes-sep",
     "exec-pay-review->policy-v4",
-    "exec-pay-review->employment-contracts"
+    "exec-pay-review->board-pack-q3",
+    "exec-pay-review->employment-contracts",
+    "policy-v4->controls-memo",
+    "policy-v4->exec-pay-review",
+    "policy-v4->board-pack-q3",
+    "minutes-sep->board-pack-q3",
+    "minutes-sep->exec-pay-review",
+    "minutes-sep->controls-memo",
+    "controls-memo->policy-v4",
+    "forecast-2027->board-pack-q3",
+    "liquidity-review->forecast-2027",
+    "liquidity-review->board-pack-q3",
+    "board-risk-report->board-pack-q3"
   ],
   "sources": [
     {
-      "documentId": "policy-v4",
+      "documentId": "board-pack-q3",
       "passage": "text, paragraph 1",
       "status": "available",
-      "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+      "text": "Quarterly decisions are assessed against the charter and approved risk appetite. The board reviewed the 2027 forecast, supplier exposure, capital allocation and executive incentive proposals."
     },
     {
-      "documentId": "controls-memo",
-      "passage": "text, paragraph 1",
+      "documentId": "board-pack-q3",
+      "passage": "insight: p. 12",
       "status": "available",
-      "text": "Control owners must retain evidence of review, record exceptions and escalate overdue actions. Finance checks incentive calculations against approved targets before payment."
-    },
-    {
-      "documentId": "minutes-sep",
-      "passage": "text, paragraph 1",
-      "status": "available",
-      "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
+      "text": "Forecast movements affect the proposed capital and incentive decisions."
     },
     {
       "documentId": "exec-pay-review",
@@ -51,60 +61,120 @@
       "text": "The file does not include evidence that the proposed delivery targets were met."
     },
     {
+      "documentId": "policy-v4",
+      "passage": "text, paragraph 1",
+      "status": "available",
+      "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+    },
+    {
+      "documentId": "minutes-sep",
+      "passage": "text, paragraph 1",
+      "status": "available",
+      "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
+    },
+    {
+      "documentId": "controls-memo",
+      "passage": "text, paragraph 1",
+      "status": "available",
+      "text": "Control owners must retain evidence of review, record exceptions and escalate overdue actions. Finance checks incentive calculations against approved targets before payment."
+    },
+    {
+      "documentId": "controls-memo",
+      "passage": "insight: p. 2",
+      "status": "available",
+      "text": "Finance owns the documented target check before incentive payment."
+    },
+    {
+      "documentId": "forecast-2027",
+      "passage": "text, paragraph 1",
+      "status": "available",
+      "text": "The base case includes planned platform investment, supplier continuity costs and forecast incentive expense. Liquidity remains within the board threshold in the base case but narrows under the downside scenario."
+    },
+    {
+      "documentId": "liquidity-review",
+      "passage": "text, paragraph 1",
+      "status": "available",
+      "text": "Liquidity headroom is sensitive to delayed receipts and supplier payment timing. The downside case approaches the board threshold; treasury will update the forecast after collections are confirmed."
+    },
+    {
+      "documentId": "liquidity-review",
+      "passage": "insight: p. 1",
+      "status": "available",
+      "text": "Downside headroom approaches the board threshold if receipts are delayed."
+    },
+    {
+      "documentId": "board-risk-report",
+      "passage": "text, paragraph 1",
+      "status": "available",
+      "text": "Two critical suppliers remain outside the board’s recovery expectations. The report summarizes untested plans, risk-register actions, insurance limits and the forecast cost of service interruption. Nobody clearly owns the risk for the new market launch."
+    },
+    {
+      "documentId": "board-risk-report",
+      "passage": "insight: p. 7",
+      "status": "available",
+      "text": "Nobody clearly owns the risk for the new market launch."
+    },
+    {
       "documentId": "employment-contracts",
       "passage": "Document content",
       "status": "unavailable",
-      "reason": "Not in the vault; author, document text, insights and issued date are unavailable."
+      "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Contract terms cannot be inferred from the citation."
     }
   ],
   "analysis": {
     "agreement": [
       {
-        "id": "review-gate",
-        "text": "Incentive payments require documented delivery-target evidence and a second-person review before approval.",
+        "id": "capital-choice",
+        "text": "Forecast movements affect proposed capital and incentive decisions; the base case includes planned platform investment, supplier continuity costs and forecast incentive expense.",
         "documentIds": [
-          "policy-v4"
+          "board-pack-q3",
+          "forecast-2027"
         ],
-        "linkIds": [],
+        "linkIds": [
+          "board-pack-q3->forecast-2027"
+        ],
         "sources": [
           {
-            "documentId": "policy-v4",
+            "documentId": "board-pack-q3",
+            "passage": "insight: p. 12",
+            "status": "available",
+            "text": "Forecast movements affect the proposed capital and incentive decisions."
+          },
+          {
+            "documentId": "forecast-2027",
             "passage": "text, paragraph 1",
             "status": "available",
-            "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+            "text": "The base case includes planned platform investment, supplier continuity costs and forecast incentive expense. Liquidity remains within the board threshold in the base case but narrows under the downside scenario."
           }
         ],
         "support": "supported"
       },
       {
-        "id": "finance-owner",
-        "text": "Finance checks incentive calculations against approved targets before payment; the committee assigned the follow-up evidence check to Finance.",
+        "id": "launch-exposure",
+        "text": "The board risk report identifies two critical suppliers outside the board’s recovery expectations and no clear owner for new market launch risk.",
         "documentIds": [
-          "controls-memo",
-          "exec-pay-review"
+          "board-risk-report"
         ],
         "linkIds": [],
         "sources": [
           {
-            "documentId": "controls-memo",
+            "documentId": "board-risk-report",
             "passage": "text, paragraph 1",
             "status": "available",
-            "text": "Control owners must retain evidence of review, record exceptions and escalate overdue actions. Finance checks incentive calculations against approved targets before payment."
+            "text": "Two critical suppliers remain outside the board’s recovery expectations. The report summarizes untested plans, risk-register actions, insurance limits and the forecast cost of service interruption. Nobody clearly owns the risk for the new market launch."
           },
           {
-            "documentId": "exec-pay-review",
-            "passage": "text, paragraph 1",
+            "documentId": "board-risk-report",
+            "passage": "insight: p. 7",
             "status": "available",
-            "text": "The committee reviewed proposed incentive payments and noted that delivery target evidence must be confirmed before payment. The follow-up check is assigned to Finance."
+            "text": "Nobody clearly owns the risk for the new market launch."
           }
         ],
         "support": "supported"
-      }
-    ],
-    "conflict": [
+      },
       {
-        "id": "evidence-gap",
-        "text": "The proposal is not evidence-ready for approval: policy requires documented target evidence, but the pay review file does not include evidence that the proposed delivery targets were met.",
+        "id": "approval-gate",
+        "text": "Incentive payments require documented delivery-target evidence and second-person review before approval. The pay review assigns the follow-up check to Finance.",
         "documentIds": [
           "policy-v4",
           "exec-pay-review"
@@ -121,9 +191,70 @@
           },
           {
             "documentId": "exec-pay-review",
-            "passage": "insight: p. 3",
+            "passage": "text, paragraph 1",
             "status": "available",
-            "text": "The file does not include evidence that the proposed delivery targets were met."
+            "text": "The committee reviewed proposed incentive payments and noted that delivery target evidence must be confirmed before payment. The follow-up check is assigned to Finance."
+          }
+        ],
+        "support": "supported"
+      },
+      {
+        "id": "return-owner",
+        "text": "Finance checks incentive calculations against approved targets before payment. The committee assigned the evidence check to Finance for return at the next meeting; treasury will update the forecast after collections are confirmed.",
+        "documentIds": [
+          "controls-memo",
+          "minutes-sep",
+          "liquidity-review"
+        ],
+        "linkIds": [
+          "minutes-sep->controls-memo"
+        ],
+        "sources": [
+          {
+            "documentId": "controls-memo",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "Control owners must retain evidence of review, record exceptions and escalate overdue actions. Finance checks incentive calculations against approved targets before payment."
+          },
+          {
+            "documentId": "minutes-sep",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
+          },
+          {
+            "documentId": "liquidity-review",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "Liquidity headroom is sensitive to delayed receipts and supplier payment timing. The downside case approaches the board threshold; treasury will update the forecast after collections are confirmed."
+          }
+        ],
+        "support": "supported"
+      }
+    ],
+    "conflict": [
+      {
+        "id": "cash-tension",
+        "text": "Forecast 2027 says base-case liquidity remains within the board threshold; Liquidity review says the downside case approaches that threshold. These documents give competing bases for a release decision: base-case capacity versus downside vulnerability. This is a scenario-dependent conflict in decision signals, not a factual contradiction or evidence of a threshold breach.",
+        "documentIds": [
+          "forecast-2027",
+          "liquidity-review"
+        ],
+        "linkIds": [
+          "liquidity-review->forecast-2027"
+        ],
+        "sources": [
+          {
+            "documentId": "forecast-2027",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "The base case includes planned platform investment, supplier continuity costs and forecast incentive expense. Liquidity remains within the board threshold in the base case but narrows under the downside scenario."
+          },
+          {
+            "documentId": "liquidity-review",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "Liquidity headroom is sensitive to delayed receipts and supplier payment timing. The downside case approaches the board threshold; treasury will update the forecast after collections are confirmed."
           }
         ],
         "support": "supported"
@@ -131,26 +262,76 @@
     ],
     "assumptions": [
       {
-        "id": "later-check",
-        "text": "Assumption to test: Finance can provide the outstanding target evidence and a documented second-person review before any approval. The sources assign a check but do not confirm it is complete.",
+        "id": "safe-to-wait",
+        "text": "Flip assumption: waiting for the next meeting creates no material contractual or retention cost. This is not established in the vault. If wrong, change from waiting for the next meeting to expedited review as soon as the evidence and cash gates can be assessed; it would not justify asserting targets were met or bypassing policy. Resolve with signed payment terms, a confirmed meeting date and documented retention exposure.",
         "documentIds": [
-          "policy-v4",
           "minutes-sep",
+          "employment-contracts",
           "exec-pay-review"
         ],
         "linkIds": [],
         "sources": [
           {
-            "documentId": "policy-v4",
-            "passage": "text, paragraph 1",
-            "status": "available",
-            "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
-          },
-          {
             "documentId": "minutes-sep",
             "passage": "text, paragraph 1",
             "status": "available",
             "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
+          },
+          {
+            "documentId": "employment-contracts",
+            "passage": "Document content",
+            "status": "unavailable",
+            "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Contract terms cannot be inferred from the citation."
+          },
+          {
+            "documentId": "exec-pay-review",
+            "passage": "insight: p. 3",
+            "status": "available",
+            "text": "The file does not include evidence that the proposed delivery targets were met."
+          }
+        ],
+        "support": "unknown"
+      }
+    ],
+    "unknowns": [
+      {
+        "id": "target-proof",
+        "text": "Whether delivery targets were met is unknown. The pay review explicitly lacks proof; that is absence of evidence, not evidence targets were missed. Resolve with approved target definitions, actual delivery results and a documented second-person review.",
+        "documentIds": [
+          "exec-pay-review",
+          "policy-v4"
+        ],
+        "linkIds": [],
+        "sources": [
+          {
+            "documentId": "exec-pay-review",
+            "passage": "insight: p. 3",
+            "status": "available",
+            "text": "The file does not include evidence that the proposed delivery targets were met."
+          },
+          {
+            "documentId": "policy-v4",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+          }
+        ],
+        "support": "unknown"
+      },
+      {
+        "id": "payment-size",
+        "text": "The proposed payout amount and its incremental cash impact are not in the vault. The forecast includes incentive expense but supplies no amount or payment schedule in its text. Resolve with the payout schedule and a reconciled cash-flow model showing the effect of release versus deferral.",
+        "documentIds": [
+          "forecast-2027",
+          "exec-pay-review"
+        ],
+        "linkIds": [],
+        "sources": [
+          {
+            "documentId": "forecast-2027",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "The base case includes planned platform investment, supplier continuity costs and forecast incentive expense. Liquidity remains within the board threshold in the base case but narrows under the downside scenario."
           },
           {
             "documentId": "exec-pay-review",
@@ -160,36 +341,39 @@
           }
         ],
         "support": "unknown"
-      }
-    ],
-    "unknowns": [
+      },
       {
-        "id": "targets-met",
-        "text": "Whether the proposed delivery targets were actually met remains unknown; absence of evidence in the pay review does not establish failure to meet them.",
+        "id": "payment-date",
+        "text": "The payout date and any contractual deadline are not in the vault. Return at the next meeting is an evidence-check deadline, not a payment date. Resolve with signed payment terms, a payment calendar and the actual next-meeting date.",
         "documentIds": [
-          "exec-pay-review"
+          "minutes-sep",
+          "employment-contracts"
         ],
         "linkIds": [],
         "sources": [
           {
-            "documentId": "exec-pay-review",
-            "passage": "insight: p. 3",
+            "documentId": "minutes-sep",
+            "passage": "text, paragraph 1",
             "status": "available",
-            "text": "The file does not include evidence that the proposed delivery targets were met."
+            "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
+          },
+          {
+            "documentId": "employment-contracts",
+            "passage": "Document content",
+            "status": "unavailable",
+            "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Contract terms cannot be inferred from the citation."
           }
         ],
         "support": "unknown"
       },
       {
-        "id": "contract-terms",
-        "text": "Whether employment contract terms create additional payment obligations or conditions is unknown because the cited contracts are not in the vault.",
+        "id": "retention-cost",
+        "text": "Any retention risk or business cost of delaying incentives is not in the vault. It must not be treated as zero or asserted as a reason to pay. Resolve with documented retention exposure, affected roles and evidence of consequences of delay.",
         "documentIds": [
           "exec-pay-review",
           "employment-contracts"
         ],
-        "linkIds": [
-          "exec-pay-review->employment-contracts"
-        ],
+        "linkIds": [],
         "sources": [
           {
             "documentId": "exec-pay-review",
@@ -201,7 +385,83 @@
             "documentId": "employment-contracts",
             "passage": "Document content",
             "status": "unavailable",
-            "reason": "Not in the vault; author, document text, insights and issued date are unavailable."
+            "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Contract terms cannot be inferred from the citation."
+          }
+        ],
+        "support": "unknown"
+      },
+      {
+        "id": "contract-rights",
+        "text": "Whether the missing employment contracts create payment obligations, discretion or exceptions is unknown. The cited contracts are not in the vault. Resolve with signed contracts and an assessment of the applicable payment provisions; the citation alone establishes no entitlement.",
+        "documentIds": [
+          "employment-contracts",
+          "exec-pay-review"
+        ],
+        "linkIds": [
+          "exec-pay-review->employment-contracts"
+        ],
+        "sources": [
+          {
+            "documentId": "employment-contracts",
+            "passage": "Document content",
+            "status": "unavailable",
+            "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Contract terms cannot be inferred from the citation."
+          },
+          {
+            "documentId": "exec-pay-review",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "The committee reviewed proposed incentive payments and noted that delivery target evidence must be confirmed before payment. The follow-up check is assigned to Finance."
+          }
+        ],
+        "support": "unknown"
+      },
+      {
+        "id": "cash-after-release",
+        "text": "Whether release leaves adequate downside headroom after confirmed collections is unknown. The vault gives no quantified headroom, threshold, payout impact or completed post-collections update. Resolve with treasury’s dated update, confirmed receipts, payment timing and the applicable board threshold.",
+        "documentIds": [
+          "liquidity-review",
+          "forecast-2027"
+        ],
+        "linkIds": [
+          "liquidity-review->forecast-2027"
+        ],
+        "sources": [
+          {
+            "documentId": "liquidity-review",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "Liquidity headroom is sensitive to delayed receipts and supplier payment timing. The downside case approaches the board threshold; treasury will update the forecast after collections are confirmed."
+          },
+          {
+            "documentId": "forecast-2027",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "The base case includes planned platform investment, supplier continuity costs and forecast incentive expense. Liquidity remains within the board threshold in the base case but narrows under the downside scenario."
+          }
+        ],
+        "support": "unknown"
+      },
+      {
+        "id": "launch-pay-link",
+        "text": "Whether incentive targets include launch milestones, and whether release changes launch delivery or risk ownership, is unknown. Neither the pay review nor the risk report states that relationship. Resolve with the incentive scorecard, milestone mapping and an accepted launch-risk owner and action plan.",
+        "documentIds": [
+          "exec-pay-review",
+          "board-risk-report"
+        ],
+        "linkIds": [],
+        "sources": [
+          {
+            "documentId": "exec-pay-review",
+            "passage": "insight: p. 3",
+            "status": "available",
+            "text": "The file does not include evidence that the proposed delivery targets were met."
+          },
+          {
+            "documentId": "board-risk-report",
+            "passage": "insight: p. 7",
+            "status": "available",
+            "text": "Nobody clearly owns the risk for the new market launch."
           }
         ],
         "support": "unknown"
@@ -213,63 +473,78 @@
     "steps": [
       {
         "agent": "Finance",
-        "text": "The follow-up check belongs to Finance. I propose agreement in principle only, withholding formal approval until delivery-target evidence and second-person review are documented. This is a scripted proposal, not a permission established by the sources.",
+        "text": "The forecast already includes incentive expense alongside platform investment and supplier continuity costs, and base-case liquidity is within threshold. I favour expedited review rather than waiting automatically for another meeting, but only once the target and second-person checks and post-collections cash assessment are available. Finance owns the target check; Sofia Lindqvist is the Controls memo author and Financial Controller, not a separately named assignee in its text. We do not know the payout amount or its incremental cash effect. This is a scripted position.",
         "documentIds": [
+          "forecast-2027",
           "controls-memo",
-          "exec-pay-review",
-          "policy-v4"
+          "liquidity-review"
         ],
         "sources": [
           {
+            "documentId": "forecast-2027",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "The base case includes planned platform investment, supplier continuity costs and forecast incentive expense. Liquidity remains within the board threshold in the base case but narrows under the downside scenario."
+          },
+          {
             "documentId": "controls-memo",
-            "passage": "text, paragraph 1",
+            "passage": "insight: p. 2",
             "status": "available",
-            "text": "Control owners must retain evidence of review, record exceptions and escalate overdue actions. Finance checks incentive calculations against approved targets before payment."
+            "text": "Finance owns the documented target check before incentive payment."
           },
           {
-            "documentId": "exec-pay-review",
+            "documentId": "liquidity-review",
             "passage": "text, paragraph 1",
             "status": "available",
-            "text": "The committee reviewed proposed incentive payments and noted that delivery target evidence must be confirmed before payment. The follow-up check is assigned to Finance."
-          },
-          {
-            "documentId": "policy-v4",
-            "passage": "text, paragraph 1",
-            "status": "available",
-            "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+            "text": "Liquidity headroom is sensitive to delayed receipts and supplier payment timing. The downside case approaches the board threshold; treasury will update the forecast after collections are confirmed."
           }
         ]
       },
       {
         "agent": "Risk",
-        "text": "The policy makes documented target evidence and second-person review prerequisites to approval. The pay review says target evidence is absent from the file. That is an approval-readiness gap, not proof the targets were missed.",
+        "text": "The later Liquidity review puts downside cash near the board threshold, while the Board risk report identifies untested supplier recovery and unowned launch risk. I favour returning at the next meeting to review incentives with cash and execution exposure. There is no proof of a threshold breach and no evidence that holding incentives would fix launch ownership. This is a scripted risk judgement, not a documented payment veto.",
         "documentIds": [
-          "policy-v4",
-          "exec-pay-review"
+          "liquidity-review",
+          "board-risk-report",
+          "minutes-sep"
         ],
         "sources": [
           {
-            "documentId": "policy-v4",
-            "passage": "text, paragraph 1",
+            "documentId": "liquidity-review",
+            "passage": "insight: p. 1",
             "status": "available",
-            "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+            "text": "Downside headroom approaches the board threshold if receipts are delayed."
           },
           {
-            "documentId": "exec-pay-review",
-            "passage": "insight: p. 3",
+            "documentId": "board-risk-report",
+            "passage": "text, paragraph 1",
             "status": "available",
-            "text": "The file does not include evidence that the proposed delivery targets were met."
+            "text": "Two critical suppliers remain outside the board’s recovery expectations. The report summarizes untested plans, risk-register actions, insurance limits and the forecast cost of service interruption. Nobody clearly owns the risk for the new market launch."
+          },
+          {
+            "documentId": "minutes-sep",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
           }
         ]
       },
       {
         "agent": "Operations",
-        "text": "The September minutes assign the evidence check to Finance for return at the next meeting. I would ask Finance to return the evidence and review record; the supplied minutes do not confirm completion.",
+        "text": "The Board pack explicitly connects forecast movements to capital and incentive decisions. The committee asked Finance for evidence at the next meeting, and Policy v4 requires documented target achievement and second-person review before approval. Return the delivery results so we can distinguish missing proof from actual missed targets; do not assume these targets are launch milestones. Preserve investment and delivery options while the evidence is assembled. This is a scripted recommendation.",
         "documentIds": [
+          "board-pack-q3",
           "minutes-sep",
-          "policy-v4"
+          "policy-v4",
+          "exec-pay-review"
         ],
         "sources": [
+          {
+            "documentId": "board-pack-q3",
+            "passage": "insight: p. 12",
+            "status": "available",
+            "text": "Forecast movements affect the proposed capital and incentive decisions."
+          },
           {
             "documentId": "minutes-sep",
             "passage": "text, paragraph 1",
@@ -281,23 +556,30 @@
             "passage": "text, paragraph 1",
             "status": "available",
             "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+          },
+          {
+            "documentId": "exec-pay-review",
+            "passage": "insight: p. 3",
+            "status": "available",
+            "text": "The file does not include evidence that the proposed delivery targets were met."
           }
         ]
       },
       {
         "agent": "Challenger",
-        "text": "I disagree with agreement in principle now. Defer the decision until target evidence and second-person review are available, and obtain the cited employment contracts to check their terms. This is a scripted recommendation; unavailable contracts do not prove an obligation or an exemption.",
+        "text": "Our preference to wait assumes no material contractual or retention cost before the next meeting. Employment contracts are not in the vault; neither the payout deadline nor retention exposure is supplied. If that assumption fails, expedite review rather than infer permission to pay. The pay review says target evidence is absent, not that targets were missed. Demand the terms, amounts and dated cash update before choosing between deferral and expedited review. This is a scripted challenge.",
         "documentIds": [
-          "policy-v4",
+          "employment-contracts",
           "exec-pay-review",
-          "employment-contracts"
+          "minutes-sep",
+          "liquidity-review"
         ],
         "sources": [
           {
-            "documentId": "policy-v4",
-            "passage": "text, paragraph 1",
-            "status": "available",
-            "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+            "documentId": "employment-contracts",
+            "passage": "Document content",
+            "status": "unavailable",
+            "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Contract terms cannot be inferred from the citation."
           },
           {
             "documentId": "exec-pay-review",
@@ -306,10 +588,16 @@
             "text": "The file does not include evidence that the proposed delivery targets were met."
           },
           {
-            "documentId": "employment-contracts",
-            "passage": "Document content",
-            "status": "unavailable",
-            "reason": "Not in the vault; author, document text, insights and issued date are unavailable."
+            "documentId": "minutes-sep",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
+          },
+          {
+            "documentId": "liquidity-review",
+            "passage": "text, paragraph 1",
+            "status": "available",
+            "text": "Liquidity headroom is sensitive to delayed receipts and supplier payment timing. The downside case approaches the board threshold; treasury will update the forecast after collections are confirmed."
           }
         ]
       }
@@ -317,112 +605,36 @@
     "result": {
       "agreement": [
         {
-          "id": "room-gate",
-          "text": "Policy requires documented target evidence and second-person review before incentive payment approval; Finance has the follow-up evidence check.",
+          "id": "defer-release",
+          "text": "Scripted recommendation: do not release now; bring the decision back at the next meeting with verified targets, second-person review, contract terms and a post-collections cash assessment. Review the unowned launch exposure alongside the capital decision, without inventing a launch-linked payout condition. Named alternative: expedite review before that meeting once the same evidence gates can be assessed. Deferral preserves the option to retain cash while uncertainty is resolved; expedited review reduces possible delay costs, which are unquantified. This is a recommendation, not a documented board decision or proof of its optimality.",
           "documentIds": [
-            "policy-v4",
-            "exec-pay-review"
-          ],
-          "linkIds": [],
-          "sources": [
-            {
-              "documentId": "policy-v4",
-              "passage": "text, paragraph 1",
-              "status": "available",
-              "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
-            },
-            {
-              "documentId": "exec-pay-review",
-              "passage": "text, paragraph 1",
-              "status": "available",
-              "text": "The committee reviewed proposed incentive payments and noted that delivery target evidence must be confirmed before payment. The follow-up check is assigned to Finance."
-            }
-          ],
-          "support": "supported"
-        }
-      ],
-      "disagreement": [
-        {
-          "id": "approval-timing",
-          "text": "Scripted disagreement: Finance proposes agreement in principle with formal approval withheld pending checks; Challenger proposes deferring the decision until those checks and contract review are available. These are simulated positions, not recorded source recommendations; the evidence does not establish that agreement in principle is permissible.",
-          "documentIds": [
+            "board-pack-q3",
             "policy-v4",
             "exec-pay-review",
-            "employment-contracts"
-          ],
-          "linkIds": [],
-          "sources": [
-            {
-              "documentId": "policy-v4",
-              "passage": "text, paragraph 1",
-              "status": "available",
-              "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
-            },
-            {
-              "documentId": "exec-pay-review",
-              "passage": "insight: p. 3",
-              "status": "available",
-              "text": "The file does not include evidence that the proposed delivery targets were met."
-            },
-            {
-              "documentId": "employment-contracts",
-              "passage": "Document content",
-              "status": "unavailable",
-              "reason": "Not in the vault; author, document text, insights and issued date are unavailable."
-            }
-          ],
-          "support": "unknown"
-        }
-      ],
-      "missingEvidence": [
-        {
-          "id": "release-condition",
-          "text": "Proposed condition: return with documented evidence that targets were met, the second-person review, and the missing employment contracts for review before deciding whether payment can proceed. The supplied evidence does not establish that this condition has been satisfied.",
-          "documentIds": [
-            "policy-v4",
-            "exec-pay-review",
-            "employment-contracts"
-          ],
-          "linkIds": [],
-          "sources": [
-            {
-              "documentId": "policy-v4",
-              "passage": "text, paragraph 1",
-              "status": "available",
-              "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
-            },
-            {
-              "documentId": "exec-pay-review",
-              "passage": "insight: p. 3",
-              "status": "available",
-              "text": "The file does not include evidence that the proposed delivery targets were met."
-            },
-            {
-              "documentId": "employment-contracts",
-              "passage": "Document content",
-              "status": "unavailable",
-              "reason": "Not in the vault; author, document text, insights and issued date are unavailable."
-            }
-          ],
-          "support": "unknown"
-        }
-      ],
-      "assumptions": [
-        {
-          "id": "later-check",
-          "text": "Assumption to test: Finance can provide the outstanding target evidence and a documented second-person review before any approval. The sources assign a check but do not confirm it is complete.",
-          "documentIds": [
-            "policy-v4",
             "minutes-sep",
-            "exec-pay-review"
+            "liquidity-review",
+            "board-risk-report",
+            "employment-contracts"
           ],
           "linkIds": [],
           "sources": [
+            {
+              "documentId": "board-pack-q3",
+              "passage": "insight: p. 12",
+              "status": "available",
+              "text": "Forecast movements affect the proposed capital and incentive decisions."
+            },
             {
               "documentId": "policy-v4",
               "passage": "text, paragraph 1",
               "status": "available",
               "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+            },
+            {
+              "documentId": "exec-pay-review",
+              "passage": "insight: p. 3",
+              "status": "available",
+              "text": "The file does not include evidence that the proposed delivery targets were met."
             },
             {
               "documentId": "minutes-sep",
@@ -431,34 +643,195 @@
               "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
             },
             {
-              "documentId": "exec-pay-review",
+              "documentId": "liquidity-review",
               "passage": "text, paragraph 1",
               "status": "available",
-              "text": "The committee reviewed proposed incentive payments and noted that delivery target evidence must be confirmed before payment. The follow-up check is assigned to Finance."
+              "text": "Liquidity headroom is sensitive to delayed receipts and supplier payment timing. The downside case approaches the board threshold; treasury will update the forecast after collections are confirmed."
+            },
+            {
+              "documentId": "board-risk-report",
+              "passage": "insight: p. 7",
+              "status": "available",
+              "text": "Nobody clearly owns the risk for the new market launch."
+            },
+            {
+              "documentId": "employment-contracts",
+              "passage": "Document content",
+              "status": "unavailable",
+              "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Contract terms cannot be inferred from the citation."
             }
           ],
           "support": "unknown"
         }
       ],
-      "reasoningSummary": "The policy states the approval prerequisites. The pay review records a Finance follow-up and missing target evidence; the minutes do not confirm that the check was completed. The simulation agrees on the evidence gate but disagrees on agreement in principle versus deferral. Contract terms cannot be assessed because the cited document is unavailable. This supports identifying conditions and uncertainty, not asserting payment approval, target failure or contractual entitlement.",
+      "disagreement": [
+        {
+          "id": "review-timing",
+          "text": "Scripted material disagreement: Finance favours expedited review once target and second-person checks and updated cash evidence are available, using the forecast that already includes incentive expense. Risk favours returning at the next meeting to consider downside cash vulnerability and launch ownership alongside incentives. The trade-off is earlier resolution of possible payment obligations versus more time to test cash and execution exposure. Neither position establishes a right to release now, a quantified delay cost or a causal link between pay and launch risk.",
+          "documentIds": [
+            "forecast-2027",
+            "controls-memo",
+            "liquidity-review",
+            "board-risk-report",
+            "minutes-sep",
+            "employment-contracts"
+          ],
+          "linkIds": [],
+          "sources": [
+            {
+              "documentId": "forecast-2027",
+              "passage": "text, paragraph 1",
+              "status": "available",
+              "text": "The base case includes planned platform investment, supplier continuity costs and forecast incentive expense. Liquidity remains within the board threshold in the base case but narrows under the downside scenario."
+            },
+            {
+              "documentId": "controls-memo",
+              "passage": "text, paragraph 1",
+              "status": "available",
+              "text": "Control owners must retain evidence of review, record exceptions and escalate overdue actions. Finance checks incentive calculations against approved targets before payment."
+            },
+            {
+              "documentId": "liquidity-review",
+              "passage": "text, paragraph 1",
+              "status": "available",
+              "text": "Liquidity headroom is sensitive to delayed receipts and supplier payment timing. The downside case approaches the board threshold; treasury will update the forecast after collections are confirmed."
+            },
+            {
+              "documentId": "board-risk-report",
+              "passage": "insight: p. 7",
+              "status": "available",
+              "text": "Nobody clearly owns the risk for the new market launch."
+            },
+            {
+              "documentId": "minutes-sep",
+              "passage": "text, paragraph 1",
+              "status": "available",
+              "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
+            },
+            {
+              "documentId": "employment-contracts",
+              "passage": "Document content",
+              "status": "unavailable",
+              "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Contract terms cannot be inferred from the citation."
+            }
+          ],
+          "support": "unknown"
+        }
+      ],
+      "missingEvidence": [
+        {
+          "id": "decision-pack",
+          "text": "Proposed missing-evidence condition: Finance returns target results, second-person review and the payout amount/schedule at the next meeting; obtain signed contract terms and retention evidence, and treasury’s forecast after collections are confirmed. Put a named launch-risk owner and action plan before the board as a separate execution issue. Until then, release affordability, the cost of waiting and target achievement remain unknown. The expanded decision pack and launch action are scripted requests, not already assigned or completed commitments.",
+          "documentIds": [
+            "minutes-sep",
+            "controls-memo",
+            "policy-v4",
+            "exec-pay-review",
+            "forecast-2027",
+            "liquidity-review",
+            "board-risk-report",
+            "employment-contracts"
+          ],
+          "linkIds": [],
+          "sources": [
+            {
+              "documentId": "minutes-sep",
+              "passage": "text, paragraph 1",
+              "status": "available",
+              "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
+            },
+            {
+              "documentId": "controls-memo",
+              "passage": "text, paragraph 1",
+              "status": "available",
+              "text": "Control owners must retain evidence of review, record exceptions and escalate overdue actions. Finance checks incentive calculations against approved targets before payment."
+            },
+            {
+              "documentId": "policy-v4",
+              "passage": "text, paragraph 1",
+              "status": "available",
+              "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+            },
+            {
+              "documentId": "exec-pay-review",
+              "passage": "insight: p. 3",
+              "status": "available",
+              "text": "The file does not include evidence that the proposed delivery targets were met."
+            },
+            {
+              "documentId": "forecast-2027",
+              "passage": "text, paragraph 1",
+              "status": "available",
+              "text": "The base case includes planned platform investment, supplier continuity costs and forecast incentive expense. Liquidity remains within the board threshold in the base case but narrows under the downside scenario."
+            },
+            {
+              "documentId": "liquidity-review",
+              "passage": "text, paragraph 1",
+              "status": "available",
+              "text": "Liquidity headroom is sensitive to delayed receipts and supplier payment timing. The downside case approaches the board threshold; treasury will update the forecast after collections are confirmed."
+            },
+            {
+              "documentId": "board-risk-report",
+              "passage": "insight: p. 7",
+              "status": "available",
+              "text": "Nobody clearly owns the risk for the new market launch."
+            },
+            {
+              "documentId": "employment-contracts",
+              "passage": "Document content",
+              "status": "unavailable",
+              "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Contract terms cannot be inferred from the citation."
+            }
+          ],
+          "support": "unknown"
+        }
+      ],
+      "assumptions": [
+        {
+          "id": "safe-to-wait",
+          "text": "Flip assumption: waiting for the next meeting creates no material contractual or retention cost. This is not established in the vault. If wrong, change from waiting for the next meeting to expedited review as soon as the evidence and cash gates can be assessed; it would not justify asserting targets were met or bypassing policy. Resolve with signed payment terms, a confirmed meeting date and documented retention exposure.",
+          "documentIds": [
+            "minutes-sep",
+            "employment-contracts",
+            "exec-pay-review"
+          ],
+          "linkIds": [],
+          "sources": [
+            {
+              "documentId": "minutes-sep",
+              "passage": "text, paragraph 1",
+              "status": "available",
+              "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
+            },
+            {
+              "documentId": "employment-contracts",
+              "passage": "Document content",
+              "status": "unavailable",
+              "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Contract terms cannot be inferred from the citation."
+            },
+            {
+              "documentId": "exec-pay-review",
+              "passage": "insight: p. 3",
+              "status": "available",
+              "text": "The file does not include evidence that the proposed delivery targets were met."
+            }
+          ],
+          "support": "unknown"
+        }
+      ],
+      "reasoningSummary": "Recommendation: defer release now and return at the next meeting; named alternative: expedited review before that meeting once the same evidence and cash gates can be assessed. The company objective is to protect capacity for investment, supplier continuity and delivery while making a defensible incentive decision. The base forecast includes incentive expense and is within threshold, but the later downside review approaches the threshold; the board pack explicitly links forecasts to incentive decisions. Missing target proof prevents us from calling delivery either achieved or failed. Launch ownership is a separate documented execution exposure, not a proven incentive target or payment condition. Deferral preserves cash optionality during uncertainty; expedited review reduces possible contractual or retention costs, neither of which is quantified. The flip assumption is that waiting creates no material contractual or retention cost: if wrong, accelerate the review, without bypassing policy. Finance owns the evidence check for return at the next meeting (Minutes · Sep; Controls memo). Sofia Lindqvist is the Controls memo author, Financial Controller; using her as coordination contact is a proposal, not a sourced personal assignment. Treasury updates the forecast after collections are confirmed (Liquidity review); no completion date is supplied. The proposed board decision is release versus deferral: Board pack Q3 records board review of incentive proposals, not an existing release resolution or delegated approval authority. The next meeting date, payout amount/date, contract rights and retention exposure are unknown. Request a launch-risk owner and action plan separately; no source names that owner or a deadline. All recommendations and agent positions are scripted judgements, not source conclusions.",
       "sources": [
         {
-          "documentId": "policy-v4",
+          "documentId": "board-pack-q3",
           "passage": "text, paragraph 1",
           "status": "available",
-          "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+          "text": "Quarterly decisions are assessed against the charter and approved risk appetite. The board reviewed the 2027 forecast, supplier exposure, capital allocation and executive incentive proposals."
         },
         {
-          "documentId": "controls-memo",
-          "passage": "text, paragraph 1",
+          "documentId": "board-pack-q3",
+          "passage": "insight: p. 12",
           "status": "available",
-          "text": "Control owners must retain evidence of review, record exceptions and escalate overdue actions. Finance checks incentive calculations against approved targets before payment."
-        },
-        {
-          "documentId": "minutes-sep",
-          "passage": "text, paragraph 1",
-          "status": "available",
-          "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
+          "text": "Forecast movements affect the proposed capital and incentive decisions."
         },
         {
           "documentId": "exec-pay-review",
@@ -473,10 +846,64 @@
           "text": "The file does not include evidence that the proposed delivery targets were met."
         },
         {
+          "documentId": "policy-v4",
+          "passage": "text, paragraph 1",
+          "status": "available",
+          "text": "Incentive payments require documented evidence that delivery targets were met and a second-person review before approval. Exceptions are reported to the remuneration committee."
+        },
+        {
+          "documentId": "minutes-sep",
+          "passage": "text, paragraph 1",
+          "status": "available",
+          "text": "The committee discussed proposed executive incentives and asked for confirmation that delivery targets had been met. The evidence check was assigned to Finance for return at the next meeting."
+        },
+        {
+          "documentId": "controls-memo",
+          "passage": "text, paragraph 1",
+          "status": "available",
+          "text": "Control owners must retain evidence of review, record exceptions and escalate overdue actions. Finance checks incentive calculations against approved targets before payment."
+        },
+        {
+          "documentId": "controls-memo",
+          "passage": "insight: p. 2",
+          "status": "available",
+          "text": "Finance owns the documented target check before incentive payment."
+        },
+        {
+          "documentId": "forecast-2027",
+          "passage": "text, paragraph 1",
+          "status": "available",
+          "text": "The base case includes planned platform investment, supplier continuity costs and forecast incentive expense. Liquidity remains within the board threshold in the base case but narrows under the downside scenario."
+        },
+        {
+          "documentId": "liquidity-review",
+          "passage": "text, paragraph 1",
+          "status": "available",
+          "text": "Liquidity headroom is sensitive to delayed receipts and supplier payment timing. The downside case approaches the board threshold; treasury will update the forecast after collections are confirmed."
+        },
+        {
+          "documentId": "liquidity-review",
+          "passage": "insight: p. 1",
+          "status": "available",
+          "text": "Downside headroom approaches the board threshold if receipts are delayed."
+        },
+        {
+          "documentId": "board-risk-report",
+          "passage": "text, paragraph 1",
+          "status": "available",
+          "text": "Two critical suppliers remain outside the board’s recovery expectations. The report summarizes untested plans, risk-register actions, insurance limits and the forecast cost of service interruption. Nobody clearly owns the risk for the new market launch."
+        },
+        {
+          "documentId": "board-risk-report",
+          "passage": "insight: p. 7",
+          "status": "available",
+          "text": "Nobody clearly owns the risk for the new market launch."
+        },
+        {
           "documentId": "employment-contracts",
           "passage": "Document content",
           "status": "unavailable",
-          "reason": "Not in the vault; author, document text, insights and issued date are unavailable."
+          "reason": "Not in the vault: employment contract text, author, issued date and insights are absent. Contract terms cannot be inferred from the citation."
         }
       ]
     }
@@ -484,13 +911,13 @@
   "metadata": {
     "confidence": {
       "status": "available",
-      "value": "Source insight confidence only: policy-v4 p. 8 = 0.96; controls-memo p. 2 = 0.93, p. 4 = 0.90; minutes-sep 00:42:10 = 0.91; exec-pay-review p. 3 = 0.96. employment-contracts: unavailable (no insights). No case-level or simulated recommendation confidence is supplied."
+      "value": "Source insight confidence, not decision confidence: board-pack-q3 p. 6 = 0.92; board-pack-q3 p. 12 = 0.89; exec-pay-review p. 3 = 0.96; policy-v4 p. 8 = 0.96; minutes-sep 00:42:10 = 0.91; controls-memo p. 2 = 0.93; controls-memo p. 4 = 0.9; forecast-2027 C18 = 0.92; liquidity-review p. 1 = 0.94; board-risk-report p. 4 = 0.92; board-risk-report p. 7 = 0.78. employment-contracts confidence unavailable: no insights. No confidence is supplied for the recommendation or unknowns."
     },
     "freshness": {
       "status": "available",
-      "value": "Issued dates: policy-v4 2026-05-20; controls-memo 2026-08-29; minutes-sep 2026-09-10; exec-pay-review 2026-09-16. employment-contracts: unavailable (issued date empty). These are document issue dates, not confirmation that evidence or policy is current."
+      "value": "Document issued dates: board-pack-q3 = 2026-09-18; exec-pay-review = 2026-09-16; policy-v4 = 2026-05-20; minutes-sep = 2026-09-10; controls-memo = 2026-08-29; forecast-2027 = 2026-09-12; liquidity-review = 2026-10-01; board-risk-report = 30 Sep 2026. employment-contracts freshness unavailable: issued date empty. Issue dates do not establish current cash, completed checks or continuing policy validity. The later Liquidity review is not a completed post-collections forecast."
     },
     "modelLabel": "Scripted local-model representation; no model is running.",
-    "scriptedLabel": "All Analysis and Room output is scripted from the supplied local fixtures."
+    "scriptedLabel": "All Analysis and Room output is scripted from local fixtures. Recommendations, alternatives and agent positions are simulated judgements, not recorded board decisions."
   }
 }
