@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import { motion } from 'motion/react'
-import { ArrowUpRight, Bot, Check, Circle, FileText, Mail, Pencil, RefreshCw, Sparkles, X } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Bot, Check, ChevronDown, ChevronUp, Circle, Download, FileCode, Pencil, RefreshCw, Sparkles, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { QueryGraph, startLinks, startNodes, suggestion, type QLink, type QNode } from './QueryGraph'
 
@@ -121,171 +121,431 @@ export function QueryStyle() {
   )
 }
 
+// ── Style-page state switcher ──────────────────────────────────────────────────
+// Not product UI: a dashed strip so Jacques can jump between states. Builders drop it.
+
+function StateSwitcher<T extends string>({ states, current, onPick, note }: { states: readonly T[]; current: T; onPick: (s: T) => void; note?: string }) {
+  return (
+    <div className="flex flex-wrap items-center gap-1.5 rounded-xl border border-dashed border-border px-3 py-2">
+      <span className={`mr-1 ${label}`}>Style page · state</span>
+      {states.map(s => (
+        <button key={s} onClick={() => onPick(s)} className={`rounded-full px-2.5 py-0.5 text-xs transition-colors ${s === current ? 'bg-foreground text-background' : 'bg-muted text-muted-foreground hover:text-foreground'}`}>{s}</button>
+      ))}
+      {note && <span className="ml-auto text-[11px] text-muted-foreground">{note}</span>}
+    </div>
+  )
+}
+
+const goTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+const timeOf = (ms: number) => new Date(ms).toLocaleTimeString('en-GB')
+
 // ── Stage 6 · Board Simulation Room ────────────────────────────────────────────
+// Example content: the app map's Meridian go-live case. Builders take the real text from stage-script.json.
 
-type Agent = { lens: string; done: number; text: string; sources: string[]; stance?: string; missing?: boolean }
+const scenario = 'Can we proceed with the decision in this Query, and under what conditions?'
+const STEP_MS = 2000 // steps complete at 2, 4, 6 and 8 s
+const RUN_MS = STEP_MS * 4
 
-const agents: Agent[] = [
-  { lens: 'Finance lens', done: 41, text: 'A one-quarter slip adds about AED 2.1m in parallel running costs, inside the 5% contingency.', sources: ['Report p.9', 'ERP'], stance: 'Delay is affordable' },
-  { lens: 'Risk lens', done: 38, text: "Going live in Q1 with 4 open high risks breaches the board's stated appetite for finance systems.", sources: ['R-22', 'Risk appetite §3'], stance: 'Delay is safer' },
-  { lens: 'Operations lens', done: 0, text: 'Regional training is the critical path. Its November dates are not confirmed in any source', sources: ['Report p.15'] },
-  { lens: 'Challenger', done: 52, text: 'Neither report tests the vendor. If CoreSys support ends before go-live, both dates fail.', sources: ['CoreSys contract (unread)'], stance: 'Evidence missing', missing: true },
+type Lens = { name: string; weighs: string; text: string; reasoning: string; sources: string[]; stance: string; missing?: boolean }
+
+const lenses: Lens[] = [
+  { name: 'Finance', weighs: 'Cost and contingency', stance: 'Proceed in Q2 on contingency',
+    text: 'A one-quarter slip adds about AED 2.1m in parallel running costs, inside the 5% contingency.',
+    reasoning: 'Contingency is 5% of AED 48m, about AED 2.4m. The slip costs about AED 2.1m, so a Q2 date is affordable without new money.',
+    sources: ['Report p.9', 'ERP · Aug actuals'] },
+  { name: 'Risk', weighs: "The board's risk appetite", stance: 'Not in Q1',
+    text: "Going live in Q1 with 4 open high risks breaches the board's stated appetite for finance systems.",
+    reasoning: 'Cost is not the test; appetite is. M3 carries four open high risks, so any date holds only once R-22 is back within appetite.',
+    sources: ['R-22', 'Risk appetite §3'] },
+  { name: 'Operations', weighs: 'Delivery and readiness', stance: 'Only if training is fixed',
+    text: 'Regional training is the critical path. Its November dates are not confirmed in any source.',
+    reasoning: 'Q2 gives one month of buffer after training. If training slips, Q2 has none, so the date depends on fixing training first.',
+    sources: ['Report p.15'] },
+  { name: 'Challenger', weighs: 'What the others assume', stance: 'Evidence missing', missing: true,
+    text: 'Neither report tests the vendor. If CoreSys support ends before go-live, both dates fail.',
+    reasoning: 'Every lens assumes CoreSys supports the ledger through Q2. The contract is not in the vault, so nobody can test that.',
+    sources: ['CoreSys contract'] },
 ]
 
 const emerged = [
-  { kind: 'Agree', dot: 'bg-status-within', text: 'The one-quarter delay is affordable within contingency.', who: 'Finance, Risk' },
-  { kind: 'Disagree', dot: 'bg-status-near', text: 'Finance weighs cost; Risk weighs appetite. They reach opposite recommendations on the same figures.', who: 'Finance vs Risk' },
-  { kind: 'Missing', dot: 'border border-muted-foreground bg-transparent', text: "No agent could assess vendor continuity: the CoreSys contract hasn't been read.", who: 'Challenger' },
+  { kind: 'Agree', dot: 'bg-status-within', text: 'A one-quarter slip is affordable: about AED 2.1m, inside the 5% contingency.', who: 'Finance and Risk', sources: ['Report p.9', 'ERP · Aug actuals'] },
+  { kind: 'Disagree', dot: 'bg-status-near', text: 'Whether to proceed. Finance would go live in Q2 on contingency; Risk would not go live while M3 carries four open high risks.', who: 'Finance vs Risk', sources: ['Report p.9', 'R-22'] },
+  { kind: 'Missing', dot: 'border border-muted-foreground bg-transparent', text: "Vendor continuity: the CoreSys contract isn't in the vault, so no lens could test whether support lasts past go-live.", who: 'Challenger', sources: [] },
 ]
 
-const clock = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`
+const assumptionsShared = [
+  { text: 'Both lenses use the same AED 2.1m slip cost.', source: 'Report p.9' },
+  { text: 'Contingency is not drawn on elsewhere before Q2. No source confirms it.', source: '' },
+  { text: 'Regional training finishes in November. The dates are not fixed.', source: 'Report p.15' },
+]
 
-function useTicker(start: number) {
-  const [s, setS] = useState(start)
-  useEffect(() => { const t = setInterval(() => setS(v => v + 1), 1000); return () => clearInterval(t) }, [])
-  return s
+type Run = { startedAt: number; completedAt: number | null; opened: boolean; prepared: boolean; replaced: boolean }
+const roomStates = ['Setup', 'Running', 'Completed', 'Detail opened', 'Prepared', 'Rerun'] as const
+type RoomState = typeof roomStates[number]
+
+function roomStateOf(run: Run | null): RoomState {
+  if (!run) return 'Setup'
+  if (run.replaced && !run.opened) return 'Rerun'
+  if (run.completedAt === null) return 'Running'
+  return run.prepared ? 'Prepared' : run.opened ? 'Detail opened' : 'Completed'
 }
 
-function AgentCard({ agent }: { agent: Agent }) {
-  const working = agent.done === 0
+type LensStatus = 'waiting' | 'queued' | 'working' | 'done'
+
+function LensCard({ lens, status, doneAt }: { lens: Lens; status: LensStatus; doneAt: number }) {
+  const working = status === 'working'
+  const done = status === 'done'
   return (
-    // A working agent is AI in motion: rainbow edge and a pulsing status. Finished agents settle to a plain card.
-    <div className={`flex min-h-56 flex-col gap-3 rounded-2xl p-4 shadow-soft ${working ? 'ai-edge' : 'border border-border/60 bg-card'}`}>
+    // Working is AI in motion: rainbow edge and a pulse. Done settles to a plain card. Waiting and queued are quiet.
+    <div className={`flex min-h-52 flex-col gap-3 rounded-2xl p-4 shadow-soft ${working ? 'ai-edge' : done ? 'border border-border/60 bg-card' : 'border border-dashed border-border bg-card/60'}`}>
       <div className="flex items-center justify-between">
-        <span className="font-heading font-semibold">{agent.lens}</span>
-        {working
-          ? <span className="flex items-center gap-1.5 text-[11px] text-muted-foreground"><motion.span className="size-1.5 rounded-full bg-[#8338EC]" animate={{ opacity: [1, 0.2, 1] }} transition={{ duration: 1.2, repeat: Infinity }} />Working</span>
-          : <span className="flex items-center gap-1 text-[11px] text-muted-foreground"><Check size={12} />Done · {agent.done} s</span>}
+        <span className="font-heading font-semibold">{lens.name}</span>
+        {working && <span className="flex items-center gap-1.5 text-[11px] text-muted-foreground"><motion.span className="size-1.5 rounded-full bg-[#8338EC]" animate={{ opacity: [1, 0.2, 1] }} transition={{ duration: 1.2, repeat: Infinity }} />Working</span>}
+        {done && <span className="flex items-center gap-1 text-[11px] text-muted-foreground"><Check size={12} />Done · {doneAt} s</span>}
+        {status === 'queued' && <span className="text-[11px] text-muted-foreground">Queued</span>}
       </div>
-      <p className={`text-sm leading-relaxed ${working ? 'text-muted-foreground' : ''}`}>
-        {agent.text}{working && <motion.span className="ml-0.5 inline-block h-3.5 w-1.5 translate-y-0.5 bg-[#8338EC]" animate={{ opacity: [1, 0] }} transition={{ duration: 0.6, repeat: Infinity, repeatType: 'reverse' }} />}
-      </p>
-      <div className="flex flex-wrap gap-1.5">{agent.sources.map(s => <Source key={s} missing={agent.missing}>{s}</Source>)}</div>
-      {agent.stance && <span className="mt-auto self-start rounded-full bg-foreground px-2.5 py-1 text-xs font-medium text-background">{agent.stance}</span>}
+      <span className="text-xs text-muted-foreground">Weighs: {lens.weighs}</span>
+      {done && <p className="text-sm leading-relaxed">{lens.text}</p>}
+      {working && <p className="text-sm text-muted-foreground">Reading the Query evidence<motion.span className="ml-0.5 inline-block h-3.5 w-1.5 translate-y-0.5 bg-[#8338EC]" animate={{ opacity: [1, 0] }} transition={{ duration: 0.6, repeat: Infinity, repeatType: 'reverse' }} /></p>}
+      {done && <div className="flex flex-wrap gap-1.5">{lens.sources.map(s => <Source key={s} missing={lens.missing}>{lens.missing ? `${s} · not in the vault` : s}</Source>)}</div>}
+      {done && <span className="mt-auto self-start rounded-full bg-foreground px-2.5 py-1 text-xs font-medium text-background">{lens.stance}</span>}
     </div>
   )
 }
 
 export function BoardRoomStyle() {
-  const elapsed = useTicker(72)
+  const [run, setRun] = useState<Run | null>(null)
+  const [now, setNow] = useState(() => Date.now())
+  const [detailOpen, setDetailOpen] = useState(false) // shown or hidden; run.opened is the review gate and stays set
+
+  // One timer while running; it stops at completion and the completion time stays fixed.
+  useEffect(() => {
+    if (!run || run.completedAt !== null) return
+    const t = setInterval(() => {
+      const n = Date.now()
+      setNow(n)
+      if (n - run.startedAt >= RUN_MS) setRun(r => r && { ...r, completedAt: r.startedAt + RUN_MS })
+    }, 100)
+    return () => clearInterval(t)
+  }, [run])
+
+  const start = (replaced: boolean) => { const n = Date.now(); setNow(n); setDetailOpen(false); setRun({ startedAt: n, completedAt: null, opened: false, prepared: false, replaced }) }
+  const finished = (extra: Partial<Run>) => { const n = Date.now(); setRun({ startedAt: n - RUN_MS, completedAt: n, opened: false, prepared: false, replaced: false, ...extra }) }
+  const pick = (s: RoomState) => {
+    setDetailOpen(s === 'Detail opened' || s === 'Prepared')
+    if (s === 'Setup') setRun(null)
+    else if (s === 'Running') start(false)
+    else if (s === 'Completed') finished({})
+    else if (s === 'Detail opened') finished({ opened: true })
+    else if (s === 'Prepared') finished({ opened: true, prepared: true })
+    else start(true)
+  }
+
+  const running = run !== null && run.completedAt === null
+  const complete = run?.completedAt != null
+  const elapsed = run ? Math.min(RUN_MS, Math.max(0, (run.completedAt ?? now) - run.startedAt)) : 0
+  const steps = Math.floor(elapsed / STEP_MS)
+  const statusOf = (i: number): LensStatus => !run ? 'waiting' : i < steps ? 'done' : i === steps ? 'working' : 'queued'
+  const statusText = (i: number) => ({ waiting: 'Not started', queued: 'Queued', working: 'Working', done: `Done · ${(i + 1) * 2} s` })[statusOf(i)]
+
   return (
-    <div className="flex w-full flex-col gap-4">
+    <div id="room-style" className="flex w-full scroll-mt-6 flex-col gap-4">
+      <StateSwitcher states={roomStates} current={roomStateOf(run)} onPick={pick} note="Running and Rerun play the real 8 s run." />
+
+      {/* Header: the fixed scenario is the title; the slip framing and the fixed facts sit under it. No setup controls. */}
       <div className="flex items-end justify-between gap-6">
         <div className="flex flex-col gap-2">
           <span className={label}>Board Simulation Room · Is the Q1 go-live ready?</span>
-          <h3 className="font-heading text-3xl font-semibold">Scenario: go-live slips one quarter</h3>
-          <div className="flex gap-1.5">{['4 agents', 'Model: Local', 'Scope: this Query · 8 insights', 'Run 2'].map(t => <span key={t} className="rounded-full bg-muted px-2.5 py-1 text-xs">{t}</span>)}</div>
+          <h3 className="max-w-2xl font-heading text-3xl font-semibold">{scenario}</h3>
+          <p className="text-muted-foreground">Tested against one change: go-live slips one quarter, from Q1 to Q2 FY27.</p>
+          <div className="flex flex-wrap gap-1.5">
+            <span className="rounded-full bg-muted px-2.5 py-1 text-xs">4 fixed lenses</span>
+            <span className="ai-edge flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs"><Bot size={12} />Scripted local-model representation, not a running model</span>
+          </div>
         </div>
-        <Button variant="outline">Edit the scenario details</Button>
+        <div className="flex shrink-0 flex-col items-end gap-1">
+          {!complete
+            ? <Button disabled={running} onClick={() => start(false)}>{running ? 'Running…' : 'Run simulation'}</Button>
+            : <Button variant="outline" onClick={() => start(true)}><RefreshCw size={14} />Run again</Button>}
+          {complete && <span className="text-[11px] text-muted-foreground">Replaces this result</span>}
+        </div>
       </div>
 
-      <div className="grid grid-cols-4 gap-3">{agents.map(a => <AgentCard key={a.lens} agent={a} />)}</div>
+      {run?.replaced && (
+        <div className="flex items-center gap-2 rounded-xl bg-muted px-4 py-2.5 text-sm">
+          <RefreshCw size={14} className="text-muted-foreground" />
+          This run replaces the previous result. The previous export draft is gone; review and prepare this run to export it.
+        </div>
+      )}
+
+      <div className="grid grid-cols-4 gap-3">{lenses.map((l, i) => <LensCard key={l.name} lens={l} status={statusOf(i)} doneAt={(i + 1) * 2} />)}</div>
 
       <div className="grid grid-cols-[1fr_280px] gap-4">
-        {/* What emerged: compiled by AI from the parallel runs, so the edge; each line is plain to read. */}
-        <div className="ai-edge flex flex-col gap-1 rounded-2xl p-5 shadow-soft">
-          <div className="mb-2 flex items-center justify-between"><h4 className="font-heading text-lg font-semibold">What emerged</h4><span className="text-xs text-muted-foreground">3 of 4 agents finished</span></div>
-          {emerged.map(e => (
-            <div key={e.kind} className="grid grid-cols-[110px_1fr] gap-4 border-t border-border/60 py-3">
-              <span className="flex items-center gap-2 text-sm font-medium"><span className={`size-2 rounded-full ${e.dot}`} />{e.kind}</span>
-              <div className="flex flex-col gap-0.5"><p className="text-sm">{e.text}</p><span className="text-xs text-muted-foreground">{e.who}</span></div>
+        {!complete ? (
+          <div className="flex min-h-48 flex-col items-center justify-center gap-1 rounded-2xl border border-dashed border-border p-5 text-center">
+            <h4 className="font-heading text-lg font-semibold">What emerged</h4>
+            <p className="max-w-sm text-sm text-muted-foreground">{running ? `Appears when all four lenses finish. ${4 - steps} to go.` : 'Appears when all four lenses finish, about 8 seconds after you run the simulation.'}</p>
+          </div>
+        ) : (
+          // What emerged: compiled by AI from the four steps, so the edge; each line is plain to read.
+          <div className="ai-edge flex flex-col gap-1 rounded-2xl p-5 shadow-soft">
+            <div className="mb-2 flex items-center justify-between"><h4 className="font-heading text-lg font-semibold">What emerged</h4><span className="text-xs text-muted-foreground">4 of 4 lenses · scripted</span></div>
+            {emerged.map(e => {
+              const disagree = e.kind === 'Disagree'
+              return (
+                <div key={e.kind} className={`grid grid-cols-[110px_1fr] gap-4 border-t border-border/60 py-3`}>
+                  <span className="flex items-center gap-2 text-sm font-medium"><span className={`size-2 rounded-full ${e.dot}`} />{e.kind}</span>
+                  <div className="flex flex-col gap-1.5">
+                    <p className="text-sm">{e.text}</p>
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      <span className="mr-1 text-xs text-muted-foreground">{e.who}</span>
+                      {e.sources.map(s => <Source key={s}>{s}</Source>)}
+                      {e.kind === 'Missing' && <Source missing>CoreSys contract · not in the vault</Source>}
+                    </div>
+                    {disagree && !detailOpen && (
+                      <Button size="sm" variant="outline" className="mt-1 self-start" onClick={() => { setRun({ ...run, opened: true }); setDetailOpen(true) }}>Open the disagreement<ChevronDown size={14} /></Button>
+                    )}
+                    {disagree && detailOpen && <DisagreementDetail onClose={() => setDetailOpen(false)} />}
+                  </div>
+                </div>
+              )
+            })}
+            {/* Prepare is gated on having opened the disagreement once. Closing it again keeps the gate open. */}
+            <div className="mt-2 flex items-center justify-end gap-3 border-t border-border/60 pt-4">
+              {run.prepared ? (
+                <>
+                  <span className="flex items-center gap-1.5 text-sm"><Check size={14} className="text-primary" />Prepared for the board · this result goes to Export</span>
+                  <Button onClick={() => goTo('export-style')}>Open Export Query<ArrowRight size={14} /></Button>
+                </>
+              ) : (
+                <>
+                  {!run.opened && <span className="text-xs text-muted-foreground">Open the disagreement before you prepare</span>}
+                  <Button disabled={!run.opened} onClick={() => setRun({ ...run, prepared: true })}>Prepare for the board</Button>
+                </>
+              )}
             </div>
-          ))}
-          <div className="mt-2 flex justify-end gap-2"><Button variant="outline">Review the artifact</Button><Button variant="outline">Save this version</Button><Button>Prepare for the board</Button></div>
-        </div>
+          </div>
+        )}
 
         <div className="flex flex-col gap-2 rounded-2xl border border-border/60 bg-card p-5 shadow-soft">
-          <h4 className="mb-1 font-heading text-lg font-semibold">Run status</h4>
-          {agents.map(a => (
-            <div key={a.lens} className="flex items-center justify-between text-sm">
-              <span>{a.lens}</span>
-              <span className="font-mono text-xs text-muted-foreground">{a.done ? `Done · ${a.done} s` : `Working · ${clock(elapsed)}`}</span>
+          <div className="mb-1 flex items-baseline justify-between">
+            <h4 className="font-heading text-lg font-semibold">Run status</h4>
+            <span className="font-mono text-xs text-muted-foreground">{(elapsed / 1000).toFixed(1)} s</span>
+          </div>
+          <div className="flex gap-1" aria-label={`${steps} of 4 steps complete`}>
+            {lenses.map((l, i) => <span key={l.name} className={`h-1.5 flex-1 rounded-full ${i < steps ? 'bg-foreground' : 'bg-secondary'}`} />)}
+          </div>
+          <span className="mb-1 text-xs text-muted-foreground">{!run ? 'Not started' : complete ? 'Complete · 4 of 4 steps' : `Step ${steps + 1} of 4`}</span>
+          {lenses.map((l, i) => (
+            <div key={l.name} className="flex items-center justify-between text-sm">
+              <span>{l.name}</span>
+              <span className="font-mono text-xs text-muted-foreground">{statusText(i)}</span>
             </div>
           ))}
-          <p className="mt-auto pt-4 text-xs text-muted-foreground">Agents share one local GPU and run in turn. Nothing leaves the building.</p>
+          {complete && <p className="mt-2 rounded-lg bg-muted px-3 py-2 text-xs">Stopped at 8.0 s · completed {timeOf(run.completedAt!)}</p>}
+          <p className="mt-auto pt-4 text-xs text-muted-foreground">The four steps are written in advance and play back at 2, 4, 6 and 8 s. No model runs, and nothing leaves the building.</p>
         </div>
+      </div>
+    </div>
+  )
+}
+
+// One level down from Disagree: each lens's reasoning, the shared assumptions and the sources.
+function DisagreementDetail({ onClose }: { onClose: () => void }) {
+  return (
+    <div className="mt-2 flex flex-col gap-4 rounded-xl bg-status-near/10 p-4 ring-1 ring-status-near/30">
+      <div className="flex items-center justify-between">
+        <span className={label}>Disagreement detail</span>
+        <button onClick={onClose} className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">Close<ChevronUp size={12} /></button>
+      </div>
+      <div className="grid grid-cols-2 gap-3">
+        {lenses.map(l => {
+          const side = l.name === 'Finance' || l.name === 'Risk'
+          return (
+            <div key={l.name} className={`flex flex-col gap-2 rounded-lg p-3 ${side ? 'bg-card ring-1 ring-border' : 'bg-card/50'}`}>
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-semibold">{l.name}{side && <span className="ml-1.5 font-normal text-muted-foreground">· in the disagreement</span>}</span>
+                <span className="text-[11px] text-muted-foreground">{l.stance}</span>
+              </div>
+              <p className="text-sm leading-relaxed">{l.reasoning}</p>
+              <div className="flex flex-wrap gap-1.5">{l.sources.map(s => <Source key={s} missing={l.missing}>{l.missing ? `${s} · not in the vault` : s}</Source>)}</div>
+            </div>
+          )
+        })}
+      </div>
+      <div className="flex flex-col gap-2">
+        <span className={label}>Assumptions they share</span>
+        {assumptionsShared.map(a => (
+          <div key={a.text} className="flex items-center justify-between gap-4 text-sm">
+            <span>{a.text}</span>
+            {a.source ? <Source>{a.source}</Source> : <Source missing>No source</Source>}
+          </div>
+        ))}
       </div>
     </div>
   )
 }
 
 // ── Stage 7 · Export Query ─────────────────────────────────────────────────────
+// Standard detail and an HTML file only. The preview is the file: same snapshot, same fields, same order.
 
-type Claim = { text: string; source: string; meta: string; confidence: number; flag?: string; ai?: boolean }
-
-const claims: Claim[] = [
-  { text: 'Spend stands at 62% of the approved AED 48m budget, in line with the phasing the board agreed in March.', source: 'Report p.9 · ERP', meta: 'Synced 2 h ago', confidence: 5 },
-  { text: 'The programme office reports go-live milestone M3 as on track for Q1 FY27.', source: 'Programme report p.14', meta: 'Approved 22 Sep', confidence: 4, flag: 'Conflicts with the risk register (R-22)' },
-  { text: 'The risk register rates the same milestone high risk, with four open risks, as of 18 September.', source: 'Risk register R-22', meta: 'Updated 18 Sep', confidence: 4 },
-  { text: 'A one-quarter delay would cost about AED 2.1m, inside the 5% contingency. Finance and Risk agents reached opposite recommendations on these figures.', source: 'Board Simulation Room, run 2', meta: 'AI · local model', confidence: 3, flag: 'Simulation, not a forecast', ai: true },
-  { text: 'Vendor continuity is not assessed: the CoreSys contract has not been read.', source: 'No source', meta: '—', confidence: 0, flag: 'Unknown' },
+const refs = [
+  { n: 1, doc: 'FY26 Transformation programme report', passage: 'p.9' },
+  { n: 2, doc: 'ERP · finance ledger', passage: 'August actuals' },
+  { n: 3, doc: 'FY26 Transformation programme report', passage: 'p.14' },
+  { n: 4, doc: 'Risk register', passage: 'R-22' },
+  { n: 5, doc: 'Risk appetite statement', passage: '§3' },
+  { n: 6, doc: 'FY26 Transformation programme report', passage: 'p.15' },
+  { n: 7, doc: 'CoreSys contract', passage: '', unavailable: 'Not in the vault. Its terms cannot be inferred from citations.' },
 ]
 
-// Five square segments, after the KRI bar. AI-sourced confidence takes the rainbow.
-function Confidence({ value, ai }: { value: number; ai?: boolean }) {
+type PaperClaim = { text: string; refs: number[]; tag?: { text: string; tone: 'conflict' | 'ai' | 'unknown' } }
+
+const paper: { title: string; ai?: boolean; claims: PaperClaim[] }[] = [
+  { title: 'Analysis', claims: [
+    { text: 'Spend stands at 62% of the approved AED 48m budget, in line with the phasing the board agreed in March.', refs: [1, 2] },
+    { text: 'The programme report says go-live milestone M3 is on track; the risk register rates the same milestone high risk, with four open risks.', refs: [3, 4], tag: { text: 'Open conflict', tone: 'conflict' } },
+  ] },
+  { title: 'Board Simulation Room findings', ai: true, claims: [
+    { text: 'Agree: a one-quarter slip is affordable, about AED 2.1m inside the 5% contingency.', refs: [1, 2] },
+    { text: 'Disagree: Finance would go live in Q2 on contingency; Risk would not go live while M3 carries four open high risks.', refs: [1, 4, 5], tag: { text: 'Simulation, not a forecast', tone: 'ai' } },
+    { text: 'Missing evidence: no lens could test vendor continuity.', refs: [7], tag: { text: 'Evidence missing', tone: 'unknown' } },
+  ] },
+  { title: 'Assumptions', claims: [
+    { text: 'Regional training finishes in November. No source fixes the dates.', refs: [6] },
+    { text: 'Contingency is not drawn on elsewhere before Q2.', refs: [], tag: { text: 'No source', tone: 'unknown' } },
+  ] },
+  { title: 'Unknowns', claims: [
+    { text: "Vendor continuity: whether CoreSys support lasts past go-live. The contract isn't in the vault.", refs: [7], tag: { text: 'Unknown', tone: 'unknown' } },
+  ] },
+]
+
+const tagTone = { conflict: 'text-status-near', ai: 'ai-text', unknown: 'text-muted-foreground' }
+
+// A metadata value is either shown or marked unavailable, with the reason. Never left blank.
+function Meta({ name, value, unavailable, ai }: { name: string; value?: string; unavailable?: string; ai?: boolean }) {
   return (
-    <div className="flex gap-[3px]" aria-label={`confidence ${value} of 5`}>
-      {Array.from({ length: 5 }, (_, i) => (
-        <span key={i} className={`h-1.5 w-3 rounded-[1px] ${i < value ? (ai ? '' : 'bg-foreground') : 'bg-secondary'}`} style={i < value && ai ? { background: 'var(--ai-gradient)' } : undefined} />
-      ))}
+    <div className={`flex flex-col gap-1 rounded-lg px-3 py-2 ${unavailable ? 'border border-dashed border-border' : ai ? 'ai-edge' : 'bg-muted/60'}`}>
+      <span className={label}>{name}</span>
+      {unavailable
+        ? <span className="flex items-start gap-1.5 text-xs text-muted-foreground"><Circle size={8} className="mt-1 shrink-0" />Unavailable: {unavailable}</span>
+        : <span className="text-xs">{value}</span>}
     </div>
   )
 }
 
-function Choice({ name, note, on, onClick, icon }: { name: string; note: string; on: boolean; onClick: () => void; icon?: ReactNode }) {
-  return (
-    <button onClick={onClick} className={`flex items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition-colors ${on ? 'border-foreground bg-card shadow-soft' : 'border-border/60 bg-card/60 hover:bg-card'}`}>
-      <span className={`grid size-4 place-items-center rounded-full border ${on ? 'border-foreground' : 'border-muted-foreground/50'}`}>{on && <span className="size-2 rounded-full bg-foreground" />}</span>
-      <span className="flex flex-col"><span className="flex items-center gap-1.5 text-sm font-medium">{icon}{name}</span><span className="text-xs text-muted-foreground">{note}</span></span>
-    </button>
-  )
-}
+const exportStates = ['Preview', 'Download started', 'Blocked'] as const
+type ExportState = typeof exportStates[number]
+const filename = 'is-the-q1-go-live-ready-board-paper.html'
 
 export function ExportStyle() {
-  const [level, setLevel] = useState('Standard')
-  const [dest, setDest] = useState('Board portal')
-  return (
-    <div className="grid w-full grid-cols-[300px_1fr] gap-4">
-      <div className="flex flex-col gap-4 rounded-2xl border border-border/60 bg-muted/40 p-5">
-        <h3 className="font-heading text-2xl font-semibold">Export Query</h3>
-        <div className="flex flex-col gap-2">
-          <span className={label}>Detail level</span>
-          {[['Summary', '1 page'], ['Standard', 'Findings with sources'], ['Full evidence', 'Every passage attached']].map(([n, d]) => <Choice key={n} name={n} note={d} on={level === n} onClick={() => setLevel(n)} />)}
-        </div>
-        <div className="flex flex-col gap-2">
-          <span className={label}>Send to</span>
-          {[['Board portal', 'As a paper for the December pack', <Mail size={13} />], ['PDF', 'Download', <FileText size={13} />], ['Word', 'For the company secretary to edit', <FileText size={13} />]].map(([n, d, i]) => <Choice key={n as string} name={n as string} note={d as string} icon={i} on={dest === n} onClick={() => setDest(n as string)} />)}
-        </div>
-        <div className="flex flex-col gap-1.5">
-          <span className={label}>Kept in the export</span>
-          {['Sources beside each claim', 'Confidence and freshness', 'Open conflicts and unknowns', 'Which model wrote what'].map(k => <span key={k} className="flex items-center gap-2 text-sm"><Check size={14} className="text-primary" />{k}</span>)}
-        </div>
-        <div className="mt-auto flex flex-col gap-2"><Button>Export the material</Button><Button variant="outline">Change the scope</Button></div>
-      </div>
+  const [state, setState] = useState<ExportState>('Preview')
+  const [tries, setTries] = useState(0)
+  const download = () => { setTries(t => t + 1); setState('Download started') }
+  const pick = (s: ExportState) => { setTries(s === 'Download started' ? 1 : 0); setState(s) }
 
-      {/* The draft reads as paper: white, still, serious. Only the AI-sourced claim and the version chip carry AI marks. */}
-      <div className="flex flex-col rounded-2xl border border-border/60 bg-card p-8 shadow-soft">
-        <div className="flex items-center justify-between">
-          <span className={label}>Draft preview · {level}</span>
-          <span className="ai-edge rounded-full px-2.5 py-0.5 font-mono text-[11px]">Query v3 · Analysis v3 · Room run 2</span>
+  return (
+    <div id="export-style" className="flex w-full scroll-mt-6 flex-col gap-4">
+      <StateSwitcher states={exportStates} current={state} onPick={pick} note="The style page writes no file." />
+
+      {state === 'Blocked' ? (
+        // The Export gate: no prepared, reviewed Room result. A rerun lands here too.
+        <div className="flex min-h-72 flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-border p-8 text-center">
+          <h3 className="font-heading text-2xl font-semibold">Nothing to export yet</h3>
+          <p className="max-w-md text-sm text-muted-foreground">Export uses a Board Simulation Room result you have reviewed and prepared for the board. Run the Room, open its disagreement, then prepare it. A rerun discards the earlier draft.</p>
+          <Button variant="outline" onClick={() => goTo('room-style')}>Open Board Simulation Room</Button>
         </div>
-        <h3 className="mt-3 font-heading text-2xl font-semibold">Finance transformation: is the Q1 go-live ready?</h3>
-        <p className="mt-1 text-sm text-muted-foreground">Paper for the Board · December · prepared with Quantum State for M. Vale</p>
-        <div className="mt-5 flex flex-col">
-          {claims.map(c => (
-            <div key={c.text} className="grid grid-cols-[1fr_200px] gap-6 border-t border-border/60 py-4">
-              <div className="flex flex-col gap-1.5">
-                <p className="text-sm leading-relaxed">{c.text}</p>
-                {c.flag && <span className={`flex items-center gap-1.5 text-xs font-medium ${c.ai ? 'ai-text' : c.confidence === 0 ? 'text-muted-foreground' : 'text-status-near'}`}><Circle size={8} className={c.ai ? 'text-[#8338EC]' : ''} />{c.flag}</span>}
-              </div>
-              <div className="flex flex-col gap-1">
-                <span className={`text-xs font-semibold ${c.confidence === 0 ? 'text-muted-foreground' : ''}`}>{c.source}</span>
-                <div className="flex items-center gap-2"><Confidence value={c.confidence} ai={c.ai} /><span className="font-mono text-[10px] text-muted-foreground">{c.meta}</span></div>
-              </div>
+      ) : (
+        <div className="grid w-full grid-cols-[280px_1fr] gap-4">
+          <div className="flex flex-col gap-5 rounded-2xl border border-border/60 bg-muted/40 p-5">
+            <h3 className="font-heading text-2xl font-semibold">Export Query</h3>
+            <div className="flex flex-col gap-1">
+              <span className={label}>Detail</span>
+              <span className="text-sm font-medium">Standard</span>
+              <span className="text-xs text-muted-foreground">Findings with their sources, assumptions and unknowns</span>
             </div>
-          ))}
+            <div className="flex flex-col gap-1">
+              <span className={label}>File</span>
+              <span className="flex items-center gap-1.5 text-sm font-medium"><FileCode size={14} />HTML</span>
+              <span className="text-xs text-muted-foreground">One self-contained file. Opens offline in any browser.</span>
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <span className={label}>Kept in the file</span>
+              {['Sources beside each claim', 'Confidence and freshness', 'Open conflicts and unknowns', 'Which model wrote what'].map(k => <span key={k} className="flex items-center gap-2 text-sm"><Check size={14} className="text-primary" />{k}</span>)}
+            </div>
+            <div className="mt-auto flex flex-col gap-2">
+              <Button onClick={download}><Download size={14} />{state === 'Download started' ? 'Download HTML again' : 'Download HTML'}</Button>
+              {state === 'Download started' && (
+                // Only that the download started: the browser, not Quantum State, knows whether it saved.
+                <div className="flex flex-col gap-1 rounded-lg bg-card px-3 py-2.5 text-xs shadow-soft">
+                  <span className="font-medium">Download started{tries > 1 ? ` · attempt ${tries}` : ''}</span>
+                  <span className="break-all font-mono text-[11px]">{filename}</span>
+                  <span className="text-muted-foreground">Check your browser's downloads to find the file.</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* The draft reads as paper: plain and still. AI-written parts carry the AI marks. */}
+          <div className="flex flex-col gap-5 rounded-2xl border border-border/60 bg-card p-8 shadow-soft">
+            <div className="flex items-center justify-between">
+              <span className={label}>Preview · the file as it downloads</span>
+              <span className="font-mono text-[11px] text-muted-foreground">From the Room result prepared 14:32:08</span>
+            </div>
+            <div className="flex flex-col gap-1">
+              <h3 className="font-heading text-2xl font-semibold">Is the Q1 go-live ready?</h3>
+              <p className="text-sm">Focus: can the consolidated ledger go live in Q1 FY27 without breaching the approved budget or the board's risk appetite?</p>
+              <p className="text-xs text-muted-foreground">Board paper · Standard detail · prepared with Quantum State for M. Vale</p>
+            </div>
+
+            <div className="grid grid-cols-4 gap-2">
+              <Meta name="Confidence" value="Medium: two sources conflict and one is missing" />
+              <Meta name="Freshness" unavailable="the risk appetite statement has no issue date" />
+              <Meta name="Model" value="Local model (representation)" ai />
+              <Meta name="Scripted" value="Demo script, not a running model" ai />
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <span className={label}>Evidence summary</span>
+              <p className="text-sm leading-relaxed">Six passages from four documents in Meridian Group's vault, plus live ERP actuals. One cited document, the CoreSys contract, is not in the vault.</p>
+            </div>
+
+            {paper.map(sec => (
+              <div key={sec.title} className="flex flex-col">
+                <span className={`mb-1 flex items-center gap-1.5 ${label}`}>{sec.ai && <Sparkles size={11} className="text-[#8338EC]" />}{sec.title}{sec.ai && <span className="ml-1 font-normal tracking-normal normal-case">· scripted local-model representation</span>}</span>
+                {sec.claims.map(c => (
+                  <div key={c.text} className="grid grid-cols-[1fr_160px] gap-6 border-t border-border/60 py-3">
+                    <div className="flex flex-col gap-1.5">
+                      <p className="text-sm leading-relaxed">{c.text}</p>
+                      {c.tag && <span className={`flex items-center gap-1.5 text-xs font-medium ${tagTone[c.tag.tone]}`}><Circle size={8} className={c.tag.tone === 'ai' ? 'text-[#8338EC]' : ''} />{c.tag.text}</span>}
+                    </div>
+                    <div className="flex flex-wrap content-start gap-1">
+                      {c.refs.length ? c.refs.map(n => <Source key={n} missing={refs[n - 1].unavailable !== undefined}>[{n}]</Source>) : <Source missing>No source</Source>}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+
+            <div className="ai-edge flex flex-col gap-1.5 rounded-xl p-4">
+              <span className={`flex items-center gap-1.5 ${label}`}><Sparkles size={11} className="text-[#8338EC]" />Reasoning summary · scripted local-model representation</span>
+              <p className="text-sm leading-relaxed">Proceeding is possible only under conditions: a Q2 date paid from contingency, R-22 brought back within appetite, regional training dates fixed, and the CoreSys contract read before the board decides. The lenses agree on cost and split on appetite.</p>
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <span className={label}>Source references</span>
+              <ol className="flex flex-col gap-1 text-xs">
+                {refs.map(r => (
+                  <li key={r.n} className={`grid grid-cols-[28px_1fr] ${r.unavailable ? 'text-muted-foreground' : ''}`}>
+                    <span className="font-mono">[{r.n}]</span>
+                    <span>{r.doc}{r.passage && ` · ${r.passage}`}{r.unavailable && <span className="ml-1.5 rounded border border-dashed border-border px-1.5">Unavailable: {r.unavailable}</span>}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
