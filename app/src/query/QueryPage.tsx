@@ -28,7 +28,7 @@ export function QueryPage({ state, stageCase, callbacks }: StagePageProps) {
   const sourceButton = (reference: SourceReference, index: number) => <Button key={`${reference.documentId}-${reference.passage}-${index}`} variant="outline" size="sm" className="h-auto max-w-full whitespace-normal text-left font-mono text-[10px]" onClick={() => setSource(reference)}>{byId.get(reference.documentId)?.title ?? reference.documentId} · {reference.passage}{reference.status === 'unavailable' ? ' · unavailable' : ' ↗'}</Button>
   const documentDetails = (doc: Doc) => <div key={doc.id} className="flex flex-col gap-2 rounded-xl border border-border/60 p-3">
     <h3 className="font-heading text-base font-semibold">{doc.title}</h3>
-    <span className="text-xs text-muted-foreground">{doc.primaryDomain} · {doc.from}</span>
+    <span className="text-xs text-muted-foreground">{doc.primaryDomain}{doc.author && doc.from ? ` · ${doc.from}` : ''}</span>
     {!doc.author || !doc.text ? <p className="text-sm text-muted-foreground">Source content unavailable: this document is not in the vault.</p> : <>
       <p className="text-sm leading-relaxed">{doc.summary}</p>
       {sourceButton({ documentId: doc.id, passage: 'Document content', status: 'available', text: doc.text }, 0)}
