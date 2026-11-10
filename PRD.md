@@ -145,7 +145,7 @@ The IDs are what section 8 checks against.
 
 **Stages 5–7** add a fourth file, `app/src/data/stage-script.json`. It holds what the document format does not: the demo selection, the Analysis findings and the Room script. It refers to documents and links by their IDs in `documents.json`.
 
-**Replacement data.** Jacques may replace `documents.json`, `wheels.json` and `smart-search.json` with his dad's dummy files in the same format. His files then replace the seed entirely, and `stage-script.json` is rewritten for his case. Agents never collect, write or edit those three files.
+**Extension data.** The stages 5–7 data extends the seed. New documents are added to `documents.json`, and no existing record changes. The case-driven data brief, `docs/plans/2026-11-10-case-data-brief.md`, lists the documents to add. Jacques and his dad supply material, and an agent drafts documents to fill the gaps. Jacques approves every added document. `stage-script.json` is then rewritten on the extended data.
 
 **Each document has:**
 - `id`, `title`, `type` (`pdf | video | sheet | image`), `issued`, `from`, `author` (`{name, role}`, or `null` when the document is not in the vault), `domains`, `primaryDomain`, `text`;
@@ -157,11 +157,11 @@ The IDs are what section 8 checks against.
 - `documentId`, `topic`, `riskScore`, `appetite`, `rung`;
 - `factors[{factor, weight, evidenceRef}]`.
 
-**B14 Seed boundary.** Use exactly the documents in the supplied `documents.json`. Today that is the seed in DESIGN.md 2.9; replacement files are not bound to that list. Employment contracts gets no source content. The roughly 260 sphere nodes are decoration, not documents. Use only the insight tags in DESIGN.md 2.7, or those in the replacement files. Every claim, score and insight is fictional.
+**B14 Seed boundary.** Use exactly the documents in the supplied `documents.json`. That is the seed in DESIGN.md 2.9 plus the documents added from the data brief. Employment contracts gets no source content. The roughly 260 sphere nodes are decoration, not documents. Use only the insight tags in DESIGN.md 2.7. Every claim, score and insight is fictional.
 
-Seed names in B2, B6, B9 and the three Smart Search scripts describe the current seed. With replacement files, the checks use the matching records in the supplied files.
+Added documents do not change B2, B6, B9 or the three Smart Search scripts.
 
-**B15 Wheel topics.** The whole wheel uses the four topics per domain in DESIGN.md 2.9, or the topics in a replacement `wheels.json`. Each domain wheel has 4 to 8 topics, depending on its data. Start from those four, and draft up to four more per domain in the same plain governance voice. List the drafted topics in the final report. Draft no topics for replacement files.
+**B15 Wheel topics.** The whole wheel uses the four topics per domain in DESIGN.md 2.9. Each domain wheel has 4 to 8 topics, depending on its data. Start from those four, and draft up to four more per domain in the same plain governance voice. List the drafted topics in the final report.
 
 **B16 Execution.** No network calls for data or AI, and the same result on every run.
 - Each read step starts one second apart.
@@ -270,7 +270,7 @@ The toy's own components stay custom, hand-built in React and SVG, and never in 
 - No root-level config.
 - `DESIGN.md`, `README.md`, `PRD.md` and anything outside `app/` are read-only.
 - **Stages 5–7 exception:** one named leaf edits `PRD.md` and `AGENTS.md`, and only after Jacques approves the exact diff. Every builder treats both as read-only.
-- Agents never write `documents.json`, `wheels.json` or `smart-search.json` (B13).
+- Agents add documents to `documents.json` only from the approved data brief. Agents never collect material, and never change existing records, `wheels.json` or `smart-search.json` (B13).
 - Put stages 5–7 evidence under `app/qa/thursday-toys/`. Untracked files already in `app/qa/` may be Jacques's work: do not delete, overwrite or commit them as a group.
 
 **Assets:**
