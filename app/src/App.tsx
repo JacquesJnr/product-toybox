@@ -16,19 +16,25 @@ import { NoMatchingDocuments } from './filters/NoMatchingDocuments'
 import { DetailsPanel } from './details/DetailsPanel'
 import { StageHost, type StagePages } from './stages/StageHost'
 import { StageSidebar } from './stages/StageSidebar'
-import type { PageCallbacks, StagePage, StageState } from './stages/contracts'
+import type { PageCallbacks, StagePage, StagePageProps, StageState } from './stages/contracts'
 import { adaptCaseToSelection, loadStageCase } from './stages/case'
 import { createQuery, exportReady, openDisagreement, prepareRun, roomReady, startRun, stepRun } from './stages/state'
 import { buildAnalysis } from './query/analysis'
+import { CreateQuery } from './query/CreateQuery'
+import { QueryPage } from './query/QueryPage'
 import './App.css'
 import './stages/stages.css'
 
 const views = ['Graph', 'Wheel', 'Smart Search'] as const
 const docs = documents as Doc[]
 
-// shortcut: stage pages and inspection/download callbacks are supplied in leaf 2.6.
-const pages: StagePages = { brain: Brain }
+// shortcut: Room, Export and shared inspection/download callbacks are supplied in leaf 2.6.
+const pages: StagePages = { brain: Brain, query: QueryStage }
 const caseLoad = loadStageCase()
+
+function QueryStage(props: StagePageProps) {
+  return props.state.query ? <QueryPage {...props} /> : <CreateQuery {...props} />
+}
 
 export default function App() {
   const [page, setPage] = useState<StagePage>('brain')
