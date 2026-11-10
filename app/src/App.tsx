@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Button } from '@base-ui/react/button'
 import { Toggle } from '@base-ui/react/toggle'
 import { ToggleGroup } from '@base-ui/react/toggle-group'
@@ -14,12 +14,79 @@ import { DomainChips } from './filters/DomainChips'
 import { HeaderSearch } from './filters/HeaderSearch'
 import { NoMatchingDocuments } from './filters/NoMatchingDocuments'
 import { DetailsPanel } from './details/DetailsPanel'
+import { StageHost, type StagePages } from './stages/StageHost'
+import { StageSidebar } from './stages/StageSidebar'
+import type { PageCallbacks, StagePage, StageState } from './stages/contracts'
+import { adaptCaseToSelection, loadStageCase } from './stages/case'
+import { createQuery, exportReady, openDisagreement, prepareRun, roomReady, startRun, stepRun } from './stages/state'
+import { buildAnalysis } from './query/analysis'
 import './App.css'
+import './stages/stages.css'
 
 const views = ['Graph', 'Wheel', 'Smart Search'] as const
 const docs = documents as Doc[]
 
+// shortcut: stage pages and inspection/download callbacks are supplied in leaf 2.6.
+const pages: StagePages = { brain: Brain }
+const caseLoad = loadStageCase()
+
 export default function App() {
+  const [page, setPage] = useState<StagePage>('brain')
+  const [state, setState] = useState<StageState>({ query: null, analysis: null, run: null, snapshot: null })
+  const [notice, setNotice] = useState('')
+  const stageCase = useMemo(() => caseLoad.stageCase && state.query
+    ? adaptCaseToSelection(caseLoad.stageCase, state.query.documentIds)
+    : caseLoad.stageCase, [state.query])
+
+  useEffect(() => {
+    if (state.run?.status !== 'running' || !stageCase) return
+    const runId = state.run.id
+    const timer = window.setInterval(() => {
+      setState(current => stepRun(current, runId, Date.now(), stageCase.room.result))
+    }, 100)
+    return () => window.clearInterval(timer)
+  }, [state.run?.id, state.run?.status, stageCase])
+
+  const navigate = (next: StagePage) => {
+    if ((next === 'room' && !roomReady(state)) || (next === 'export' && !exportReady(state))) return
+    setNotice('')
+    setPage(next)
+  }
+  const pendingIntegration = () => setNotice('This action will be available when the stage pages are connected.')
+  const callbacks: PageCallbacks = {
+    onNavigate: navigate,
+    onCreate: input => {
+      if (state.query) return
+      const query = createQuery(crypto.randomUUID(), input, docs, state.query)
+      setState(current => current.query ? current : { ...current, query })
+      setPage('query')
+    },
+    onGenerateAnalysis: () => setState(current => !current.query || current.analysis || !caseLoad.stageCase
+      ? current : { ...current, analysis: buildAnalysis(current.query, caseLoad.stageCase) }),
+    onStartRun: () => {
+      const id = crypto.randomUUID(), now = Date.now()
+      setState(current => startRun(current, id, now))
+    },
+    onOpenDisagreement: id => setState(current => openDisagreement(current, id)),
+    onPrepare: id => setState(current => prepareRun(current, id)),
+    onOpenSource: pendingIntegration,
+    onInspectDocument: pendingIntegration,
+    onInspectLink: pendingIntegration,
+    onDownload: pendingIntegration,
+  }
+
+  return (
+    <StageSidebar page={page} state={state} onNavigate={navigate}>
+      {notice && <p role="status" className="stage-notice">{notice}</p>}
+      {stageCase
+        ? <StageHost page={page} pages={pages} state={state} stageCase={stageCase} callbacks={callbacks} />
+        : <><div hidden={page !== 'brain'}><Brain active={page === 'brain'} /></div>
+          {page !== 'brain' && <main className="stage-stand-in"><h1>Stage case unavailable</h1><p>{caseLoad.missing.join(' · ')}</p></main>}</>}
+    </StageSidebar>
+  )
+}
+
+function Brain({ active }: { active: boolean }) {
   const [view, setView] = useState<(typeof views)[number]>('Graph')
   const [query, setQuery] = useState('')
   const [domains, setDomains] = useState<Set<Domain>>(new Set())
@@ -60,7 +127,7 @@ export default function App() {
       {view === 'Graph' && <DomainChips value={domains} onChange={setDomains} />}
       <main className="graph-layout" hidden={view !== 'Graph'} aria-label="Graph view">
         <div className="graph-container">
-          <Graph revealRun={searchRun} foundLinks={foundLinks} docs={docs} visibleIds={visible} selectedId={selectedId} onSelect={setSelectedId} active={view === 'Graph'} animateRun={animateRun} />
+          <Graph revealRun={searchRun} foundLinks={foundLinks} docs={docs} visibleIds={visible} selectedId={selectedId} onSelect={setSelectedId} active={active && view === 'Graph'} animateRun={animateRun} />
           {visible.size === 0 && <div className="graph-empty"><NoMatchingDocuments /></div>}
         </div>
         {selected && <DetailsPanel doc={selected} onClose={() => setSelectedId(null)} />}
